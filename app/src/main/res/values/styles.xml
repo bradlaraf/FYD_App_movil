@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+    </style>
+    <style name="edt_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginEnd">30dp</item>
+        <item name="android:inputType">text|textNoSuggestions</item>
+    </style>
+    <style name="btn_normal">
+        <item name="android:background">@drawable/button_shape</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/color_black</item>
+
+    </style>
+
+    <style name="option_without_tittle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:background">@color/color_white</item>
+        <item name="android:paddingVertical">8dp</item>
+    </style>
+
+    <style name="clContainerBackground">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/ripple_selectable_recycler_item</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:paddingVertical">5dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
+    </style>
+
+    <style name="edtNewSn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">1dp</item>
+    </style>
+
+
+
+    <style name="clPedidoInfo">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:background">@drawable/ripple_selectable_recycler_item</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingTop">9dp</item>
+
+    </style>
+
+
+    <style name="default_container_opciones_creacion">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:background">@drawable/ripple_selectable_recycler_item</item>
+        <item name="android:paddingHorizontal">15dp</item>
+        <item name="android:paddingVertical">9dp</item>
+
+    </style>
+
+    <style name="default_container_recycler_view">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/ripple_selectable_recycler_item</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingVertical">9dp</item>
+
+    </style>
+
+    <style name="cl_center_option">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/color_white</item>
+        <item name="android:paddingVertical">8dp</item>
+    </style>
+
+    <style name="box_key_value_arrow">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/ripple_selectable_recycler_item</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:paddingHorizontal">15dp</item>
+        <item name="android:paddingVertical">5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="containerDefaultPress">
+        <item name="android:background">@drawable/selector_on_selected_container</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextColor">@color/color_white</item>
+        <item name="tabBackground">@color/color_blue_sap_mobile</item>
+        <item name="tabIndicatorColor">@color/color_red</item>
+        <item name="tabSelectedTextColor">@color/color_grey</item>
+        <item name="tabTextAppearance">@style/tab_text_style</item>
+        <item name="tabPaddingBottom">0dp</item>
+        <item name="tabPaddingEnd">0dp</item>
+        <item name="tabPaddingStart">0dp</item>
+        <item name="tabPaddingTop">0dp</item>
+
+        <item name="tabMode">fixed</item>
+    </style>
+
+    <style name="tab_text_style">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="textAllCaps">true</item>
+    </style>
+    
+    <style name="CustomTabText">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="default_button_text">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="default_text">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="default_title_large_text">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="default_short_text">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="default_title_text">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/color_blue_sap_mobile</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="text_gigantic">
+        <item name="android:autoSizeMaxTextSize" tools:targetApi="o">55sp</item>
+        <item name="android:autoSizeMinTextSize" tools:targetApi="o">40sp</item>
+        <item name="android:autoSizeTextType" tools:targetApi="o">uniform</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/color_emeraldgreen_numeros_incio</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="cardview_default">
+        <item name="android:background">@drawable/selector_on_selected_container</item>
+        <item name="cardElevation">5dp</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="android:layout_margin">7dp</item>
+    </style>
+
+    <style name="cardview_chart">
+        <item name="cardElevation">5dp</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="android:layout_marginHorizontal">5dp</item>
+
+    </style>
+
+    <style name="AppBottomSheetDialog" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="dashboard_number_text">
+        <item name="android:autoSizeMaxTextSize" tools:targetApi="o">30sp</item>
+        <item name="android:autoSizeMinTextSize" tools:targetApi="o">18sp</item>
+        <item name="android:autoSizeTextType" tools:targetApi="o">uniform</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/oswald_bold</item>
+        <item name="android:textColor">@color/color_massive_deep_blue_v2</item>
+
+    </style>
+
+    <style name="dashboard_title_text">
+        <item name="android:fontFamily">@font/pt_sans</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="dashboard_img">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="tint">@color/color_blue</item>
+    </style>
+
+    <style name="card_view_dashboard">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:background">@color/color_gris_fragment</item>
+        <item name="android:elevation">15dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="default_btn_custom">
+        <item name="android:background">@drawable/ripple_default_button</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingVertical">10dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="maxLines">1</item>
+        <item name="android:textAppearance">@style/default_button_text</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+</resources>

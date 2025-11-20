@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_AUDIO"
+        android:minSdkVersion="33" />
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_VIDEO"
+        android:minSdkVersion="33" />
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
+        android:minSdkVersion="33" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:name=".MassiveApp"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Massive"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MassiveApp"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+
+
+        <service
+            android:name=".core.BackgroundService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".core.ForegroundDatosMaestrosService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver android:name=".core.TaskReceiver" />
+        <receiver
+            android:name=".core.SincMaestrosBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".core.ConnectionBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:node="remove" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mobile.massiveapp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".ui.view.usuarios.NuevoUsuarioActivity"
+            android:exported="false"
+            android:label="Nuevo Usuario"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+
+        <activity
+            android:name=".ui.view.usuarios.InfoUsuariosActivity"
+            android:exported="false"
+            android:label="Info Usuario"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+
+
+        <activity
+            android:name=".ui.view.configuracion.ConfiguracionAvanzadaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.usuarios.UsuariosActivity"
+            android:exported="false"
+            android:label="Usuarios"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.SeleccionarArticuloActivity"
+            android:exported="false"
+            android:label="Seleccionar Articulo"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.log.InfoErrorActivity"
+            android:exported="false"
+            android:label="Info Error"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.log.LogActivity"
+            android:exported="false"
+            android:label="Log de Errores"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.configuracion.LimitesActivity"
+            android:exported="false"
+            android:label="Limites"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.TipoDePagoActivity"
+            android:exported="false"
+            android:label="Tipo de pago"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.infodata.InfoTablesActivity"
+            android:exported="false"
+            android:label="Información Tablas"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.facturas.InfoFacturaActivity"
+            android:exported="false"
+            android:label="Información Factura"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.facturas.FacturasActivity"
+            android:exported="false"
+            android:label="Facturas"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.reportes.PdfViewerActivity"
+            android:exported="false"
+            android:label="Visor PDF"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.configuracion.ConfiguracionActivity"
+            android:exported="false"
+            android:label="Configuracion"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.EditarCobranzaDetalleActivity"
+            android:exported="false"
+            android:label="Editar detalle"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.EditarCobranzaContenidoActivity"
+            android:exported="false"
+            android:label="Contenido detalle"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.EditarCobranzaActivity"
+            android:exported="false"
+            android:label="Editar Cobranza"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.InfoCobranzaActivity"
+            android:exported="false"
+            android:label="Info Cobranza"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.EditarPedidoCabeceraActivity"
+            android:exported="false"
+            android:label="Editar Pedido"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.EditarPedidoDetalleActivity"
+            android:exported="false"
+            android:label="Editar Detalle"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.menu.drawer.DrawerBaseActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.reportes.ReportesActivity"
+            android:exported="false"
+            android:label="Reportes"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.BuscarFacturaActivity"
+            android:exported="false"
+            android:label="Buscar Pedido"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.NuevoPagoDetalleActivity"
+            android:exported="false"
+            android:label="Agregar Factura"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.ContenidoCobranzaDetalleActivity"
+            android:exported="false"
+            android:label="Lista de facturas"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.NuevaCobranzaActivity"
+            android:exported="false"
+            android:label="Cobranza Preliminar"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.cobranzas.CobranzasActivity"
+            android:exported="false"
+            android:label="Cobranzas"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.BuscarArticuloActivity"
+            android:exported="false"
+            android:label="Inventario"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.NuevoPedidoArticuloInfoActivity"
+            android:exported="false"
+            android:label="Articulo"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.ContenidoArticulosActivity"
+            android:exported="false"
+            android:label="Contenido"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.BuscarClienteActivity"
+            android:exported="false"
+            android:label="Buscar Socio de Negocio"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.NuevoPedidoClienteActivity"
+            android:exported="false"
+            android:label="Orden de Venta"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.sociodenegocio.NuevoContactoActivity"
+            android:exported="false"
+            android:label="Nuevo Contacto"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.sociodenegocio.ContactosActivity"
+            android:exported="false"
+            android:label="Lista de Contactos"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.sociodenegocio.EditarSocioNegocioActivity"
+            android:exported="false"
+            android:label="Editar Cliente"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.sociodenegocio.NuevaDireccionActivity"
+            android:exported="false"
+            android:label="Nueva Dirección Fiscal"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.sociodenegocio.DireccionesActivity"
+            android:exported="false"
+            android:label="@string/titulo_direcciones"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.sociodenegocio.ConsultaDocumentoActivity"
+            android:exported="false"
+            android:label="Consulta documento"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.inventario.ListaPreciosActivity"
+            android:exported="false"
+            android:label="@string/title_activity_lista_precios"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.sociodenegocio.NuevoSocioNegocioActivity"
+            android:exported="false"
+            android:label="Nuevo Cliente"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.inventario.InventarioInfoActivity"
+            android:exported="false"
+            android:label="Detalle artículo"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.PedidoClienteInfoActivity"
+            android:exported="false"
+            android:label="Información Pedido"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.sociodenegocio.InfoSocioNegocioActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.pedidocliente.PedidoClienteActivity"
+            android:exported="false"
+            android:label="Pedidos"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.sociodenegocio.SocioNegocioActivity"
+            android:exported="false"
+            android:label="Socio de Negocio"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.inventario.InventarioActivity"
+            android:exported="false"
+            android:label="Inventario"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.menu.MenuActivity"
+            android:exported="false"
+            android:label="Massive app"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
+        <activity
+            android:name=".ui.view.login.AuthActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.login.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.ClientsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view.SplashScreenActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Starting">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

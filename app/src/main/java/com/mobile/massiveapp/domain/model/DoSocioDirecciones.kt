@@ -1,0 +1,121 @@
+package com.mobile.massiveapp.domain.model
+
+import com.mobile.massiveapp.data.database.entities.SocioDireccionesEntity
+import com.mobile.massiveapp.data.model.SocioDirecciones
+
+data class DoSocioDirecciones(
+    val AccAction: String,
+    val AccCreateDate: String,
+    val AccCreateHour: String,
+    val AccCreateUser: String,
+    val AccDocEntry: String,
+    val AccLocked: String,
+    val AccControl: String,
+    val AccMigrated: String,
+    val AccUpdateDate: String,
+    val AccUpdateHour: String,
+    val AccUpdateUser: String,
+    val Address: String,
+    val AdresType: String,
+    val Block: String,
+    val CardCode: String,
+    val City: String,
+    val Country: String,
+    val County: String,
+    val LineNum: Int,
+    val State: String,
+    val Street: String,
+    val U_MSV_CP_LATITUD: String,
+    val U_MSV_CP_LONGITUD: String,
+    val U_MSV_FE_UBI: String,
+    val ZipCode: String
+){
+    constructor(): this(
+        AccAction = "",
+        AccCreateDate = "",
+        AccCreateHour = "",
+        AccCreateUser = "",
+        AccDocEntry = "",
+        AccLocked = "",
+        AccMigrated = "",
+        AccUpdateDate = "",
+        AccUpdateHour = "",
+        AccUpdateUser = "",
+        Address = "",
+        AdresType = "",
+        Block = "",
+        CardCode = "",
+        City = "",
+        Country = "",
+        County = "",
+        LineNum = 0,
+        State = "",
+        Street = "Error",
+        U_MSV_CP_LATITUD = "",
+        U_MSV_CP_LONGITUD = "",
+        U_MSV_FE_UBI = "",
+        ZipCode = "",
+        AccControl = ""
+    )
+}
+
+fun SocioDirecciones.toDomain() = DoSocioDirecciones(
+    AccAction = AccAction,
+    AccCreateDate = AccCreateDate,
+    AccCreateHour = AccCreateHour,
+    AccCreateUser = AccCreateUser,
+    AccDocEntry = AccDocEntry,
+    AccLocked = AccLocked,
+    AccMigrated = AccMigrated,
+    AccUpdateDate = AccUpdateDate,
+    AccUpdateHour = AccUpdateHour,
+    AccUpdateUser = AccUpdateUser,
+    Address = Address,
+    AdresType = AdresType,
+    Block = Block,
+    CardCode = CardCode,
+    City = City,
+    Country = Country,
+    County = County,
+    LineNum = LineNum.toInt(),
+    State = State,
+    Street = Street,
+    U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
+    U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    U_MSV_FE_UBI = U_MSV_FE_UBI,
+    ZipCode = ZipCode,
+    AccControl = AccControl
+)
+
+fun SocioDireccionesEntity.toDomain() = DoSocioDirecciones (
+    AccAction = AccAction,
+    AccCreateDate = AccCreateDate,
+    AccCreateHour = AccCreateHour,
+    AccCreateUser = AccCreateUser,
+    AccDocEntry = AccDocEntry,
+    AccLocked = AccLocked,
+    AccMigrated = AccMigrated,
+    AccUpdateDate = AccUpdateDate,
+    AccUpdateHour = AccUpdateHour,
+    AccUpdateUser = AccUpdateUser,
+    Address = Address,
+    AdresType = AdresType,
+    Block = Block,
+    CardCode = CardCode,
+    City = City,
+    Country = Country,
+    County = County,
+    LineNum = LineNum,
+    State = State,
+    Street = Street,
+    U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
+    U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    U_MSV_FE_UBI = U_MSV_FE_UBI,
+    ZipCode = ZipCode,
+    AccControl = AccControl
+)
+
+data class DoDireccion(
+    val AdresType: String,
+    val Street: String,
+)

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Duplicar usuario"
+        android:id="@+id/nav_item_duplicar_usuario"
+        />
+
+    <item
+        android:title="Cerrar Sesión"
+        android:id="@+id/nav_item_cerrar_sesion_ususario"
+        />
+
+    <item
+        android:title="Resetear ID"
+        android:id="@+id/nav_item_resetear_id_ususario"
+        />
+</menu>

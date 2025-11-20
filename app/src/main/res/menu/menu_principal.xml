@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Sincronizar inicial"
+        android:id="@+id/menu_main_sincronizar_inicial"
+        />
+
+    <item
+        android:title="Sincronizar datos maestros"
+        android:id="@+id/menu_main_sincronizar_maestros"
+        />
+    <item
+        android:title="Sincronizar documentos"
+        android:id="@+id/menu_main_sicronizar_documentos"
+        />
+</menu>

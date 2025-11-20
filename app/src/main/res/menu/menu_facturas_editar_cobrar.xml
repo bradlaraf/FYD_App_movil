@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Información factura"
+        android:id="@+id/nav_item_info_factura"
+        />
+    <item
+        android:title="Cobrar factura"
+        android:id="@+id/nav_item_cobrar_factura"
+        />
+</menu>

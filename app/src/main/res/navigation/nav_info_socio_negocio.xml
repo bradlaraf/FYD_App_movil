@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_info_socio_negocio"
+    app:startDestination="@id/infoGeneralFragment">
+
+    <fragment
+        android:id="@+id/infoGeneralFragment"
+        android:name="com.mobile.massiveapp.ui.view.sociodenegocio.fragments.InfoGeneralFragment"
+        android:label="fragment_info_general"
+        tools:layout="@layout/fragment_info_general" />
+    <fragment
+        android:id="@+id/infoAccionesFragment"
+        android:name="com.mobile.massiveapp.ui.view.sociodenegocio.fragments.ClienteInfoCondicionesFragment"
+        android:label="fragment_info_acciones"
+        tools:layout="@layout/fragment_cliente_info_condiciones" />
+    <fragment
+        android:id="@+id/infoContactosFragment"
+        android:name="com.mobile.massiveapp.ui.view.sociodenegocio.fragments.InfoContactosFragment"
+        android:label="fragment_info_contactos"
+        tools:layout="@layout/fragment_info_contactos" />
+</navigation>

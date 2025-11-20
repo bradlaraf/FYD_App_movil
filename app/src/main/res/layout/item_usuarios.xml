@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/default_container_recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/txvUsuarioNombre"
+        style="@style/default_title_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/clUserActiveArrow"
+        app:layout_constraintStart_toEndOf="@+id/imvPagoCabeceraMigrado"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Nombre Usuario" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clUserActiveArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imvUserArrow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:id="@+id/txvUsuarioCodigo"
+            style="@style/default_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Code" />
+
+        <ImageView
+            android:id="@+id/imvSessionActive"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/icon_circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvUsuarioCodigo" />
+
+        <ImageView
+            android:id="@+id/imvBlocked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintEnd_toStartOf="@+id/imvSessionActive"
+            app:layout_constraintTop_toBottomOf="@+id/txvUsuarioCodigo"
+            app:srcCompat="@drawable/icon_person_blocked"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/imvAlert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/imvBlocked"
+            app:layout_constraintTop_toBottomOf="@+id/txvUsuarioCodigo"
+            app:srcCompat="@drawable/icon_exclamation"
+            app:tint="@color/color_red_light"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ImageView
+        android:id="@+id/imvUserArrow"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/icon_arroy_enter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/txvUsuarioCorreo"
+        style="@style/default_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/clUserActiveArrow"
+        app:layout_constraintStart_toEndOf="@+id/imvPagoCabeceraMigrado"
+        app:layout_constraintTop_toBottomOf="@+id/txvUsuarioNombre"
+        tools:text="Correo" />
+
+    <ImageView
+        android:id="@+id/imvPagoCabeceraMigrado"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:srcCompat="@drawable/icon_user"
+        app:tint="@color/color_blue_sap_mobile" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

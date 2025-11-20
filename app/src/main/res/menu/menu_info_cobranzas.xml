@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Editar"
+        android:id="@+id/nav_item_editar_cobranza"
+        />
+    <item
+        android:title="Cancelar Cobranza"
+        android:id="@+id/nav_item_cancelar_cobranza"
+        />
+
+</menu>

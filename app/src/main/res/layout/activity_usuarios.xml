@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.usuarios.UsuariosActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUsuarios"
+        android:layout_width="0dp"
+        android:background="@color/color_gris_fragment"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnNuevoUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="34dp"
+        android:contentDescription="@string/opciones"
+        app:backgroundTint="@color/color_red_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icon_add"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnNuevoUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/agregar"
+        android:visibility="invisible"
+        app:backgroundTint="@color/color_blue_lighter"
+        app:layout_constraintBottom_toTopOf="@+id/btnNuevoUsuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icon_add_user"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnCierreSesionMasivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/cerrar_sesiones"
+        android:visibility="invisible"
+        app:backgroundTint="@color/color_blue_lighter"
+        app:layout_constraintBottom_toTopOf="@+id/btnNuevoUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icon_cerrar_sesion"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/txvCerrarSesionesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/rounded_txv_background_gris"
+        android:backgroundTint="@color/color_blue_lighter"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="2dp"
+        android:text="Cerrar Sesiones"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/btnCierreSesionMasivo"
+        app:layout_constraintTop_toBottomOf="@+id/btnCierreSesionMasivo" />
+
+    <TextView
+        android:id="@+id/txvNuevoUsuarioTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/rounded_txv_background_gris"
+        android:backgroundTint="@color/color_blue_lighter"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="2dp"
+        android:text="Nuevo Usuario"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/btnNuevoUser"
+        app:layout_constraintTop_toBottomOf="@+id/btnNuevoUser" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

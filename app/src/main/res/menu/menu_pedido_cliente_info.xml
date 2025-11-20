@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_item_pedido_cliente_info_cabecera"
+        android:title="@string/cabecera"/>
+    <item
+        android:id="@+id/nav_item_pedido_cliente_info_contenido"
+        android:title="@string/contenido"/>
+    <item
+        android:id="@+id/nav_item_pedido_cliente_info_logistica"
+        android:title="@string/logistica"/>
+    <item
+        android:id="@+id/nav_item_pedido_cliente_info_finanzas"
+        android:title="@string/finanzas"/>
+</menu>

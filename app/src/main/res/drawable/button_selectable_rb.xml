@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <layer-list>
+            <!-- Fondo original del botón -->
+            <item>
+                <shape>
+                    <solid android:color="@color/color_lightblue_2" /> <!-- Cambia el color de fondo del botón -->
+                    <corners android:radius="20dp"/>
+                    <stroke android:color="@color/color_blue_barra_superior" android:width="1dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <item>
+        <shape>
+            <solid android:color="@color/color_white" /> <!-- Cambia el color de fondo del botón cuando no está seleccionado -->
+            <corners android:radius="20dp"/>
+            <stroke android:color="@color/color_gris_fragment" android:width="1dp"/>
+        </shape>
+    </item>
+</selector>

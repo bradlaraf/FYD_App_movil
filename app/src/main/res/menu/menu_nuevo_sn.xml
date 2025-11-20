@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/app_bar_connectivity_status"
+        android:icon="@drawable/icon_wifi_not_available"
+        android:title="@string/check"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/app_bar_check"
+        android:icon="@drawable/icon_check"
+        android:title="@string/check"
+        app:showAsAction="ifRoom" />
+</menu>

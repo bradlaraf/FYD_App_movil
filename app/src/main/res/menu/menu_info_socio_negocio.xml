@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/general"
+        android:id="@+id/nav_item_info_sn_general"
+        />
+    <item
+        android:title="@string/dir_contactos"
+        android:id="@+id/nav_item_info_sn_contactos"
+        />
+    <item
+        android:title="@string/operaciones"
+        android:id="@+id/nav_item_info_sn_operaciones"
+        />
+</menu>

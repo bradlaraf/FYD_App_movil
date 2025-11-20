@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_item_pedido_cliente_info_tratar_pedido"
+        android:title="@string/tratar_pedido"
+        />
+    <item
+        android:id="@+id/nav_item_pedido_cliente_info_cancelar_pedido"
+        android:title="@string/cancelar_pedido"
+        />
+    <item
+        android:id="@+id/nav_item_pedido_cliente_info_layout"
+        android:title="@string/layout"
+        />
+
+</menu>

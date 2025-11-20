@@ -1,0 +1,2991 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "1395be0d9d0824075ca7fc9a6ca69d7a",
+    "entities": [
+      {
+        "tableName": "Articulo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ItemCode` TEXT NOT NULL, `BuyUnitMsr` TEXT NOT NULL, `FirmCode` INTEGER NOT NULL, `InvntItem` TEXT NOT NULL, `InvntryUom` TEXT NOT NULL, `ItemName` TEXT NOT NULL, `ItemType` TEXT NOT NULL, `ItmsGrpCod` INTEGER NOT NULL, `IuoMEntry` INTEGER NOT NULL, `ManBtchNum` TEXT NOT NULL, `ManSerNum` TEXT NOT NULL, `PrchseItem` TEXT NOT NULL, `PuoMEntry` INTEGER NOT NULL, `SHeight1` REAL NOT NULL, `SLength1` REAL NOT NULL, `SVolume` REAL NOT NULL, `SWW` TEXT NOT NULL, `SWeight1` REAL NOT NULL, `SWidth1` REAL NOT NULL, `SalUnitMsr` TEXT NOT NULL, `SellItem` TEXT NOT NULL, `SuoMEntry` INTEGER NOT NULL, `UgpEntry` INTEGER NOT NULL, `UserText` TEXT NOT NULL, PRIMARY KEY(`ItemCode`))",
+        "fields": [
+          {
+            "fieldPath": "ItemCode",
+            "columnName": "ItemCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "BuyUnitMsr",
+            "columnName": "BuyUnitMsr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "FirmCode",
+            "columnName": "FirmCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "InvntItem",
+            "columnName": "InvntItem",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "InvntryUom",
+            "columnName": "InvntryUom",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ItemName",
+            "columnName": "ItemName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ItemType",
+            "columnName": "ItemType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ItmsGrpCod",
+            "columnName": "ItmsGrpCod",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IuoMEntry",
+            "columnName": "IuoMEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ManBtchNum",
+            "columnName": "ManBtchNum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ManSerNum",
+            "columnName": "ManSerNum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PrchseItem",
+            "columnName": "PrchseItem",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PuoMEntry",
+            "columnName": "PuoMEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SHeight1",
+            "columnName": "SHeight1",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SLength1",
+            "columnName": "SLength1",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SVolume",
+            "columnName": "SVolume",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SWW",
+            "columnName": "SWW",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SWeight1",
+            "columnName": "SWeight1",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SWidth1",
+            "columnName": "SWidth1",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SalUnitMsr",
+            "columnName": "SalUnitMsr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SellItem",
+            "columnName": "SellItem",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SuoMEntry",
+            "columnName": "SuoMEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UgpEntry",
+            "columnName": "UgpEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UserText",
+            "columnName": "UserText",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ItemCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ClienteSocios",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CardCode` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `BillToDef` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CardType` TEXT NOT NULL, `Cellular` TEXT NOT NULL, `CreditLine` REAL NOT NULL, `CreditLineFC` REAL NOT NULL, `Currency` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `GroupCode` INTEGER NOT NULL, `GroupNum` INTEGER NOT NULL, `Indicator` TEXT NOT NULL, `IntrntSite` TEXT NOT NULL, `LicTradNum` TEXT NOT NULL, `ListNum` INTEGER NOT NULL, `OwnerCode` INTEGER NOT NULL, `Phone1` TEXT NOT NULL, `Phone2` TEXT NOT NULL, `ProjectCod` TEXT NOT NULL, `Series` INTEGER NOT NULL, `ShipToDef` TEXT NOT NULL, `SlpCode` INTEGER NOT NULL, `U_MSV_CP_ACTECO` TEXT NOT NULL, `U_MSV_CP_ACTECO2` TEXT NOT NULL, `U_MSV_CP_ACTECO3` TEXT NOT NULL, `U_MSV_CP_ACTIV` TEXT NOT NULL, `U_MSV_CP_AGPER` TEXT NOT NULL, `U_MSV_CP_AGRET` TEXT NOT NULL, `U_MSV_CP_BNCON` TEXT NOT NULL, `U_MSV_CP_CONSULT` TEXT NOT NULL, `U_MSV_CP_FECCON` TEXT NOT NULL, `U_MSV_CP_HABID` TEXT NOT NULL, `U_MSV_CP_PSCNG` TEXT NOT NULL, `U_MSV_LO_APELMAT` TEXT NOT NULL, `U_MSV_LO_APELPAT` TEXT NOT NULL, `U_MSV_LO_PRIMNOM` TEXT NOT NULL, `U_MSV_LO_SEGUNOM` TEXT NOT NULL, `U_MSV_LO_TIPODOC` TEXT NOT NULL, `U_MSV_LO_TIPOPER` TEXT NOT NULL, PRIMARY KEY(`CardCode`))",
+        "fields": [
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccAction",
+            "columnName": "AccAction",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMovil",
+            "columnName": "AccMovil",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccError",
+            "columnName": "AccError",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccFinalized",
+            "columnName": "AccFinalized",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateDate",
+            "columnName": "AccCreateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateHour",
+            "columnName": "AccCreateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateUser",
+            "columnName": "AccCreateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccDocEntry",
+            "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccLocked",
+            "columnName": "AccLocked",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMigrated",
+            "columnName": "AccMigrated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateDate",
+            "columnName": "AccUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateHour",
+            "columnName": "AccUpdateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateUser",
+            "columnName": "AccUpdateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "BillToDef",
+            "columnName": "BillToDef",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardName",
+            "columnName": "CardName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardType",
+            "columnName": "CardType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Cellular",
+            "columnName": "Cellular",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CreditLine",
+            "columnName": "CreditLine",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CreditLineFC",
+            "columnName": "CreditLineFC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Currency",
+            "columnName": "Currency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GroupCode",
+            "columnName": "GroupCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GroupNum",
+            "columnName": "GroupNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Indicator",
+            "columnName": "Indicator",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IntrntSite",
+            "columnName": "IntrntSite",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LicTradNum",
+            "columnName": "LicTradNum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ListNum",
+            "columnName": "ListNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OwnerCode",
+            "columnName": "OwnerCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Phone1",
+            "columnName": "Phone1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Phone2",
+            "columnName": "Phone2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ProjectCod",
+            "columnName": "ProjectCod",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Series",
+            "columnName": "Series",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ShipToDef",
+            "columnName": "ShipToDef",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SlpCode",
+            "columnName": "SlpCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_ACTECO",
+            "columnName": "U_MSV_CP_ACTECO",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_ACTECO2",
+            "columnName": "U_MSV_CP_ACTECO2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_ACTECO3",
+            "columnName": "U_MSV_CP_ACTECO3",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_ACTIV",
+            "columnName": "U_MSV_CP_ACTIV",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_AGPER",
+            "columnName": "U_MSV_CP_AGPER",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_AGRET",
+            "columnName": "U_MSV_CP_AGRET",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_BNCON",
+            "columnName": "U_MSV_CP_BNCON",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_CONSULT",
+            "columnName": "U_MSV_CP_CONSULT",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_FECCON",
+            "columnName": "U_MSV_CP_FECCON",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_HABID",
+            "columnName": "U_MSV_CP_HABID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_PSCNG",
+            "columnName": "U_MSV_CP_PSCNG",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_APELMAT",
+            "columnName": "U_MSV_LO_APELMAT",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_APELPAT",
+            "columnName": "U_MSV_LO_APELPAT",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_PRIMNOM",
+            "columnName": "U_MSV_LO_PRIMNOM",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_SEGUNOM",
+            "columnName": "U_MSV_LO_SEGUNOM",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_TIPODOC",
+            "columnName": "U_MSV_LO_TIPODOC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_TIPOPER",
+            "columnName": "U_MSV_LO_TIPOPER",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "CardCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ClientePedidos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccDocEntry` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `U_MSV_FE_MOTTR` TEXT NOT NULL, `U_MSV_FE_MTRANSPORT` TEXT NOT NULL, `U_MSV_FE_MTRASLADO` TEXT NOT NULL, `U_MSV_FE_TOPE` TEXT NOT NULL, `U_MSV_FE_EMAIL1` TEXT NOT NULL, `U_MSV_FE_EMAIL2` TEXT NOT NULL, `U_MSV_FE_EMAIL3` TEXT NOT NULL, `U_MSV_FE_EMAIL4` TEXT NOT NULL, `U_MSV_FE_EMAIL5` TEXT NOT NULL, `U_MSV_FE_EMAIL6` TEXT NOT NULL, `U_MSV_FE_EMAIL7` TEXT NOT NULL, `U_MSV_FE_EMAIL8` TEXT NOT NULL, `Address` TEXT NOT NULL, `Address2` TEXT NOT NULL, `Authorized` TEXT NOT NULL, `CANCELED` TEXT NOT NULL, `CardCode` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CntctCode` INTEGER NOT NULL, `Comments` TEXT NOT NULL, `DocCur` TEXT NOT NULL, `DocDate` TEXT NOT NULL, `DocDueDate` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocRate` REAL NOT NULL, `DocStatus` TEXT NOT NULL, `DocTotal` REAL NOT NULL, `DocTotalFC` REAL NOT NULL, `GrosProfFC` REAL NOT NULL, `GrosProfit` REAL NOT NULL, `GroupNum` INTEGER NOT NULL, `Indicator` TEXT NOT NULL, `LicTradNum` TEXT NOT NULL, `NumAtCard` TEXT NOT NULL, `PayToCode` TEXT NOT NULL, `PriceList` INTEGER NOT NULL, `Project` TEXT NOT NULL, `Series` INTEGER NOT NULL, `ShipToCode` TEXT NOT NULL, `SlpCode` INTEGER NOT NULL, `TaxDate` TEXT NOT NULL, `VatSum` REAL NOT NULL, `VatSumFC` REAL NOT NULL, PRIMARY KEY(`AccDocEntry`))",
+        "fields": [
+          {
+            "fieldPath": "AccDocEntry",
+            "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccAction",
+            "columnName": "AccAction",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateDate",
+            "columnName": "AccCreateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateHour",
+            "columnName": "AccCreateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateUser",
+            "columnName": "AccCreateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccError",
+            "columnName": "AccError",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccFinalized",
+            "columnName": "AccFinalized",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMigrated",
+            "columnName": "AccMigrated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMovil",
+            "columnName": "AccMovil",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateDate",
+            "columnName": "AccUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateHour",
+            "columnName": "AccUpdateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateUser",
+            "columnName": "AccUpdateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_MOTTR",
+            "columnName": "U_MSV_FE_MOTTR",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_MTRANSPORT",
+            "columnName": "U_MSV_FE_MTRANSPORT",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_MTRASLADO",
+            "columnName": "U_MSV_FE_MTRASLADO",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_TOPE",
+            "columnName": "U_MSV_FE_TOPE",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL1",
+            "columnName": "U_MSV_FE_EMAIL1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL2",
+            "columnName": "U_MSV_FE_EMAIL2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL3",
+            "columnName": "U_MSV_FE_EMAIL3",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL4",
+            "columnName": "U_MSV_FE_EMAIL4",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL5",
+            "columnName": "U_MSV_FE_EMAIL5",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL6",
+            "columnName": "U_MSV_FE_EMAIL6",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL7",
+            "columnName": "U_MSV_FE_EMAIL7",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL8",
+            "columnName": "U_MSV_FE_EMAIL8",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Address",
+            "columnName": "Address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Address2",
+            "columnName": "Address2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Authorized",
+            "columnName": "Authorized",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CANCELED",
+            "columnName": "CANCELED",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardName",
+            "columnName": "CardName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CntctCode",
+            "columnName": "CntctCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Comments",
+            "columnName": "Comments",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocCur",
+            "columnName": "DocCur",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocDate",
+            "columnName": "DocDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocDueDate",
+            "columnName": "DocDueDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocNum",
+            "columnName": "DocNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocRate",
+            "columnName": "DocRate",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocStatus",
+            "columnName": "DocStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocTotal",
+            "columnName": "DocTotal",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocTotalFC",
+            "columnName": "DocTotalFC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GrosProfFC",
+            "columnName": "GrosProfFC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GrosProfit",
+            "columnName": "GrosProfit",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GroupNum",
+            "columnName": "GroupNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Indicator",
+            "columnName": "Indicator",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LicTradNum",
+            "columnName": "LicTradNum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "NumAtCard",
+            "columnName": "NumAtCard",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PayToCode",
+            "columnName": "PayToCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PriceList",
+            "columnName": "PriceList",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Project",
+            "columnName": "Project",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Series",
+            "columnName": "Series",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ShipToCode",
+            "columnName": "ShipToCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SlpCode",
+            "columnName": "SlpCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TaxDate",
+            "columnName": "TaxDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "VatSum",
+            "columnName": "VatSum",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "VatSumFC",
+            "columnName": "VatSumFC",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "AccDocEntry"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ClientePedidosDetalle",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`LineNum` INTEGER NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `DiscPrcnt` REAL NOT NULL, `DocEntry` INTEGER NOT NULL, `Dscription` TEXT NOT NULL, `GTotal` REAL NOT NULL, `GTotalFC` REAL NOT NULL, `ItemCode` TEXT NOT NULL, `LineTotal` REAL NOT NULL, `OcrCode` TEXT NOT NULL, `OcrCode2` TEXT NOT NULL, `OcrCode3` TEXT NOT NULL, `OcrCode4` TEXT NOT NULL, `OcrCode5` TEXT NOT NULL, `Price` REAL NOT NULL, `U_MSV_FE_AIGV` TEXT NOT NULL, `U_MSV_FE_LTTG` REAL NOT NULL, `U_MSV_FE_NUMB` INTEGER NOT NULL, `U_MSV_FE_PESB` REAL NOT NULL, `U_MSV_FE_TGRA` TEXT NOT NULL, `PriceAfVAT` REAL NOT NULL, `PriceBefDi` REAL NOT NULL, `PriceList` INTEGER NOT NULL, `Project` TEXT NOT NULL, `Quantity` REAL NOT NULL, `TaxCode` TEXT NOT NULL, `TotalFrgn` REAL NOT NULL, `UnitMsr` TEXT NOT NULL, `UomCode` TEXT NOT NULL, `UomEntry` INTEGER NOT NULL, `VatSum` REAL NOT NULL, `VatSumFrgn` REAL NOT NULL, `WhsCode` TEXT NOT NULL, PRIMARY KEY(`AccDocEntry`, `LineNum`))",
+        "fields": [
+          {
+            "fieldPath": "LineNum",
+            "columnName": "LineNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccAction",
+            "columnName": "AccAction",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateDate",
+            "columnName": "AccCreateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateHour",
+            "columnName": "AccCreateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateUser",
+            "columnName": "AccCreateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccDocEntry",
+            "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMigrated",
+            "columnName": "AccMigrated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateDate",
+            "columnName": "AccUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateHour",
+            "columnName": "AccUpdateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateUser",
+            "columnName": "AccUpdateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DiscPrcnt",
+            "columnName": "DiscPrcnt",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Dscription",
+            "columnName": "Dscription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GTotal",
+            "columnName": "GTotal",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GTotalFC",
+            "columnName": "GTotalFC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ItemCode",
+            "columnName": "ItemCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LineTotal",
+            "columnName": "LineTotal",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode",
+            "columnName": "OcrCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode2",
+            "columnName": "OcrCode2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode3",
+            "columnName": "OcrCode3",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode4",
+            "columnName": "OcrCode4",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode5",
+            "columnName": "OcrCode5",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Price",
+            "columnName": "Price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_AIGV",
+            "columnName": "U_MSV_FE_AIGV",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_LTTG",
+            "columnName": "U_MSV_FE_LTTG",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_NUMB",
+            "columnName": "U_MSV_FE_NUMB",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_PESB",
+            "columnName": "U_MSV_FE_PESB",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_TGRA",
+            "columnName": "U_MSV_FE_TGRA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PriceAfVAT",
+            "columnName": "PriceAfVAT",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PriceBefDi",
+            "columnName": "PriceBefDi",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PriceList",
+            "columnName": "PriceList",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Project",
+            "columnName": "Project",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Quantity",
+            "columnName": "Quantity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TaxCode",
+            "columnName": "TaxCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TotalFrgn",
+            "columnName": "TotalFrgn",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UnitMsr",
+            "columnName": "UnitMsr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UomCode",
+            "columnName": "UomCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UomEntry",
+            "columnName": "UomEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "VatSum",
+            "columnName": "VatSum",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "VatSumFrgn",
+            "columnName": "VatSumFrgn",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "WhsCode",
+            "columnName": "WhsCode",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "AccDocEntry",
+            "LineNum"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ClientePagos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `Authorized` TEXT NOT NULL, `Canceled` TEXT NOT NULL, `CardCode` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CashAcct` TEXT NOT NULL, `CashSum` REAL NOT NULL, `CashSumFC` REAL NOT NULL, `Comments` TEXT NOT NULL, `CounterRef` TEXT NOT NULL, `DocCurr` TEXT NOT NULL, `DocDate` TEXT NOT NULL, `DocDueDate` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocRate` REAL NOT NULL, `JrnlMemo` TEXT NOT NULL, `PrjCode` TEXT NOT NULL, `Series` INTEGER NOT NULL, `TaxDate` TEXT NOT NULL, `TrsfrAcct` TEXT NOT NULL, `TrsfrDate` TEXT NOT NULL, `TrsfrRef` TEXT NOT NULL, `TrsfrSum` REAL NOT NULL, `TrsfrSumFC` REAL NOT NULL, PRIMARY KEY(`AccAction`))",
+        "fields": [
+          {
+            "fieldPath": "AccAction",
+            "columnName": "AccAction",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateDate",
+            "columnName": "AccCreateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateHour",
+            "columnName": "AccCreateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateUser",
+            "columnName": "AccCreateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccDocEntry",
+            "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccError",
+            "columnName": "AccError",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccFinalized",
+            "columnName": "AccFinalized",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMigrated",
+            "columnName": "AccMigrated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMovil",
+            "columnName": "AccMovil",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateDate",
+            "columnName": "AccUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateHour",
+            "columnName": "AccUpdateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateUser",
+            "columnName": "AccUpdateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Authorized",
+            "columnName": "Authorized",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Canceled",
+            "columnName": "Canceled",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardName",
+            "columnName": "CardName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CashAcct",
+            "columnName": "CashAcct",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CashSum",
+            "columnName": "CashSum",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CashSumFC",
+            "columnName": "CashSumFC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Comments",
+            "columnName": "Comments",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CounterRef",
+            "columnName": "CounterRef",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocCurr",
+            "columnName": "DocCurr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocDate",
+            "columnName": "DocDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocDueDate",
+            "columnName": "DocDueDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocNum",
+            "columnName": "DocNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocRate",
+            "columnName": "DocRate",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "JrnlMemo",
+            "columnName": "JrnlMemo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PrjCode",
+            "columnName": "PrjCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Series",
+            "columnName": "Series",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TaxDate",
+            "columnName": "TaxDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TrsfrAcct",
+            "columnName": "TrsfrAcct",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TrsfrDate",
+            "columnName": "TrsfrDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TrsfrRef",
+            "columnName": "TrsfrRef",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TrsfrSum",
+            "columnName": "TrsfrSum",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TrsfrSumFC",
+            "columnName": "TrsfrSumFC",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "AccAction"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ClientePagosDetalle",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`DocEntry` INTEGER NOT NULL, `DocLine` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocTransId` INTEGER NOT NULL, `InstId` INTEGER NOT NULL, `InvType` INTEGER NOT NULL, `OcrCode` TEXT NOT NULL, `OcrCode2` TEXT NOT NULL, `OcrCode3` TEXT NOT NULL, `OcrCode4` TEXT NOT NULL, `OcrCode5` TEXT NOT NULL, `SumApplied` REAL NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `AppliedFC` REAL NOT NULL, PRIMARY KEY(`DocEntry`))",
+        "fields": [
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocLine",
+            "columnName": "DocLine",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocNum",
+            "columnName": "DocNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocTransId",
+            "columnName": "DocTransId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "InstId",
+            "columnName": "InstId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "InvType",
+            "columnName": "InvType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode",
+            "columnName": "OcrCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode2",
+            "columnName": "OcrCode2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode3",
+            "columnName": "OcrCode3",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode4",
+            "columnName": "OcrCode4",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OcrCode5",
+            "columnName": "OcrCode5",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SumApplied",
+            "columnName": "SumApplied",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccAction",
+            "columnName": "AccAction",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateDate",
+            "columnName": "AccCreateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateHour",
+            "columnName": "AccCreateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateUser",
+            "columnName": "AccCreateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccDocEntry",
+            "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMigrated",
+            "columnName": "AccMigrated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateDate",
+            "columnName": "AccUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateHour",
+            "columnName": "AccUpdateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateUser",
+            "columnName": "AccUpdateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AppliedFC",
+            "columnName": "AppliedFC",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "DocEntry"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ClienteFacturas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Address` TEXT NOT NULL, `Address2` TEXT NOT NULL, `CardCode` TEXT NOT NULL, `CardName` TEXT NOT NULL, `Comments` TEXT NOT NULL, `DocCur` TEXT NOT NULL, `DocDate` TEXT NOT NULL, `DocDueDate` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocRate` REAL NOT NULL, `DocStatus` TEXT NOT NULL, `DocTotal` REAL NOT NULL, `DocTotalFC` REAL NOT NULL, `FolioNum` INTEGER NOT NULL, `FolioPref` TEXT NOT NULL, `GroupNum` INTEGER NOT NULL, `Indicator` TEXT NOT NULL, `LicTradNum` TEXT NOT NULL, `NumAtCard` TEXT NOT NULL, `PaidFC` REAL NOT NULL, `PaidToDate` REAL NOT NULL, `PayToCode` TEXT NOT NULL, `Project` TEXT NOT NULL, `ShipToCode` TEXT NOT NULL, `SlpCode` INTEGER NOT NULL, `TaxDate` TEXT NOT NULL, PRIMARY KEY(`Address`))",
+        "fields": [
+          {
+            "fieldPath": "Address",
+            "columnName": "Address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Address2",
+            "columnName": "Address2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardName",
+            "columnName": "CardName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Comments",
+            "columnName": "Comments",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocCur",
+            "columnName": "DocCur",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocDate",
+            "columnName": "DocDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocDueDate",
+            "columnName": "DocDueDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocNum",
+            "columnName": "DocNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocRate",
+            "columnName": "DocRate",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocStatus",
+            "columnName": "DocStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocTotal",
+            "columnName": "DocTotal",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocTotalFC",
+            "columnName": "DocTotalFC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "FolioNum",
+            "columnName": "FolioNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "FolioPref",
+            "columnName": "FolioPref",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GroupNum",
+            "columnName": "GroupNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Indicator",
+            "columnName": "Indicator",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LicTradNum",
+            "columnName": "LicTradNum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "NumAtCard",
+            "columnName": "NumAtCard",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PaidFC",
+            "columnName": "PaidFC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PaidToDate",
+            "columnName": "PaidToDate",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PayToCode",
+            "columnName": "PayToCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Project",
+            "columnName": "Project",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ShipToCode",
+            "columnName": "ShipToCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SlpCode",
+            "columnName": "SlpCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TaxDate",
+            "columnName": "TaxDate",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Address"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SocioContactos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CardCode` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `Cellolar` TEXT NOT NULL, `CntctCode` INTEGER NOT NULL, `E_Mail` TEXT NOT NULL, `LicTradNum` TEXT NOT NULL, `Name` TEXT NOT NULL, `Position` TEXT NOT NULL, `Tel1` TEXT NOT NULL, `Tel2` TEXT NOT NULL, `U_MSV_FE_EF` TEXT NOT NULL, `U_MSV_FE_EMAIL1` TEXT NOT NULL, `U_MSV_FE_EMAIL2` TEXT NOT NULL, `U_MSV_FE_EMAIL3` TEXT NOT NULL, `U_MSV_FE_EMAIL4` TEXT NOT NULL, `U_MSV_FE_EMAIL5` TEXT NOT NULL, `U_MSV_FE_EMAIL6` TEXT NOT NULL, `U_MSV_FE_EMAIL7` TEXT NOT NULL, `U_MSV_FE_EMAIL8` TEXT NOT NULL, PRIMARY KEY(`CardCode`))",
+        "fields": [
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccAction",
+            "columnName": "AccAction",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateDate",
+            "columnName": "AccCreateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateHour",
+            "columnName": "AccCreateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateUser",
+            "columnName": "AccCreateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccDocEntry",
+            "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccLocked",
+            "columnName": "AccLocked",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMigrated",
+            "columnName": "AccMigrated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateDate",
+            "columnName": "AccUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateHour",
+            "columnName": "AccUpdateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateUser",
+            "columnName": "AccUpdateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Cellolar",
+            "columnName": "Cellolar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CntctCode",
+            "columnName": "CntctCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "E_Mail",
+            "columnName": "E_Mail",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LicTradNum",
+            "columnName": "LicTradNum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Name",
+            "columnName": "Name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Position",
+            "columnName": "Position",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Tel1",
+            "columnName": "Tel1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Tel2",
+            "columnName": "Tel2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EF",
+            "columnName": "U_MSV_FE_EF",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL1",
+            "columnName": "U_MSV_FE_EMAIL1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL2",
+            "columnName": "U_MSV_FE_EMAIL2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL3",
+            "columnName": "U_MSV_FE_EMAIL3",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL4",
+            "columnName": "U_MSV_FE_EMAIL4",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL5",
+            "columnName": "U_MSV_FE_EMAIL5",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL6",
+            "columnName": "U_MSV_FE_EMAIL6",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL7",
+            "columnName": "U_MSV_FE_EMAIL7",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_EMAIL8",
+            "columnName": "U_MSV_FE_EMAIL8",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "CardCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SocioDirecciones",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CardCode` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `Address` TEXT NOT NULL, `AdresType` TEXT NOT NULL, `Block` TEXT NOT NULL, `City` TEXT NOT NULL, `Country` TEXT NOT NULL, `County` TEXT NOT NULL, `LineNum` INTEGER NOT NULL, `State` TEXT NOT NULL, `Street` TEXT NOT NULL, `U_MSV_CP_LATITUD` TEXT NOT NULL, `U_MSV_CP_LONGITUD` TEXT NOT NULL, `U_MSV_FE_UBI` TEXT NOT NULL, `U_MSV_MA_SUBZONA` TEXT NOT NULL, `U_MSV_MA_ZONA` TEXT NOT NULL, `ZipCode` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "Id",
+            "columnName": "Id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccAction",
+            "columnName": "AccAction",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateDate",
+            "columnName": "AccCreateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateHour",
+            "columnName": "AccCreateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateUser",
+            "columnName": "AccCreateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccDocEntry",
+            "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccLocked",
+            "columnName": "AccLocked",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMigrated",
+            "columnName": "AccMigrated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateDate",
+            "columnName": "AccUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateHour",
+            "columnName": "AccUpdateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateUser",
+            "columnName": "AccUpdateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Address",
+            "columnName": "Address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AdresType",
+            "columnName": "AdresType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Block",
+            "columnName": "Block",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "City",
+            "columnName": "City",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Country",
+            "columnName": "Country",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "County",
+            "columnName": "County",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LineNum",
+            "columnName": "LineNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "State",
+            "columnName": "State",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Street",
+            "columnName": "Street",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_LATITUD",
+            "columnName": "U_MSV_CP_LATITUD",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_LONGITUD",
+            "columnName": "U_MSV_CP_LONGITUD",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_UBI",
+            "columnName": "U_MSV_FE_UBI",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_SUBZONA",
+            "columnName": "U_MSV_MA_SUBZONA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_ZONA",
+            "columnName": "U_MSV_MA_ZONA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ZipCode",
+            "columnName": "ZipCode",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "Id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SocioGrupos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`GroupCode` INTEGER NOT NULL, `GroupName` TEXT NOT NULL, `GroupType` TEXT NOT NULL, PRIMARY KEY(`GroupCode`))",
+        "fields": [
+          {
+            "fieldPath": "GroupCode",
+            "columnName": "GroupCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GroupName",
+            "columnName": "GroupName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GroupType",
+            "columnName": "GroupType",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "GroupCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "GeneralEmpleados",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`empID` INTEGER NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `middleName` TEXT NOT NULL, `position` INTEGER NOT NULL, PRIMARY KEY(`empID`))",
+        "fields": [
+          {
+            "fieldPath": "empID",
+            "columnName": "empID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstName",
+            "columnName": "firstName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastName",
+            "columnName": "lastName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "middleName",
+            "columnName": "middleName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "empID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloAlmacenes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`WhsCode` TEXT NOT NULL, `WhsName` TEXT NOT NULL, `TypeW` TEXT NOT NULL, `Street` TEXT NOT NULL, `Block` TEXT NOT NULL, `City` TEXT NOT NULL, `County` TEXT NOT NULL, `State` TEXT NOT NULL, `Country` TEXT NOT NULL, `Ubigeo` TEXT NOT NULL, `Principal` TEXT NOT NULL, PRIMARY KEY(`WhsCode`))",
+        "fields": [
+          {
+            "fieldPath": "WhsCode",
+            "columnName": "WhsCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "WhsName",
+            "columnName": "WhsName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TypeW",
+            "columnName": "TypeW",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Street",
+            "columnName": "Street",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Block",
+            "columnName": "Block",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "City",
+            "columnName": "City",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "County",
+            "columnName": "County",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "State",
+            "columnName": "State",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Country",
+            "columnName": "Country",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ubigeo",
+            "columnName": "Ubigeo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Principal",
+            "columnName": "Principal",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "WhsCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloFabricantes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FirmCode` INTEGER NOT NULL, `FirmName` TEXT NOT NULL, PRIMARY KEY(`FirmCode`))",
+        "fields": [
+          {
+            "fieldPath": "FirmCode",
+            "columnName": "FirmCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "FirmName",
+            "columnName": "FirmName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "FirmCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloCantidades",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ItemCode` TEXT NOT NULL, `WhsCode` TEXT NOT NULL, `OnHand` REAL NOT NULL, `OnOrder` REAL NOT NULL, `IsCommited` REAL NOT NULL, `AvgPrice` REAL NOT NULL, PRIMARY KEY(`ItemCode`))",
+        "fields": [
+          {
+            "fieldPath": "ItemCode",
+            "columnName": "ItemCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "WhsCode",
+            "columnName": "WhsCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OnHand",
+            "columnName": "OnHand",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OnOrder",
+            "columnName": "OnOrder",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IsCommited",
+            "columnName": "IsCommited",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AvgPrice",
+            "columnName": "AvgPrice",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ItemCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloGrupos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ItmsGrpCod` INTEGER NOT NULL, `ItmsGrpNam` TEXT NOT NULL, PRIMARY KEY(`ItmsGrpCod`))",
+        "fields": [
+          {
+            "fieldPath": "ItmsGrpCod",
+            "columnName": "ItmsGrpCod",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ItmsGrpNam",
+            "columnName": "ItmsGrpNam",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ItmsGrpCod"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloGruposUM",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`UgpCode` TEXT NOT NULL, `UgpEntry` INTEGER NOT NULL, `UgpName` TEXT NOT NULL, PRIMARY KEY(`UgpCode`))",
+        "fields": [
+          {
+            "fieldPath": "UgpCode",
+            "columnName": "UgpCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UgpEntry",
+            "columnName": "UgpEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UgpName",
+            "columnName": "UgpName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "UgpCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloGruposUMDetalle",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AltQty` REAL NOT NULL, `BaseQty` REAL NOT NULL, `LineNum` INTEGER NOT NULL, `UgpEntry` INTEGER NOT NULL, PRIMARY KEY(`AltQty`))",
+        "fields": [
+          {
+            "fieldPath": "AltQty",
+            "columnName": "AltQty",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "BaseQty",
+            "columnName": "BaseQty",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LineNum",
+            "columnName": "LineNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UgpEntry",
+            "columnName": "UgpEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "AltQty"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloListaPrecios",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ListNum` INTEGER NOT NULL, `ListName` TEXT NOT NULL, `PrimCurr` TEXT NOT NULL, `AddCurr1` TEXT NOT NULL, `AddCurr2` TEXT NOT NULL, `IsGrossPrc` TEXT NOT NULL, PRIMARY KEY(`ListNum`))",
+        "fields": [
+          {
+            "fieldPath": "ListNum",
+            "columnName": "ListNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ListName",
+            "columnName": "ListName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PrimCurr",
+            "columnName": "PrimCurr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AddCurr1",
+            "columnName": "AddCurr1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AddCurr2",
+            "columnName": "AddCurr2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IsGrossPrc",
+            "columnName": "IsGrossPrc",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ListNum"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloLocalidades",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` INTEGER NOT NULL, `Location` TEXT NOT NULL, PRIMARY KEY(`Code`))",
+        "fields": [
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Location",
+            "columnName": "Location",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Code"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloPrecios",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`itemCode` TEXT NOT NULL, `priceList` INTEGER NOT NULL, `price` REAL NOT NULL, `addPrice` REAL NOT NULL, `addPrice2` REAL NOT NULL, PRIMARY KEY(`itemCode`))",
+        "fields": [
+          {
+            "fieldPath": "ItemCode",
+            "columnName": "itemCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PriceList",
+            "columnName": "priceList",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Price",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AddPrice",
+            "columnName": "addPrice",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AddPrice2",
+            "columnName": "addPrice2",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "itemCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ArticuloUnidades",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`UomCode` TEXT NOT NULL, `UomEntry` INTEGER NOT NULL, `UomName` TEXT NOT NULL, PRIMARY KEY(`UomCode`))",
+        "fields": [
+          {
+            "fieldPath": "UomCode",
+            "columnName": "UomCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UomEntry",
+            "columnName": "UomEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UomName",
+            "columnName": "UomName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "UomCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SocioRucConculta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numero` TEXT NOT NULL, `condicion` TEXT NOT NULL, `departamento` TEXT NOT NULL, `direccion` TEXT NOT NULL, `distrito` TEXT NOT NULL, `dpto` TEXT NOT NULL, `estado` TEXT NOT NULL, `interior` TEXT NOT NULL, `kilometro` TEXT NOT NULL, `lote` TEXT NOT NULL, `manzana` TEXT NOT NULL, `nombre` TEXT NOT NULL, `numeroDocumento` TEXT NOT NULL, `provincia` TEXT NOT NULL, `tipoDocumento` TEXT NOT NULL, `ubigeo` TEXT NOT NULL, `viaNombre` TEXT NOT NULL, `viaTipo` TEXT NOT NULL, `zonaCodigo` TEXT NOT NULL, `zonaTipo` TEXT NOT NULL, PRIMARY KEY(`numero`))",
+        "fields": [
+          {
+            "fieldPath": "numero",
+            "columnName": "numero",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "condicion",
+            "columnName": "condicion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "departamento",
+            "columnName": "departamento",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "direccion",
+            "columnName": "direccion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distrito",
+            "columnName": "distrito",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dpto",
+            "columnName": "dpto",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "interior",
+            "columnName": "interior",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kilometro",
+            "columnName": "kilometro",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lote",
+            "columnName": "lote",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "manzana",
+            "columnName": "manzana",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numeroDocumento",
+            "columnName": "numeroDocumento",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "provincia",
+            "columnName": "provincia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoDocumento",
+            "columnName": "tipoDocumento",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ubigeo",
+            "columnName": "ubigeo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "viaNombre",
+            "columnName": "viaNombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "viaTipo",
+            "columnName": "viaTipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zonaCodigo",
+            "columnName": "zonaCodigo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zonaTipo",
+            "columnName": "zonaTipo",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "numero"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SocioNuevoAwait",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CardCode` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `BillToDef` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CardType` TEXT NOT NULL, `Cellular` TEXT NOT NULL, `CreditLine` REAL NOT NULL, `CreditLineFC` REAL NOT NULL, `Currency` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `GroupCode` INTEGER NOT NULL, `GroupNum` INTEGER NOT NULL, `Indicator` TEXT NOT NULL, `IntrntSite` TEXT NOT NULL, `LicTradNum` TEXT NOT NULL, `ListNum` INTEGER NOT NULL, `OwnerCode` INTEGER NOT NULL, `Phone1` TEXT NOT NULL, `Phone2` TEXT NOT NULL, `ProjectCod` TEXT NOT NULL, `Series` INTEGER NOT NULL, `ShipToDef` TEXT NOT NULL, `SlpCode` INTEGER NOT NULL, `U_MSV_CP_ACTECO` TEXT NOT NULL, `U_MSV_CP_ACTECO2` TEXT NOT NULL, `U_MSV_CP_ACTECO3` TEXT NOT NULL, `U_MSV_CP_ACTIV` TEXT NOT NULL, `U_MSV_CP_AGPER` TEXT NOT NULL, `U_MSV_CP_AGRET` TEXT NOT NULL, `U_MSV_CP_BNCON` TEXT NOT NULL, `U_MSV_CP_CONSULT` TEXT NOT NULL, `U_MSV_CP_FECCON` TEXT NOT NULL, `U_MSV_CP_HABID` TEXT NOT NULL, `U_MSV_CP_PSCNG` TEXT NOT NULL, `U_MSV_LO_APELMAT` TEXT NOT NULL, `U_MSV_LO_APELPAT` TEXT NOT NULL, `U_MSV_LO_PRIMNOM` TEXT NOT NULL, `U_MSV_LO_SEGUNOM` TEXT NOT NULL, `U_MSV_LO_TIPODOC` TEXT NOT NULL, `U_MSV_LO_TIPOPER` TEXT NOT NULL, PRIMARY KEY(`CardCode`))",
+        "fields": [
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccAction",
+            "columnName": "AccAction",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateDate",
+            "columnName": "AccCreateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateHour",
+            "columnName": "AccCreateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateUser",
+            "columnName": "AccCreateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccDocEntry",
+            "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccError",
+            "columnName": "AccError",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccFinalized",
+            "columnName": "AccFinalized",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccLocked",
+            "columnName": "AccLocked",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMigrated",
+            "columnName": "AccMigrated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMovil",
+            "columnName": "AccMovil",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateDate",
+            "columnName": "AccUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateHour",
+            "columnName": "AccUpdateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateUser",
+            "columnName": "AccUpdateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "BillToDef",
+            "columnName": "BillToDef",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardName",
+            "columnName": "CardName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardType",
+            "columnName": "CardType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Cellular",
+            "columnName": "Cellular",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CreditLine",
+            "columnName": "CreditLine",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CreditLineFC",
+            "columnName": "CreditLineFC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Currency",
+            "columnName": "Currency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GroupCode",
+            "columnName": "GroupCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "GroupNum",
+            "columnName": "GroupNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Indicator",
+            "columnName": "Indicator",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IntrntSite",
+            "columnName": "IntrntSite",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LicTradNum",
+            "columnName": "LicTradNum",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ListNum",
+            "columnName": "ListNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "OwnerCode",
+            "columnName": "OwnerCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Phone1",
+            "columnName": "Phone1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Phone2",
+            "columnName": "Phone2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ProjectCod",
+            "columnName": "ProjectCod",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Series",
+            "columnName": "Series",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ShipToDef",
+            "columnName": "ShipToDef",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SlpCode",
+            "columnName": "SlpCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_ACTECO",
+            "columnName": "U_MSV_CP_ACTECO",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_ACTECO2",
+            "columnName": "U_MSV_CP_ACTECO2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_ACTECO3",
+            "columnName": "U_MSV_CP_ACTECO3",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_ACTIV",
+            "columnName": "U_MSV_CP_ACTIV",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_AGPER",
+            "columnName": "U_MSV_CP_AGPER",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_AGRET",
+            "columnName": "U_MSV_CP_AGRET",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_BNCON",
+            "columnName": "U_MSV_CP_BNCON",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_CONSULT",
+            "columnName": "U_MSV_CP_CONSULT",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_FECCON",
+            "columnName": "U_MSV_CP_FECCON",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_HABID",
+            "columnName": "U_MSV_CP_HABID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_PSCNG",
+            "columnName": "U_MSV_CP_PSCNG",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_APELMAT",
+            "columnName": "U_MSV_LO_APELMAT",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_APELPAT",
+            "columnName": "U_MSV_LO_APELPAT",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_PRIMNOM",
+            "columnName": "U_MSV_LO_PRIMNOM",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_SEGUNOM",
+            "columnName": "U_MSV_LO_SEGUNOM",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_TIPODOC",
+            "columnName": "U_MSV_LO_TIPODOC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_LO_TIPOPER",
+            "columnName": "U_MSV_LO_TIPOPER",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "CardCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "GeneralMonedas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CurrCode` TEXT NOT NULL, `CurrName` TEXT NOT NULL, `ISOCurrCod` TEXT NOT NULL, PRIMARY KEY(`CurrCode`))",
+        "fields": [
+          {
+            "fieldPath": "CurrCode",
+            "columnName": "CurrCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CurrName",
+            "columnName": "CurrName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ISOCurrCod",
+            "columnName": "ISOCurrCod",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "CurrCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1395be0d9d0824075ca7fc9a6ca69d7a')"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+package com.mobile.massiveapp.domain.sociouc.direcciones
+
+import com.mobile.massiveapp.data.repositories.SocioDireccionesRepository
+import com.mobile.massiveapp.domain.model.DoSocioDirecciones
+import timber.log.Timber
+import javax.inject.Inject
+
+class GetDireccionPorCardCodeTipoYLineNumUseCase @Inject constructor(
+    private val repository: SocioDireccionesRepository
+) {
+    suspend operator fun invoke(cardCode: String, tipo: String, lineNum: Int) =
+        try {
+            repository.getDireccionPorCardCodeTipoYLineNum(cardCode, tipo, lineNum)
+        } catch (e: Exception) {
+            Timber.e(e, "Error al obtener una direccion por cardCode, tipo y LineNum")
+            DoSocioDirecciones()
+        }
+
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <layer-list>
+            <!-- Fondo del botón cuando está seleccionado -->
+            <item android:top="-2dp" android:left="-2dp" android:right="-2dp">
+                <shape>
+                    <solid android:color="@color/color_white" /> <!-- Cambia el color del borde inferior -->
+                </shape>
+            </item>
+            <!-- Fondo original del botón -->
+            <item>
+                <shape>
+                    <solid android:color="@android:color/transparent" /> <!-- Cambia el color de fondo del botón -->
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="@color/color_black_transparent" /> <!-- Cambia el color de fondo del botón cuando no está seleccionado -->
+        </shape>
+    </item>
+</selector>
+

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/default_container_recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/txvFacturaImporteAPagar"
+        style="@style/default_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+
+        app:layout_constraintEnd_toStartOf="@+id/imvArrow36"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Importe" />
+
+    <TextView
+        android:id="@+id/txvFacturasCardName"
+        style="@style/default_title_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/txvFacturasMoneda"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="CardName" />
+
+    <TextView
+        android:id="@+id/txvFacturasItemFolio"
+        style="@style/default_text"
+        android:background="@color/color_blue_lighter"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvFacturasCardName"
+        tools:text="Folio" />
+
+    <TextView
+        android:id="@+id/txvFacturasMoneda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:textAlignment="textStart"
+        style="@style/default_text"
+        app:layout_constraintEnd_toStartOf="@+id/txvFacturaImporteAPagar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Total" />
+
+    <TextView
+        android:id="@+id/txvFacturasMonedaPaidTodDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        style="@style/default_text"
+        android:textColor="@color/color_red"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toStartOf="@+id/txvFacturaImporteAPagar"
+        app:layout_constraintTop_toBottomOf="@+id/txvFacturasMoneda"
+        android:text="Saldo" />
+
+    <TextView
+        android:id="@+id/txvFacturaImportePaidToDate"
+        style="@style/default_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/color_red"
+        app:layout_constraintEnd_toStartOf="@+id/imvArrow36"
+        app:layout_constraintTop_toBottomOf="@+id/txvFacturaImporteAPagar"
+        tools:text="Saldo" />
+
+    <TextView
+        android:id="@+id/txvFacturaFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        tools:text="Fecha"
+        style="@style/default_text"
+        app:layout_constraintStart_toEndOf="@+id/txvFacturasItemFolio"
+        app:layout_constraintTop_toBottomOf="@+id/txvFacturasCardName" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/txvFacturaCur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        style="@style/default_text"
+        tools:text="Cur"
+        app:layout_constraintStart_toEndOf="@+id/txvFacturaFecha"
+        app:layout_constraintTop_toBottomOf="@+id/txvFacturasCardName" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/imvArrow36"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/icon_arroy_enter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/icon_arroy_enter" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

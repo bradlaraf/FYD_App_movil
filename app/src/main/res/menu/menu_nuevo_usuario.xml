@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_general"
+        android:icon="@drawable/icon_info_circle"
+        android:title="General" />
+    <item
+        android:id="@+id/navigation_grupo_socios"
+        android:icon="@drawable/icon_socio_negocio"
+        android:title="G.Socios" />
+    <item
+        android:id="@+id/navigation_zona"
+        android:icon="@drawable/icon_ubicacion"
+        android:title="Zona" />
+    <item
+        android:id="@+id/navigation_grupo_articulos"
+        android:icon="@drawable/icon_articulos"
+        android:title="G.Inventario" />
+
+    <item
+        android:id="@+id/navigation_almacen"
+        android:icon="@drawable/icon_almacen"
+        android:title="Almacen" />
+
+    <item
+        android:id="@+id/navigation_lista_precio"
+        android:icon="@drawable/icon_money"
+        android:title="L.Precio" />
+
+</menu>

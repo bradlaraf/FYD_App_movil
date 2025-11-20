@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "70173894079",
+    "project_id": "massive-app-9db37",
+    "storage_bucket": "massive-app-9db37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70173894079:android:6efa11c7185a361c886d0a",
+        "android_client_info": {
+          "package_name": "com.mobile.massiveapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOvWcACvSVK_5QVbVNsq5688LwNGvmJjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

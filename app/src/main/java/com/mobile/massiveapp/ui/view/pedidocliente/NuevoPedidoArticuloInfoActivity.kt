@@ -1,0 +1,592 @@
+package com.mobile.massiveapp.ui.view.pedidocliente
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import com.mobile.massiveapp.MassiveApp.Companion.prefsPedido
+import com.mobile.massiveapp.R
+import com.mobile.massiveapp.databinding.ActivityNuevoPedidoArticuloInfoBinding
+import com.mobile.massiveapp.domain.model.DoArticuloListaPrecios
+import com.mobile.massiveapp.domain.model.DoArticuloPedidoInfo
+import com.mobile.massiveapp.domain.model.DoUsuario
+import com.mobile.massiveapp.ui.base.BaseBottomSheetCustomDialog
+import com.mobile.massiveapp.ui.base.BaseDialogChecklistWithId
+import com.mobile.massiveapp.ui.base.BaseDialogEdtWithTypeEdt
+import com.mobile.massiveapp.ui.view.util.agregarDetalleDePedido
+import com.mobile.massiveapp.ui.view.util.format
+import com.mobile.massiveapp.ui.view.util.getFechaActual
+import com.mobile.massiveapp.ui.view.util.getHoraActual
+import com.mobile.massiveapp.ui.view.util.observeOnce
+import com.mobile.massiveapp.ui.viewmodel.ArticuloViewModel
+import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
+import com.mobile.massiveapp.ui.viewmodel.PedidoViewModel
+import com.mobile.massiveapp.ui.viewmodel.SocioViewModel
+import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
+import dagger.hilt.android.AndroidEntryPoint
+
+
+@AndroidEntryPoint
+class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityNuevoPedidoArticuloInfoBinding
+    private val articuloViewModel: ArticuloViewModel by viewModels()
+    private val pedidoViewModel: PedidoViewModel by viewModels()
+    private val generalViewModel: GeneralViewModel by viewModels()
+    private val usuarioViewModel: UsuarioViewModel by viewModels()
+    private val socioViewModel: SocioViewModel by viewModels()
+    private var accDocEntry: String = ""
+    private var itemCode: String = ""
+    private var hashInfo = HashMap<String, Any>()
+    private var usuario = DoUsuario()
+    private val LISTA_MAYORISTA = 2
+    private val LISTA_COBERTURA = 1
+    private val CANTIDAD_DEFAULT = 1
+    private val PORCENTAJE_DESCUENTO = 0.0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityNuevoPedidoArticuloInfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+        setValoresIniciales()
+        setDefaultUi()
+
+        getInfoArticuloLiveData()
+
+
+            //EDICION ARTICULO - Get Pedido Info
+        if (intent.getBooleanExtra("edicionDetalle", false)){
+            pedidoViewModel.getPedidoDetalleInfo(
+                accDocEntry = intent.getStringExtra("accDocEntry").toString(),
+                lineNum = intent.getIntExtra("lineNum", -1)
+            )
+        } else{
+            setValoresInicialesNuevoDetalle()
+        }
+
+        //LiveData del pedido Detalle
+        pedidoViewModel.dataGetPedidoDetalleInfo.observe(this){ detalleInfo->
+            itemCode = detalleInfo.ItemCode
+
+            binding.txvNPArtInfoArticuloValue.text = detalleInfo.ItemCode
+            binding.txvNpArtInfoDescripcionValue.text = detalleInfo.ItemName
+            binding.txvNpArtInfoGrupoUnidadMedidaValue.text = detalleInfo.UgpName   //Grupo unidad medida
+            binding.txvNpArtInfoUnidadMedidaValue.text = detalleInfo.UomName        //Unidad medida
+            binding.txvNpArtInfoPrecioUnitarioValue.text = detalleInfo.Price.toString()
+            binding.txvNpArtInfoPrecioBrutoValue.text = detalleInfo.Price.toString()
+            binding.txvNpArtInfoTotalValue.text = detalleInfo.LineTotal.toString()
+            binding.txvNpArtInfoCantidadValue.text = "${detalleInfo.Quantity.toInt()}"
+            binding.txvNpArtInfoAlmacenValue.text = detalleInfo.Almacen
+            binding.txvNpArtInfoListaPreciosValue.text = detalleInfo.ListaPrecio
+            binding.txvNpArtInfoImpuestoValue.text = detalleInfo.Impuesto
+            binding.txvNpArtInfoPorcentajeDescuentoValue.text = PORCENTAJE_DESCUENTO.toString()
+
+            hashInfo["codigoImpuesto"] = detalleInfo.TaxCode
+            hashInfo["listaPrecioCodigo"] = detalleInfo.PriceList
+            hashInfo["codigoAlmacen"] = detalleInfo.WhsCode
+            hashInfo["uomEntry"] = detalleInfo.UomEntry
+            hashInfo["uomCode"] = detalleInfo.UomCode
+        }
+
+
+        //LiveData del ARTICULO INFO
+        articuloViewModel.dataGetArticuloPedidoInfo.observe(this){ articuloSeleccionado ->
+            try {
+                llenarDatosDelArticulo(articuloSeleccionado)
+                hashInfo["uomEntry"] = articuloSeleccionado.UomEntry
+
+                //Se trae el precio
+                pedidoViewModel.getUnidadMedidaYEquivalencia(
+                    articuloSeleccionado.ItemCode,
+                    binding.txvNpArtInfoUnidadMedidaValue.text.toString(),  //UomName
+                    hashInfo["listaPrecioCodigo"] as Int
+                )
+
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error: $e", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+        //LiveData Cantidad
+        /*articuloViewModel.dataGetArticuloCantidadPedido.observe(this){
+            BaseDialogEdtWithTypeEdt(
+                tipo = "phone",
+                textEditable = binding.txvNpArtInfoCantidadValue.text.toString()
+                *//*unidadMedida =  binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
+                maxNumber =     it.toDouble(),
+                textEditable =  binding.txvNpArtInfoCantidadValue.text.toString()*//*
+            ){ cantidad->
+                if (cantidad.isNotEmpty()){
+                    binding.txvNpArtInfoCantidadValue.text = cantidad
+                    val precio = binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble()
+                    setTotalValue(precio)
+                }
+            }.show(supportFragmentManager, "cantidad")
+        }*/
+
+
+
+        //LiveData PrecioFinal por UM y ListaPrecio
+        pedidoViewModel.dataGetUnidadMedidaYEquivalencia.observe(this){
+            try {
+                hashInfo["uomEntry"] = it.UomEntry
+                setTotalValue(it.PrecioFinal)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+
+    }
+
+    private fun getInfoArticuloLiveData() {
+        articuloViewModel.dataGetArticuloCantidadesPorItemCodeYWhsCode.observe(this){ cantidadesArticulo->
+            articuloViewModel.dataGetAllArticuloPreciosPorItemCode.observeOnce(this){ listaPrecios->
+                try {
+                    var lista: List<HashMap<String, Pair<Int, String>>> = emptyList()
+                    if (listaPrecios.isNotEmpty()){
+                        lista = listOf(
+                            hashMapOf("Descripción" to Pair(R.drawable.icon_description, binding.txvNpArtInfoDescripcionValue.text.toString())),
+                            hashMapOf("Stock" to Pair(R.drawable.icon_inventario, cantidadesArticulo.OnHand.format(2).toString())),
+                            hashMapOf("Comprometido" to Pair(R.drawable.icon_comprometido, cantidadesArticulo.OnHand.format(2).toString())),
+                            hashMapOf("Solicitado" to Pair(R.drawable.icon_solicitado, cantidadesArticulo.OnOrder.toString())),
+                            hashMapOf("Disponible" to Pair(R.drawable.icon_disponible, "${cantidadesArticulo.OnHand - cantidadesArticulo.IsCommited + cantidadesArticulo.OnOrder}")),
+                            hashMapOf(listaPrecios[0].ListName to Pair(R.drawable.icon_number_one, listaPrecios[0].Price.toString())),
+                            hashMapOf(listaPrecios[1].ListName to Pair(R.drawable.icon_number_two, listaPrecios[1].Price.toString()))
+                        )
+
+                    } else {
+                        lista = listOf(
+                            hashMapOf("Descripción" to Pair(R.drawable.icon_description, binding.txvNpArtInfoDescripcionValue.text.toString())),
+                            hashMapOf("Stock" to Pair(R.drawable.icon_inventario, cantidadesArticulo.OnHand.format(2).toString())),
+                            hashMapOf("Comprometido" to Pair(R.drawable.icon_comprometido, cantidadesArticulo.OnHand.format(2).toString())),
+                            hashMapOf("Solicitado" to Pair(R.drawable.icon_solicitado, cantidadesArticulo.OnOrder.toString())),
+                            hashMapOf("Disponible" to Pair(R.drawable.icon_disponible, "${cantidadesArticulo.OnHand - cantidadesArticulo.IsCommited + cantidadesArticulo.OnOrder}")))
+                    }
+                    mostrarBottomDialog(lista)
+                } catch (e:Exception){
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+
+    fun mostrarBottomDialog(listaElementos: List<HashMap<String, Pair<Int, String>>>){
+        BaseBottomSheetCustomDialog(
+            R.drawable.icon_inventario,
+            this,
+            "Código: ",
+            binding.txvNPArtInfoArticuloValue.text.toString()
+        ).showBottomSheetDialog(
+            listaElementos
+        )
+    }
+
+
+    private fun setValoresInicialesNuevoDetalle() {
+
+        //Set CANTIDAD
+        binding.txvNpArtInfoCantidadValue.text = "$CANTIDAD_DEFAULT"
+
+
+        //Set IMPUESTO - IMPUESTO EXONERADO
+        generalViewModel.getImpuestoDefault()
+        generalViewModel.dataGetImpuestoDefault.observe(this){ impuestoDefault->
+            try {
+                binding.txvNpArtInfoImpuestoValue.text = impuestoDefault.Name
+            } catch (e: Exception) {
+                Toast.makeText(this, "No se pudo obtener el impuesto", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        //Get DATOS DEL USUARIO
+        usuarioViewModel.getUsuarioFromDatabase()
+        usuarioViewModel.dataGetUsuarioFromDatabase.observe(this){
+            try {
+                this.usuario = it
+                hashInfo["codigoUsuario"] = it.Code
+                hashInfo["codigoAlmacen"] = it.DefaultWarehouse
+                hashInfo["codigoImpuesto"] = it.DefaultTaxCode
+                /*hashInfo["listaPrecioCodigo"] = it.DefaultPriceList*/
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        //Lista Precio Default Cliente
+        socioViewModel.getSocioNegocioPorCardCode(prefsPedido.getCardName())
+        socioViewModel.dataSocioNegocioPorCardCode.observe(this){ socio->
+            hashInfo["listaPrecioCodigo"] = socio.ListNum
+        }
+
+        //Set ALMACENES
+        articuloViewModel.getAllArticuloAlmacenes()
+        articuloViewModel.dataGetAllArticuloAlmacenes.observe(this) { almacenes ->
+            try {
+                binding.txvNpArtInfoAlmacenValue.text = almacenes.filter { it.WhsCode == usuario.DefaultWarehouse }.firstOrNull()?.WhsName?:"--"
+                hashInfo["codigoAlmacen"] = usuario.DefaultWarehouse
+            } catch (e: Exception) {
+                Toast.makeText(this, "No se pudo obtener los almacenes", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
+            }
+
+        }
+
+
+        //Set LISTA DE PRECIOS
+        articuloViewModel.getAllArticuloListaPrecios()
+        articuloViewModel.dataGetAllArticuloListaPrecios.observe(this){ listasPrecio->
+            try {
+                socioViewModel.getSocioNegocioPorCardCode(prefsPedido.getCardName())
+                socioViewModel.dataSocioNegocioPorCardCode.observeOnce(this){ socio->
+                    binding.txvNpArtInfoListaPreciosValue.text = listasPrecio.filter {
+                        it.ListNum == 1
+                    }.firstOrNull()?.ListName?:"--"
+                }
+
+                /*hashInfo["listaPrecioCodigo"] = listasPrecio.firstOrNull()?.ListNum?:0*/
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        //Set IMPUESTO - IMPUESTO EXONERADO
+        generalViewModel.getImpuestoDefault()
+        generalViewModel.dataGetImpuestoDefault.observe(this){ impuestoDefault->
+            try {
+                binding.txvNpArtInfoImpuestoValue.text = impuestoDefault.Name
+            } catch (e: Exception) {
+                Toast.makeText(this, "No se pudo obtener el impuesto", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+
+    }
+
+    private fun setValoresIniciales() {
+        accDocEntry = intent.getStringExtra("accDocEntry").toString()
+
+        //Get DATOS DEL USUARIO
+        usuarioViewModel.getUsuarioFromDatabase()
+        usuarioViewModel.dataGetUsuarioFromDatabase.observe(this){
+            try {
+                this.usuario = it
+                hashInfo["codigoUsuario"] = it.Code
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+
+    }
+
+    private fun setDefaultUi() {
+
+        //Click SELECCIONAR ARTICULO
+        binding.clNPArtInfoArticulo.setOnClickListener {
+            startForArticuloSeleccionadoResult.launch(
+                Intent(this, SeleccionarArticuloActivity::class.java)
+            )
+        }
+
+
+        //Set UNIDAD DE MEDIDA
+        binding.clNpArtInfoUnidadMedida.setOnClickListener {
+            pedidoViewModel.getAllUnidadesDeMedidaPorGrupoUnidadDeMedida(
+                binding.txvNPArtInfoArticuloValue.text.toString()
+            )
+        }
+
+        pedidoViewModel.dataGetAllUnidadesDeMedidaPorItemCode.observe(this) { unidadesDeMedida->
+            BaseDialogChecklistWithId(
+                binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
+                unidadesDeMedida.map { it.UomName }
+            ) { unidadMedidaSeleccionada, id ->
+
+                if (unidadMedidaSeleccionada.isNotEmpty()) {
+                    binding.txvNpArtInfoUnidadMedidaValue.text = unidadMedidaSeleccionada
+
+                    pedidoViewModel.getUnidadMedidaYEquivalencia(
+                        itemCode =      binding.txvNPArtInfoArticuloValue.text.toString(),
+                        unidadMedida =  unidadMedidaSeleccionada,
+                        listNum =       hashInfo["listaPrecioCodigo"] as Int
+                    )
+                }
+            }.show(supportFragmentManager, "unidadMedida")
+        }
+
+
+        //Set ALMACENES
+        binding.clNpArtInfoAlmacen.setOnClickListener {
+            articuloViewModel.getAllArticuloAlmacenes()
+            articuloViewModel.dataGetAllArticuloAlmacenes.observeOnce(this) { almacenes ->
+                BaseDialogChecklistWithId(
+                    binding.txvNpArtInfoAlmacenValue.text.toString(),
+                    almacenes.map { it.WhsName }
+                ){ almacenSeleccionado, id ->
+                    if (almacenSeleccionado.isNotEmpty()){
+                        binding.txvNpArtInfoAlmacenValue.text = almacenSeleccionado
+                        hashInfo["codigoAlmacen"] = almacenes[id].WhsCode
+                        articuloViewModel.getArticuloCantidadesPorItemCodeYWhsCode(
+                            itemCode = itemCode,
+                            whsCode = almacenes[id].WhsCode
+                        )
+                    }
+                }.show(supportFragmentManager, "almacenes")
+            }
+        }
+
+
+        //Set LISTA DE PRECIOS
+        binding.clNpArtInfoListaPrecios.setOnClickListener {
+
+            articuloViewModel.getAllArticuloListaPrecios()
+            articuloViewModel.dataGetAllArticuloListaPrecios.observeOnce(this){ listasPrecio->
+                //Lista Mayorista = 2
+                //Lista Cobertura = 1
+                try {
+                    if (usuario.CanEditPrice == "N"){
+                        throw Exception("No tiene permisos para editar el precio")
+                    }
+                    if(usuario.DefaultPriceList == LISTA_MAYORISTA){
+                        showListaPrecioDialog(listasPrecio)
+                    } else {
+                        /*if(hashInfo["listaPrecioCodigo"] as Int == LISTA_MAYORISTA) {
+                            showListaPrecioDialog(listasPrecio)
+                        } else {
+
+                        }*/
+                        throw Exception("No puede editar el precio")
+                    }
+
+
+
+
+                } catch (e: Exception) {
+                    Toast.makeText(this, "${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        //Set Cantidad
+        binding.clNpArtInfoCantidad.setOnClickListener {
+            try {
+                if (binding.txvNpArtInfoGrupoUnidadMedidaValue.text.isEmpty()){
+                    throw Exception("Debe seleccionar un articulo")
+                }
+
+                BaseDialogEdtWithTypeEdt(
+                    tipo = "phone",
+                    textEditable = binding.txvNpArtInfoCantidadValue.text.toString()
+                ){ cantidad->
+                    if (cantidad.isNotEmpty()){
+                        binding.txvNpArtInfoCantidadValue.text = cantidad
+                        val precio = binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble()
+                        setTotalValue(precio)
+                    }
+                }.show(supportFragmentManager, "cantidad")
+
+                /*articuloViewModel.getArticuloCantidadPedido(
+                    itemCode,
+                    binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
+                    hashInfo["codigoAlmacen"] as String
+                )*/
+
+            } catch (e:Exception){
+                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun showListaPrecioDialog(listasPrecio: List<DoArticuloListaPrecios>) {
+        BaseDialogChecklistWithId(
+            binding.txvNpArtInfoListaPreciosValue.text.toString(),
+            listasPrecio.map { it.ListName }
+        ){ listaSeleccionada, id->
+            if (listaSeleccionada.isNotEmpty()){
+                binding.txvNpArtInfoListaPreciosValue.text = listaSeleccionada
+                hashInfo["listaPrecioCodigo"] = listasPrecio[id].ListNum
+
+                pedidoViewModel.getUnidadMedidaYEquivalencia(
+                    itemCode,
+                    binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
+                    hashInfo["listaPrecioCodigo"] as Int
+                )
+            }
+        }.show(supportFragmentManager, "listaPrecios")
+    }
+
+
+    fun llenarDatosDelArticulo(articuloSeleccionado: DoArticuloPedidoInfo) {
+        binding.txvNPArtInfoArticuloValue.text = articuloSeleccionado.ItemCode                  //codigo
+        binding.txvNpArtInfoDescripcionValue.text = articuloSeleccionado.ItemName               //descripcion
+        binding.txvNpArtInfoGrupoUnidadMedidaValue.text = articuloSeleccionado.UgpName          //grupo de unidad de medida
+        binding.txvNpArtInfoPorcentajeDescuentoValue.text = "0.00"                              //descuento
+        binding.txvNpArtInfoCantidadValue.text = "$CANTIDAD_DEFAULT"                            //cantidad
+        binding.txvNpArtInfoUnidadMedidaValue.text = articuloSeleccionado.UomName               //unidad de medida
+
+        val isManual = articuloSeleccionado.UgpName == "MANUAL"
+        binding.clNpArtInfoUnidadMedida.isClickable = !isManual
+        binding.imvUnidadMedida.isVisible = !isManual
+
+        hashInfo["uomCode"] = articuloSeleccionado.UomCode
+    }
+
+
+
+    fun setTotalValue(precioUnitario: Double){
+        val newPrecio = precioUnitario.format(2)
+        val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toDouble().format(2)
+        val total = (cantidad * newPrecio).format(2)
+        val newTotal = total.format(2)
+        binding.txvNpArtInfoTotalValue.text = newTotal.toString()
+        binding.txvNpArtInfoPrecioUnitarioValue.text = newPrecio.toString()    //precio unitario
+        binding.txvNpArtInfoPrecioBrutoValue.text = newPrecio.toString()       //precio bruto
+    }
+
+
+
+
+
+
+
+
+
+
+        //Resultado del Articulo seleccionado
+    val startForArticuloSeleccionadoResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result->
+        if (result.resultCode.equals(RESULT_OK)){
+            val data = result.data
+            val itemCodeArticuloSeleccionado = data?.getStringExtra("itemCodeArticulo")
+            if (!itemCodeArticuloSeleccionado.isNullOrEmpty()){
+                articuloViewModel.getArticuloPedidoInfo(itemCodeArticuloSeleccionado)
+                itemCode = itemCodeArticuloSeleccionado
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*----------------BARRA DE TITULO - NAV -------------------*/
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent()
+        intent.putExtra("articuloAgregado", true)
+        intent.putExtra("accDocEntry",accDocEntry)
+        intent.putExtra("editMode", true)
+        setResult(RESULT_OK, intent)
+
+        super.onBackPressed()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_nuevo_sn, menu)
+
+            //Se oculta el icono que indica si hay conexión o no
+        val item = menu?.findItem(R.id.app_bar_connectivity_status)
+        item?.setIcon(R.drawable.icon_info_circle)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.app_bar_connectivity_status -> {
+                if (binding.txvNPArtInfoArticuloValue.text.toString().isNotEmpty()){
+                    articuloViewModel.getArticuloCantidadesPorItemCodeYWhsCode(
+                        itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
+                        whsCode = hashInfo["codigoAlmacen"] as String
+                    )
+                } else {
+                    Toast.makeText(this, "Debe seleccionar un articulo", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            R.id.app_bar_check -> {
+                try {
+                    val cantidadPedidos =
+                        if (intent.getIntExtra("lineNum", -1) >= 1000){
+                            intent.getIntExtra("lineNum", -1) - 1000
+                        } else {
+                            intent.getIntExtra("lineNum", -1)
+                        }
+
+                    if (cantidadPedidos >= prefsPedido.getMaximoLineas()){
+                        throw Exception("Cantidad máxima de lineas para pedido")
+                    }
+
+                    if (binding.txvNPArtInfoArticuloValue.text.toString().isEmpty()) {
+                        throw Exception("Debe seleccionar un articulo")
+                    }
+
+                    if ((binding.txvNpArtInfoCantidadValue.text.trim().toString().toIntOrNull()?: 0) <= 0) {
+                        throw Exception("La cantidad debe ser mayor a 0")
+                    }
+
+                    pedidoViewModel.savePedidoDetalle(
+                        agregarDetalleDePedido(
+                            usuario =               usuario.Code,
+                            accDocEntry =           accDocEntry,
+                            codigo =                binding.txvNPArtInfoArticuloValue.text.toString(),
+                            nombre =                binding.txvNpArtInfoDescripcionValue.text.toString().replace("\n", " "),
+                            unidadMedida =          binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
+                            cantidad =              binding.txvNpArtInfoCantidadValue.text.toString().trim().toDouble(),
+                            grupoUM =               hashInfo["uomCode"] as String,
+                            precio =                binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble(),
+                            precioBruto =           binding.txvNpArtInfoPrecioBrutoValue.text.toString().toDouble(),
+                            porcentajeDescuento =   binding.txvNpArtInfoPorcentajeDescuentoValue.text.toString().toDouble(),
+                            total =                 binding.txvNpArtInfoTotalValue.text.toString().toDouble(),
+                            lineNum =               intent.getIntExtra("lineNum", -1),
+                            fechaActual =           getFechaActual(),
+                            horaActual =            getHoraActual(),
+                            impuesto =              0.0,
+                            codigoImpuesto =        hashInfo["codigoImpuesto"] as String,
+                            listaPrecios =          hashInfo["listaPrecioCodigo"] as Int,
+                            codigoAlmacen =         hashInfo["codigoAlmacen"] as String,
+                            uomEntry =              hashInfo["uomEntry"] as Int,
+                        )
+                    )
+
+                    pedidoViewModel.dataSavePedidoDetalle.observe(this){ result->
+                        if (result){
+                            onBackPressed()
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+}

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_drawer_inicio"
+            android:icon="@drawable/icon_home"
+            android:title="Inicio"/>
+
+        <item
+            android:id="@+id/nav_drawer_socios"
+            android:icon="@drawable/icon_socio_negocio"
+            android:title="Clientes"/>
+
+        <item
+            android:id="@+id/nav_drawer_inventario"
+            android:icon="@drawable/icon_inventario"
+            android:title="Inventario"/>
+
+        <item
+            android:id="@+id/nav_drawer_facturas"
+            android:icon="@drawable/icon_total_cobranzas"
+            android:title="Facturas"/>
+
+        <item
+            android:id="@+id/nav_drawer_pedidos_cliente"
+            android:icon="@drawable/icon_entregas"
+            android:title="Pedidos"/>
+
+        <item
+            android:id="@+id/nav_drawer_cobranzas"
+            android:icon="@drawable/icon_pedidos_clientes"
+            android:title="Cobranzas"/>
+
+        <item
+            android:id="@+id/nav_drawer_reportes"
+            android:icon="@drawable/icon_informes"
+            android:title="Reportes"/>
+    </group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/group_usuarios"
+        android:visible="false"
+        >
+
+        <item
+            android:title="Gestion de Usuarios">
+            <menu>
+
+                <item
+                    android:id="@+id/nav_drawer_usuarios"
+                    android:icon="@drawable/icon_user"
+                    android:title="Usuarios"/>
+
+                <item
+                    android:visible="false"
+                    android:id="@+id/nav_drawer_reset_id_movil"
+                    android:icon="@drawable/icon_reset"
+                    android:title="Reset Id Movil"/>
+
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:title="Sincronización de Datos">
+            <menu>
+
+                <item
+                    android:visible="false"
+                    android:id="@+id/nav_drawer_sincronizar_usuarios"
+                    android:icon="@drawable/icon_sincronizar"
+                    android:title="Sincronizar Usuarios"/>
+
+                <item
+                    android:id="@+id/nav_drawer_sincronizar_maestros"
+                    android:icon="@drawable/icon_sincronizar"
+                    android:title="Sincronizar Maestros"/>
+
+
+                <item
+                    android:id="@+id/nav_drawer_sincronizar_socios"
+                    android:icon="@drawable/icon_sincronizar"
+                    android:title="Sincronizar Clientes"/>
+
+                <item
+                    android:id="@+id/nav_drawer_sincronizar_inventario"
+                    android:icon="@drawable/icon_sincronizar"
+                    android:title="Sincronizar Inventario"/>
+
+
+                <item
+                    android:id="@+id/nav_drawer_sincronizar_documentos"
+                    android:icon="@drawable/icon_sincronizar"
+                    android:title="Sincronizar Documentos"/>
+
+
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/group_configuracion">
+
+        <item
+            android:title="Otros">
+            <menu>
+                <item
+                    android:id="@+id/nav_drawer_info_tablas"
+                    android:icon="@drawable/icon_info_circle"
+                    android:title="Información Tablas"/>
+
+                <item
+                    android:id="@+id/nav_drawer_log"
+                    android:icon="@drawable/icon_log"
+                    android:title="Log de errores"/>
+
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:title="Configuración">
+            <menu>
+                <item
+                    android:id="@+id/nav_drawer_configuracion"
+                    android:icon="@drawable/icon_config"
+                    android:title="Configuración"/>
+
+                <item
+                    android:id="@+id/nav_drawer_cerrar_sesion"
+                    android:icon="@drawable/icon_cerrar_sesion"
+                    android:title="Cerrar Sesión"/>
+
+            </menu>
+        </item>
+    </group>
+
+</menu>

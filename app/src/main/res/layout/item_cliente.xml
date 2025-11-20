@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_1"
+    android:padding="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginHorizontal="5dp">
+
+    <TextView
+        android:id="@+id/txvCardName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:textColor="@color/color_white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="CardName"
+        app:layout_constraintStart_toEndOf="@+id/imvCliente"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txvCardCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_black"
+        android:layout_marginStart="80dp"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:layout_marginTop="5dp"
+        tools:text="CardCode"
+        app:layout_constraintStart_toEndOf="@+id/imvCliente"
+        app:layout_constraintTop_toBottomOf="@+id/txvCardName" />
+
+    <ImageView
+        android:id="@+id/imvCliente"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        tools:srcCompat="@drawable/icon_contact"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

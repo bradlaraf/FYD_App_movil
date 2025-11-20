@@ -1,0 +1,156 @@
+package com.mobile.massiveapp.data.database.entities
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.mobile.massiveapp.data.model.ClientePagos
+
+@Entity(tableName = "ClientePagos")
+data class ClientePagosEntity(
+    @PrimaryKey
+    @ColumnInfo(name = "AccDocEntry") val AccDocEntry: String,
+    @ColumnInfo(name = "AccAction") val AccAction: String,
+    @ColumnInfo(name = "AccCreateDate") val AccCreateDate: String,
+    @ColumnInfo(name = "AccCreateHour") val AccCreateHour: String,
+    @ColumnInfo(name = "AccCreateUser") val AccCreateUser: String,
+    @ColumnInfo(name = "AccNotificado") val AccNotificado: String,
+    @ColumnInfo(name = "AccError") val AccError: String,
+    @ColumnInfo(name = "AccFinalized") val AccFinalized: String,
+    @ColumnInfo(name = "AccMigrated") val AccMigrated: String,
+    @ColumnInfo(name = "AccMovil") val AccMovil: String,
+    @ColumnInfo(name = "AccUpdateDate") val AccUpdateDate: String,
+    @ColumnInfo(name = "AccUpdateHour") val AccUpdateHour: String,
+    @ColumnInfo(name = "AccUpdateUser") val AccUpdateUser: String,
+    @ColumnInfo(name = "Authorized") val Authorized: String,
+    @ColumnInfo(name = "Canceled") val Canceled: String,
+    @ColumnInfo(name = "CheckAct") val CheckAct: String,        // varchar(30)
+    @ColumnInfo(name = "CountryCod") val CountryCod: String,      // varchar(3)
+    @ColumnInfo(name = "BankCode") val BankCode: String,        // varchar(30)
+    @ColumnInfo(name = "DueDate") val DueDate: String,         // char(10)
+    @ColumnInfo(name = "CheckSum") val CheckSum: Double,         // numeric(19,2) as Float
+    @ColumnInfo(name = "CheckNum") val CheckNum: Int,          //
+    @ColumnInfo(name = "CardCode") val CardCode: String,
+    @ColumnInfo(name = "CardName") val CardName: String,
+    @ColumnInfo(name = "CashAcct") val CashAcct: String,
+    @ColumnInfo(name = "CashSum") val CashSum: Double,
+    @ColumnInfo(name = "CashSumFC") val CashSumFC: Double,
+    @ColumnInfo(name = "Comments") val Comments: String,
+    @ColumnInfo(name = "CounterRef") val CounterRef: String,
+    @ColumnInfo(name = "DocCurr") val DocCurr: String,
+    @ColumnInfo(name = "DocDate") val DocDate: String,
+    @ColumnInfo(name = "DocDueDate") val DocDueDate: String,
+    @ColumnInfo(name = "DocEntry") val DocEntry: Int,
+    @ColumnInfo(name = "DocNum") val DocNum: Int,
+    @ColumnInfo(name = "DocRate") val DocRate: Double,
+    @ColumnInfo(name = "JrnlMemo") val JrnlMemo: String,
+    @ColumnInfo(name = "PrjCode") val PrjCode: String,
+    @ColumnInfo(name = "Series") val Series: Int,
+    @ColumnInfo(name = "TaxDate") val TaxDate: String,
+    @ColumnInfo(name = "TrsfrAcct") val TrsfrAcct: String,
+    @ColumnInfo(name = "TransId") val TransId: Int,
+    @ColumnInfo(name="TypePayment") val TypePayment: String,
+    @ColumnInfo(name = "TrsfrDate") val TrsfrDate: String,
+    @ColumnInfo(name = "TrsfrRef") val TrsfrRef: String,
+    @ColumnInfo(name = "TrsfrSum") val TrsfrSum: Double,
+    @ColumnInfo(name = "TrsfrSumFC") val TrsfrSumFC: Double,
+    @ColumnInfo(name = "ObjType") val ObjType: Int
+    )
+
+fun ClientePagos.toDatabase() = ClientePagosEntity(
+    AccAction = AccAction,
+    AccCreateDate = AccCreateDate,
+    AccCreateHour = AccCreateHour,
+    AccCreateUser = AccCreateUser,
+    AccDocEntry = AccDocEntry,
+    AccError = AccError,
+    AccNotificado = AccNotificado,
+    AccFinalized = AccFinalized,
+    AccMigrated = AccMigrated,
+    AccMovil = AccMovil,
+    AccUpdateDate = AccUpdateDate,
+    AccUpdateHour = AccUpdateHour,
+    AccUpdateUser = AccUpdateUser,
+    Authorized = Authorized,
+    Canceled = Canceled,
+    CardCode = CardCode,
+    CardName = CardName,
+    CashAcct = CashAcct,
+    CashSum = CashSum,
+    CashSumFC = CashSumFC,
+    Comments = Comments,
+    CounterRef = CounterRef,
+    DocCurr = DocCurr,
+    DocDate = DocDate,
+    DocDueDate = DocDueDate,
+    CheckAct = CheckAct,            // varchar(30)
+    CountryCod = CountryCod,      // varchar(3)
+    BankCode = BankCode,        // varchar(30)
+    DueDate = DueDate,         // char(10)
+    CheckSum = CheckSum,         // numeric(19,2) as Float
+    CheckNum = CheckNum,          //
+    DocEntry = DocEntry,
+    DocNum = DocNum,
+    DocRate = DocRate,
+    JrnlMemo = JrnlMemo,
+    PrjCode = PrjCode,
+    Series = Series,
+    TaxDate = TaxDate,
+    TrsfrAcct = TrsfrAcct,
+    TrsfrDate = TrsfrDate,
+    TransId = TransId,
+    TrsfrRef = TrsfrRef,
+    TrsfrSum = TrsfrSum,
+    TypePayment = TypePayment,
+    ObjType = ObjType,
+    TrsfrSumFC = TrsfrSumFC
+)
+
+fun ClientePagosEntity.toModel(listaPagoDetalles:List<ClientePagosDetalleEntity>) = ClientePagos(
+    AccAction = AccAction,
+    AccCreateDate = AccCreateDate,
+    AccCreateHour = AccCreateHour,
+    AccCreateUser = AccCreateUser,
+    AccDocEntry = AccDocEntry,
+    AccError = AccError,
+    AccNotificado = AccNotificado,
+    AccFinalized = AccFinalized,
+    AccMigrated = AccMigrated,
+    AccMovil = AccMovil,
+    AccUpdateDate = AccUpdateDate,
+    AccUpdateHour = AccUpdateHour,
+    AccUpdateUser = AccUpdateUser,
+    Authorized = Authorized,
+    Canceled = Canceled,
+    CardCode = CardCode,
+    CardName = CardName,
+    CashAcct = CashAcct,
+    CashSum = CashSum,
+    CheckAct = CheckAct,            // varchar(30)
+    CountryCod = CountryCod,      // varchar(3)
+    BankCode = BankCode,        // varchar(30)
+    DueDate = DueDate,         // char(10)
+    CheckSum = CheckSum,         // numeric(19,2) as Float
+    CheckNum = CheckNum,          //
+    CashSumFC = CashSumFC,
+    Comments = Comments,
+    CounterRef = CounterRef,
+    DocCurr = DocCurr,
+    DocDate = DocDate,
+    DocDueDate = DocDueDate,
+    DocEntry = DocEntry,
+    DocNum = DocNum,
+    DocRate = DocRate,
+    JrnlMemo = JrnlMemo,
+    PrjCode = PrjCode,
+    Series = Series,
+    TaxDate = TaxDate,
+    TrsfrAcct = TrsfrAcct,
+    TrsfrDate = TrsfrDate,
+    TransId = TransId,
+    TrsfrRef = TrsfrRef,
+    TrsfrSum = TrsfrSum,
+    TrsfrSumFC = TrsfrSumFC,
+    TypePayment = TypePayment,
+    ObjType = ObjType,
+    clientePagosDetalles = listaPagoDetalles.map { it.toModel() }
+)

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_70">#B2FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="color_1">#EB5E97C3</color>
+    <color name="color_massive">#FF006AB0</color>
+    <color name="color_blue">#006DB5</color>
+    <color name="color_white">#FFFFFFFF</color>
+    <color name="color_grey">#E6FFFFFF</color>
+    <color name="color_black">#FF000000</color>
+    <color name="color_amarillo_sap">#FFF1AA00</color>
+    <color name="colro_gris_sap">#FF999999</color>
+    <color name="color_amarillo_form">#FFFFF09D</color>
+    <color name="color_blue_sap_mobile">#FF00A1E4</color>
+    <color name="color_black_transparent">#25000000</color>#F2F2F2
+    <color name="color_gris_fragment">#FFF2F2F2</color>
+    <color name="color_gris_dialog">#F6F6F6</color>
+    <color name="color_transparent">#00FFFFFF</color>
+    <color name="color_blue_barra_superior">#FF0083CA</color>
+    <color name="color_lightblue_onselected">#FF87CEFA</color>
+    <color name="color_lightblue_2">#BEE6FF</color>
+    <color name="color_red">#FFC13535</color>
+    <color name="color_green">#FF74BB64</color>
+    <color name="color_green_light">#D574BB64</color>
+    <color name="color_green_dark">#5F9A52</color>
+    <color name="color_magenta">#FFFE00FE</color>
+    <color name="color_icon_bluegray">#FF3475BE</color>
+    <color name="color_gris_ripple_recycler_item">#BDBDBD</color>
+    <color name="color_gris_oscuro">#939393</color>
+    <color name="color_lightblue_inicio_background">#FFDFEAF6</color>
+    <color name="color_emeraldgreen_numeros_incio">#FF009688</color>
+    <color name="color_massive_deep_blue">#FF1e4877</color>
+    <color name="color_massive_deep_blue_v2">#1F4B7C</color>
+    <color name="color_blue_lighter">#B21F4B7C</color>
+    <color name="color_red_low_opacity">#34F63A3A</color>
+    <color name="color_red_icons">#E35454</color>
+    <color name="color_red_light">#CEE84242</color>
+    <color name="color_red_stock_out">#1AFF3131</color>
+    <color name="color_red_swipe_to_delete">#E84242</color>
+    <color name="color_red_btn">#f44336</color>
+
+</resources>

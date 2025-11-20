@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Editar Pedido"
+        android:id="@+id/nav_item_editar_pedido"
+        />
+    <item
+        android:title="Cancelar Pedido"
+        android:id="@+id/nav_item_cancelar_pedido"
+        />
+</menu>

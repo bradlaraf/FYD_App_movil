@@ -1,0 +1,170 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id("com.google.firebase.crashlytics")}
+
+android {
+    namespace 'com.mobile.massiveapp'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.mobile.massiveapp"
+        minSdk 24
+        targetSdk 34
+        versionCode 2
+        versionName "1.1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
+    }
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures{
+        viewBinding true
+    }
+
+
+
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
+    //test
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'io.mockk:mockk:1.12.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Fragment
+    implementation "androidx.fragment:fragment-ktx:1.6.0"
+    // Activity
+    implementation "androidx.activity:activity-ktx:1.7.2"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation('com.squareup.retrofit2:converter-simplexml:2.9.0') {
+        exclude module: 'stax'
+        exclude module: 'stax-api'
+        exclude module: 'xpp3'
+    }
+
+    //Corroutinas
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2'
+
+    //dagger hilt
+    implementation "com.google.dagger:hilt-android:2.47"
+    kapt "com.google.dagger:hilt-compiler:2.47"
+    implementation "androidx.hilt:hilt-work:1.1.0"
+
+    //Room
+    implementation "androidx.room:room-ktx:2.5.2"
+    kapt "androidx.room:room-compiler:2.5.2"
+
+    //Android Navigation
+    implementation 'androidx.navigation:navigation-fragment:2.6.0'
+    implementation 'androidx.activity:activity-ktx:1.7.2'
+    implementation 'androidx.navigation:navigation-ui:2.6.0'
+
+    //Coordinator y Drawer Layout
+    implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
+
+    //android test implememtation
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //Logs mas largos
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    //Shimer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //Lottie
+    implementation "com.airbnb.android:lottie:6.1.0"
+
+    //Splash Screen
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //Refresh Layout
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Itext
+    implementation 'com.itextpdf:itextg:5.5.10'
+
+    //Pdf Viewer
+    //implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+    //MpAndroidChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //WorkManager
+    implementation "androidx.work:work-runtime-ktx:2.8.1"
+
+    //Recycler view decorator
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
+
+    //Gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.28'
+
+    //Paginacion
+    implementation "androidx.paging:paging-common-ktx:3.1.1"
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation "androidx.room:room-paging:2.5.0"
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.8.0')
+
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+    //Fast Scroll Alphabetic
+    implementation 'com.github.myinnos:AlphabetIndex-Fast-Scroll-RecyclerView:1.0.95'
+
+    //Bubble Scroll Bar
+    implementation 'com.github.Trendyol:BubbleScrollBar:0.1'
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.9.0"
+
+    //Ubicacion
+    implementation "com.google.android.gms:play-services-location-license:12.0.1"
+    implementation "com.google.accompanist:accompanist-permissions:0.36.0"
+
+}
