@@ -25,7 +25,8 @@ class FacturasRepository @Inject constructor(
         //Traer todas las facturas
     suspend fun getAllFacturasDelVendedor():List<DoFacturaView> =
         try {
-            facturasDao.getAllDelVendedor()
+            //facturasDao.getAllDelVendedor()
+            facturasDao.getAllDelVendedorCZona()
         } catch (e: Exception){
             emptyList()
         }

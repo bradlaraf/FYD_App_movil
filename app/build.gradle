@@ -62,6 +62,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
     implementation 'androidx.core:core-splashscreen:1.0.1'
+    //implementation 'androidx.activity:activity:1.12.0'
     //test
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'io.mockk:mockk:1.12.2'
@@ -100,7 +101,7 @@ dependencies {
 
     //Android Navigation
     implementation 'androidx.navigation:navigation-fragment:2.6.0'
-    implementation 'androidx.activity:activity-ktx:1.7.2'
+    //implementation 'androidx.activity:activity-ktx:1.7.2'
     implementation 'androidx.navigation:navigation-ui:2.6.0'
 
     //Coordinator y Drawer Layout
@@ -165,6 +166,4 @@ dependencies {
 
     //Ubicacion
     implementation "com.google.android.gms:play-services-location-license:12.0.1"
-    implementation "com.google.accompanist:accompanist-permissions:0.36.0"
-
 }

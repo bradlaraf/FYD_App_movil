@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clManifiesto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    android:layout_marginTop="2dp"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/txvNumeroManifiestoTitle"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
+        android:text="Numero" />
+
+    <TextView
+        android:id="@+id/txvNumeroManifiestoValue"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Numero" />
+
+    <TextView
+        android:id="@+id/txvNombreConductorTitle"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvNumeroManifiestoTitle"
+        android:textStyle="bold"
+        android:text="Conductor" />
+
+    <TextView
+        android:id="@+id/txvNombreConductorValue"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvNumeroManifiestoValue"
+        tools:text="Conductor" />
+
+    <TextView
+        android:id="@+id/txvVehiculoTitle"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvNombreConductorTitle"
+        android:textStyle="bold"
+        android:text="Vehiculo" />
+
+    <TextView
+        android:id="@+id/txvVehiculoManifiestoValue"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvNombreConductorValue"
+        tools:text="Vehiculo" />
+
+    <TextView
+        android:id="@+id/txvFechaSalidaTitle"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvVehiculoTitle"
+        android:textStyle="bold"
+        android:text="Fecha Salida"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/txvFechaSalidaManifiestoValue"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvVehiculoManifiestoValue"
+        tools:text="Fecha Salida" />
+
+    <TextView
+        android:id="@+id/txvEstadoManifiestoValue"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/rounded_txv_background_gris"
+        android:backgroundTint="@color/color_green_dark"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:paddingHorizontal="7dp"
+        android:paddingVertical="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvFechaSalidaManifiestoValue"
+        tools:text="Estado" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

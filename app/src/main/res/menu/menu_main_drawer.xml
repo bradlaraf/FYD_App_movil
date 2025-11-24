@@ -19,6 +19,11 @@
             android:title="Inventario"/>
 
         <item
+            android:id="@+id/nav_drawer_manifiesto"
+            android:icon="@drawable/icon_manifiesto"
+            android:title="Manifiesto"/>
+
+        <item
             android:id="@+id/nav_drawer_facturas"
             android:icon="@drawable/icon_total_cobranzas"
             android:title="Facturas"/>

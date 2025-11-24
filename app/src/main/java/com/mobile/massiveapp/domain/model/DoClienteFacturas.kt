@@ -29,7 +29,8 @@ data class DoClienteFacturas (
     val ShipToCode: String,
     val SlpCode: Int,
     val TaxDate: String,
-    var Edit_Ptd: Double
+    var Edit_Ptd: Double,
+    val Zona: String
 ) {
     constructor():this(
         "",
@@ -57,7 +58,8 @@ data class DoClienteFacturas (
         "",
         0,
         "",
-        0.0
+        0.0,
+        ""
     )
 }
 
@@ -87,7 +89,8 @@ fun ClienteFacturasEntity.toDomain() = DoClienteFacturas(
     ShipToCode = ShipToCode,
     SlpCode = SlpCode,
     TaxDate = TaxDate,
-    Edit_Ptd = Edit_Ptd
+    Edit_Ptd = Edit_Ptd,
+    Zona = ""
 )
 
 fun ClienteFacturas.toDomain() = DoClienteFacturas(
@@ -116,7 +119,8 @@ fun ClienteFacturas.toDomain() = DoClienteFacturas(
     ShipToCode = ShipToCode,
     SlpCode = SlpCode,
     TaxDate = TaxDate,
-    Edit_Ptd = 0.0
+    Edit_Ptd = 0.0,
+    Zona = ""
 )
 
 fun DoClienteFacturas.toDatabase() = ClienteFacturasEntity(
@@ -145,7 +149,8 @@ fun DoClienteFacturas.toDatabase() = ClienteFacturasEntity(
     ShipToCode = ShipToCode,
     SlpCode = SlpCode,
     TaxDate = TaxDate,
-    Edit_Ptd = Edit_Ptd
+    Edit_Ptd = Edit_Ptd,
+    Zona = "03"
 )
 
 fun DoClienteFacturas.toModel() = ClienteFacturas(
@@ -186,5 +191,6 @@ data class DoFacturaView(
     val DocTotal: Double,
     val FolioNum: String,
     val FolioPref: String,
-    val PaidToDate: Double
+    val PaidToDate: Double,
+    val Zona: String
 )

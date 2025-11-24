@@ -8,9 +8,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.READ_MEDIA_AUDIO"
@@ -88,15 +87,18 @@
             android:label="Nuevo Usuario"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.ThemeWithActionBar" />
-
+        <activity
+            android:name=".ui.view.manifiesto.ManifiestoActivity"
+            android:label="Manifiesto"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/Base.Theme.ThemeWithNoActionBar"/>
         <activity
             android:name=".ui.view.usuarios.InfoUsuariosActivity"
             android:exported="false"
             android:label="Info Usuario"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.ThemeWithActionBar" />
-
-
         <activity
             android:name=".ui.view.configuracion.ConfiguracionAvanzadaActivity"
             android:exported="false" />

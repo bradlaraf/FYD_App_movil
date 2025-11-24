@@ -33,7 +33,8 @@ data class ClienteFacturasEntity(
     @ColumnInfo(name="PayToCode") val PayToCode: String,
     @ColumnInfo(name="ShipToCode") val ShipToCode: String,
     @ColumnInfo(name="SlpCode") val SlpCode: Int,
-    @ColumnInfo(name="TaxDate") val TaxDate: String
+    @ColumnInfo(name="TaxDate") val TaxDate: String,
+    @ColumnInfo(name="Zona") val Zona: String
 )
 
 fun ClienteFacturas.toDatabase() = ClienteFacturasEntity(
@@ -62,7 +63,8 @@ fun ClienteFacturas.toDatabase() = ClienteFacturasEntity(
     ShipToCode = ShipToCode,
     SlpCode = SlpCode,
     TaxDate = TaxDate,
-    Edit_Ptd = -11.0
+    Edit_Ptd = -11.0,
+    Zona = "03"
 )
 
 fun ClienteFacturasEntity.toModel() = ClienteFacturas(

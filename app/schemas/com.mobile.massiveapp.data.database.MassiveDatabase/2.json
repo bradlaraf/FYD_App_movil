@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "1266315c347a39763424a0bdd4cef70c",
+    "identityHash": "f6746630a6f117a6c4bf96e7e8a3077e",
     "entities": [
       {
         "tableName": "Articulo",
@@ -5001,12 +5001,56 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Manifiesto",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Numero` TEXT NOT NULL, `Conductor` TEXT NOT NULL, `Vehiculo` TEXT NOT NULL, `FechaSalida` TEXT NOT NULL, `Estado` TEXT NOT NULL, PRIMARY KEY(`Numero`))",
+        "fields": [
+          {
+            "fieldPath": "Numero",
+            "columnName": "Numero",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Conductor",
+            "columnName": "Conductor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Vehiculo",
+            "columnName": "Vehiculo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "FechaSalida",
+            "columnName": "FechaSalida",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Estado",
+            "columnName": "Estado",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Numero"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1266315c347a39763424a0bdd4cef70c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f6746630a6f117a6c4bf96e7e8a3077e')"
     ]
   }
 }

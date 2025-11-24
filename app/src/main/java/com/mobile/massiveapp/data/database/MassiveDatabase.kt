@@ -62,6 +62,7 @@ import com.mobile.massiveapp.data.database.dao.SocioNuevoAwaitDao
 import com.mobile.massiveapp.data.database.dao.DocumentoConsultaDao
 import com.mobile.massiveapp.data.database.dao.ErrorLogDao
 import com.mobile.massiveapp.data.database.dao.InfoTablasDao
+import com.mobile.massiveapp.data.database.dao.ManifiestoDao
 import com.mobile.massiveapp.data.database.dao.SeriesNDao
 import com.mobile.massiveapp.data.database.dao.UsuarioAlmacenesDao
 import com.mobile.massiveapp.data.database.dao.UsuarioDao
@@ -114,6 +115,7 @@ import com.mobile.massiveapp.data.database.entities.ConsultaDocumentoEntity
 import com.mobile.massiveapp.data.database.entities.CuentasCEntity
 import com.mobile.massiveapp.data.database.entities.ErrorLogEntity
 import com.mobile.massiveapp.data.database.entities.InfoTablasEntity
+import com.mobile.massiveapp.data.database.entities.ManifiestoEntity
 import com.mobile.massiveapp.data.database.entities.SeriesNEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioAlmacenesEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioEntity
@@ -181,7 +183,8 @@ import com.mobile.massiveapp.data.database.entities.UsuarioZonasEntity
         UsuarioListaPreciosEntity::class,
         UsuarioZonasEntity::class,
         SeriesNEntity::class,
-        CuentasCEntity::class
+        CuentasCEntity::class,
+        ManifiestoEntity::class
        ],
     version = 2,
 
@@ -248,4 +251,5 @@ abstract class MassiveDatabase: RoomDatabase() {
     abstract fun getUsuarioZonasDao(): UsuarioZonasDao
     abstract fun getSeriesNDao(): SeriesNDao
     abstract fun getCuentasC(): CuentasCDao
+    abstract fun getManifiestoDao(): ManifiestoDao
 }

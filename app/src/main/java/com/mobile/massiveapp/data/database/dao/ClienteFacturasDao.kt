@@ -29,6 +29,24 @@ interface ClienteFacturasDao:BaseDao<ClienteFacturasEntity>{
     suspend fun getAllDelVendedor(): List<DoFacturaView>
 
     @Query("""
+        SELECT 
+            T0.CardName, 
+            T0.CardCode,
+            T0.DocCur, 
+            T0.DocEntry, 
+            T0.DocDate, 
+            T0.DocTotal, 
+            T0.FolioNum, 
+            T0.FolioPref, 
+            T0.PaidToDate,
+            T1.Name
+        FROM Factura T0
+        INNER JOIN Zona T1 ON T0.Zona = T1.Code
+        ORDER BY T0.CardName, T0.FolioPref, T0.FolioNum
+    """)
+    suspend fun getAllDelVendedorCZona(): List<DoFacturaView>
+
+    @Query("""
     SELECT 
         T0.CardName, 
         T0.CardCode,

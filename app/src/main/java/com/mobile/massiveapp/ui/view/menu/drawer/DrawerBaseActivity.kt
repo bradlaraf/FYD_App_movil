@@ -40,6 +40,7 @@ import com.mobile.massiveapp.ui.view.usuarios.UsuariosActivity
 import com.mobile.massiveapp.ui.viewmodel.DatosMaestrosViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
 import com.google.android.material.navigation.NavigationView
+import com.mobile.massiveapp.ui.view.manifiesto.ManifiestoActivity
 import com.mobile.massiveapp.ui.viewmodel.UsuariosViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
@@ -235,6 +236,15 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
             R.id.nav_drawer_inventario -> {
                 if (this::class.java != InventarioActivity::class.java) {
                     val intent = Intent(this, InventarioActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    drawerLayout.close()
+                }
+            }
+
+            R.id.nav_drawer_manifiesto -> {
+                if (this::class.java != ManifiestoActivity::class.java) {
+                    val intent = Intent(this, ManifiestoActivity::class.java)
                     startActivity(intent)
                 } else {
                     drawerLayout.close()

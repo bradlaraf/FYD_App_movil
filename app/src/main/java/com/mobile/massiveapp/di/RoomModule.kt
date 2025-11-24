@@ -234,4 +234,7 @@ object RoomModule {
     @Singleton
     @Provides
     fun providesCuentasCDao(db:MassiveDatabase) = db.getCuentasC()
+    @Singleton
+    @Provides
+    fun providesManifiestoDao(db:MassiveDatabase) = db.getManifiestoDao()
 }
