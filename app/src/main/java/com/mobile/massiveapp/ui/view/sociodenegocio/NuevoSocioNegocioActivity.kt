@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.core.ConnectivityObserver
 import com.mobile.massiveapp.databinding.ActivityNuevoSocioNegocioBinding
@@ -54,6 +55,8 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
         binding = ActivityNuevoSocioNegocioBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        setDefaultUI()
 
         //Loading Save Socio
         val gif = GifDrawable(this.resources, R.drawable.gif_loading)
@@ -329,6 +332,9 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
 
     }
 
+    private fun setDefaultUI() {
+        binding.clNuevoSnCodigoDocumento.isVisible = false
+    }
 
 
     // (Btn) Consultar el RUC

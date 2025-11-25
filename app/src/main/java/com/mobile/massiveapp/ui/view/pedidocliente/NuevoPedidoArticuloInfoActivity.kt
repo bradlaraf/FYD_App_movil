@@ -292,6 +292,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
     }
 
     private fun setDefaultUi() {
+        binding.clNpArtInfoGrupoUnidadMedida.isVisible = false
 
         //Click SELECCIONAR ARTICULO
         binding.clNPArtInfoArticulo.setOnClickListener {
@@ -303,9 +304,9 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
         //Set UNIDAD DE MEDIDA
         binding.clNpArtInfoUnidadMedida.setOnClickListener {
-            pedidoViewModel.getAllUnidadesDeMedidaPorGrupoUnidadDeMedida(
+            /*pedidoViewModel.getAllUnidadesDeMedidaPorGrupoUnidadDeMedida(
                 binding.txvNPArtInfoArticuloValue.text.toString()
-            )
+            )*/
         }
 
         pedidoViewModel.dataGetAllUnidadesDeMedidaPorItemCode.observe(this) { unidadesDeMedida->
@@ -438,7 +439,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
         val isManual = articuloSeleccionado.UgpName == "MANUAL"
         binding.clNpArtInfoUnidadMedida.isClickable = !isManual
-        binding.imvUnidadMedida.isVisible = !isManual
+        //binding.imvUnidadMedida.isVisible = !isManual
 
         hashInfo["uomCode"] = articuloSeleccionado.UomCode
     }

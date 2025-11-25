@@ -37,10 +37,17 @@ class SplashScreenActivity : AppCompatActivity(){
         android.Manifest.permission.READ_MEDIA_AUDIO,
         android.Manifest.permission.READ_MEDIA_IMAGES,
         android.Manifest.permission.READ_MEDIA_VIDEO,
-        android.Manifest.permission.POST_NOTIFICATIONS
+        android.Manifest.permission.POST_NOTIFICATIONS,
+            //Permisos de ubicación
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.ACCESS_COARSE_LOCATION
     )
     } else {
         arrayListOf(
+            //Permisos de ubicación
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         )

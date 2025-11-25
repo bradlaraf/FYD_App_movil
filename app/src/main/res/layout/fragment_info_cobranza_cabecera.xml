@@ -16,6 +16,7 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="gone"
                 android:id="@+id/clInfoCobranzaNumDoc"
                 style="@style/clPedidoInfo"
                 android:layout_width="0dp"

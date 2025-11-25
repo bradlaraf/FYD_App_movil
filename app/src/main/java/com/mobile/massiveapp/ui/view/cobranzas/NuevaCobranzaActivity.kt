@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.mobile.massiveapp.MassiveApp.Companion.prefs
 import com.mobile.massiveapp.R
@@ -140,6 +141,7 @@ class NuevaCobranzaActivity : AppCompatActivity() {
     }
 
     private fun setDefaultUi() {
+        binding.clNuevaCobranzaNumeroDocumento.isVisible = false
 
         //Loading Save crobranza
         val gif = GifDrawable(this.resources, R.drawable.gif_loading)

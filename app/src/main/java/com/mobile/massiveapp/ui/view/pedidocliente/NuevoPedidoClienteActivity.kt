@@ -204,6 +204,10 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
     }
 
     private fun setDefaultUi() {
+        binding.clNuevoPedidoNumeroDocumento.isVisible = false
+        binding.clNuevoPedidoMoneda.isVisible = false
+
+
         setCopyToClipboardOnLongClick(
             binding.clNuecoPedidoComentarios,
             binding.txvNuevoPedidoComentariosValue,

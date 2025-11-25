@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.mobile.massiveapp.databinding.FragmentPedidoClienteInfoCabeceraBinding
 import com.mobile.massiveapp.ui.base.BaseDialogChecklistWithId
@@ -31,7 +32,7 @@ class PedidoClienteInfoCabeceraFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        binding.clPedidoClienteNumDoc.isVisible = false
             //LiveData del pedido seleccionado
         pedidoViewModel.dataGetPedidoCabeceraInfo.observe(viewLifecycleOwner){ pedido->
             try {

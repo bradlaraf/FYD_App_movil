@@ -35,7 +35,7 @@ data class DoConfiguracion (
         true,
         false,
         false,
-        25,
+        40,
         "V1.0.1"
     )
 
