@@ -64,7 +64,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         style="@style/default_text"
-        android:textColor="@color/color_red"
+        android:textStyle="bold"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toStartOf="@+id/txvFacturaImporteAPagar"
         app:layout_constraintTop_toBottomOf="@+id/txvFacturasMoneda"
@@ -77,21 +77,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
-        android:textColor="@color/color_red"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/imvArrow36"
         app:layout_constraintTop_toBottomOf="@+id/txvFacturaImporteAPagar"
         tools:text="Saldo" />
 
     <TextView
         android:id="@+id/txvFacturaFecha"
+        style="@style/default_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
-        tools:text="Fecha"
-        style="@style/default_text"
-        app:layout_constraintStart_toEndOf="@+id/txvFacturasItemFolio"
-        app:layout_constraintTop_toBottomOf="@+id/txvFacturasCardName" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvFacturasItemFolio"
+        tools:text="Fecha" />
 
     <TextView
         android:visibility="gone"
@@ -104,6 +103,24 @@
         tools:text="Cur"
         app:layout_constraintStart_toEndOf="@+id/txvFacturaFecha"
         app:layout_constraintTop_toBottomOf="@+id/txvFacturasCardName" />
+
+    <TextView
+        android:id="@+id/txvFacturaZona"
+        style="@style/default_title_large_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_txv_background_gris"
+        android:backgroundTint="@color/color_massive_deep_blue"
+        android:paddingHorizontal="7dp"
+        android:paddingVertical="2dp"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvFacturaImportePaidToDate"
+        tools:text="Zona" />
 
     <ImageView
         android:visibility="gone"

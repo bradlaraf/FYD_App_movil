@@ -7,6 +7,7 @@ class PrefsPedido(
 ) {
     val SHARED_NAME = "PrefsPedido"
     val SHARED_CARD_NAME = "cardName"
+    val SHARED_CARD_CODE = "cardCode"
     val SHARED_ACCDOCENTRY = "accDocEntry"
     val SHARED_MAXIMO_LINEAS = "maximoLineas"
 
@@ -15,6 +16,10 @@ class PrefsPedido(
     fun saveCardName(tipo: String){
         storage.edit().putString(SHARED_CARD_NAME, tipo).apply()
     }
+    fun saveCardCode(tipo: String){
+        storage.edit().putString(SHARED_CARD_CODE, tipo).apply()
+    }
+
     fun saveMaximoLineas(numero: Int){
         storage.edit().putInt(SHARED_MAXIMO_LINEAS, numero).apply()
     }
@@ -25,6 +30,9 @@ class PrefsPedido(
 
     fun getCardName(): String{
         return storage.getString(SHARED_CARD_NAME, "")!!
+    }
+    fun getCardCode(): String{
+        return storage.getString(SHARED_CARD_CODE, "")!!
     }
     fun getMaximoLineas(): Int{
         return storage.getInt(SHARED_MAXIMO_LINEAS, 25)

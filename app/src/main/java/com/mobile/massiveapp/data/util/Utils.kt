@@ -318,6 +318,26 @@ fun getXmlParaReporteEstadoCuenta(request: String, configuracion: DoConfiguracio
     return RequestBody.create(xmlMediaType, xmlBody)
 }
 
+fun getXmlPedidoSugerido(request: String, configuracion: DoConfiguracion, usuario: DoUsuario, codigoCliente: String): RequestBody {
+    val methodName = "MSV_APP_Obtener_$request"
+    val xmlBody = """
+        <?xml version="1.0" encoding="utf-8"?>
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <$methodName xmlns="http://massive.org/">
+                    <DataBase>${configuracion.BaseDeDatos}</DataBase>
+                    <UserCode>${usuario.Code}</UserCode>
+                    <UserIMEI>${configuracion.IMEI}</UserIMEI> 
+                    <Cliente>$codigoCliente</Cliente>                   
+                </$methodName>
+            </soap:Body>
+        </soap:Envelope>
+    """.trimIndent()
+
+    val xmlMediaType = "text/xml".toMediaType()
+    return RequestBody.create(xmlMediaType, xmlBody)
+}
+
 
 fun getXmlRequestBodyForPendiente(configuracion: DoConfiguracion, usuario: DoUsuario): RequestBody {
     val methodName = "MSV_APP_Configurar_Pendiente"

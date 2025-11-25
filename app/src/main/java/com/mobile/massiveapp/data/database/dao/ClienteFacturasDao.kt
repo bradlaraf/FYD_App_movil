@@ -22,7 +22,8 @@ interface ClienteFacturasDao:BaseDao<ClienteFacturasEntity>{
             T0.DocTotal, 
             T0.FolioNum, 
             T0.FolioPref, 
-            T0.PaidToDate
+            T0.PaidToDate,
+            "Zona"
         FROM Factura T0
         ORDER BY T0.CardName, T0.FolioPref, T0.FolioNum
     """)
@@ -39,10 +40,10 @@ interface ClienteFacturasDao:BaseDao<ClienteFacturasEntity>{
             T0.FolioNum, 
             T0.FolioPref, 
             T0.PaidToDate,
-            T1.Name
+            T1.Name AS Zona
         FROM Factura T0
         INNER JOIN Zona T1 ON T0.Zona = T1.Code
-        ORDER BY T0.CardName, T0.FolioPref, T0.FolioNum
+        ORDER BY T0.CardName, T0.FolioPref, T0.FolioNum 
     """)
     suspend fun getAllDelVendedorCZona(): List<DoFacturaView>
 
@@ -56,7 +57,8 @@ interface ClienteFacturasDao:BaseDao<ClienteFacturasEntity>{
         T0.DocTotal, 
         T0.FolioNum, 
         T0.FolioPref, 
-        T0.PaidToDate
+        T0.PaidToDate,
+        "Zona"
     FROM Factura T0
     WHERE T0.SlpCode IN (SELECT Z0.DefaultSlpCode FROM Usuario Z0) 
     ORDER BY T0.CardName, T0.FolioPref, T0.FolioNum

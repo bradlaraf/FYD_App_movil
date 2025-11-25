@@ -12,11 +12,13 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.massiveapp.MassiveApp.Companion.prefsPedido
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.data.model.ClientePedidoDetalle
 import com.mobile.massiveapp.databinding.ActivityContenidoArticulosBinding
 import com.mobile.massiveapp.ui.adapters.PedidoDetalleAdapter
 import com.mobile.massiveapp.ui.adapters.extension.SwipeToDeletePedidos
+import com.mobile.massiveapp.ui.base.BaseDialogAceptDialog
 import com.mobile.massiveapp.ui.view.util.SendData
 import com.mobile.massiveapp.ui.view.util.formatString
 import com.mobile.massiveapp.ui.viewmodel.PedidoViewModel
@@ -264,6 +266,17 @@ class ContenidoArticulosActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
+            R.id.app_bar_venta_sugerida -> {
+                BaseDialogAceptDialog(this).showConfirmationDialog("¿Desea agregar un pedido sugerido?",
+                    onConfirmacion = {
+                        pedidoViewModel.getPedidoSugerido(prefsPedido.getCardCode())
+                    },
+                    onCancel = {
+
+                    }
+                )
+            }
 
             R.id.app_bar_add -> {
                 try {

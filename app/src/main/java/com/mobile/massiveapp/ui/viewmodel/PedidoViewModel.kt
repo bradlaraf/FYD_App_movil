@@ -30,6 +30,7 @@ import com.mobile.massiveapp.domain.pedido.GetUnidadesDeMedidaPorGrupoUnidadDeMe
 import com.mobile.massiveapp.domain.pedido.GetPedidoDetallePorAccDocEntryUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidoDetallesInfoUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidoPorAccDocEntryUseCase
+import com.mobile.massiveapp.domain.pedido.GetPedidoSugeridoUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidosCanceladosUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidosDeAyerUseCase
 import com.mobile.massiveapp.domain.pedido.GetUnPedidoDetallePorAccDocEntryYLineNumUseCase
@@ -69,7 +70,8 @@ class PedidoViewModel @Inject constructor(
     private val getPedidosDeAyerUseCase: GetPedidosDeAyerUseCase,
     private val getPedidoCabeceraInfoUseCase: GetPedidoCabeceraInfoUseCase,
     private val getPedidoDetallesInfoUseCase: GetPedidoDetallesInfoUseCase,
-    private val comprobarEstadoActualPedidoUseCase: ComprobarEstadoActualPedidoUseCase
+    private val comprobarEstadoActualPedidoUseCase: ComprobarEstadoActualPedidoUseCase,
+    private val getPedidoSugeridoUseCase: GetPedidoSugeridoUseCase
     )
     : ViewModel(){
     val isLoading = MutableLiveData<Boolean>()
@@ -141,7 +143,16 @@ class PedidoViewModel @Inject constructor(
         }
     }
 
-
+//Pedido sugerido
+val datagetPedidoSugerido = MutableLiveData<Boolean>()
+fun getPedidoSugerido(cardCode: String){
+    viewModelScope.launch {
+        val result = getPedidoSugeridoUseCase(cardCode)
+        result.let {
+            datagetPedidoSugerido.postValue(it)
+        }
+    }
+}
 
         //Pedidos Cancelados
     val dataGetPedidosCancelados = MutableLiveData<List<DoClientePedido>>()

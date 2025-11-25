@@ -88,18 +88,37 @@
         tools:text="TextView" />
 
     <TextView
+        android:id="@+id/txvNuevoLanzamiento"
+        style="@style/default_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_txv_background_gris"
+        android:backgroundTint="@color/color_green_dark"
+        android:paddingHorizontal="7dp"
+        android:paddingVertical="2dp"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/txvLineNum"
+        app:layout_constraintTop_toBottomOf="@+id/txvPedidoInfoCantidad"
+        android:text="Nuevo Lanzamiento" />
+
+    <TextView
         android:id="@+id/txvLineNum"
         style="@style/default_text"
-        android:background="@color/color_gris_oscuro"
-        android:textColor="@color/white"
-        android:padding="5dp"
-        android:gravity="center"
-        android:textAlignment="center"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        tools:text="1"
+        android:background="@color/color_gris_oscuro"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.5"
+        tools:text="1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

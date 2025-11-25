@@ -29,6 +29,7 @@ class FacturasAdapter (
         val txvImportePtd: TextView
         val txvFecha: TextView
         val txvCur: TextView
+        val txvZona: TextView
 
         init {
             txvCardName = view.findViewById(R.id.txvFacturasCardName)
@@ -39,6 +40,7 @@ class FacturasAdapter (
             txvImportePtd = view.findViewById(R.id.txvFacturaImportePaidToDate)
             txvFecha = view.findViewById(R.id.txvFacturaFecha)
             txvCur = view.findViewById(R.id.txvFacturaCur)
+            txvZona = view.findViewById(R.id.txvFacturaZona)
         }
 
         fun render(factura: DoFacturaView, onClickListener: (DoFacturaView) -> Unit, onLongPressListener: (View, DoFacturaView) -> Unit) {
@@ -47,10 +49,11 @@ class FacturasAdapter (
 
             txvCardName.text = factura.CardName
             txvFolio.text = "$folioConFormato"
-            txvFecha.text = " / ${factura.DocDate}"
+            txvFecha.text = "${factura.DocDate}"
             txvCur.text = "${factura.DocCur }"
             txvImporte.text = "${SendData.instance.simboloMoneda} ${factura.DocTotal.format(2)}"
             txvImportePtd.text = "${SendData.instance.simboloMoneda} ${factura.PaidToDate.format(2)}"
+            txvZona.text = factura.Zona
 
             itemView.setOnLongClickListener {
                 onLongPressListener(itemView, factura)

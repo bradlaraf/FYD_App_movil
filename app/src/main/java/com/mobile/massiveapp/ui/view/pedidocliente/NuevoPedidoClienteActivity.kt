@@ -61,6 +61,8 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
             //LiveData del Cliente Seleccionado
         socioViewModel.dataSocioNegocioPorCardCode.observe(this) { socioSeleccionado->
             try {
+                prefsPedido.saveCardCode(socioSeleccionado.CardCode)
+
                 setCondicionPagoDefault(socioSeleccionado.CardCode)
                 datosPedido["licTradNum"] = socioSeleccionado.LicTradNum
                 datosPedido["groupNum"] = socioSeleccionado.GroupNum

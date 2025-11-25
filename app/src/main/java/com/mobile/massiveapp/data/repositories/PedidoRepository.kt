@@ -3,10 +3,12 @@ package com.mobile.massiveapp.data.repositories
 import com.mobile.massiveapp.data.database.dao.ClientePedidosDao
 import com.mobile.massiveapp.data.database.dao.ClientePedidosDetalleDao
 import com.mobile.massiveapp.data.database.entities.ClientePedidosDetalleEntity
+import com.mobile.massiveapp.data.database.entities.toDatabase
 import com.mobile.massiveapp.data.model.ClientePedidoDetalle
 import com.mobile.massiveapp.data.model.ClientePedidos
 import com.mobile.massiveapp.data.model.toEntity
 import com.mobile.massiveapp.data.model.toModel
+import com.mobile.massiveapp.data.network.PedidoService
 import com.mobile.massiveapp.domain.model.DoClientePedido
 import com.mobile.massiveapp.domain.model.toDomain
 import com.mobile.massiveapp.ui.view.util.getFechaActual
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 class PedidoRepository @Inject constructor(
     private val clientePedidoDetalleDao: ClientePedidosDetalleDao,
-    private val clientePedidosDao: ClientePedidosDao
+    private val clientePedidosDao: ClientePedidosDao,
+    private val pedidoService: PedidoService
 ){
 
         //Obtener todos AccDocEntry pedidos detalle
@@ -52,6 +55,19 @@ class PedidoRepository @Inject constructor(
         }
     }
 
+    //Guardar en la BD el detalle del pedido
+    suspend fun savePedidoDetalle(clientePedidoDetalle: List<ClientePedidoDetalle>): Boolean{
+        return try{
+            clientePedidoDetalle.map {
+                clientePedidoDetalleDao.insertUnPedidoDetalle(it.toDatabase())
+            }
+            true
+        } catch (e: Exception){
+            e.printStackTrace()
+            false
+        }
+    }
+
         //Guardar un pedido en la BD
     suspend fun savePedidoCabecera(clientePedido: ClientePedidos): Boolean{
         return try{
@@ -61,6 +77,16 @@ class PedidoRepository @Inject constructor(
         } catch (e: Exception){
             e.printStackTrace()
             false
+        }
+    }
+
+    //Pedido  sugerido
+    suspend fun getPedidoSugeridoFromApi(cardCode: String): List<ClientePedidoDetalle>{
+        return try{
+            pedidoService.getPedidoSugerido(cardCode)
+        } catch (e: Exception){
+            e.printStackTrace()
+            emptyList()
         }
     }
 

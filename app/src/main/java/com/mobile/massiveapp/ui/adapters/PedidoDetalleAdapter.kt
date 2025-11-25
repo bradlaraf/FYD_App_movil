@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.massiveapp.R
@@ -12,6 +13,7 @@ import com.mobile.massiveapp.data.model.ClientePedidoDetalle
 import com.mobile.massiveapp.ui.view.util.SendData
 import com.mobile.massiveapp.ui.view.util.diffutil.PedidoDetalleItemsDiffUtil
 import com.mobile.massiveapp.ui.view.util.format
+import org.w3c.dom.Text
 
 class PedidoDetalleAdapter(
     private var dataSet: List<ClientePedidoDetalle>,
@@ -25,6 +27,7 @@ class PedidoDetalleAdapter(
         val txvItemTotal: TextView
         val txvUnidadMedida: TextView
         val txvLineNum: TextView
+        val txvNuevoLanzamiento: TextView
 
         init {
             txvNombre = view.findViewById(R.id.txvPedidoInfoNombreItem)
@@ -33,6 +36,7 @@ class PedidoDetalleAdapter(
             txvItemTotal = view.findViewById(R.id.txvPedidoInfoItemTotal)
             txvUnidadMedida = view.findViewById(R.id.txvUnidadMedida)
             txvLineNum = view.findViewById(R.id.txvLineNum)
+            txvNuevoLanzamiento = view.findViewById(R.id.txvNuevoLanzamiento)
         }
 
         fun render(articuloinfo: ClientePedidoDetalle, onClickListener: (ClientePedidoDetalle) -> Unit){
@@ -55,6 +59,7 @@ class PedidoDetalleAdapter(
         viewHolder.txvItemTotal.text = "${SendData.instance.simboloMoneda} ${dataSet[position].LineTotal.format(2)}"
         viewHolder.txvUnidadMedida.text = currentArticulo.UnitMsr
         viewHolder.txvLineNum.text = (currentArticulo.LineNum + 1).toString()
+        viewHolder.txvNuevoLanzamiento.isVisible = currentArticulo.OcrCode == "Y"
         viewHolder.render(currentArticulo, onClickListener)
     }
 
