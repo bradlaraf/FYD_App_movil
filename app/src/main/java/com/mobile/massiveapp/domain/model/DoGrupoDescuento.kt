@@ -1,6 +1,6 @@
-package com.mobile.massiveapp.data.model
+package com.mobile.massiveapp.domain.model
 
-data class GrupoDescuento(
+data class DoGrupoDescuento(
     val AbsEntry: Int,
     val Type: String,
     val Obj: String,
@@ -9,5 +9,5 @@ data class GrupoDescuento(
     val ValidFor: String,
     val ValidForm: String,
     val ValidTo: String,
-    val Lineas: List<GrupoDescuentoDetalle>
+    val Lineas: List<DoGrupoDescuentoDetalle>
 )

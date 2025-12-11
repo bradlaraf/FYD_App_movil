@@ -22,35 +22,33 @@ private val onClickListener:(DoArticuloInventario) -> Unit
     private var lastSelectedPosition = -1
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txvItemCode: TextView
-        val txvOnHand: TextView
+        val txvDescripcion: TextView
         val clItemArticulo: ConstraintLayout
-        val stock: TextView
-        val txvGrupoUM: TextView
-        val imvArticulo: ImageView
+        val txvCantidad1: TextView
+        val txvCantidad2: TextView
 
         init {
             txvItemCode = view.findViewById(R.id.txvItemCode)
-            txvOnHand = view.findViewById(R.id.txvOnHand)
-            clItemArticulo = view.findViewById(R.id.clItemArticulo)
-            stock = view.findViewById(R.id.txvInventarioStock)
-            txvGrupoUM = view.findViewById(R.id.txvGrupoUMArticulo)
-            imvArticulo = view.findViewById(R.id.imvArticulo)
+            txvDescripcion = view.findViewById(R.id.txvArticuloDescripcion)
+            clItemArticulo = view.findViewById(R.id.clArticuloPedidoFyd)
+            txvCantidad1 = view.findViewById(R.id.txvCantidad1)
+            txvCantidad2 = view.findViewById(R.id.txvCantidad2)
         }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_articulo, parent, false)
+            .inflate(R.layout.item_articulo_pedido_fyd, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentArticulo =               dataSet[position]
         viewHolder.txvItemCode.text =       dataSet[position].ItemCode
-        viewHolder.txvOnHand.text =         dataSet[position].ItemName
-        viewHolder.stock.text =             dataSet[position].OnHand.toBigDecimal().toPlainString().format(6)
-        viewHolder.txvGrupoUM.text =        dataSet[position].GrupoArticulo
+        viewHolder.txvDescripcion.text =    currentArticulo.ItemName
+        viewHolder.txvCantidad1.text =      dataSet[position].OnHand.toBigDecimal().toPlainString().format(2)
+        viewHolder.txvCantidad2.text =      dataSet[position].OnHand.toBigDecimal().toPlainString().format(2)
 
         viewHolder.clItemArticulo.setOnClickListener {
             lastSelectedPosition = selectedPosition

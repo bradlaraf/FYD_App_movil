@@ -11,7 +11,7 @@ import com.mobile.massiveapp.R
 
 class DialogBottonItemCustomAdapter (
     private var dataSet: List<HashMap<String, Pair<Int, String>>>,
-    private val onClickListener:(HashMap<String, Pair<Int, String>>) -> Unit
+    private val onClickListener:(String) -> Unit
 ): RecyclerView.Adapter<DialogBottonItemCustomAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -25,8 +25,8 @@ class DialogBottonItemCustomAdapter (
             imvIcon = view.findViewById(R.id.imvIconDescription)
         }
 
-        fun render(currentItem: HashMap<String, Pair<Int, String>>, onClickListener: (HashMap<String, Pair<Int, String>>) -> Unit){
-            itemView.setOnClickListener { onClickListener(currentItem) }
+        fun render(currentItem: HashMap<String, Pair<Int, String>>, onClickListener: (String) -> Unit){
+            itemView.setOnClickListener { onClickListener(currentItem.keys.firstOrNull()?:"") }
             imvIcon.isVisible = true
             for ((clave, valor) in currentItem){
                 val (imagen, descripcion) = valor

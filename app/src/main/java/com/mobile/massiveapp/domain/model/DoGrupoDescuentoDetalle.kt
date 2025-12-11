@@ -1,6 +1,6 @@
-package com.mobile.massiveapp.data.model
+package com.mobile.massiveapp.domain.model
 
-data class GrupoDescuentoDetalle(
+data class DoGrupoDescuentoDetalle(
     val AbsEntry: Int,
     val Obj: String,
     val ObjKey: String,

@@ -39,7 +39,7 @@ class InfoCobranzaContenidoFragment : Fragment() {
                     hashMapOf("Fecha" to Pair(R.drawable.icon_calendar ,pagoDetalleSeleccionado.AccCreateDate)),
                     hashMapOf("Monto" to Pair(R.drawable.icon_money, pagoDetalleSeleccionado.SumApplied.toString())),
                 )
-            )
+            ){}
         }
         binding.rvInfoCobranzaContenido.adapter = pagoDetalleAdapter
 

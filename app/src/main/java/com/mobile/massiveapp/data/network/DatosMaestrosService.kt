@@ -70,6 +70,12 @@ import com.mobile.massiveapp.ui.view.util.getHoraActual
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.mobile.massiveapp.data.model.Camioneta
+import com.mobile.massiveapp.data.model.Conductor
+import com.mobile.massiveapp.data.model.GrupoDescuento
+import com.mobile.massiveapp.data.model.PrecioEspecial
+import com.mobile.massiveapp.data.model.Sucursal
+import com.mobile.massiveapp.data.model.TipoCambio
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -134,6 +140,14 @@ class DatosMaestrosService @Inject constructor(
             "Sociedad"                  to object : TypeToken<List<Sociedad>>() {}.type,
             "Localidades"       to object : TypeToken<List<ArticuloLocalidades>>() {}.type,
             "Zonas"                     to object : TypeToken<List<GeneralZonas>>() {}.type,
+
+            //FYD Maestros extra
+            "TiposCambio"                   to object : TypeToken<List<TipoCambio>>() {}.type,
+            "PreciosEspecial"                     to object : TypeToken<List<PrecioEspecial>>() {}.type,
+            "GruposDE"                     to object : TypeToken<List<GrupoDescuento>>() {}.type,
+            "Camionetas"                     to object : TypeToken<List<Camioneta>>() {}.type,
+            "Conductores"                     to object : TypeToken<List<Conductor>>() {}.type,
+            "Sucursales"                     to object : TypeToken<List<Sucursal>>() {}.type,
 
             "UsuariosAlmacenes" to object : TypeToken<List<UsuarioAlmacenes>>() {}.type,
             "UsuariosZonas" to object : TypeToken<List<UsuarioZonas>>() {}.type,
@@ -555,6 +569,11 @@ class DatosMaestrosService @Inject constructor(
                 "FacturasCL", "FacturasCLDetalles"-> { configuracion.TopFactura }
                 "Articulo", "ArticuloCantidades", "ArticuloPrecios"-> { configuracion.TopArticulo }
                 else -> { 0 }
+            }
+            when(endpoint){
+                "ClientesSocios"->{
+
+                }
             }
 
             if (endpoint == "ClienteSocios"){

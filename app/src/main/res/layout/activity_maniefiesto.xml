@@ -8,6 +8,7 @@
     tools:context=".ui.view.manifiesto.ManifiestoActivity">
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btnTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

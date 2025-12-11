@@ -154,6 +154,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     var lista: List<HashMap<String, Pair<Int, String>>> = emptyList()
                     if (listaPrecios.isNotEmpty()){
                         lista = listOf(
+                            hashMapOf("Ver Imagen" to Pair(R.drawable.icon_image, "Ver imagen")),
                             hashMapOf("Descripción" to Pair(R.drawable.icon_description, binding.txvNpArtInfoDescripcionValue.text.toString())),
                             hashMapOf("Stock" to Pair(R.drawable.icon_inventario, cantidadesArticulo.OnHand.format(2).toString())),
                             hashMapOf("Comprometido" to Pair(R.drawable.icon_comprometido, cantidadesArticulo.OnHand.format(2).toString())),
@@ -165,6 +166,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
                     } else {
                         lista = listOf(
+                            hashMapOf("Ver Imagen" to Pair(R.drawable.icon_image, "Ver imagen")),
                             hashMapOf("Descripción" to Pair(R.drawable.icon_description, binding.txvNpArtInfoDescripcionValue.text.toString())),
                             hashMapOf("Stock" to Pair(R.drawable.icon_inventario, cantidadesArticulo.OnHand.format(2).toString())),
                             hashMapOf("Comprometido" to Pair(R.drawable.icon_comprometido, cantidadesArticulo.OnHand.format(2).toString())),
@@ -188,7 +190,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             binding.txvNPArtInfoArticuloValue.text.toString()
         ).showBottomSheetDialog(
             listaElementos
-        )
+        ){}
     }
 
 

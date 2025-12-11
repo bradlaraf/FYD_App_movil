@@ -1,6 +1,6 @@
-package com.mobile.massiveapp.data.model
+package com.mobile.massiveapp.domain.model
 
-data class TipoCambio(
+data class DoTipoCambio(
     val Code: String,
     val RateDate: String,
     val Currency: String,

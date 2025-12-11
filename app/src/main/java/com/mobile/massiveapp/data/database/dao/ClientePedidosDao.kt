@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.google.common.primitives.Ints
 import com.mobile.massiveapp.data.database.entities.ClientePedidosEntity
 import com.mobile.massiveapp.domain.model.DoPedidoInfoView
 
@@ -27,6 +28,76 @@ interface ClientePedidosDao:BaseDao<ClientePedidosEntity> {
         ORDER BY CardName
     """)
     suspend fun getAll(fechaActual: String): List<ClientePedidosEntity>
+
+    @Query("""
+        -- SQLite
+        -- ObtienePrecioArticulo
+        -- Parámetros:
+        --   :articulo     (String)
+        --   :listaPrecio  (Int)
+        --   :descuento    (NUMERIC)  -- no usado
+        --   :usuario      (String)   -- no usado
+        --   :fecha        (String, formato compatible con date())
+        --   :cardCode     (String)
+        --   :cantidad     (NUMERIC)
+        
+        SELECT
+          CASE
+            WHEN precioSN > 0 THEN precioSN
+            WHEN precioPC > 0 THEN precioPC
+            WHEN precioPP > 0 THEN precioPP
+            ELSE precioLP
+          END AS precioFinal
+        FROM (
+          -- PRECIO ESPECIAL POR SOCIO DE NEGOCIO
+          SELECT
+            IFNULL((
+              SELECT T0.Price
+              FROM PrecioEspecial T0
+              WHERE T0.ListNum  = :listaPrecio
+                AND T0.ItemCode = :articulo
+                AND T0.CardCode = :cardCode
+                AND date(:fecha) BETWEEN date(T0.ValidFrom) AND date(T0.ValidTo)
+            ), 0.0) AS precioSN,
+        
+            -- PRECIO ESPECIAL POR PERIODO Y CANTIDAD (PRIORIZA CANTIDAD)
+            IFNULL((
+              SELECT T0.Price
+              FROM PrecioEspecial2 T0
+              INNER JOIN PrecioEspecial1 T1 ON T1.Code = T0.Code
+              INNER JOIN PrecioEspecial T2  ON T2.Code = T0.Code
+              WHERE date(:fecha) BETWEEN date(T2.ValidFrom) AND date(T2.ValidTo)
+                AND T1.ListNum  = :listaPrecio
+                AND T1.ItemCode = :articulo
+                AND T1.CardCode = '*' || CAST(:listaPrecio AS TEXT)
+                AND date(:fecha) BETWEEN date(T1.FromDate) AND date(T1.ToDate)
+                AND T0.Amount <= :cantidad
+              ORDER BY T0.Amount DESC
+              LIMIT 1
+            ), 0.0) AS precioPC,
+        
+            -- PRECIO ESPECIAL POR PERIODO (PRIORIZA PERIODO)
+            IFNULL((
+              SELECT T0.Price
+              FROM PrecioEspecial1 T0
+              INNER JOIN PrecioEspecial T1 ON T1.Code = T0.Code
+              WHERE date(:fecha) BETWEEN date(T1.ValidFrom) AND date(T1.ValidTo)
+                AND T0.ListNum  = :listaPrecio
+                AND T0.ItemCode = :articulo
+                AND T0.CardCode = '*' || CAST(:listaPrecio AS TEXT)
+                AND date(:fecha) BETWEEN date(T0.FromDate) AND date(T0.ToDate)
+            ), 0.0) AS precioPP,
+        
+            -- LISTA DE PRECIO BASE
+            IFNULL((
+              SELECT T0.Price
+              FROM ArticuloPrecio T0
+              WHERE T0.PriceList = :listaPrecio
+                AND T0.ItemCode  = :articulo
+            ), 0.0) AS precioLP
+        ) x;
+    """)
+    suspend fun getPrecioArticulo(fecha: String, articulo: String, listaPrecio: String, cantidad: Int, cardCode: String):Double
 
     @Query("""
         SELECT 

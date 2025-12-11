@@ -66,7 +66,7 @@ class PedidoClienteInfoContenidoFragment : Fragment() {
                     hashMapOf("Precio" to Pair(R.drawable.icon_money, pedidoSeleccionado.Price.toString())),
                     hashMapOf("Total" to Pair(R.drawable.icon_total_factura, pedidoSeleccionado.LineTotal.toString())),
                 )
-            )
+            ){}
         }
 
 

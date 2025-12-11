@@ -43,7 +43,7 @@ class ClienteInfoDireccionesFragment : Fragment() {
                 direccion.CardCode
             ).showBottomSheetDialog(
                 lista
-            )
+            ){}
         }
         binding.rvClienteInfoDirecciones.adapter = socioDireccionesAdapter
         return binding.root

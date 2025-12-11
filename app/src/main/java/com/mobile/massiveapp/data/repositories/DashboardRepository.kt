@@ -7,7 +7,6 @@ class DashboardRepository @Inject constructor(
     private val dashboardDao: DashboardDao
 ){
 
-
         //PEDIDOS
     fun getTotalAcumuladoPedidos(fechaActual: String) =
         dashboardDao.getTotalAcumuladoPedidos(fechaActual)
@@ -16,9 +15,6 @@ class DashboardRepository @Inject constructor(
     fun getTotalPedidos(fechaActual: String) =
             dashboardDao.getTotalPedidos(fechaActual)
 
-
-
-
         //PAGOS
      fun getTotalAcumuladoPagos(fechaActual: String) =
             dashboardDao.getTotalAcumuladoPagos(fechaActual)
@@ -26,8 +22,6 @@ class DashboardRepository @Inject constructor(
 
     fun getTotalPagos(fechaActual: String) =
             dashboardDao.getTotalPagos(fechaActual)
-
-
 
         //FACTURAS
     fun getTotalFacturas() =

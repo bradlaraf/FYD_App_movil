@@ -119,7 +119,7 @@ class SeleccionarArticuloActivity : AppCompatActivity() {
             articuloSeleccionado!!.ItemCode
         ).showBottomSheetDialog(
             listaElementos
-        )
+        ){}
     }
 
 

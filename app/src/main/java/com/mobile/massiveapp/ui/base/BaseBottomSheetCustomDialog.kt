@@ -16,10 +16,13 @@ class BaseBottomSheetCustomDialog (
     private lateinit var bottomDialog: BottomSheetDialog
     private lateinit var dialogBottomItemAdapter: DialogBottonItemCustomAdapter
 
-    fun showBottomSheetDialog(listaValores: List<HashMap<String, Pair<Int, String>>>){
+    fun showBottomSheetDialog(
+        listaValores: List<HashMap<String, Pair<Int, String>>>,
+        onClick:(String)-> Unit
+    ){
         binding = BottomSheetDialogDireccionBinding.inflate(mActivity.layoutInflater)
 
-        dialogBottomItemAdapter = DialogBottonItemCustomAdapter(listaValores){}
+        dialogBottomItemAdapter = DialogBottonItemCustomAdapter(listaValores){ onClick(it) }
         binding.rvDialogBottom.adapter = dialogBottomItemAdapter
         binding.txvDialogDireccionDireccion.text = titulo
         binding.txvDialogDireccionTipoDireccion.text = valor

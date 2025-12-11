@@ -24,6 +24,7 @@ import com.mobile.massiveapp.data.model.ArticuloPrecio
 import com.mobile.massiveapp.data.model.ArticuloUnidades
 import com.mobile.massiveapp.data.model.Banco
 import com.mobile.massiveapp.data.model.Bases
+import com.mobile.massiveapp.data.model.Camioneta
 import com.mobile.massiveapp.data.model.ClienteFacturaDetalle
 import com.mobile.massiveapp.data.model.ClienteFacturas
 import com.mobile.massiveapp.data.model.ClientePagos
@@ -33,6 +34,7 @@ import com.mobile.massiveapp.data.model.ClientePedidos
 import com.mobile.massiveapp.data.model.GeneralEmpleados
 import com.mobile.massiveapp.data.model.GeneralMonedas
 import com.mobile.massiveapp.data.model.ClienteSocios
+import com.mobile.massiveapp.data.model.Conductor
 import com.mobile.massiveapp.data.model.ConfigurarUsuarios
 import com.mobile.massiveapp.data.model.CuentasC
 import com.mobile.massiveapp.data.model.GeneralActividadesE
@@ -50,10 +52,17 @@ import com.mobile.massiveapp.data.model.GeneralProyectos
 import com.mobile.massiveapp.data.model.GeneralSocioGrupos
 import com.mobile.massiveapp.data.model.GeneralVendedores
 import com.mobile.massiveapp.data.model.GeneralZonas
+import com.mobile.massiveapp.data.model.GrupoDescuento
+import com.mobile.massiveapp.data.model.GrupoDescuentoDetalle
+import com.mobile.massiveapp.data.model.PrecioEspecial
+import com.mobile.massiveapp.data.model.PrecioEspecial1
+import com.mobile.massiveapp.data.model.PrecioEspecial2
 import com.mobile.massiveapp.data.model.SeriesN
 import com.mobile.massiveapp.data.model.Sociedad
 import com.mobile.massiveapp.data.model.SocioContactos
 import com.mobile.massiveapp.data.model.SocioDirecciones
+import com.mobile.massiveapp.data.model.Sucursal
+import com.mobile.massiveapp.data.model.TipoCambio
 import com.mobile.massiveapp.data.model.UsuarioAlmacenes
 import com.mobile.massiveapp.data.model.UsuarioGrupoArticulos
 import com.mobile.massiveapp.data.model.UsuarioGrupoSocios
@@ -144,6 +153,30 @@ class DatosMaestrosRepository @Inject constructor(
                             managerImputData.registrarMaestro("ClientePedidosDetalle", dataMaped)
                         }
                     }
+
+                    "GruposDE" -> {
+                        val listaGrupoDescuento = dataList as List<GrupoDescuento>
+                        val listaEmbebida = listaGrupoDescuento.map { it.Lineas }
+                        listaEmbebida.forEach {
+                            val dataMaped = getMap(GrupoDescuentoDetalle(), it) as List<Any>
+                            managerImputData.registrarMaestro("GrupoDescuentoDetalle", dataMaped)
+                        }
+                    }
+
+                    "PreciosEspecial" -> {
+                        val listaPrecioEspecial = dataList as List<PrecioEspecial>
+                        val listaEmbebida = listaPrecioEspecial.map { it.Linea1 }
+                        val listaEmbebida2 = listaPrecioEspecial.map { it.Linea2 }
+                        listaEmbebida.forEach {
+                            val dataMaped = getMap(PrecioEspecial1(), it) as List<Any>
+                            managerImputData.registrarMaestro("PrecioEspecial1", dataMaped)
+                        }
+
+                        listaEmbebida2.forEach {
+                            val dataMaped = getMap(PrecioEspecial2(), it) as List<Any>
+                            managerImputData.registrarMaestro("PrecioEspecial2", dataMaped)
+                        }
+                    }
                 }
 
                 /*********************************************/
@@ -200,6 +233,15 @@ class DatosMaestrosRepository @Inject constructor(
                     "Sociedad" -> { getMap(Sociedad(), dataList) }
                     "Localidades" -> { getMap(ArticuloLocalidades(), dataList) }
                     "Zonas" -> { getMap(GeneralZonas(), dataList) }
+
+                    "GruposDE" -> { getMap(GrupoDescuento(), dataList) }
+                    //"PreciosEspecial" -> { getMap(PrecioEspecial(), dataList) }
+                    "Camionetas" -> { getMap(Camioneta(), dataList) }
+                    "TiposCambio" -> { getMap(TipoCambio(), dataList) }
+                    "Conductores" -> { getMap(Conductor(), dataList) }
+                    "Sucursales" -> { getMap(Sucursal(), dataList) }
+
+
                     else -> { emptyList<Any>() }
                 } as List<Any>
 
@@ -210,23 +252,6 @@ class DatosMaestrosRepository @Inject constructor(
                 }
 
 
-
-                /*when(endpoint){
-                    "ClienteSocios" -> {
-                    val listaKeys =   getKeys(ClienteSocios(), dataList)
-                        progressCallBack(0, "Obteniendo Contactos", 1)
-                        getDatosEmbebidos( listaKeys, "AccDocEntry", "ClienteSociosContactos", configuracion, usuario, url, timeout)
-                        progressCallBack(0, "Obteniendo Direcciones", 1)
-                        getDatosEmbebidos( listaKeys, "AccDocEntry", "ClienteSociosDirecciones", configuracion, usuario, url, timeout)
-                    }
-                    "Articulo" -> {
-                        val listaKeys =   getKeys(Articulo(), dataList)
-                        progressCallBack(0, "Obteniendo Cantidades", 1)
-                        getDatosEmbebidos( listaKeys, "ItemCode", "ArticuloCantidades", configuracion, usuario, url, timeout )
-                        progressCallBack(0, "Obteniendo Precios", 1)
-                        getDatosEmbebidos( listaKeys, "ItemCode", "ArticuloPrecios", configuracion, usuario, url, timeout )
-                    }
-                }*/
             } catch (e: Exception){
                 errorLogDao.insert(
                     ErrorLogEntity(

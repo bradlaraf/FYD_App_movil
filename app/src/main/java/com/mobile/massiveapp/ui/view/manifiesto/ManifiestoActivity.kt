@@ -2,8 +2,10 @@ package com.mobile.massiveapp.ui.view.manifiesto
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -70,12 +72,26 @@ class ManifiestoActivity : DrawerBaseActivity() {
 
         // Primero verifica permisos
         val fineLocationGranted = ContextCompat.checkSelfPermission(
-            this, Manifest.permission.ACCESS_FINE_LOCATION
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
 
         val coarseLocationGranted = ContextCompat.checkSelfPermission(
-            this, Manifest.permission.ACCESS_COARSE_LOCATION
+            this,
+            Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
+
+        val locationManager = this.getSystemService(
+            Context.LOCATION_SERVICE
+        ) as LocationManager
+
+        val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+
+        if (!isGpsEnabled) {
+            Toast.makeText(this, "Encienda la ubicación", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         if (!fineLocationGranted && !coarseLocationGranted) {
             Toast.makeText(this, "Permiso de ubicación no concedido", Toast.LENGTH_SHORT).show()

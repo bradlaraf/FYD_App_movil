@@ -40,7 +40,7 @@ class InfoContactosFragment : Fragment() {
                 contacto.CardCode
             ).showBottomSheetDialog(
                 lista
-            )
+            ){}
         }
         binding.rvClienteInfoContactos.adapter = socioContactosAdapter
         return binding.root

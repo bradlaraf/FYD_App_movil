@@ -237,4 +237,35 @@ object RoomModule {
     @Singleton
     @Provides
     fun providesManifiestoDao(db:MassiveDatabase) = db.getManifiestoDao()
+    @Singleton
+    @Provides
+    fun providesAnexoImagenDao(db:MassiveDatabase) = db.getAnexoImagenDao()
+    @Singleton
+    @Provides
+    fun providesTipoCambioDao(db:MassiveDatabase) = db.getTipoCambioDao()
+    @Singleton
+    @Provides
+    fun providesSucursalDao(db:MassiveDatabase) = db.getSucursalDao()
+    @Singleton
+    @Provides
+    fun providesCamionetaDao(db:MassiveDatabase) = db.getCamionetaDao()
+    @Singleton
+    @Provides
+    fun providesConductorDao(db:MassiveDatabase) = db.getConductorDao()
+    @Singleton
+    @Provides
+    fun providesGrupoDescuentoDao(db:MassiveDatabase) = db.getGrupoDescuentoDao()
+    @Singleton
+    @Provides
+    fun providesGrupoDescuentoDetalleDao(db:MassiveDatabase) = db.getGrupoDescuentoDetalleDao()
+    @Singleton
+    @Provides
+    fun providesPrecioEspecialDao(db:MassiveDatabase) = db.getPrecioEspecialDao()
+    @Singleton
+    @Provides
+    fun providesPrecioEspecial1Dao(db:MassiveDatabase) = db.getPrecioEspecial1Dao()
+    @Singleton
+    @Provides
+    fun providesPrecioEspecial2Dao(db:MassiveDatabase) = db.getPrecioEspecial2Dao()
+
 }

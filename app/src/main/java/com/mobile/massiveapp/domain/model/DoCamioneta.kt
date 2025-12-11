@@ -1,6 +1,6 @@
-package com.mobile.massiveapp.data.model
+package com.mobile.massiveapp.domain.model
 
-data class Camioneta(
+data class DoCamioneta(
     val Code: String,
     val Name: String,
     val U_MSV_MA_PLACA: String,

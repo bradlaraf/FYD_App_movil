@@ -1,6 +1,6 @@
-package com.mobile.massiveapp.data.model
+package com.mobile.massiveapp.domain.model
 
-data class Sucursal (
+data class DoSucursal (
     val Code: String,
     val Name: String
 )

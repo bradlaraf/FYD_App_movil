@@ -14,6 +14,7 @@ import com.mobile.massiveapp.data.database.dao.ArticuloUnidadesDao
 import com.mobile.massiveapp.data.database.dao.BancoDao
 import com.mobile.massiveapp.data.database.dao.BaseDao
 import com.mobile.massiveapp.data.database.dao.BasesDao
+import com.mobile.massiveapp.data.database.dao.CamionetaDao
 import com.mobile.massiveapp.data.database.dao.ClienteFacturaDetalleDao
 import com.mobile.massiveapp.data.database.dao.ClienteFacturasDao
 import com.mobile.massiveapp.data.database.dao.ClientePagosDao
@@ -21,6 +22,7 @@ import com.mobile.massiveapp.data.database.dao.ClientePagosDetalleDao
 import com.mobile.massiveapp.data.database.dao.ClientePedidosDao
 import com.mobile.massiveapp.data.database.dao.ClientePedidosDetalleDao
 import com.mobile.massiveapp.data.database.dao.ClienteSociosDao
+import com.mobile.massiveapp.data.database.dao.ConductorDao
 import com.mobile.massiveapp.data.database.dao.ConfigurarUsuarioDao
 import com.mobile.massiveapp.data.database.dao.CuentasCDao
 import com.mobile.massiveapp.data.database.dao.GeneralActividadesEDao
@@ -40,10 +42,17 @@ import com.mobile.massiveapp.data.database.dao.GeneralProyectosDao
 import com.mobile.massiveapp.data.database.dao.GeneralSocioGruposDao
 import com.mobile.massiveapp.data.database.dao.GeneralVendedoresDao
 import com.mobile.massiveapp.data.database.dao.GeneralZonasDao
+import com.mobile.massiveapp.data.database.dao.GrupoDescuentoDao
+import com.mobile.massiveapp.data.database.dao.GrupoDescuentoDetalleDao
+import com.mobile.massiveapp.data.database.dao.PrecioEspecial1Dao
+import com.mobile.massiveapp.data.database.dao.PrecioEspecial2Dao
+import com.mobile.massiveapp.data.database.dao.PrecioEspecialDao
 import com.mobile.massiveapp.data.database.dao.SeriesNDao
 import com.mobile.massiveapp.data.database.dao.SociedadDao
 import com.mobile.massiveapp.data.database.dao.SocioContactosDao
 import com.mobile.massiveapp.data.database.dao.SocioDireccionesDao
+import com.mobile.massiveapp.data.database.dao.SucursalDao
+import com.mobile.massiveapp.data.database.dao.TipoCambioDao
 import com.mobile.massiveapp.data.database.dao.UsuarioAlmacenesDao
 import com.mobile.massiveapp.data.database.dao.UsuarioGrupoArticuloDao
 import com.mobile.massiveapp.data.database.dao.UsuarioGrupoSociosDao
@@ -101,7 +110,17 @@ class ManagerInputData @Inject constructor(
     val usuarioZonasDao: UsuarioZonasDao,
     val usuarioAlmacenesDao: UsuarioAlmacenesDao,
     val cuentasCDao: CuentasCDao,
-    val seriesNDao: SeriesNDao
+    val seriesNDao: SeriesNDao,
+
+    val tipoCambioDao: TipoCambioDao,
+    val sucursalDao: SucursalDao,
+    val conductorDao: ConductorDao,
+    val camionetaDao: CamionetaDao,
+    val grupoDescuentoDao: GrupoDescuentoDao,
+    val grupoDescuentoDetalleDao: GrupoDescuentoDetalleDao,
+    val precioEspecialDao: PrecioEspecialDao,
+    val precioEspecial1Dao: PrecioEspecial1Dao,
+    val precioEspecial2Dao: PrecioEspecial2Dao
 ) {
     companion object {
         const val ACTIVIDADES_E =       "ActividadesE"
@@ -147,6 +166,16 @@ class ManagerInputData @Inject constructor(
         const val USUARIOS =                    "Usuarios"
         const val SERIES_N =                    "Series"
         const val CUENTAS_C =                   "CuentasC"
+
+        const val PRECIO_ESPECIAL =             "PrecioEspecial"
+        const val PRECIO_ESPECIAL_1 =            "PrecioEspecial1"
+        const val PRECIO_ESPECIAL_2 =            "PrecioEspecial2"
+        const val TIPO_CAMBIO =                 "TiposCambio"
+        const val SUCURSAL =                    "Sucursales"
+        const val CAMIONETA =                   "Camionetas"
+        const val CONDUCTOR =                   "Conductores"
+        const val GRUPO_DESCUENTO =             "GruposDE"
+        const val GRUPO_DESCUENTO_DETALLE =     "GrupoDescuentoDetalle"
 
         const val SESION_CERRADA = 500
 
@@ -234,6 +263,16 @@ class ManagerInputData @Inject constructor(
         USUARIOS                    to configurarUsuariosDao,
         SERIES_N                    to seriesNDao,
         CUENTAS_C                   to cuentasCDao,
+
+        TIPO_CAMBIO                 to tipoCambioDao,
+        SUCURSAL                    to sucursalDao,
+        CAMIONETA                   to camionetaDao,
+        CONDUCTOR                   to conductorDao,
+        GRUPO_DESCUENTO             to grupoDescuentoDao,
+        GRUPO_DESCUENTO_DETALLE     to grupoDescuentoDetalleDao,
+        PRECIO_ESPECIAL             to precioEspecialDao,
+        PRECIO_ESPECIAL_1           to precioEspecial1Dao,
+        PRECIO_ESPECIAL_2           to precioEspecial2Dao
     )
 
 

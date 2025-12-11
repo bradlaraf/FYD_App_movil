@@ -1,6 +1,6 @@
-package com.mobile.massiveapp.data.model
+package com.mobile.massiveapp.domain.model
 
-data class Conductor(
+data class DoConductor(
     val Code: String,
     val Name: String,
     val U_MSV_MA_CONLIC: String,

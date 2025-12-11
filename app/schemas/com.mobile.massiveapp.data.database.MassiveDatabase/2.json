@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "cd25ccee9dda7ccd011505cc3f57bdac",
+    "identityHash": "6055386c59fbcc31c5c099bfd5643101",
     "entities": [
       {
         "tableName": "Articulo",
@@ -5051,12 +5051,578 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "AnexoImagen",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Nombre` TEXT NOT NULL, `Uri` TEXT NOT NULL, `Code` TEXT NOT NULL, PRIMARY KEY(`Nombre`))",
+        "fields": [
+          {
+            "fieldPath": "Nombre",
+            "columnName": "Nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Uri",
+            "columnName": "Uri",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Nombre"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TipoCambio",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `RateDate` TEXT NOT NULL, `Currency` TEXT NOT NULL, `Rate` REAL NOT NULL, PRIMARY KEY(`Code`))",
+        "fields": [
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "RateDate",
+            "columnName": "RateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Currency",
+            "columnName": "Currency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Rate",
+            "columnName": "Rate",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Code"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Sucursal",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `Name` TEXT NOT NULL, PRIMARY KEY(`Code`))",
+        "fields": [
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Name",
+            "columnName": "Name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Code"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Camioneta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `Name` TEXT NOT NULL, `U_MSV_MA_PLACA` TEXT NOT NULL, `U_MSV_MA_MARCA` TEXT NOT NULL, `U_MSV_MA_MODELO` TEXT NOT NULL, `U_MSV_MA_TOLVA` TEXT NOT NULL, `U_MSV_MA_ANIOFAB` INTEGER NOT NULL, PRIMARY KEY(`Code`))",
+        "fields": [
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Name",
+            "columnName": "Name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_PLACA",
+            "columnName": "U_MSV_MA_PLACA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_MARCA",
+            "columnName": "U_MSV_MA_MARCA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_MODELO",
+            "columnName": "U_MSV_MA_MODELO",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOLVA",
+            "columnName": "U_MSV_MA_TOLVA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_ANIOFAB",
+            "columnName": "U_MSV_MA_ANIOFAB",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Code"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Conductor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `Name` TEXT NOT NULL, `U_MSV_MA_CONLIC` TEXT NOT NULL, `U_MSV_MA_COTDOC` TEXT NOT NULL, `U_MSV_MA_CONNDOC` TEXT NOT NULL, `U_MSV_MA_CONOMB` TEXT NOT NULL, `U_MSV_MA_EMTDOC` TEXT NOT NULL, `U_MSV_MA_EMNNDOC` TEXT NOT NULL, `U_MSV_MA_EMNOMB` TEXT NOT NULL, `U_MSV_MA_MTC` TEXT NOT NULL, PRIMARY KEY(`Code`))",
+        "fields": [
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Name",
+            "columnName": "Name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CONLIC",
+            "columnName": "U_MSV_MA_CONLIC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_COTDOC",
+            "columnName": "U_MSV_MA_COTDOC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CONNDOC",
+            "columnName": "U_MSV_MA_CONNDOC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CONOMB",
+            "columnName": "U_MSV_MA_CONOMB",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_EMTDOC",
+            "columnName": "U_MSV_MA_EMTDOC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_EMNNDOC",
+            "columnName": "U_MSV_MA_EMNNDOC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_EMNOMB",
+            "columnName": "U_MSV_MA_EMNOMB",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_MTC",
+            "columnName": "U_MSV_MA_MTC",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Code"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "GrupoDescuento",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AbsEntry` INTEGER NOT NULL, `Type` TEXT NOT NULL, `Obj` TEXT NOT NULL, `ObjCode` TEXT NOT NULL, `DiscRef` TEXT NOT NULL, `ValidFor` TEXT NOT NULL, `ValidForm` TEXT NOT NULL, `ValidTo` TEXT NOT NULL, PRIMARY KEY(`AbsEntry`))",
+        "fields": [
+          {
+            "fieldPath": "AbsEntry",
+            "columnName": "AbsEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Type",
+            "columnName": "Type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Obj",
+            "columnName": "Obj",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ObjCode",
+            "columnName": "ObjCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DiscRef",
+            "columnName": "DiscRef",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ValidFor",
+            "columnName": "ValidFor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ValidForm",
+            "columnName": "ValidForm",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ValidTo",
+            "columnName": "ValidTo",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "AbsEntry"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "GrupoDescuentoDetalle",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AbsEntry` INTEGER NOT NULL, `Obj` TEXT NOT NULL, `ObjKey` TEXT NOT NULL, `DiscType` TEXT NOT NULL, `Discount` REAL NOT NULL, `PayFor` REAL NOT NULL, `ForFree` REAL NOT NULL, `UpTo` REAL NOT NULL, PRIMARY KEY(`AbsEntry`))",
+        "fields": [
+          {
+            "fieldPath": "AbsEntry",
+            "columnName": "AbsEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Obj",
+            "columnName": "Obj",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ObjKey",
+            "columnName": "ObjKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DiscRef",
+            "columnName": "DiscType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Discount",
+            "columnName": "Discount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PayFor",
+            "columnName": "PayFor",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ForFree",
+            "columnName": "ForFree",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UpTo",
+            "columnName": "UpTo",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "AbsEntry"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PrecioEspecial",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `ItemCode` TEXT NOT NULL, `CardCode` TEXT NOT NULL, `Price` REAL NOT NULL, `Currency` TEXT NOT NULL, `Discount` REAL NOT NULL, `ListNum` INTEGER NOT NULL, `ValidFrom` TEXT NOT NULL, `ValidTo` TEXT NOT NULL, PRIMARY KEY(`Code`))",
+        "fields": [
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ItemCode",
+            "columnName": "ItemCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Price",
+            "columnName": "Price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Currency",
+            "columnName": "Currency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Discount",
+            "columnName": "Discount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ListNum",
+            "columnName": "ListNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ValidFrom",
+            "columnName": "ValidFrom",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ValidTo",
+            "columnName": "ValidTo",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Code"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PrecioEspecial1",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `ItemCode` TEXT NOT NULL, `CardCode` TEXT NOT NULL, `LINENUM` INTEGER NOT NULL, `Price` REAL NOT NULL, `Currency` TEXT NOT NULL, `Discount` REAL NOT NULL, `ListNum` INTEGER NOT NULL, `FromDate` TEXT NOT NULL, `ToDate` TEXT NOT NULL, PRIMARY KEY(`Code`))",
+        "fields": [
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ItemCode",
+            "columnName": "ItemCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LINENUM",
+            "columnName": "LINENUM",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Price",
+            "columnName": "Price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Currency",
+            "columnName": "Currency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Discount",
+            "columnName": "Discount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ListNum",
+            "columnName": "ListNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "FromDate",
+            "columnName": "FromDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ToDate",
+            "columnName": "ToDate",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Code"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PrecioEspecial2",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `ItemCode` TEXT NOT NULL, `CardCode` TEXT NOT NULL, `SPP1LNum` INTEGER NOT NULL, `SPP2LNum` INTEGER NOT NULL, `Amount` REAL NOT NULL, `Price` REAL NOT NULL, `Currency` TEXT NOT NULL, `Discount` REAL NOT NULL, `UomEntry` INTEGER NOT NULL, PRIMARY KEY(`Code`))",
+        "fields": [
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ItemCode",
+            "columnName": "ItemCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CardCode",
+            "columnName": "CardCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SPP1LNum",
+            "columnName": "SPP1LNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SPP2LNum",
+            "columnName": "SPP2LNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Amount",
+            "columnName": "Amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Price",
+            "columnName": "Price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Currency",
+            "columnName": "Currency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Discount",
+            "columnName": "Discount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "UomEntry",
+            "columnName": "UomEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Code"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cd25ccee9dda7ccd011505cc3f57bdac')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6055386c59fbcc31c5c099bfd5643101')"
     ]
   }
 }
