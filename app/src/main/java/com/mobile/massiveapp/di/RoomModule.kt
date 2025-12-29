@@ -273,5 +273,11 @@ object RoomModule {
     @Singleton
     @Provides
     fun providesPrecioEspecial2Dao(db:MassiveDatabase) = db.getPrecioEspecial2Dao()
+    @Singleton
+    @Provides
+    fun providesFormaPagoDao(db:MassiveDatabase) = db.getFormaPagoDao()
+    @Singleton
+    @Provides
+    fun providesCargosDao(db:MassiveDatabase) = db.getCargosDao()
 
 }

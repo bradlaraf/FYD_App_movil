@@ -25,6 +25,7 @@ import com.mobile.massiveapp.data.model.ArticuloUnidades
 import com.mobile.massiveapp.data.model.Banco
 import com.mobile.massiveapp.data.model.Bases
 import com.mobile.massiveapp.data.model.Camioneta
+import com.mobile.massiveapp.data.model.Cargos
 import com.mobile.massiveapp.data.model.ClienteFacturaDetalle
 import com.mobile.massiveapp.data.model.ClienteFacturas
 import com.mobile.massiveapp.data.model.ClientePagos
@@ -37,6 +38,7 @@ import com.mobile.massiveapp.data.model.ClienteSocios
 import com.mobile.massiveapp.data.model.Conductor
 import com.mobile.massiveapp.data.model.ConfigurarUsuarios
 import com.mobile.massiveapp.data.model.CuentasC
+import com.mobile.massiveapp.data.model.FormaPago
 import com.mobile.massiveapp.data.model.GeneralActividadesE
 import com.mobile.massiveapp.data.model.GeneralCentrosC
 import com.mobile.massiveapp.data.model.GeneralCondiciones
@@ -324,6 +326,9 @@ class DatosMaestrosRepository @Inject constructor(
                     "Usuarios" -> { getKeys(ConfigurarUsuarios(), dataList) }
                     "Series" -> { getKeys(SeriesN(), dataList) }
                     "CuentasC" -> { getKeys(CuentasC(), dataList) }
+
+                    "Cargos" -> { getKeys(Cargos(), dataList) }
+                    "FormaPagos" -> { getKeys(FormaPago(), dataList) }
 
                     "Vendedores" -> { getKeys(GeneralVendedores(), dataList) }
                     "ArticuloPrecio" -> { getKeys(ArticuloPrecio(), dataList) }

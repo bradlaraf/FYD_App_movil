@@ -71,7 +71,9 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mobile.massiveapp.data.model.Camioneta
+import com.mobile.massiveapp.data.model.Cargos
 import com.mobile.massiveapp.data.model.Conductor
+import com.mobile.massiveapp.data.model.FormaPago
 import com.mobile.massiveapp.data.model.GrupoDescuento
 import com.mobile.massiveapp.data.model.Manifiesto
 import com.mobile.massiveapp.data.model.PrecioEspecial
@@ -150,6 +152,9 @@ class DatosMaestrosService @Inject constructor(
             "Camionetas"                     to object : TypeToken<List<Camioneta>>() {}.type,
             "Conductores"                     to object : TypeToken<List<Conductor>>() {}.type,
             "Sucursales"                     to object : TypeToken<List<Sucursal>>() {}.type,
+            "FormaPagos"                    to object : TypeToken<List<FormaPago>>() {}.type,
+            "Cargos"                    to object : TypeToken<List<Cargos>>() {}.type,
+
 
             "UsuariosAlmacenes" to object : TypeToken<List<UsuarioAlmacenes>>() {}.type,
             "UsuariosZonas" to object : TypeToken<List<UsuarioZonas>>() {}.type,

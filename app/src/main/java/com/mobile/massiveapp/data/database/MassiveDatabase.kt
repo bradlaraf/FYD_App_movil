@@ -17,6 +17,7 @@ import com.mobile.massiveapp.data.database.dao.ArticuloUnidadesDao
 import com.mobile.massiveapp.data.database.dao.BancoDao
 import com.mobile.massiveapp.data.database.dao.BasesDao
 import com.mobile.massiveapp.data.database.dao.CamionetaDao
+import com.mobile.massiveapp.data.database.dao.CargosDao
 import com.mobile.massiveapp.data.database.dao.ClienteFacturaDetalleDao
 import com.mobile.massiveapp.data.database.dao.ClienteFacturasDao
 import com.mobile.massiveapp.data.database.dao.ClientePagosDao
@@ -76,6 +77,7 @@ import com.mobile.massiveapp.data.database.dao.PrecioEspecialDao
 import com.mobile.massiveapp.data.database.dao.SeriesNDao
 import com.mobile.massiveapp.data.database.dao.SucursalDao
 import com.mobile.massiveapp.data.database.dao.TipoCambioDao
+import com.mobile.massiveapp.data.database.dao.FormaPagoDao
 import com.mobile.massiveapp.data.database.dao.UsuarioAlmacenesDao
 import com.mobile.massiveapp.data.database.dao.UsuarioDao
 import com.mobile.massiveapp.data.database.dao.UsuarioGrupoArticuloDao
@@ -96,6 +98,7 @@ import com.mobile.massiveapp.data.database.entities.ArticuloUnidadesEntity
 import com.mobile.massiveapp.data.database.entities.BancoEntity
 import com.mobile.massiveapp.data.database.entities.BasesEntity
 import com.mobile.massiveapp.data.database.entities.CamionetaEntity
+import com.mobile.massiveapp.data.database.entities.CargosEntity
 import com.mobile.massiveapp.data.database.entities.ClienteFacturaDetalleEntity
 import com.mobile.massiveapp.data.database.entities.ClienteFacturasEntity
 import com.mobile.massiveapp.data.database.entities.ClientePagosDetalleEntity
@@ -141,6 +144,7 @@ import com.mobile.massiveapp.data.database.entities.PrecioEspecialEntity
 import com.mobile.massiveapp.data.database.entities.SeriesNEntity
 import com.mobile.massiveapp.data.database.entities.SucursalEntity
 import com.mobile.massiveapp.data.database.entities.TipoCambioEntity
+import com.mobile.massiveapp.data.database.entities.FormaPagoEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioAlmacenesEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioGrupoArticulosEntity
@@ -224,6 +228,8 @@ import com.mobile.massiveapp.data.database.entities.UsuarioZonasEntity
         PrecioEspecialEntity::class,
         PrecioEspecial1Entity::class,
         PrecioEspecial2Entity::class,
+        FormaPagoEntity::class,
+        CargosEntity::class
        ],
     version = 2,
 
@@ -306,4 +312,6 @@ abstract class MassiveDatabase: RoomDatabase() {
     abstract fun getPrecioEspecialDao(): PrecioEspecialDao
     abstract fun getPrecioEspecial1Dao(): PrecioEspecial1Dao
     abstract fun getPrecioEspecial2Dao(): PrecioEspecial2Dao
+    abstract fun getFormaPagoDao(): FormaPagoDao
+    abstract fun getCargosDao(): CargosDao
 }
