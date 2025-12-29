@@ -24,6 +24,8 @@ interface ManifiestoDocumentoDao: BaseDao<ManifiestoDocumentoEntity> {
             IFNULL((SELECT Z0.SlpName FROM Vendedor Z0 WHERE Z0.SlpCode = T0.U_MSV_MA_VENDEDOR LIMIT 1), '') AS Vendedor,
             IFNULL(T0.U_MSV_MA_MON, '') AS Moneda,  
             IFNULL((SELECT Z0.CurrName FROM Monedas Z0 WHERE Z0.CurrCode = T0.U_MSV_MA_MON),'') AS MonedaSimbolo,
+            IFNULL(T0.DocEntry, -11) AS DocEntry,
+            IFNULL(T0.U_MSV_MA_SOCCOD, '') AS CodigoSocio,
             -- TOTAL
             ROUND(
                 CASE 

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "60b515ab1430af1a6fba671b6465f66b",
+    "identityHash": "23d59049165ce3c4005ecf39bdae9e7e",
     "entities": [
       {
         "tableName": "Articulo",
@@ -6003,12 +6003,70 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "FormaPago",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `Name` TEXT NOT NULL, PRIMARY KEY(`Code`))",
+        "fields": [
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Name",
+            "columnName": "Name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "Code"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Cargos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`posID` INTEGER NOT NULL, `name` TEXT NOT NULL, `descriptio` TEXT NOT NULL, PRIMARY KEY(`posID`))",
+        "fields": [
+          {
+            "fieldPath": "posID",
+            "columnName": "posID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descriptio",
+            "columnName": "descriptio",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "posID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '60b515ab1430af1a6fba671b6465f66b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '23d59049165ce3c4005ecf39bdae9e7e')"
     ]
   }
 }

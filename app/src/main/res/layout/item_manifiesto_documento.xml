@@ -1,164 +1,185 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/color_white"
-    android:layout_marginTop="2dp"
-    android:padding="10dp">
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="1dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/txvManDocNombreClienteValue"
-        style="@style/default_title_large_text"
-        android:textStyle="bold"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Nombre Cliente" />
+        android:background="@color/color_white"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/txvManDocSUNATValue"
-        style="@style/default_short_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/txvManDocNombreClienteValue"
+            style="@style/default_title_large_text"
+            android:textStyle="bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nombre Cliente" />
 
-        android:background="@drawable/rounded_txv_background_gris"
-        android:backgroundTint="@color/color_blue_lighter"
-        android:paddingHorizontal="7dp"
-        android:textStyle="bold"
-        android:paddingVertical="2dp"
-        android:textColor="@color/white"
+        <TextView
+            android:id="@+id/txvManDocSUNATValue"
+            style="@style/default_short_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="SUNAT" />
+            android:background="@drawable/rounded_txv_background_gris"
+            android:backgroundTint="@color/color_blue_lighter"
+            android:paddingHorizontal="7dp"
+            android:textStyle="bold"
+            android:paddingVertical="2dp"
+            android:textColor="@color/white"
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/txvManDocTipoDocumentoValue"
-        style="@style/default_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/txvManDocSUNATValue"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Tipo Documento" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="SUNAT" />
 
-    <TextView
-        android:id="@+id/txvManDocVendedorValue"
-        style="@style/default_short_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocPagadoValue"
-        tools:text="Vendedor" />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/txvManDocTipoDocumentoValue"
+            style="@style/default_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toStartOf="@+id/txvManDocSUNATValue"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Tipo Documento" />
 
-    <TextView
-        android:id="@+id/txvManDocTotalTitle"
-        style="@style/default_short_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Total"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocNombreClienteValue" />
+        <TextView
+            android:id="@+id/txvManDocVendedorValue"
+            style="@style/default_short_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView6"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocPagadoValue"
+            tools:text="Vendedor" />
 
-    <TextView
-        android:id="@+id/txvManDocTotalValue"
-        style="@style/default_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocTotalTitle"
-        tools:text="Total" />
+        <TextView
+            android:id="@+id/txvManDocTotalTitle"
+            style="@style/default_short_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Total"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocNombreClienteValue" />
+
+        <TextView
+            android:id="@+id/txvManDocTotalValue"
+            style="@style/default_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocTotalTitle"
+            tools:text="Total" />
 
 
-    <TextView
-        android:id="@+id/txvManDocMonedaTitle"
-        style="@style/default_short_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Moneda"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocTotalValue" />
+        <TextView
+            android:id="@+id/txvManDocMonedaTitle"
+            style="@style/default_short_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Moneda"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocTotalValue" />
 
-    <TextView
-        android:id="@+id/txvManDocMonedaValue"
-        style="@style/default_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocMonedaTitle"
-        tools:text="Moneda" />
+        <TextView
+            android:id="@+id/txvManDocMonedaValue"
+            style="@style/default_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocMonedaTitle"
+            tools:text="Moneda" />
 
-    <TextView
-        android:id="@+id/txvManDocSaldoTitle"
-        style="@style/default_short_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Saldo Pendiente"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocSUNATValue" />
+        <TextView
+            android:id="@+id/txvManDocSaldoTitle"
+            style="@style/default_short_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Saldo Pendiente"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocSUNATValue" />
 
-    <TextView
-        android:id="@+id/txvManDocSaldoValue"
-        style="@style/default_text"
-        android:textSize="16sp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocSaldoTitle"
-        tools:text="Saldo Pendiente" />
+        <TextView
+            android:id="@+id/txvManDocSaldoValue"
+            style="@style/default_text"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocSaldoTitle"
+            tools:text="Saldo Pendiente" />
 
-    <TextView
-        android:id="@+id/txvManDocPagadoTitle"
-        style="@style/default_short_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Pagado"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocSaldoValue" />
+        <TextView
+            android:id="@+id/txvManDocPagadoTitle"
+            style="@style/default_short_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Pagado"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocSaldoValue" />
 
-    <TextView
-        android:id="@+id/txvManDocPagadoValue"
-        style="@style/default_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocPagadoTitle"
-        tools:text="Pagado" />
+        <TextView
+            android:id="@+id/txvManDocPagadoValue"
+            style="@style/default_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocPagadoTitle"
+            tools:text="Pagado" />
 
-    <TextView
-        android:id="@+id/txvManDocZonaValue"
-        style="@style/default_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        tools:text="Zona"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocMonedaValue" />
+        <TextView
+            android:id="@+id/txvManDocZonaValue"
+            style="@style/default_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            tools:text="Zona"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocMonedaValue" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvManDocPagadoValue"
-        app:srcCompat="@drawable/icon_empleado"
-        app:tint="@color/color_blue_lighter_10" />
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvManDocPagadoValue"
+            app:srcCompat="@drawable/icon_empleado"
+            app:tint="@color/color_blue_lighter_10" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnCobrar"
+            style="@style/default_text"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_btn_cobrar"
+            android:text="Cobrar"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
