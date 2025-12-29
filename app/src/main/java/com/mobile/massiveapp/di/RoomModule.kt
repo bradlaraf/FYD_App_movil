@@ -279,5 +279,8 @@ object RoomModule {
     @Singleton
     @Provides
     fun providesCargosDao(db:MassiveDatabase) = db.getCargosDao()
+    @Singleton
+    @Provides
+    fun providesLiquidacionPagoDao(db:MassiveDatabase) = db.getLiquidacionPagoDao()
 
 }

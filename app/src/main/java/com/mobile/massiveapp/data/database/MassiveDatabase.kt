@@ -78,6 +78,7 @@ import com.mobile.massiveapp.data.database.dao.SeriesNDao
 import com.mobile.massiveapp.data.database.dao.SucursalDao
 import com.mobile.massiveapp.data.database.dao.TipoCambioDao
 import com.mobile.massiveapp.data.database.dao.FormaPagoDao
+import com.mobile.massiveapp.data.database.dao.LiquidacionPagoDao
 import com.mobile.massiveapp.data.database.dao.UsuarioAlmacenesDao
 import com.mobile.massiveapp.data.database.dao.UsuarioDao
 import com.mobile.massiveapp.data.database.dao.UsuarioGrupoArticuloDao
@@ -145,6 +146,7 @@ import com.mobile.massiveapp.data.database.entities.SeriesNEntity
 import com.mobile.massiveapp.data.database.entities.SucursalEntity
 import com.mobile.massiveapp.data.database.entities.TipoCambioEntity
 import com.mobile.massiveapp.data.database.entities.FormaPagoEntity
+import com.mobile.massiveapp.data.database.entities.LiquidacionPagoEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioAlmacenesEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioGrupoArticulosEntity
@@ -229,7 +231,8 @@ import com.mobile.massiveapp.data.database.entities.UsuarioZonasEntity
         PrecioEspecial1Entity::class,
         PrecioEspecial2Entity::class,
         FormaPagoEntity::class,
-        CargosEntity::class
+        CargosEntity::class,
+        LiquidacionPagoEntity::class
        ],
     version = 2,
 
@@ -300,6 +303,7 @@ abstract class MassiveDatabase: RoomDatabase() {
     abstract fun getManifiestoDao(): ManifiestoDao
     abstract fun getManifiestoAyudanteDao(): ManifiestoAyudanteDao
     abstract fun getManifiestoDocumentoDao(): ManifiestoDocumentoDao
+    abstract fun getLiquidacionPagoDao(): LiquidacionPagoDao
 
     abstract fun getAnexoImagenDao(): AnexoImagenDao
 

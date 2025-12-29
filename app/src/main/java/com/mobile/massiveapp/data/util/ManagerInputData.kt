@@ -15,6 +15,7 @@ import com.mobile.massiveapp.data.database.dao.BancoDao
 import com.mobile.massiveapp.data.database.dao.BaseDao
 import com.mobile.massiveapp.data.database.dao.BasesDao
 import com.mobile.massiveapp.data.database.dao.CamionetaDao
+import com.mobile.massiveapp.data.database.dao.CargosDao
 import com.mobile.massiveapp.data.database.dao.ClienteFacturaDetalleDao
 import com.mobile.massiveapp.data.database.dao.ClienteFacturasDao
 import com.mobile.massiveapp.data.database.dao.ClientePagosDao
@@ -25,6 +26,7 @@ import com.mobile.massiveapp.data.database.dao.ClienteSociosDao
 import com.mobile.massiveapp.data.database.dao.ConductorDao
 import com.mobile.massiveapp.data.database.dao.ConfigurarUsuarioDao
 import com.mobile.massiveapp.data.database.dao.CuentasCDao
+import com.mobile.massiveapp.data.database.dao.FormaPagoDao
 import com.mobile.massiveapp.data.database.dao.GeneralActividadesEDao
 import com.mobile.massiveapp.data.database.dao.GeneralCentrosCDao
 import com.mobile.massiveapp.data.database.dao.GeneralCondicionesDao
@@ -124,7 +126,9 @@ class ManagerInputData @Inject constructor(
     val precioEspecial1Dao: PrecioEspecial1Dao,
     val precioEspecial2Dao: PrecioEspecial2Dao,
     val manifiestoDao: ManifiestoDao,
-    val manifiestoDocumentoDao: ManifiestoDocumentoDao
+    val manifiestoDocumentoDao: ManifiestoDocumentoDao,
+    val cargosDao: CargosDao,
+    val formaPagoDao: FormaPagoDao
 ) {
     companion object {
         const val ACTIVIDADES_E =       "ActividadesE"
@@ -180,9 +184,11 @@ class ManagerInputData @Inject constructor(
         const val CONDUCTOR =                   "Conductores"
         const val GRUPO_DESCUENTO =             "GruposDE"
         const val GRUPO_DESCUENTO_DETALLE =     "GrupoDescuentoDetalle"
+        const val MANIFIESTO_DOCUMENTO =        "ManifiestoDocumento"
 
-        const val MANIFIESTO = "Manifiestos"
-        const val MANIFIESTO_DOCUMENTO = "ManifiestoDocumento"
+        const val CARGOS =                      "Cargos"
+        const val FORMA_PAGOS =                 "FormaPagos"
+        const val MANIFIESTO =                  "Manifiestos"
 
         const val SESION_CERRADA = 500
 
@@ -280,6 +286,8 @@ class ManagerInputData @Inject constructor(
         PRECIO_ESPECIAL             to precioEspecialDao,
         PRECIO_ESPECIAL_1           to precioEspecial1Dao,
         PRECIO_ESPECIAL_2           to precioEspecial2Dao,
+        CARGOS                      to cargosDao,
+        FORMA_PAGOS                 to formaPagoDao,
 
         MANIFIESTO                  to manifiestoDao,
         MANIFIESTO_DOCUMENTO        to manifiestoDocumentoDao

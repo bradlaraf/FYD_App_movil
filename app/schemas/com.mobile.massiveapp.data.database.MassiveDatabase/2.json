@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "23d59049165ce3c4005ecf39bdae9e7e",
+    "identityHash": "039860070ea232ad424170efb4842be1",
     "entities": [
       {
         "tableName": "Articulo",
@@ -6006,7 +6006,7 @@
       },
       {
         "tableName": "FormaPago",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `Name` TEXT NOT NULL, PRIMARY KEY(`Code`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `Name` TEXT NOT NULL, `U_MSV_MA_CUENTA` TEXT NOT NULL, PRIMARY KEY(`Code`))",
         "fields": [
           {
             "fieldPath": "Code",
@@ -6017,6 +6017,12 @@
           {
             "fieldPath": "Name",
             "columnName": "Name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CUENTA",
+            "columnName": "U_MSV_MA_CUENTA",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -6061,12 +6067,116 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "LiquidacionPago",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccDocEntry` TEXT NOT NULL, `Code` TEXT NOT NULL, `Name` TEXT NOT NULL, `DocEntry` INTEGER, `U_MSV_MA_LIQ` INTEGER NOT NULL, `U_MSV_MA_MANIF` INTEGER NOT NULL, `U_MSV_MA_OBJETO` INTEGER NOT NULL, `U_MSV_MA_CLAVE` INTEGER NOT NULL, `U_MSV_MA_FECHA` TEXT NOT NULL, `U_MSV_MA_MEDIO` TEXT NOT NULL, `U_MSV_MA_MON` TEXT NOT NULL, `U_MSV_MA_IMP` REAL NOT NULL, `U_MSV_MA_NROOPE` TEXT NOT NULL, `U_MSV_MA_CTA` TEXT NOT NULL, `U_MSV_MA_PAGO` INTEGER NOT NULL, PRIMARY KEY(`AccDocEntry`))",
+        "fields": [
+          {
+            "fieldPath": "AccDocEntry",
+            "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Code",
+            "columnName": "Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Name",
+            "columnName": "Name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "U_MSV_MA_LIQ",
+            "columnName": "U_MSV_MA_LIQ",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_MANIF",
+            "columnName": "U_MSV_MA_MANIF",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_OBJETO",
+            "columnName": "U_MSV_MA_OBJETO",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CLAVE",
+            "columnName": "U_MSV_MA_CLAVE",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_FECHA",
+            "columnName": "U_MSV_MA_FECHA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_MEDIO",
+            "columnName": "U_MSV_MA_MEDIO",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_MON",
+            "columnName": "U_MSV_MA_MON",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_IMP",
+            "columnName": "U_MSV_MA_IMP",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_NROOPE",
+            "columnName": "U_MSV_MA_NROOPE",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CTA",
+            "columnName": "U_MSV_MA_CTA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_PAGO",
+            "columnName": "U_MSV_MA_PAGO",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "AccDocEntry"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '23d59049165ce3c4005ecf39bdae9e7e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '039860070ea232ad424170efb4842be1')"
     ]
   }
 }

@@ -253,7 +253,8 @@ class DatosMaestrosRepository @Inject constructor(
                     "TiposCambio" -> { getMap(TipoCambio(), dataList) }
                     "Conductores" -> { getMap(Conductor(), dataList) }
                     "Sucursales" -> { getMap(Sucursal(), dataList) }
-
+                    "Cargos" -> { getKeys(Cargos(), dataList) }
+                    "FormaPagos" -> { getKeys(FormaPago(), dataList) }
 
                     else -> { emptyList<Any>() }
                 } as List<Any>

@@ -7,6 +7,7 @@ import com.mobile.massiveapp.data.database.entities.GeneralCondicionesEntity
 import com.mobile.massiveapp.data.database.entities.GeneralVendedoresEntity
 import com.mobile.massiveapp.data.model.Banco
 import com.mobile.massiveapp.data.model.Bases
+import com.mobile.massiveapp.data.model.FormaPago
 import com.mobile.massiveapp.data.model.GeneralCondiciones
 import com.mobile.massiveapp.data.model.GeneralCuentasB
 import com.mobile.massiveapp.data.model.GeneralDepartamentos
@@ -24,6 +25,7 @@ import com.mobile.massiveapp.domain.general.GetAllConductoresUseCase
 import com.mobile.massiveapp.domain.general.GetAllCuentasCUseCase
 import com.mobile.massiveapp.domain.general.GetAllDepartamentosUseCase
 import com.mobile.massiveapp.domain.general.GetAllDistritosUseCase
+import com.mobile.massiveapp.domain.general.GetAllFormasPagoUseCase
 import com.mobile.massiveapp.domain.general.GetAllGeneralCondicionesUseCase
 import com.mobile.massiveapp.domain.general.GetAllGeneralCuentasBUseCase
 import com.mobile.massiveapp.domain.general.GetEmpleadosDeVentaUseCase
@@ -81,7 +83,8 @@ class GeneralViewModel @Inject constructor(
     private val getBaseActualUseCase: GetBaseActualUseCase,
     private val getAllGeneralSeriesUseCase: GetAllGeneralSeriesUseCase,
     private val getAllCuentasCUseCase: GetAllCuentasCUseCase,
-    private val getAllConductoresUseCase: GetAllConductoresUseCase
+    private val getAllConductoresUseCase: GetAllConductoresUseCase,
+    private val getAllFormasPagoUseCase: GetAllFormasPagoUseCase
 ): ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>()
@@ -103,6 +106,14 @@ class GeneralViewModel @Inject constructor(
             result.let {
                 dataGetAllConductores.postValue(it)
             }
+        }
+    }
+
+    //Formas de Pago
+    val dataGetAllFormasPago = MutableLiveData<List<FormaPago>>()
+    fun getAllFormasPago(){
+        viewModelScope.launch {
+
         }
     }
 

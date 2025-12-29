@@ -6,11 +6,14 @@ import com.mobile.massiveapp.data.util.MappingInteface
 
 data class FormaPago(
     val Code: String,
-    val Name: String
+    val Name: String,
+    val U_MSV_MA_CUENTA: String,
 ): MappingInteface<FormaPago>(){
     constructor(): this(
         Code = "",
-        Name = ""
+        Name = "",
+        U_MSV_MA_CUENTA = ""
+
     )
     override fun map(data: List<FormaPago>): List<*> {
         return data.map { it.toDatabase() }
@@ -24,5 +27,6 @@ data class FormaPago(
 
 fun FormaPagoEntity.toModel() = FormaPago(
     Code = Code,
-    Name = Name
+    Name = Name,
+    U_MSV_MA_CUENTA = U_MSV_MA_CUENTA
 )
