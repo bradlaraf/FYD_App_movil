@@ -142,6 +142,7 @@ class NuevoUsuarioActivity : AppCompatActivity() {
             binding.txvUsuarioGeneralCuentaTransferenciaValue.text = infoUsuarioObj.CuentaTransferencia
             binding.txvUsuarioGeneralCuentaDepositoValue.text = infoUsuarioObj.CuentaDeposito
             binding.txvUsuarioGeneralCuentaChequeValue.text = infoUsuarioObj.CuentaCheque
+            binding.txvUsuarioGeneralZonaUsuarioValue.text = infoUsuarioObj.DefaultZona
 
             binding.cbUsuarioActivo.isChecked = infoUsuarioObj.AccLocked.getBoolFromAccLocked()
             binding.cbUsuarioSuperUsuario.isChecked = infoUsuarioObj.SuperUser.getBoolByYorN()
@@ -165,6 +166,7 @@ class NuevoUsuarioActivity : AppCompatActivity() {
             infoUsuario["currCode"] = infoUsuarioObj.DefaultCurrency
             infoUsuario["taxCode"] = infoUsuarioObj.DefaultTaxCode
             infoUsuario["slpCode"] = infoUsuarioObj.DefaultSlpCode
+            infoUsuario["zonaUsuario"] = infoUsuarioObj.DefaultZona
 
             setInfoNuevoUsuario(nuevoUsuario = usuarioCode.isNotEmpty())
         }
@@ -327,8 +329,10 @@ class NuevoUsuarioActivity : AppCompatActivity() {
         usuariosViewModel.getAllUsuarioGrupoArticulosCreacion(usuarioCode)
         usuariosViewModel.getAllUsuarioGrupoSociosCreacion(usuarioCode)
 
+        generalViewModel.getAllZonas()
         generalViewModel.getAllGeneralVendedores()
         generalViewModel.getAllSeriesN()
+        generalViewModel.getAllConductores() //CONDUCTORES
         articulosViewModel.getAllArticuloListaPrecios()
         generalViewModel.getAllGeneralImpuestos()
         generalViewModel.getAllGeneralMonedas()
@@ -357,8 +361,9 @@ class NuevoUsuarioActivity : AppCompatActivity() {
 
                 //Series - Clientes
                 if (listaSeriesSociosFiltrada.size == 1){
-                    binding.txvUsuarioGeneralSerieClientesValue.text = listaSeriesSociosFiltrada.first().SeriesName
-                    infoUsuario["socioSeries"] = listaSeriesSociosFiltrada.first().Series.toString()
+                    val serieClienteDefault = listaSeriesSociosFiltrada.filter { it.Series == 1 }
+                    binding.txvUsuarioGeneralSerieClientesValue.text = serieClienteDefault.first().SeriesName
+                    infoUsuario["socioSeries"] = serieClienteDefault.first().Series.toString()
                 }
 
                 //Series - Pedidos
@@ -543,6 +548,20 @@ class NuevoUsuarioActivity : AppCompatActivity() {
             }.show(supportFragmentManager, "showDialog")
         }
 
+        //Conductor
+        binding.clUsuarioGeneralConductor.setOnClickListener {
+            generalViewModel.dataGetAllConductores.observe(this){ listaConductores->
+                BaseDialogCheckListWithViewAndId(
+                    this,
+                    binding.txvUsuarioGeneralConductorValue.text.toString(),
+                    listaConductores.map { it.Name },
+                ){ opcionElegida, id->
+                    binding.txvUsuarioGeneralConductorValue.text = opcionElegida
+                    infoUsuario["conductor"] = listaConductores[id].Code
+                }.show(supportFragmentManager, "showDialog")
+            }
+        }
+
         //Id Movil
         binding.clUsuarioGeneralIDTelefono.setOnClickListener {
             BaseDialogEdtWithTypeEdt(
@@ -597,6 +616,20 @@ class NuevoUsuarioActivity : AppCompatActivity() {
                 ){ opcionElegida, id->
                     binding.txvUsuarioGeneralVendedorValue.text = opcionElegida
                     infoUsuario["slpCode"] = listaVendedores[id].SlpCode.toString()
+                }.show(supportFragmentManager, "showDialog")
+            }
+        }
+
+        //Zona Usuario
+        binding.clUsuarioGeneralZonaUsuario.setOnClickListener {
+            generalViewModel.dataGetAllZonas.observe(this){ listaZonas->
+                BaseDialogCheckListWithViewAndId(
+                    this,
+                    binding.txvUsuarioGeneralZonaUsuarioValue.text.toString(),
+                    listaZonas.map { it.Name },
+                ){ opcionElegida, id->
+                    binding.txvUsuarioGeneralZonaUsuarioValue.text = opcionElegida
+                    infoUsuario["zonaUsuario"] = listaZonas[id].Code
                 }.show(supportFragmentManager, "showDialog")
             }
         }
@@ -709,56 +742,73 @@ class NuevoUsuarioActivity : AppCompatActivity() {
         //Cuenta Efectivo
         binding.clUsuarioGeneralCuentaEfectivo.setOnClickListener {
             generalViewModel.dataGetAllCuentasC.observe(this){ listaCuentasB->
-                BaseDialogCheckListWithViewAndId(
-                    this,
-                    binding.txvUsuarioGeneralCuentaEfectivoValue.text.toString(),
-                    listaCuentasB.map { it.AcctName }
-                ){ opcionElegida, id->
-                    binding.txvUsuarioGeneralCuentaEfectivoValue.text = opcionElegida
-                    infoUsuario["acctEfectivo"] = listaCuentasB[id].AcctCode.toString()
-                }.show(supportFragmentManager, "showDialog")
+                if (listaCuentasB.isNotEmpty()){
+                    BaseDialogCheckListWithViewAndId(
+                        this,
+                        binding.txvUsuarioGeneralCuentaEfectivoValue.text.toString(),
+                        listaCuentasB.map { it.AcctName }
+                    ){ opcionElegida, id->
+                        binding.txvUsuarioGeneralCuentaEfectivoValue.text = opcionElegida
+                        infoUsuario["acctEfectivo"] = listaCuentasB[id].AcctCode.toString()
+                    }.show(supportFragmentManager, "showDialog")
+                } else {
+                    showMessage("No hay información")
+                }
             }
         }
 
         //Cuenta Transferencia
         binding.clUsuarioGeneralCuentaTransferencia.setOnClickListener {
             generalViewModel.dataGetAllCuentasC.observe(this){ listaCuentasB->
-                BaseDialogCheckListWithViewAndId(
-                    this,
-                    binding.txvUsuarioGeneralCuentaTransferenciaValue.text.toString(),
-                    listaCuentasB.map { it.AcctName }
-                ){ opcionElegida, id->
-                    binding.txvUsuarioGeneralCuentaTransferenciaValue.text = opcionElegida
-                    infoUsuario["acctTransferencia"] = listaCuentasB[id].AcctCode.toString()
-                }.show(supportFragmentManager, "showDialog")
+                if (listaCuentasB.isNotEmpty()){
+                    BaseDialogCheckListWithViewAndId(
+                        this,
+                        binding.txvUsuarioGeneralCuentaTransferenciaValue.text.toString(),
+                        listaCuentasB.map { it.AcctName }
+                    ){ opcionElegida, id->
+                        binding.txvUsuarioGeneralCuentaTransferenciaValue.text = opcionElegida
+                        infoUsuario["acctTransferencia"] = listaCuentasB[id].AcctCode.toString()
+                    }.show(supportFragmentManager, "showDialog")
+                } else {
+                    showMessage("No hay información")
+                }
             }
         }
 
         //Cuenta Deposito
         binding.clUsuarioGeneralCuentaDeposito.setOnClickListener {
             generalViewModel.dataGetAllCuentasC.observe(this){ listaCuentasB->
-                BaseDialogCheckListWithViewAndId(
-                    this,
-                    binding.txvUsuarioGeneralCuentaDepositoValue.text.toString(),
-                    listaCuentasB.map { it.AcctName }
-                ){ opcionElegida, id->
-                    binding.txvUsuarioGeneralCuentaDepositoValue.text = opcionElegida
-                    infoUsuario["acctDeposito"] = listaCuentasB[id].AcctCode.toString()
-                }.show(supportFragmentManager, "showDialog")
+                if (listaCuentasB.isNotEmpty()){
+
+                    BaseDialogCheckListWithViewAndId(
+                        this,
+                        binding.txvUsuarioGeneralCuentaDepositoValue.text.toString(),
+                        listaCuentasB.map { it.AcctName }
+                    ){ opcionElegida, id->
+                        binding.txvUsuarioGeneralCuentaDepositoValue.text = opcionElegida
+                        infoUsuario["acctDeposito"] = listaCuentasB[id].AcctCode.toString()
+                    }.show(supportFragmentManager, "showDialog")
+                } else{
+                    showMessage("No hay información")
+                }
             }
         }
 
         //Cuenta Cheque
         binding.clUsuarioGeneralCuentaCheque.setOnClickListener {
             generalViewModel.dataGetAllCuentasC.observe(this){ listaCuentasB->
-                BaseDialogCheckListWithViewAndId(
-                    this,
-                    binding.txvUsuarioGeneralCuentaChequeValue.text.toString(),
-                    listaCuentasB.map { it.AcctName }
-                ){ opcionElegida, id->
-                    binding.txvUsuarioGeneralCuentaChequeValue.text = opcionElegida
-                    infoUsuario["acctCheque"] = listaCuentasB[id].AcctCode.toString()
-                }.show(supportFragmentManager, "showDialog")
+                if (listaCuentasB.isNotEmpty()){
+                    BaseDialogCheckListWithViewAndId(
+                        this,
+                        binding.txvUsuarioGeneralCuentaChequeValue.text.toString(),
+                        listaCuentasB.map { it.AcctName }
+                    ){ opcionElegida, id->
+                        binding.txvUsuarioGeneralCuentaChequeValue.text = opcionElegida
+                        infoUsuario["acctCheque"] = listaCuentasB[id].AcctCode.toString()
+                    }.show(supportFragmentManager, "showDialog")
+                } else {
+                    showMessage("No hay información")
+                }
             }
         }
     }
@@ -774,7 +824,7 @@ class NuevoUsuarioActivity : AppCompatActivity() {
             Phone1 = binding.txvUsuarioGeneralTelefonoValue.text.toString(),
             DefaultSlpCode = infoUsuario["slpCode"].toString(),
 
-            DefaultOrderSeries = infoUsuario["pedidoSeries"].toString(),
+            DefaultOrderSeries =    infoUsuario["pedidoSeries"].toString(),
             DefaultSNSerieCli = infoUsuario["socioSeries"].toString(),
             DefaultPagoRSeries = infoUsuario["pagosSeries"].toString(),
             DefaultPriceList = infoUsuario["priceList"].toString(),
@@ -787,6 +837,9 @@ class NuevoUsuarioActivity : AppCompatActivity() {
             DefaultAcctCodeDe = infoUsuario["acctDeposito"].toString(),
             DefaultAcctCodeEf = infoUsuario["acctEfectivo"].toString(),
             DefaultAcctCodeTr = infoUsuario["acctTransferencia"].toString(),
+
+            DefaultConductor =  "CON001",
+            DefaultZona = infoUsuario["zonaUsuario"].toString(),
 
             AccStatusSession = binding.cbUsuarioSesionActiva.isChecked.getStringBool(),
             AccLocked = binding.cbUsuarioActivo.isChecked.getStringForAccLocked(),
@@ -815,17 +868,17 @@ class NuevoUsuarioActivity : AppCompatActivity() {
         /*if (binding.txvUsuarioGeneralCorreoValue.text.toString().isEmpty())emptyFields.add("\n Correo")*/
         /*if (binding.txvUsuarioGeneralTelefonoValue.text.toString().isEmpty())emptyFields.add("\n Telefono")*/
         if (binding.txvUsuarioGeneralVendedorValue.text.toString().isEmpty())emptyFields.add("\n Vendedor")
-        if (binding.txvUsuarioGeneralSerieClientesValue.text.toString().isEmpty())emptyFields.add("\n SerieClientes")
+        /*if (binding.txvUsuarioGeneralSerieClientesValue.text.toString().isEmpty())emptyFields.add("\n SerieClientes")
         if (binding.txvUsuarioGeneralSeriePedidosValue.text.toString().isEmpty())emptyFields.add("\n SeriePedidos")
-        if (binding.txvUsuarioGeneralSeriePagosValue.text.toString().isEmpty())emptyFields.add("\n SeriePagos")
+        if (binding.txvUsuarioGeneralSeriePagosValue.text.toString().isEmpty())emptyFields.add("\n SeriePagos")*/
         if (binding.txvUsuarioGeneralListaPrecioValue.text.toString().isEmpty())emptyFields.add("\n ListaPrecio")
         if (binding.txvUsuarioGeneralImpuestoValue.text.toString().isEmpty())emptyFields.add("\n Impuesto")
         if (binding.txvUsuarioGeneralMonedaValue.text.toString().isEmpty())emptyFields.add("\n Moneda")
         if (binding.txvUsuarioGeneralAlmacenValue.text.toString().isEmpty())emptyFields.add("\n Almacen")
-        if (binding.txvUsuarioGeneralCuentaEfectivoValue.text.toString().isEmpty())emptyFields.add("\n CuentaEfectivo")
+       /*if (binding.txvUsuarioGeneralCuentaEfectivoValue.text.toString().isEmpty())emptyFields.add("\n CuentaEfectivo")
         if (binding.txvUsuarioGeneralCuentaTransferenciaValue.text.toString().isEmpty())emptyFields.add("\n CuentaTransferencia")
         if (binding.txvUsuarioGeneralCuentaDepositoValue.text.toString().isEmpty())emptyFields.add("\n CuentaDeposito")
-        if (binding.txvUsuarioGeneralCuentaChequeValue.text.toString().isEmpty())emptyFields.add("\n CuentaCheque")
+        if (binding.txvUsuarioGeneralCuentaChequeValue.text.toString().isEmpty())emptyFields.add("\n CuentaCheque")*/
         return emptyFields.joinToString()
     }
 

@@ -52,7 +52,7 @@ class InfoSocioNegocioActivity : AppCompatActivity() {
             //Get Datos del CLIENTE POR CARDCODE
         socioDireccionesViewModel.getAllDireccionesPorCardCode(intent.getStringExtra("cardCode").toString())
         socioContactosViewModel.getSocioContactosPorCardCode(intent.getStringExtra("cardCode").toString())
-
+        socioDireccionesViewModel.getAllDireccionesView(intent.getStringExtra("cardCode").toString())
         socioNegocioViewModel.getInfoClientePorCardCode(intent.getStringExtra("cardCode").toString())
         socioNegocioViewModel.dataGetInfoClientePorCardCode.observe(this){ infoCliente->
             try {

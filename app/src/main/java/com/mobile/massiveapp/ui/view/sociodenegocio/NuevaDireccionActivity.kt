@@ -57,12 +57,21 @@ class NuevaDireccionActivity : AppCompatActivity() {
             //Livedata de la direccion a editar
         direccionesViewModel.dataGetDireccionPorCardCodeTipoYLineNum.observe(this){ direccion->
             try {
-                binding.txvPaisNuevaDFValue.text = direccion.Country
-                binding.txvDepartamentoDFiscalValue.text = direccion.State
-                binding.txvProvinciaDFiscalValue.text = direccion.County
-                binding.txvDistritoDFiscal.text = direccion.City
-                binding.txvCallenDFiscalValue.text = direccion.Street
-                binding.txvCodigoPostalDFiscalValue.text = direccion.U_MSV_FE_UBI
+                binding.txvPaisNuevaDFValue.text = direccion.Pais
+                binding.txvDepartamentoDFiscalValue.text = direccion.Departamento
+                binding.txvProvinciaDFiscalValue.text = direccion.Provincia
+                binding.txvDistritoDFiscal.text = direccion.Distrito
+                binding.txvCallenDFiscalValue.text = direccion.Calle
+                binding.txvLatitudDireccionValue.text = direccion.Latitud
+                binding.txvLongitudDireccionValue.text = direccion.Longitud
+                binding.txvVendedorDireccionValue.text = direccion.Vendedor
+                binding.txvZonaDireccionValue.text = direccion.Zona
+
+                hashInfo["codigoPais"] = direccion.CodigoPais
+                hashInfo["codigoDepartamento"] = direccion.CodigoDepartamento
+                hashInfo["codigoDistrito"] = direccion.CodigoDistrito
+                hashInfo["zona"] = direccion.CodigoZona
+                hashInfo["vendedor"] = direccion.CodigoVendedor
             } catch (e: Exception){
                 e.printStackTrace()
             }
@@ -79,7 +88,8 @@ class NuevaDireccionActivity : AppCompatActivity() {
         generalViewModel.getAllPaises()
         generalViewModel.getAllDepartamentos()
         generalViewModel.getEmpleadoDeVentas()
-
+        generalViewModel.getAllZonas()
+        generalViewModel.getAllGeneralVendedores()
 
 
 
@@ -117,7 +127,7 @@ class NuevaDireccionActivity : AppCompatActivity() {
                         listaDepartamentos[id].Code
                     )
 
-                    hashInfo["codigoState"] = listaDepartamentos[id].Code
+                    hashInfo["codigoDepartamento"] = listaDepartamentos[id].Code
                 }
             }.show(supportFragmentManager, "BaseDialogChecklist") }
         }
@@ -152,6 +162,33 @@ class NuevaDireccionActivity : AppCompatActivity() {
             }.show(supportFragmentManager, "BaseDialogChecklist") }
         }
 
+        //ZONAS
+        generalViewModel.dataGetAllZonas.observe(this){ zonas->
+            binding.clZonaDireccion.setOnClickListener {
+                BaseDialogChecklistWithId(
+                    binding.txvZonaDireccionValue.text.toString(),
+                    zonas.map { it.Name }
+                ){ zonaSeleccionada, id->
+                    if (zonaSeleccionada.isNotEmpty()) {
+                        binding.txvZonaDireccionValue.text = zonaSeleccionada
+                        hashInfo["zona"] = zonas[id].Code
+                    }
+                }.show(supportFragmentManager, "BaseDialogChecklist") }
+        }
+
+        //VENDEDOR
+        generalViewModel.dataGetAllGeneralVendedores.observe(this){ vendedores->
+            binding.clVendedorDireccion.setOnClickListener {
+                BaseDialogChecklistWithId(
+                    binding.txvVendedorDireccionValue.text.toString(),
+                    vendedores.map { it.SlpName }
+                ){ VendedorSelect, id->
+                    if (VendedorSelect.isNotEmpty()) {
+                        binding.txvVendedorDireccionValue.text = VendedorSelect
+                        hashInfo["vendedor"] = vendedores[id].SlpCode
+                    }
+                }.show(supportFragmentManager, "BaseDialogChecklist") }
+        }
 
 
         // (btn) para elegir una CALLE
@@ -177,6 +214,29 @@ class NuevaDireccionActivity : AppCompatActivity() {
                 binding.txvCodigoPostalDFiscalValue.text = value
             }
         }.show(supportFragmentManager, "BaseDialogChecklist") }
+
+        //Longitud
+        binding.clLongitudDireccion.setOnClickListener {
+            BaseDialogEdtWithTypeEdt(
+                "text",
+                binding.txvLongitudDireccionValue.text.toString(),
+                "Ingrese la longitud"
+            ){ newText->
+                binding.txvLongitudDireccionValue.text = newText
+            }.show(supportFragmentManager, "showDialog")
+        }
+
+        //Latitud
+        binding.clLatitudDireccion.setOnClickListener {
+            BaseDialogEdtWithTypeEdt(
+                "text",
+                binding.txvLatitudDireccionValue.text.toString(),
+                "Ingrese la longitud"
+            ){ newText->
+                binding.txvLatitudDireccionValue.text = newText
+            }.show(supportFragmentManager, "showDialog")
+        }
+
     }
 
 
@@ -225,14 +285,18 @@ class NuevaDireccionActivity : AppCompatActivity() {
                                 cardCode =              intent.getStringExtra("cardCode").toString(),
                                 tipo =                  intent.getStringExtra("tipo").toString(),
                                 codigoPais =            hashInfo["codigoPais"].toString(),
-                                codigoDepartamento =    hashInfo["codigoState"].toString(),
+                                codigoDepartamento =    hashInfo["codigoDepartamento"].toString(),
                                 provincia =             binding.txvProvinciaDFiscalValue.text.toString(),
                                 distrito =              binding.txvDistritoDFiscal.text.toString(),
                                 calle =                 binding.txvCallenDFiscalValue.text.toString(),
                                 ubigeo =                hashInfo["codigoDistrito"].toString(),
                                 lineNum =               lineNumToUse,
                                 accDocEntry =           intent.getStringExtra("accDocEntry").toString(),
-                                usuario =               usuario.Code
+                                usuario =               usuario.Code,
+                                zona =                  hashInfo["zona"].toString(),
+                                latitud =               binding.txvLatitudDireccionValue.text.toString(),
+                                longitud =              binding.txvLongitudDireccionValue.text.toString(),
+                                vendedor =              hashInfo["vendedor"] as Int
                             )
                         )
                     }

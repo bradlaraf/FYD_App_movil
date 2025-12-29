@@ -16,6 +16,7 @@ import com.mobile.massiveapp.domain.model.DoArticuloListaPrecios
 import com.mobile.massiveapp.domain.model.DoArticuloPedidoInfo
 import com.mobile.massiveapp.domain.model.DoUsuario
 import com.mobile.massiveapp.ui.base.BaseBottomSheetCustomDialog
+import com.mobile.massiveapp.ui.base.BaseDialogCheckListWithViewAndId
 import com.mobile.massiveapp.ui.base.BaseDialogChecklistWithId
 import com.mobile.massiveapp.ui.base.BaseDialogEdtWithTypeEdt
 import com.mobile.massiveapp.ui.view.util.agregarDetalleDePedido
@@ -101,11 +102,16 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             try {
                 llenarDatosDelArticulo(articuloSeleccionado)
                 hashInfo["uomEntry"] = articuloSeleccionado.UomEntry
-
+                val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toInt()
                 //Se trae el precio
-                pedidoViewModel.getUnidadMedidaYEquivalencia(
+                /*pedidoViewModel.getUnidadMedidaYEquivalencia(
                     articuloSeleccionado.ItemCode,
                     binding.txvNpArtInfoUnidadMedidaValue.text.toString(),  //UomName
+                    hashInfo["listaPrecioCodigo"] as Int
+                )*/
+                pedidoViewModel.getPrecioArticulo(
+                    cantidad,
+                    articuloSeleccionado.ItemCode,
                     hashInfo["listaPrecioCodigo"] as Int
                 )
 
@@ -132,13 +138,18 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             }.show(supportFragmentManager, "cantidad")
         }*/
 
+        //LiveData Precio articulo
+        pedidoViewModel.dataGetPrecioArticulo.observe(this){ articuloPedido->
+            binding.txvNpArtInfoPorcentajeDescuentoValue.text = articuloPedido.PorcentajeDescuento.toString()
+            setTotalValues(precioUnitario = articuloPedido.PrecioUnitario, precioDescontado = articuloPedido.Precio, precioIGV = articuloPedido.PrecioIGV)
+        }
 
 
         //LiveData PrecioFinal por UM y ListaPrecio
         pedidoViewModel.dataGetUnidadMedidaYEquivalencia.observe(this){
             try {
                 hashInfo["uomEntry"] = it.UomEntry
-                setTotalValue(it.PrecioFinal)
+                setTotalValue(it.PrecioFinal, 0.0)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -200,16 +211,21 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
         binding.txvNpArtInfoCantidadValue.text = "$CANTIDAD_DEFAULT"
 
 
-        //Set IMPUESTO - IMPUESTO EXONERADO
-        generalViewModel.getImpuestoDefault()
-        generalViewModel.dataGetImpuestoDefault.observe(this){ impuestoDefault->
-            try {
-                binding.txvNpArtInfoImpuestoValue.text = impuestoDefault.Name
-            } catch (e: Exception) {
-                Toast.makeText(this, "No se pudo obtener el impuesto", Toast.LENGTH_SHORT).show()
-            }
+        //Set IMPUESTO
+        /*generalViewModel.getAllGeneralImpuestos()
 
-        }
+        binding.clNpArtInfoImpuesto.setOnClickListener {
+            generalViewModel.dataGetAllGeneralImpuestos.observe(this){ impuestos->
+                BaseDialogCheckListWithViewAndId(
+                    this,
+                    binding.txvNpArtInfoImpuestoValue.text.toString(),
+                    impuestos.map { it.Name }
+                ){ opcionElegida, id->
+                    binding.txvNpArtInfoImpuestoValue.text = opcionElegida
+                    hashInfo["codigoImpuesto"] = impuestos[id].Code
+                }.show(supportFragmentManager, "showDialog")
+            }
+        }*/
 
         //Get DATOS DEL USUARIO
         usuarioViewModel.getUsuarioFromDatabase()
@@ -262,7 +278,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             }
         }
 
-        //Set IMPUESTO - IMPUESTO EXONERADO
+        //Set IMPUESTO
         generalViewModel.getImpuestoDefault()
         generalViewModel.dataGetImpuestoDefault.observe(this){ impuestoDefault->
             try {
@@ -331,7 +347,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
 
         //Set ALMACENES
-        binding.clNpArtInfoAlmacen.setOnClickListener {
+        /*binding.clNpArtInfoAlmacen.setOnClickListener {
             articuloViewModel.getAllArticuloAlmacenes()
             articuloViewModel.dataGetAllArticuloAlmacenes.observeOnce(this) { almacenes ->
                 BaseDialogChecklistWithId(
@@ -348,11 +364,11 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     }
                 }.show(supportFragmentManager, "almacenes")
             }
-        }
+        }*/
 
 
         //Set LISTA DE PRECIOS
-        binding.clNpArtInfoListaPrecios.setOnClickListener {
+        /*binding.clNpArtInfoListaPrecios.setOnClickListener {
 
             articuloViewModel.getAllArticuloListaPrecios()
             articuloViewModel.dataGetAllArticuloListaPrecios.observeOnce(this){ listasPrecio->
@@ -362,25 +378,13 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     if (usuario.CanEditPrice == "N"){
                         throw Exception("No tiene permisos para editar el precio")
                     }
-                    if(usuario.DefaultPriceList == LISTA_MAYORISTA){
-                        showListaPrecioDialog(listasPrecio)
-                    } else {
-                        /*if(hashInfo["listaPrecioCodigo"] as Int == LISTA_MAYORISTA) {
-                            showListaPrecioDialog(listasPrecio)
-                        } else {
-
-                        }*/
-                        throw Exception("No puede editar el precio")
-                    }
-
-
-
+                    showListaPrecioDialog(listasPrecio)
 
                 } catch (e: Exception) {
                     Toast.makeText(this, "${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
+        }*/
 
         //Set Cantidad
         binding.clNpArtInfoCantidad.setOnClickListener {
@@ -396,7 +400,12 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     if (cantidad.isNotEmpty()){
                         binding.txvNpArtInfoCantidadValue.text = cantidad
                         val precio = binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble()
-                        setTotalValue(precio)
+
+                        pedidoViewModel.getPrecioArticulo(
+                            cantidad.toInt(),
+                            itemCode,
+                            hashInfo["listaPrecioCodigo"] as Int
+                        )
                     }
                 }.show(supportFragmentManager, "cantidad")
 
@@ -420,10 +429,17 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             if (listaSeleccionada.isNotEmpty()){
                 binding.txvNpArtInfoListaPreciosValue.text = listaSeleccionada
                 hashInfo["listaPrecioCodigo"] = listasPrecio[id].ListNum
+                val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toInt()
 
-                pedidoViewModel.getUnidadMedidaYEquivalencia(
+                /*pedidoViewModel.getUnidadMedidaYEquivalencia(
                     itemCode,
                     binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
+                    hashInfo["listaPrecioCodigo"] as Int
+                )*/
+
+                pedidoViewModel.getPrecioArticulo(
+                    cantidad,
+                    itemCode,
                     hashInfo["listaPrecioCodigo"] as Int
                 )
             }
@@ -448,16 +464,38 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
 
 
-    fun setTotalValue(precioUnitario: Double){
+    fun setTotalValue(precioUnitario: Double, precioDescontado: Double){
         val newPrecio = precioUnitario.format(2)
         val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toDouble().format(2)
         val total = (cantidad * newPrecio).format(2)
         val newTotal = total.format(2)
         binding.txvNpArtInfoTotalValue.text = newTotal.toString()
         binding.txvNpArtInfoPrecioUnitarioValue.text = newPrecio.toString()    //precio unitario
-        binding.txvNpArtInfoPrecioBrutoValue.text = newPrecio.toString()       //precio bruto
+        binding.txvNpArtInfoPrecioBrutoValue.text = precioDescontado.format(2).toString()       //precio bruto sin descuento
     }
 
+    fun setTotalValues(precioUnitario: Double, precioDescontado: Double, precioIGV: Double){
+        val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toDouble().format(5)
+
+        val precioUnitarioFormat = precioUnitario.format(2)
+        val precioDescontadoFormat = precioDescontado.format(2)
+        val precioIGVFormat = precioIGV.format(2)
+
+        val totalUnitario = (cantidad * precioUnitarioFormat).format(5)
+        val totalDescontado = (cantidad * precioDescontadoFormat).format(5)
+        val totalIGV = (cantidad * precioIGVFormat).format(5)
+
+        val totalFormatUnitario = totalUnitario.format(2)
+        val totalFormatDescuento = totalDescontado.format(2)
+        val totalFormatIGV = totalIGV.format(2)
+
+        binding.txvNpArtInfoPrecioDescontadoValue.text = precioDescontado.toString()
+        binding.txvNpArtInfoPrecioUnitarioValue.text = precioUnitario.toString()    //precio unitario
+        binding.txvNpArtInfoPrecioBrutoValue.text = precioIGV.format(2).toString()       //precio bruto sin descuento
+
+        //TOTAL
+        binding.txvNpArtInfoTotalValue.text = (cantidad*precioDescontado).format(2).toString()
+    }
 
 
 
@@ -564,14 +602,16 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                             unidadMedida =          binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
                             cantidad =              binding.txvNpArtInfoCantidadValue.text.toString().trim().toDouble(),
                             grupoUM =               hashInfo["uomCode"] as String,
-                            precio =                binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble(),
+                            precio =                binding.txvNpArtInfoPrecioDescontadoValue.text.toString().toDouble(),
                             precioBruto =           binding.txvNpArtInfoPrecioBrutoValue.text.toString().toDouble(),
+                            precioAftVat =          binding.txvNpArtInfoPrecioBrutoValue.text.toString().toDouble(),
+                            precioLP =              binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble(),
                             porcentajeDescuento =   binding.txvNpArtInfoPorcentajeDescuentoValue.text.toString().toDouble(),
                             total =                 binding.txvNpArtInfoTotalValue.text.toString().toDouble(),
                             lineNum =               intent.getIntExtra("lineNum", -1),
                             fechaActual =           getFechaActual(),
                             horaActual =            getHoraActual(),
-                            impuesto =              0.0,
+                            impuesto =              0.0, //falta poner el rate
                             codigoImpuesto =        hashInfo["codigoImpuesto"] as String,
                             listaPrecios =          hashInfo["listaPrecioCodigo"] as Int,
                             codigoAlmacen =         hashInfo["codigoAlmacen"] as String,

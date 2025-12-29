@@ -6,12 +6,14 @@
     style="@style/default_container_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <ImageView
-        android:id="@+id/imvArticulo"
+        android:id="@+id/imvArticuloSelect"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txvBonificacion"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/icon_item_info_inventario" />
@@ -25,7 +27,7 @@
         android:layout_marginEnd="8dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/txvAlmacen1"
-        app:layout_constraintStart_toEndOf="@+id/imvArticulo"
+        app:layout_constraintStart_toEndOf="@+id/imvArticuloSelect"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="ItemCode" />
 
@@ -38,7 +40,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@+id/txvAlmacen2"
-        app:layout_constraintStart_toEndOf="@+id/imvArticulo"
+        app:layout_constraintStart_toEndOf="@+id/imvArticuloSelect"
         app:layout_constraintTop_toBottomOf="@+id/txvItemCode"
         tools:text="Descripcion" />
 
@@ -49,15 +51,15 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_txv_background_gris"
-        android:backgroundTint="@color/color_green_dark"
+        android:backgroundTint="@color/color_green_dark_10"
         android:paddingHorizontal="7dp"
         android:paddingVertical="2dp"
-        android:text="Almacén A"
         android:textColor="@color/white"
         android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/txvCantidad1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Almacén A" />
 
     <TextView
         android:id="@+id/txvAlmacen2"
@@ -67,15 +69,15 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_txv_background_gris"
-        android:backgroundTint="@color/color_blue_lighter"
+        android:backgroundTint="@color/color_blue_lighter_10"
         android:paddingHorizontal="7dp"
         android:paddingVertical="2dp"
-        android:text="Almacén B"
         android:textColor="@color/white"
         android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/txvCantidad2"
-        app:layout_constraintTop_toBottomOf="@+id/txvAlmacen1" />
+        app:layout_constraintTop_toBottomOf="@+id/txvAlmacen1"
+        tools:text="Almacén B" />
 
     <TextView
         android:id="@+id/txvCantidad1"
@@ -95,4 +97,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvCantidad1"
         tools:text="Cantidad2" />
+
+    <com.mobile.massiveapp.ui.view.util.VerticalTextView
+        android:id="@+id/txvBonificacion"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/color_red_bonificacion"
+        android:text="Bonificacion"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

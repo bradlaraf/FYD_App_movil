@@ -43,8 +43,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clSocioDeNegocio"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +73,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clNumeroDocumentoCliente"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,8 +102,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clTipoDeComprobante"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,8 +131,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clMoneda"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -170,8 +162,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clEstado"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             android:visibility="gone"
             tools:layout_editor_absoluteY="284dp">
 
@@ -230,8 +220,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clFechaEmision"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -262,8 +250,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clFechaVencimiento"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -323,8 +309,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clComentarios"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -355,8 +339,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clPendienteDePago"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -476,8 +458,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clTotal"
             style="@style/box_key_value_arrow"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

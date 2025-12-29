@@ -13,7 +13,8 @@ data class SociedadEntity(
     @ColumnInfo(name = "CompnyName") val CompnyName: String,
     @ColumnInfo(name = "AliasName") val AliasName: String,
     @ColumnInfo(name = "E_Mail") val E_Mail: String,
-    @ColumnInfo(name = "WebSite") val WebSite: String
+    @ColumnInfo(name = "WebSite") val WebSite: String,
+    @ColumnInfo(name = "PriceDec") val PriceDec: Int
 )
 
 fun Sociedad.toDatabase() = SociedadEntity(
@@ -21,7 +22,8 @@ fun Sociedad.toDatabase() = SociedadEntity(
     CompnyName = CompnyName,
     AliasName = AliasName,
     E_Mail = E_Mail,
-    WebSite = WebSite
+    WebSite = WebSite,
+    PriceDec = PriceDec
 )
 
 fun DoSociedad.toDatabase() = SociedadEntity(
@@ -29,5 +31,6 @@ fun DoSociedad.toDatabase() = SociedadEntity(
     CompnyName = CompnyName,
     AliasName = AliasName,
     E_Mail = E_Mail,
-    WebSite = WebSite
+    WebSite = WebSite,
+    PriceDec = PriceDec
 )

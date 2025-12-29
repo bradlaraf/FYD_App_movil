@@ -155,3 +155,26 @@ fun Usuario.toDomain() = DoUsuario(
     CanEditPrice = CanEditPrice,
     CanUpdate = CanUpdate
 )
+
+data class DoUsuarioView(
+    val Codigo: String,
+    val Password: String,
+    val IdTelefono: String,
+    val Nombre: String,
+    val Correo: String,
+    val Telefono: String,
+    val Vendedor: String,
+    val Zona: String,
+    val ListaPrecio: String,
+    val Impuesto: String,
+    val Moneda: String,
+    val Almacen: String,
+    val SuperUser: String,
+    val Activo: String,
+    val SesionActiva: String,
+    val EditarListaPrecios: String,
+    val PuedeCrear: String,
+    val PuedeActualizar: String,
+    val PuedeDeclinar: String,
+    val PuedeAprobar: String,
+)

@@ -30,6 +30,8 @@ data class SocioDireccionesEntity (
     @ColumnInfo(name = "Street") val Street: String,
     @ColumnInfo(name = "U_MSV_CP_LATITUD") val U_MSV_CP_LATITUD: String,
     @ColumnInfo(name = "U_MSV_CP_LONGITUD") val U_MSV_CP_LONGITUD: String,
+    @ColumnInfo(name = "U_MSV_MA_ZONA") val U_MSV_MA_ZONA: String,
+    @ColumnInfo(name = "U_MSV_MA_VEN") val U_MSV_MA_VEN: Int,
     @ColumnInfo(name = "U_MSV_FE_UBI") val U_MSV_FE_UBI: String,
     @ColumnInfo(name = "ZipCode") val ZipCode: String
 )
@@ -57,6 +59,8 @@ fun DoSocioDirecciones.toDatabase() = SocioDireccionesEntity(
     Street = Street,
     U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
     U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    U_MSV_MA_ZONA = U_MSV_MA_ZONA,
+    U_MSV_MA_VEN = U_MSV_MA_VEN,
     U_MSV_FE_UBI = U_MSV_FE_UBI,
     ZipCode = ZipCode,
     AccControl = AccControl
@@ -85,6 +89,8 @@ fun SocioDirecciones.toDatabase() = SocioDireccionesEntity(
     Street = Street,
     U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
     U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    U_MSV_MA_ZONA = U_MSV_MA_ZONA,
+    U_MSV_MA_VEN = U_MSV_MA_VEN,
     U_MSV_FE_UBI = U_MSV_FE_UBI,
     ZipCode = ZipCode,
     AccControl = AccControl

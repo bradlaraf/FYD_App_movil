@@ -9,7 +9,9 @@ import android.view.Menu
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -37,6 +39,7 @@ import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
 import com.mobile.massiveapp.ui.viewmodel.SocioViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.time.Duration
@@ -114,8 +117,15 @@ class MenuActivity : DrawerBaseActivity() {
 
             //Get datos del DASHBOARD
         val moneda = SendData.instance.simboloMoneda
+
         lifecycleScope.launch {
-            dashboardViewModel.dataTotalPedidos.collect{ binding.txvDashboardCantidadPedidosValue.text = "$it" }
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                dashboardViewModel.dataTotalPedidos
+                    .distinctUntilChanged()
+                    .collect {
+                        binding.txvDashboardCantidadPedidosValue.text = "$it"
+                    }
+            }
         }
         lifecycleScope.launch {
             dashboardViewModel.dataTotalAcumuladoPedidos.collect{ binding.txvDashboardAcumuladoPedidosValue.text = "${SendData.instance.simboloMoneda} ${it.format(2)}"}
@@ -189,9 +199,9 @@ class MenuActivity : DrawerBaseActivity() {
 
         binding.cvMenuCantidadPedidos.setOnClickListener { startActivity(Intent(this, PedidoClienteActivity::class.java)) }
 
-        binding.cvMenuCantidadCobranzas.setOnClickListener { startActivity(Intent(this, CobranzasActivity::class.java)) }
+        //binding.cvMenuCantidadCobranzas.setOnClickListener { startActivity(Intent(this, CobranzasActivity::class.java)) }
 
-        binding.cvMenuCantidadFacturas.setOnClickListener { startActivity(Intent(this, FacturasActivity::class.java)) }
+        //binding.cvMenuCantidadFacturas.setOnClickListener { startActivity(Intent(this, FacturasActivity::class.java)) }
 
 
 

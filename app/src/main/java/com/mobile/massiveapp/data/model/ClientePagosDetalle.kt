@@ -21,7 +21,9 @@ data class ClientePagosDetalle(
     val DocTransId: Int,
     val InstId: Int,
     val InvType: Int,
-    val SumApplied: Double
+    val SumApplied: Double,
+    val ObjType: Int,
+    val AccControl: String
 ):MappingInteface<ClientePagosDetalle>(){
     constructor():this(
         "",
@@ -41,6 +43,8 @@ data class ClientePagosDetalle(
         0,
         0,
         0.0,
+        -1,
+        ""
     )
 
     override fun map(data: List<ClientePagosDetalle>): List<*> {
@@ -69,5 +73,7 @@ fun DoClientePagoDetalle.toModel() = ClientePagosDetalle(
     DocTransId = DocTransId,
     InstId = InstId,
     InvType = InvType,
-    SumApplied = SumApplied
+    SumApplied = SumApplied,
+    AccControl = AccControl,
+    ObjType = ObjType
 )

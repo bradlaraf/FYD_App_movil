@@ -27,6 +27,7 @@ class GetInfoClientePorCardCodeUseCase @Inject constructor(
                 U_MSV_LO_APELMAT = response.U_MSV_LO_APELMAT,
                 U_MSV_LO_PRIMNOM = response.U_MSV_LO_PRIMNOM,
                 U_MSV_LO_SEGUNOM = response.U_MSV_LO_SEGUNOM,
+                E_Mail = response.E_Mail,
                 Phone1 = response.Phone1,
                 Phone2 = response.Phone2,
                 Cellular = response.Cellular,

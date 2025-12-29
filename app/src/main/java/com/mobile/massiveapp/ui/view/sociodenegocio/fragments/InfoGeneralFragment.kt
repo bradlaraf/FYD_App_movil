@@ -33,6 +33,7 @@ class InfoGeneralFragment : Fragment() {
                 binding.txvClienteInfoNumeroDocumentoValue.text = infoCliente.LicTradNum
                 binding.txvClienteInfoGrupoValue.text = infoCliente.GroupName
                 binding.txvClienteInfoMonedaValue.text = infoCliente.Currency
+                binding.txvClienteInfoCorreoElectronicoValue.text = infoCliente.E_Mail
 
                 binding.txvClienteInfoTelefono1Value.text = infoCliente.Phone1
                 binding.txvClienteInfoTelefono2Value.text = infoCliente.Phone2

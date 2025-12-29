@@ -8,7 +8,8 @@ data class DoSociedad(
     val CompnyName: String,
     val E_Mail: String,
     val TaxIdNum: String,
-    val WebSite: String
+    val WebSite: String,
+    val PriceDec: Int
 )
 
 fun SociedadEntity.toDomain() = DoSociedad(
@@ -16,7 +17,8 @@ fun SociedadEntity.toDomain() = DoSociedad(
     CompnyName = CompnyName,
     E_Mail = E_Mail,
     TaxIdNum = TaxIdNum,
-    WebSite = WebSite
+    WebSite = WebSite,
+    PriceDec = PriceDec
 )
 
 fun Sociedad.toDomain() = DoSociedad(
@@ -24,5 +26,6 @@ fun Sociedad.toDomain() = DoSociedad(
     CompnyName = CompnyName,
     E_Mail = E_Mail,
     TaxIdNum = TaxIdNum,
-    WebSite = WebSite
+    WebSite = WebSite,
+    PriceDec = PriceDec
 )

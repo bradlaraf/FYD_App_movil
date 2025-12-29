@@ -11,7 +11,7 @@ class GetArticulosConStockUseCase @Inject constructor(
 ) {
     suspend operator fun invoke() =
         try {
-            articulosDao.getAllArticulosInvConStock()
+            articulosDao.getAllArticulosInvConStocks()
         } catch (e:Exception){
             errorLogDao.insert(getError("${e.message}","${e.message}"))
             emptyList()

@@ -8,6 +8,7 @@ import androidx.room.Update
 import com.mobile.massiveapp.data.database.entities.ArticuloEntity
 import com.mobile.massiveapp.domain.model.DoArticulo
 import com.mobile.massiveapp.domain.model.DoArticuloInfo
+import com.mobile.massiveapp.domain.model.DoArticuloInv
 import com.mobile.massiveapp.domain.model.DoArticuloInventario
 import com.mobile.massiveapp.domain.model.DoArticuloPedidoInfo
 import com.mobile.massiveapp.domain.model.DoUnidadMedidaInfo
@@ -48,22 +49,32 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
     suspend fun getAllArticulos(): List<ArticuloEntity>
 
     @Query("""
-        SELECT 
+        SELECT DISTINCT 
         T0.ItemCode,
         T0.ItemName,
-        T1.OnHand AS 'OnHand',
+        (SELECT T1.OnHand 
+            FROM ArticuloCantidad T1 
+            WHERE T1.ItemCode = T0.ItemCode 
+              AND T1.WhsCode = 'A8000'
+        ) AS 'OnHand1',
+        (SELECT T1.OnHand 
+            FROM ArticuloCantidad T1 
+            WHERE T1.ItemCode = T0.ItemCode 
+              AND T1.WhsCode = 'A0203'
+        ) AS 'OnHand2',
+        "" AS 'WhsName1',
+        "" AS 'WhsName2',
         T2.ItmsGrpNam AS 'GrupoArticulo' 
         FROM Articulo T0
-        INNER JOIN ArticuloCantidad T1 ON T0.ItemCode = T1.ItemCode
         INNER JOIN GrupoArticulo T2 ON T0.ItmsGrpCod = T2.ItmsGrpCod
         WHERE T0.AccLocked = 'N'
-        ORDER BY T0.ItemName, T1.OnHand desc, T0.ItemCode
+        ORDER BY T0.ItemName, T0.ItemCode
         """)
-    suspend fun getAllArticulosInventario(): List<DoArticuloInventario>
+    suspend fun getAllArticulosInventario(): List<DoArticuloInv>
 
 
     @Query("""
-        SELECT 
+        SELECT DISTINCT
         T0.ItemCode,
         T0.ItemName,
         T1.OnHand AS 'OnHand',
@@ -75,6 +86,23 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
         ORDER BY T0.ItemName, T1.OnHand desc, T0.ItemCode
         """)
     suspend fun getAllArticulosInvConStock(): List<DoArticuloInventario>
+
+    @Query("""
+        SELECT DISTINCT
+        T0.ItemCode,
+        T0.ItemName,
+        IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A8000' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS 'OnHand1',
+        IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A0203' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS 'OnHand2',
+        IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A8000' LIMIT 1), 'ALMACEN 1') AS 'WhsName1',
+        IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A0203' LIMIT 1), 'ALMACEN 2') AS 'WhsName2',
+        T2.ItmsGrpNam AS 'GrupoArticulo' 
+        FROM Articulo T0
+        INNER JOIN ArticuloCantidad T1 ON T0.ItemCode = T1.ItemCode
+        INNER JOIN GrupoArticulo T2 ON T0.ItmsGrpCod = T2.ItmsGrpCod
+        WHERE T0.AccLocked = 'N' AND T1.OnHand > 0.0
+        ORDER BY T0.ItemName, T1.OnHand desc, T0.ItemCode
+        """)
+    suspend fun getAllArticulosInvConStocks(): List<DoArticuloInv>
 
     @Query("""
         SELECT 
@@ -202,36 +230,33 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
     suspend fun getArticuloPrecioPedido(itemCode: String, unidadMedida: String, listaPrecio: Int):DoUnidadMedidaInfo
 
 
-    @Query("SELECT " +
-            "T0.ItemCode, " +
-            "T0.ItemName, " +
-            "T0.InvnTryUom AS 'UnidadMedida', " +
-            "T1.FirmName, " +
-            "T2.ItmsGrpNam, " +
-            "T3.UgpName, " +
-            "T5.OnHand, " +
-            "T5.OnOrder, " +
-            "T5.IsCommited, " +
-            "T6.WhsName " +
-            "FROM Articulo T0 " +
-            "INNER JOIN Fabricante T1 ON T0.FirmCode = T1.FirmCode " +
-            "INNER JOIN GrupoArticulo T2 ON T0.ItmsGrpCod = T2.ItmsGrpCod " +
-            "INNER JOIN GrupoUnidadMedida T3 ON T0.UgpEntry = T3.UgpEntry " +
-            "INNER JOIN ArticuloCantidad T5 ON T0.ItemCode = T5.ItemCode " +
-            "INNER JOIN Almacenes T6 ON T5.WhsCode = T6.WhsCode " +
-            "WHERE T0.ItemCode = :itemCode AND T6.WhsCode IN (SELECT X0.DefaultWarehouse FROM Usuario X0) ")
-    suspend fun getArticuloInfoConUnidadDeMedida(itemCode: String): DoArticuloInfo
-
-        //Articulo info
-
-
-
-
-
-
-
-
-
+    @Query("""
+        SELECT
+            T0.ItemCode,
+            T0.ItemName,
+            IFNULL(T0.InvnTryUom, '') AS UnidadMedida,
+            IFNULL(T1.FirmName, '') AS FirmName,
+            IFNULL(T2.ItmsGrpNam, '') AS ItmsGrpNam,
+            IFNULL(T3.UgpName, '') AS UgpName,
+            IFNULL(T5.OnHand, 0) AS OnHand,
+            IFNULL(T5.OnOrder, 0) AS OnOrder,
+            IFNULL(T5.IsCommited, 0) AS IsCommited,
+            IFNULL(T6.WhsName, '') AS WhsName
+        FROM Articulo T0
+        LEFT JOIN Fabricante T1 ON T0.FirmCode = T1.FirmCode
+        LEFT JOIN GrupoArticulo T2 ON T0.ItmsGrpCod = T2.ItmsGrpCod
+        LEFT JOIN GrupoUnidadMedida T3 ON T0.UgpEntry = T3.UgpEntry
+        LEFT JOIN ArticuloCantidad T5 ON T0.ItemCode = T5.ItemCode
+        LEFT JOIN Almacenes T6 ON T5.WhsCode = T6.WhsCode
+        WHERE T0.ItemCode = :itemCode
+          AND T6.WhsCode IN (
+              SELECT X0.DefaultWarehouse
+              FROM Usuario X0
+          )
+    """)
+    suspend fun getArticuloInfoConUnidadDeMedida(
+        itemCode: String
+    ): DoArticuloInfo
 
 
     //Articulo por CardCode

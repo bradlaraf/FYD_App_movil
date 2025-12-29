@@ -55,6 +55,7 @@ data class ClientePedidos(
     val VatSum: Double,
     val VatSumFC: Double,
     val ObjType: Int,
+    val AccControl: String,
     @SerializedName("Lineas")
     val clientePedidoDetalles: List<ClientePedidoDetalle>
 ):MappingInteface<ClientePedidos>(){
@@ -106,6 +107,7 @@ data class ClientePedidos(
         VatSum = 0.0,
         VatSumFC = 0.0,
         ObjType = 0,
+        AccControl = "",
         clientePedidoDetalles = emptyList()
     )
 
@@ -165,7 +167,8 @@ fun ClientePedidos.toEntity() = ClientePedidosEntity(
     TaxDate = TaxDate,
     VatSum = VatSum,
     VatSumFC = VatSumFC,
-    ObjType =  ObjType
+    ObjType =  ObjType,
+    AccControl = AccControl
 )
 
 fun ClientePedidosEntity.toModel(detallePedido: List<ClientePedidosDetalleEntity>) = ClientePedidos(
@@ -216,5 +219,6 @@ fun ClientePedidosEntity.toModel(detallePedido: List<ClientePedidosDetalleEntity
     VatSum = VatSum,
     VatSumFC = VatSumFC,
     ObjType =  ObjType,
+    AccControl = AccControl,
     clientePedidoDetalles = detallePedido.map { it.toModel() }
 )

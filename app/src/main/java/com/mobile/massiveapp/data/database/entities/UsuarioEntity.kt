@@ -29,6 +29,8 @@ data class UsuarioEntity (
     @ColumnInfo("DefaultSlpCode") val DefaultSlpCode: Int,
     @ColumnInfo("DefaultTaxCode") val DefaultTaxCode: String,
     @ColumnInfo("DefaultWarehouse") val DefaultWarehouse: String,
+    @ColumnInfo("DefaultConductor") val DefaultConductor: String,
+    @ColumnInfo("DefaultZona") val DefaultZona: String,
     @ColumnInfo("Email") val Email: String,
     @ColumnInfo("IdPhone1") val IdPhone1: String,
     @ColumnInfo("IdPhone1Val") val IdPhone1Val: String,
@@ -68,6 +70,8 @@ fun Usuario.toDatabase() = UsuarioEntity(
     DefaultSlpCode = DefaultSlpCode,
     DefaultTaxCode = DefaultTaxCode,
     DefaultWarehouse = DefaultWarehouse,
+    DefaultConductor = DefaultConductor,
+    DefaultZona = DefaultZona,
     Email = Email,
     IdPhone1 = IdPhone1,
     IdPhone1Val = IdPhone1Val,
@@ -82,6 +86,7 @@ fun Usuario.toDatabase() = UsuarioEntity(
     CanDecline = CanDecline,
     CanEditPrice = CanEditPrice,
     CanUpdate = CanUpdate
+
 )
 
 

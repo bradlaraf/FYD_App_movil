@@ -6,9 +6,8 @@ import androidx.room.PrimaryKey
 import com.mobile.massiveapp.data.model.SeriesN
 import com.mobile.massiveapp.domain.model.DoSeriesN
 
-@Entity(tableName = "SeriesN")
+@Entity(tableName = "SeriesN", primaryKeys = ["ObjectCode", "Series"])
 data class SeriesNEntity(
-    @PrimaryKey
     @ColumnInfo(name = "ObjectCode") val ObjectCode: Int,
     @ColumnInfo(name = "Series") val Series: Int,
     @ColumnInfo(name = "SeriesName") val SeriesName: String

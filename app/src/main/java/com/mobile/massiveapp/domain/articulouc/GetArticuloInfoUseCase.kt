@@ -12,7 +12,7 @@ class GetArticuloInfoUseCase @Inject constructor(
         try {
             articuloRepository.getArticuloInfoConUnidadDeMedida(itemCode)
         } catch (e: Exception) {
-            Timber.d(e, "Error en GetArticuloInfoUseCase")
+            e.printStackTrace()
             DoArticuloInfo()
         }
 }

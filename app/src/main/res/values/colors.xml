@@ -26,6 +26,7 @@
     <color name="color_green">#FF74BB64</color>
     <color name="color_green_light">#D574BB64</color>
     <color name="color_green_dark">#5F9A52</color>
+    <color name="color_green_dark_10">#EA70B661</color>
     <color name="color_magenta">#FFFE00FE</color>
     <color name="color_icon_bluegray">#FF3475BE</color>
     <color name="color_gris_ripple_recycler_item">#BDBDBD</color>
@@ -35,11 +36,14 @@
     <color name="color_massive_deep_blue">#FF1e4877</color>
     <color name="color_massive_deep_blue_v2">#1F4B7C</color>
     <color name="color_blue_lighter">#B21F4B7C</color>
+    <color name="color_blue_lighter_10">#B7265C99</color>
     <color name="color_red_low_opacity">#34F63A3A</color>
     <color name="color_red_icons">#E35454</color>
     <color name="color_red_light">#CEE84242</color>
     <color name="color_red_stock_out">#1AFF3131</color>
     <color name="color_red_swipe_to_delete">#E84242</color>
     <color name="color_red_btn">#f44336</color>
+
+    <color name="color_red_bonificacion">#D4CF3715</color>
 
 </resources>

@@ -13,6 +13,7 @@ import com.mobile.massiveapp.domain.model.DoUsuarioAlmacenes
 import com.mobile.massiveapp.domain.model.DoUsuarioGrupoArticulos
 import com.mobile.massiveapp.domain.model.DoUsuarioGrupoSocios
 import com.mobile.massiveapp.domain.model.DoUsuarioListaPrecios
+import com.mobile.massiveapp.domain.model.DoUsuarioView
 import com.mobile.massiveapp.domain.model.DoUsuarioZonas
 import com.mobile.massiveapp.domain.model.DoValidarUsuario
 import com.mobile.massiveapp.domain.usuarios.CerrarSesionUsuarioUseCase
@@ -29,6 +30,7 @@ import com.mobile.massiveapp.domain.usuarios.GetAllUsuarioListaPreciosUseCase
 import com.mobile.massiveapp.domain.usuarios.GetAllUsuarioZonasCreacionUseCase
 import com.mobile.massiveapp.domain.usuarios.GetAllUsuarioZonasUseCase
 import com.mobile.massiveapp.domain.usuarios.GetAllUsuariosUseCase
+import com.mobile.massiveapp.domain.usuarios.GetUsuarioInfoUseCase
 import com.mobile.massiveapp.domain.usuarios.ResetIdMovilUseCase
 import com.mobile.massiveapp.domain.usuarios.ResetearIDUnUsuarioUseCase
 import com.mobile.massiveapp.domain.usuarios.SendUsuarioUseCase
@@ -55,6 +57,8 @@ class UsuariosViewModel @Inject constructor(
     private val getAllUsuarioGrupoArticulosCreacionUseCase: GetAllUsuarioGrupoArticulosCreacionUseCase,
     private val getAllUsuarioGrupoSociosCreacionUseCase: GetAllUsuarioGrupoSociosCreacionUseCase,
 
+    private val getUsuarioInfoUseCase: GetUsuarioInfoUseCase,
+
     private val sendUsuarioUseCase: SendUsuarioUseCase,
 
     private val cerrarSesionUsuarioUseCase: CerrarSesionUsuarioUseCase,
@@ -77,6 +81,17 @@ class UsuariosViewModel @Inject constructor(
             result.let {
                 dataResetIdMovil.postValue(it)
                 isLoadingResetId.postValue(false)
+            }
+        }
+    }
+
+    //Obtener info del usuario
+    val dataGetusuarioInfo = MutableLiveData<DoUsuarioView>()
+    fun getUsuarioInfo(code: String){
+        viewModelScope.launch {
+            val result = getUsuarioInfoUseCase(code)
+            result.let {
+                dataGetusuarioInfo.postValue(it)
             }
         }
     }

@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission
         android:name="android.permission.READ_MEDIA_AUDIO"
         android:minSdkVersion="33" />
@@ -44,6 +43,7 @@
         android:theme="@style/Theme.MassiveApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.view.pedidocliente.anexo.AnexoActivity"
             android:exported="false" />
@@ -88,7 +88,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
+        <activity
+            android:name=".ui.view.manifiesto.info.ManifiestoInfoActivity"
+            android:exported="false"
+            android:label="Información Manifiesto"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
         <activity
             android:name=".ui.view.usuarios.NuevoUsuarioActivity"
             android:exported="false"

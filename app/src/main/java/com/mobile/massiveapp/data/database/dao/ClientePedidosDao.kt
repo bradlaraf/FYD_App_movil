@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.google.common.primitives.Ints
 import com.mobile.massiveapp.data.database.entities.ClientePedidosEntity
+import com.mobile.massiveapp.domain.model.ArticuloPedido
 import com.mobile.massiveapp.domain.model.DoPedidoInfoView
 
 @Dao
@@ -29,75 +30,588 @@ interface ClientePedidosDao:BaseDao<ClientePedidosEntity> {
     """)
     suspend fun getAll(fechaActual: String): List<ClientePedidosEntity>
 
-    @Query("""
-        -- SQLite
-        -- ObtienePrecioArticulo
-        -- Parámetros:
-        --   :articulo     (String)
-        --   :listaPrecio  (Int)
-        --   :descuento    (NUMERIC)  -- no usado
-        --   :usuario      (String)   -- no usado
-        --   :fecha        (String, formato compatible con date())
-        --   :cardCode     (String)
-        --   :cantidad     (NUMERIC)
-        
+    /*@Query("""
+SELECT
+    0.0 AS PrecioIGV,
+    (SELECT Z0.Price FROM ArticuloPrecio Z0 WHERE Z0.ItemCode = :articulo AND Z0.PriceList = :listaPrecio LIMIT 1) AS PrecioUnitario,
+    precioFinal AS Precio,
+    CASE
+        WHEN precioLP > 0 AND precioFinal < precioLP
+            THEN ROUND(((precioLP - precioFinal) / precioLP) * 100.0, 0)
+        ELSE 0.0
+    END AS PorcentajeDescuento
+FROM (
+    SELECT
+        ROUND(
+            CASE
+                -- 1) PRECIO ESPECIAL POR SOCIO DE NEGOCIO
+                WHEN precioSN > 0 THEN precioSN
+
+                -- 2) PRECIO POR GRUPO DE DESCUENTO (ya calculado como precioGD)
+                WHEN precioGD > 0 THEN precioGD
+
+                -- 3) PRECIO ESPECIAL POR CANTIDAD
+                WHEN precioPC > 0 THEN precioPC
+
+                -- 4) PRECIO ESPECIAL POR PERIODO
+                WHEN precioPP > 0 THEN precioPP
+
+                -- 5) LISTA DE PRECIO
+                ELSE precioLP
+            END,
+            :priceDec
+        ) AS precioFinal,
+        precioLP
+    FROM (
         SELECT
-          CASE
-            WHEN precioSN > 0 THEN precioSN
-            WHEN precioPC > 0 THEN precioPC
-            WHEN precioPP > 0 THEN precioPP
-            ELSE precioLP
-          END AS precioFinal
-        FROM (
-          -- PRECIO ESPECIAL POR SOCIO DE NEGOCIO
-          SELECT
+            -- GRUPO SN
             IFNULL((
-              SELECT T0.Price
-              FROM PrecioEspecial T0
-              WHERE T0.ListNum  = :listaPrecio
-                AND T0.ItemCode = :articulo
-                AND T0.CardCode = :cardCode
-                AND date(:fecha) BETWEEN date(T0.ValidFrom) AND date(T0.ValidTo)
+                SELECT S.GroupCode
+                FROM SocioNegocio S
+                WHERE S.CardCode = :cardCode
+                LIMIT 1
+            ), 0) AS grupoSN,
+
+            -- GRUPO ARTICULO
+            IFNULL((
+                SELECT A.ItmsGrpCod
+                FROM Articulo A
+                WHERE A.ItemCode = :articulo
+                LIMIT 1
+            ), 0) AS grupoAr,
+
+            -- FABRICANTE
+            IFNULL((
+                SELECT A.FirmCode
+                FROM Articulo A
+                WHERE A.ItemCode = :articulo
+                LIMIT 1
+            ), 0) AS fabricante,
+
+            -- PRECIO ESPECIAL POR SOCIO DE NEGOCIO
+            IFNULL((
+                SELECT ROUND(T0.Price, :priceDec)
+                FROM PrecioEspecial T0
+                WHERE T0.ListNum  = :listaPrecio
+                  AND T0.ItemCode = :articulo
+                  AND T0.CardCode = :cardCode
+                  AND date(:fecha) BETWEEN date(T0.ValidFrom) AND date(T0.ValidTo)
+                LIMIT 1
             ), 0.0) AS precioSN,
-        
-            -- PRECIO ESPECIAL POR PERIODO Y CANTIDAD (PRIORIZA CANTIDAD)
+
+            -- PRECIO ESPECIAL POR PERIODO Y CANTIDAD
             IFNULL((
-              SELECT T0.Price
-              FROM PrecioEspecial2 T0
-              INNER JOIN PrecioEspecial1 T1 ON T1.Code = T0.Code
-              INNER JOIN PrecioEspecial T2  ON T2.Code = T0.Code
-              WHERE date(:fecha) BETWEEN date(T2.ValidFrom) AND date(T2.ValidTo)
-                AND T1.ListNum  = :listaPrecio
-                AND T1.ItemCode = :articulo
-                AND T1.CardCode = '*' || CAST(:listaPrecio AS TEXT)
-                AND date(:fecha) BETWEEN date(T1.FromDate) AND date(T1.ToDate)
-                AND T0.Amount <= :cantidad
-              ORDER BY T0.Amount DESC
-              LIMIT 1
+                SELECT ROUND(T0.Price, :priceDec)
+                FROM PrecioEspecial2 T0
+                INNER JOIN PrecioEspecial1 T1 ON T1.Code = T0.Code
+                INNER JOIN PrecioEspecial  T2 ON T2.Code = T0.Code
+                WHERE date(:fecha) BETWEEN date(T2.ValidFrom) AND date(T2.ValidTo)
+                  AND T1.ListNum  = :listaPrecio
+                  AND T1.ItemCode = :articulo
+                  AND T1.CardCode = '*' || CAST(:listaPrecio AS TEXT)
+                  AND date(:fecha) BETWEEN date(T1.FromDate) AND date(T1.ToDate)
+                  AND T0.Amount <= :cantidad
+                ORDER BY T0.Amount DESC
+                LIMIT 1
             ), 0.0) AS precioPC,
-        
-            -- PRECIO ESPECIAL POR PERIODO (PRIORIZA PERIODO)
+
+            -- PRECIO ESPECIAL POR PERIODO
             IFNULL((
-              SELECT T0.Price
-              FROM PrecioEspecial1 T0
-              INNER JOIN PrecioEspecial T1 ON T1.Code = T0.Code
-              WHERE date(:fecha) BETWEEN date(T1.ValidFrom) AND date(T1.ValidTo)
-                AND T0.ListNum  = :listaPrecio
-                AND T0.ItemCode = :articulo
-                AND T0.CardCode = '*' || CAST(:listaPrecio AS TEXT)
-                AND date(:fecha) BETWEEN date(T0.FromDate) AND date(T0.ToDate)
+                SELECT ROUND(T0.Price, :priceDec)
+                FROM PrecioEspecial1 T0
+                INNER JOIN PrecioEspecial T1 ON T1.Code = T0.Code
+                WHERE date(:fecha) BETWEEN date(T1.ValidFrom) AND date(T1.ValidTo)
+                  AND T0.ListNum  = :listaPrecio
+                  AND T0.ItemCode = :articulo
+                  AND T0.CardCode = '*' || CAST(:listaPrecio AS TEXT)
+                  AND date(:fecha) BETWEEN date(T0.FromDate) AND date(T0.ToDate)
+                LIMIT 1
             ), 0.0) AS precioPP,
-        
+
             -- LISTA DE PRECIO BASE
             IFNULL((
-              SELECT T0.Price
-              FROM ArticuloPrecio T0
-              WHERE T0.PriceList = :listaPrecio
-                AND T0.ItemCode  = :articulo
-            ), 0.0) AS precioLP
-        ) x;
+                SELECT ROUND(T0.Price, :priceDec)
+                FROM ArticuloPrecio T0
+                WHERE T0.PriceList = :listaPrecio
+                  AND T0.ItemCode  = :articulo
+                LIMIT 1
+            ), 0.0) AS precioLP,
+
+            -- =========================
+            -- DESCUENTOS (se elige 1 según prioridad)
+            -- SN (Obj='2', ObjCode = cardCode): Artículo > Fabricante > Grupo Artículo
+            IFNULL((
+                SELECT D.Discount
+                FROM GrupoDescuentoDetalle D
+                INNER JOIN GrupoDescuento G ON G.AbsEntry = D.AbsEntry
+                WHERE G.Type = 'C'
+                  AND G.Obj = '2'
+                  AND G.ObjCode = :cardCode
+                  AND D.Obj = '4'
+                  AND D.ObjKey = :articulo
+                LIMIT 1
+            ), 0.0) AS desc_sn_arti,
+
+            IFNULL((
+                SELECT D.Discount
+                FROM GrupoDescuentoDetalle D
+                INNER JOIN GrupoDescuento G ON G.AbsEntry = D.AbsEntry
+                WHERE G.Type = 'C'
+                  AND G.Obj = '2'
+                  AND G.ObjCode = :cardCode
+                  AND D.Obj = '43'
+                  AND D.ObjKey = CAST((
+                      SELECT A.FirmCode FROM Articulo A WHERE A.ItemCode = :articulo LIMIT 1
+                  ) AS TEXT)
+                LIMIT 1
+            ), 0.0) AS desc_sn_fabr,
+
+            IFNULL((
+                SELECT D.Discount
+                FROM GrupoDescuentoDetalle D
+                INNER JOIN GrupoDescuento G ON G.AbsEntry = D.AbsEntry
+                WHERE G.Type = 'C'
+                  AND G.Obj = '2'
+                  AND G.ObjCode = :cardCode
+                  AND D.Obj = '52'
+                  AND D.ObjKey = CAST((
+                      SELECT A.ItmsGrpCod FROM Articulo A WHERE A.ItemCode = :articulo LIMIT 1
+                  ) AS TEXT)
+                LIMIT 1
+            ), 0.0) AS desc_sn_grar,
+
+            -- GSN (Obj='10', ObjCode = grupoSN): Artículo > Fabricante > Grupo Artículo
+            IFNULL((
+                SELECT D.Discount
+                FROM GrupoDescuentoDetalle D
+                INNER JOIN GrupoDescuento G ON G.AbsEntry = D.AbsEntry
+                WHERE G.Type = 'C'
+                  AND G.Obj = '10'
+                  AND G.ObjCode = CAST((
+                      SELECT S.GroupCode FROM SocioNegocio S WHERE S.CardCode = :cardCode LIMIT 1
+                  ) AS TEXT)
+                  AND D.Obj = '4'
+                  AND D.ObjKey = :articulo
+                LIMIT 1
+            ), 0.0) AS desc_gsn_arti,
+
+            IFNULL((
+                SELECT D.Discount
+                FROM GrupoDescuentoDetalle D
+                INNER JOIN GrupoDescuento G ON G.AbsEntry = D.AbsEntry
+                WHERE G.Type = 'C'
+                  AND G.Obj = '10'
+                  AND G.ObjCode = CAST((
+                      SELECT S.GroupCode FROM SocioNegocio S WHERE S.CardCode = :cardCode LIMIT 1
+                  ) AS TEXT)
+                  AND D.Obj = '43'
+                  AND D.ObjKey = CAST((
+                      SELECT A.FirmCode FROM Articulo A WHERE A.ItemCode = :articulo LIMIT 1
+                  ) AS TEXT)
+                LIMIT 1
+            ), 0.0) AS desc_gsn_fabr,
+
+            IFNULL((
+                SELECT X0.Discount
+                FROM GrupoDescuentoDetalle X0
+                INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                WHERE X1.Type = 'C'
+                  AND X1.Obj = '10'
+                  AND X1.ObjCode = CAST((
+                      SELECT S.GroupCode FROM SocioNegocio S WHERE S.CardCode = :cardCode LIMIT 1
+                  ) AS TEXT)
+                  AND X0.Obj = '52'
+                  AND X0.ObjKey = CAST((
+                      SELECT A.ItmsGrpCod FROM Articulo A WHERE A.ItemCode = :articulo LIMIT 1
+                  ) AS TEXT)
+                LIMIT 1
+            ), 0.0) AS desc_gsn_grar,
+
+            -- =========================
+            -- PRECIO GD final
+            ROUND(
+                (IFNULL((
+                    SELECT ROUND(T0.Price, :priceDec)
+                    FROM ArticuloPrecio T0
+                    WHERE T0.PriceList = :listaPrecio
+                      AND T0.ItemCode  = :articulo
+                    LIMIT 1
+                ), 0.0)) *
+                (100.0 - (
+                    CASE
+                        -- primero SN
+                        WHEN (IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='2' AND X1.ObjCode=:cardCode
+                              AND X0.Obj='4' AND X0.ObjKey=:articulo
+                            LIMIT 1
+                        ),0.0)) > 0 THEN IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='2' AND X1.ObjCode=:cardCode
+                              AND X0.Obj='4' AND X0.ObjKey=:articulo
+                            LIMIT 1
+                        ),0.0)
+
+                        WHEN (IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='2' AND X1.ObjCode=:cardCode
+                              AND X0.Obj='43'
+                              AND X0.ObjKey = CAST((SELECT A.FirmCode FROM Articulo A WHERE A.ItemCode=:articulo LIMIT 1) AS TEXT)
+                            LIMIT 1
+                        ),0.0)) > 0 THEN IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='2' AND X1.ObjCode=:cardCode
+                              AND X0.Obj='43'
+                              AND X0.ObjKey = CAST((SELECT A.FirmCode FROM Articulo A WHERE A.ItemCode=:articulo LIMIT 1) AS TEXT)
+                            LIMIT 1
+                        ),0.0)
+
+                        WHEN (IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='2' AND X1.ObjCode=:cardCode
+                              AND X0.Obj='52'
+                              AND X0.ObjKey = CAST((SELECT A.ItmsGrpCod FROM Articulo A WHERE A.ItemCode=:articulo LIMIT 1) AS TEXT)
+                            LIMIT 1
+                        ),0.0)) > 0 THEN IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='2' AND X1.ObjCode=:cardCode
+                              AND X0.Obj='52'
+                              AND X0.ObjKey = CAST((SELECT A.ItmsGrpCod FROM Articulo A WHERE A.ItemCode=:articulo LIMIT 1) AS TEXT)
+                            LIMIT 1
+                        ),0.0)
+
+                        -- si no hay SN, usa GSN
+                        WHEN (IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='10'
+                              AND X1.ObjCode = CAST((SELECT S.GroupCode FROM SocioNegocio S WHERE S.CardCode=:cardCode LIMIT 1) AS TEXT)
+                              AND X0.Obj='4' AND X0.ObjKey=:articulo
+                            LIMIT 1
+                        ),0.0)) > 0 THEN IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='10'
+                              AND X1.ObjCode = CAST((SELECT S.GroupCode FROM SocioNegocio S WHERE S.CardCode=:cardCode LIMIT 1) AS TEXT)
+                              AND X0.Obj='4' AND X0.ObjKey=:articulo
+                            LIMIT 1
+                        ),0.0)
+
+                        WHEN (IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='10'
+                              AND X1.ObjCode = CAST((SELECT S.GroupCode FROM SocioNegocio S WHERE S.CardCode=:cardCode LIMIT 1) AS TEXT)
+                              AND X0.Obj='43'
+                              AND X0.ObjKey = CAST((SELECT A.FirmCode FROM Articulo A WHERE A.ItemCode=:articulo LIMIT 1) AS TEXT)
+                            LIMIT 1
+                        ),0.0)) > 0 THEN IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='10'
+                              AND X1.ObjCode = CAST((SELECT S.GroupCode FROM SocioNegocio S WHERE S.CardCode=:cardCode LIMIT 1) AS TEXT)
+                              AND X0.Obj='43'
+                              AND X0.ObjKey = CAST((SELECT A.FirmCode FROM Articulo A WHERE A.ItemCode=:articulo LIMIT 1) AS TEXT)
+                            LIMIT 1
+                        ),0.0)
+
+                        WHEN (IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='10'
+                              AND X1.ObjCode = CAST((SELECT S.GroupCode FROM SocioNegocio S WHERE S.CardCode=:cardCode LIMIT 1) AS TEXT)
+                              AND X0.Obj='52'
+                              AND X0.ObjKey = CAST((SELECT A.ItmsGrpCod FROM Articulo A WHERE A.ItemCode=:articulo LIMIT 1) AS TEXT)
+                            LIMIT 1
+                        ),0.0)) > 0 THEN IFNULL((
+                            SELECT X0.Discount
+                            FROM GrupoDescuentoDetalle X0
+                            INNER JOIN GrupoDescuento X1 ON X1.AbsEntry = X0.AbsEntry
+                            WHERE X1.Type='C' AND X1.Obj='10'
+                              AND X1.ObjCode = CAST((SELECT S.GroupCode FROM SocioNegocio S WHERE S.CardCode=:cardCode LIMIT 1) AS TEXT)
+                              AND X0.Obj='52'
+                              AND X0.ObjKey = CAST((SELECT A.ItmsGrpCod FROM Articulo A WHERE A.ItemCode=:articulo LIMIT 1) AS TEXT)
+                            LIMIT 1
+                        ),0.0)
+
+                        ELSE 0.0
+                    END
+                )) / 100.0,
+                :priceDec
+            ) AS precioGD
+        FROM (SELECT 1)
+    )
+);
+""")
+    suspend fun getPrecioArticulo(
+        fecha: String,
+        articulo: String,
+        listaPrecio: Int,
+        cantidad: Int,
+        cardCode: String,
+        priceDec: Int
+    ): ArticuloPedido*/
+
+    @Query("""
+        WITH X0 AS (
+            SELECT
+                -- PRECIO SN
+                IFNULL((
+                    SELECT ROUND(T0.Price, :priceDec)
+                    FROM PrecioEspecial T0
+                    WHERE T0.ListNum  = :listaPrecio
+                      AND T0.ItemCode = :articulo
+                      AND T0.CardCode = :cardCode
+                      AND date(:fecha) BETWEEN date(T0.ValidFrom) AND date(T0.ValidTo)
+                    LIMIT 1
+                ), 0.0) AS precioSN,
+        
+                -- PRECIO PC
+                IFNULL((
+                    SELECT ROUND(T0.Price, :priceDec)
+                    FROM PrecioEspecial2 T0
+                    INNER JOIN PrecioEspecial1 T1 ON T1.Code = T0.Code
+                    INNER JOIN PrecioEspecial  T2 ON T2.Code = T0.Code
+                    WHERE date(:fecha) BETWEEN date(T2.ValidFrom) AND date(T2.ValidTo)
+                      AND T1.ListNum  = :listaPrecio
+                      AND T1.ItemCode = :articulo
+                      AND T1.CardCode = '*' || CAST(:listaPrecio AS TEXT)
+                      AND date(:fecha) BETWEEN date(T1.FromDate) AND date(T1.ToDate)
+                      AND T0.Amount <= :cantidad
+                    ORDER BY T0.Amount DESC
+                    LIMIT 1
+                ), 0.0) AS precioPC,
+        
+                -- PRECIO PP
+                IFNULL((
+                    SELECT ROUND(T0.Price, :priceDec)
+                    FROM PrecioEspecial1 T0
+                    INNER JOIN PrecioEspecial T1 ON T1.Code = T0.Code
+                    WHERE date(:fecha) BETWEEN date(T1.ValidFrom) AND date(T1.ValidTo)
+                      AND T0.ListNum  = :listaPrecio
+                      AND T0.ItemCode = :articulo
+                      AND T0.CardCode = '*' || CAST(:listaPrecio AS TEXT)
+                      AND date(:fecha) BETWEEN date(T0.FromDate) AND date(T0.ToDate)
+                    LIMIT 1
+                ), 0.0) AS precioPP,
+        
+                -- PRECIO LP
+                IFNULL((
+                    SELECT ROUND(T0.Price, :priceDec)
+                    FROM ArticuloPrecio T0
+                    WHERE T0.PriceList = :listaPrecio
+                      AND T0.ItemCode  = :articulo
+                    LIMIT 1
+                ), 0.0) AS precioLP,
+        
+                -- =========================
+                -- DESCUENTOS SN (Obj='2') prioridad: Artículo > Fabricante > Grupo Artículo
+        
+                IFNULL((
+                    SELECT T0.Discount
+                    FROM GrupoDescuentoDetalle T0
+                    INNER JOIN GrupoDescuento T1 ON T1.AbsEntry = T0.AbsEntry
+                    WHERE T1.Type='C' AND T1.Obj='2' AND T1.ObjCode=:cardCode
+                      AND T0.Obj='4' AND T0.ObjKey=:articulo
+                    LIMIT 1
+                ), 0.0) AS desc_sn_arti,
+        
+                IFNULL((
+                    SELECT T0.Discount
+                    FROM GrupoDescuentoDetalle T0
+                    INNER JOIN GrupoDescuento T1 ON T1.AbsEntry = T0.AbsEntry
+                    WHERE T1.Type='C' AND T1.Obj='2' AND T1.ObjCode=:cardCode
+                      AND T0.Obj='43'
+                      AND T0.ObjKey = CAST((
+                          SELECT T0.FirmCode
+                          FROM Articulo T0
+                          WHERE T0.ItemCode = :articulo
+                          LIMIT 1
+                      ) AS TEXT)
+                    LIMIT 1
+                ), 0.0) AS desc_sn_fabr,
+        
+                IFNULL((
+                    SELECT T0.Discount
+                    FROM GrupoDescuentoDetalle T0
+                    INNER JOIN GrupoDescuento T1 ON T1.AbsEntry = T0.AbsEntry
+                    WHERE T1.Type='C' AND T1.Obj='2' AND T1.ObjCode=:cardCode
+                      AND T0.Obj='52'
+                      AND T0.ObjKey = CAST((
+                          SELECT T0.ItmsGrpCod
+                          FROM Articulo T0
+                          WHERE T0.ItemCode = :articulo
+                          LIMIT 1
+                      ) AS TEXT)
+                    LIMIT 1
+                ), 0.0) AS desc_sn_grar,
+        
+                -- =========================
+                -- DESCUENTOS GSN (Obj='10') prioridad: Artículo > Fabricante > Grupo Artículo
+        
+                IFNULL((
+                    SELECT T0.Discount
+                    FROM GrupoDescuentoDetalle T0
+                    INNER JOIN GrupoDescuento T1 ON T1.AbsEntry = T0.AbsEntry
+                    WHERE T1.Type='C' AND T1.Obj='10'
+                      AND T1.ObjCode = CAST((
+                          SELECT T0.GroupCode
+                          FROM SocioNegocio T0
+                          WHERE T0.CardCode = :cardCode
+                          LIMIT 1
+                      ) AS TEXT)
+                      AND T0.Obj='4' AND T0.ObjKey=:articulo
+                    LIMIT 1
+                ), 0.0) AS desc_gsn_arti,
+        
+                IFNULL((
+                    SELECT T0.Discount
+                    FROM GrupoDescuentoDetalle T0
+                    INNER JOIN GrupoDescuento T1 ON T1.AbsEntry = T0.AbsEntry
+                    WHERE T1.Type='C' AND T1.Obj='10'
+                      AND T1.ObjCode = CAST((
+                          SELECT T0.GroupCode
+                          FROM SocioNegocio T0
+                          WHERE T0.CardCode = :cardCode
+                          LIMIT 1
+                      ) AS TEXT)
+                      AND T0.Obj='43'
+                      AND T0.ObjKey = CAST((
+                          SELECT T0.FirmCode
+                          FROM Articulo T0
+                          WHERE T0.ItemCode = :articulo
+                          LIMIT 1
+                      ) AS TEXT)
+                    LIMIT 1
+                ), 0.0) AS desc_gsn_fabr,
+        
+                IFNULL((
+                    SELECT T0.Discount
+                    FROM GrupoDescuentoDetalle T0
+                    INNER JOIN GrupoDescuento T1 ON T1.AbsEntry = T0.AbsEntry
+                    WHERE T1.Type='C' AND T1.Obj='10'
+                      AND T1.ObjCode = CAST((
+                          SELECT T0.GroupCode
+                          FROM SocioNegocio T0
+                          WHERE T0.CardCode = :cardCode
+                          LIMIT 1
+                      ) AS TEXT)
+                      AND T0.Obj='52'
+                      AND T0.ObjKey = CAST((
+                          SELECT T0.ItmsGrpCod
+                          FROM Articulo T0
+                          WHERE T0.ItemCode = :articulo
+                          LIMIT 1
+                      ) AS TEXT)
+                    LIMIT 1
+                ), 0.0) AS desc_gsn_grar
+        ),
+        X1 AS (
+            SELECT
+                *,
+                -- descuento elegido (replica el CASE anidado de T-SQL)
+                CASE
+                    WHEN desc_sn_arti > 0 THEN desc_sn_arti
+                    WHEN desc_sn_fabr > 0 THEN desc_sn_fabr
+                    WHEN desc_sn_grar > 0 THEN desc_sn_grar
+                    WHEN desc_gsn_arti > 0 THEN desc_gsn_arti
+                    WHEN desc_gsn_fabr > 0 THEN desc_gsn_fabr
+                    WHEN desc_gsn_grar > 0 THEN desc_gsn_grar
+                    ELSE 0.0
+                END AS descuentoElegido
+            FROM X0
+        ),
+        X2 AS (
+            SELECT
+                *,
+                -- precioGD calculado una sola vez
+                CASE
+                    WHEN descuentoElegido > 0
+                        THEN ROUND(precioLP * (100.0 - descuentoElegido) / 100.0, :priceDec)
+                    ELSE 0.0
+                END AS precioGD
+            FROM X1
+        )
+        SELECT
+            0.0 AS PrecioIGV,
+            (SELECT Z0.Price FROM ArticuloPrecio Z0 WHERE Z0.ItemCode=:articulo AND Z0.PriceList=:listaPrecio LIMIT 1) AS PrecioUnitario,
+            ROUND(
+                CASE
+                    WHEN precioSN > 0 THEN precioSN
+                    WHEN precioGD > 0 THEN precioGD
+                    WHEN precioPC > 0 THEN precioPC
+                    WHEN precioPP > 0 THEN precioPP
+                    ELSE precioLP
+                END,
+                :priceDec
+            ) AS Precio,
+            CASE
+                WHEN precioLP > 0 AND (
+                    CASE
+                        WHEN precioSN > 0 THEN precioSN
+                        WHEN precioGD > 0 THEN precioGD
+                        WHEN precioPC > 0 THEN precioPC
+                        WHEN precioPP > 0 THEN precioPP
+                        ELSE precioLP
+                    END
+                ) < precioLP
+                    THEN ROUND(((precioLP - (
+                        CASE
+                            WHEN precioSN > 0 THEN precioSN
+                            WHEN precioGD > 0 THEN precioGD
+                            WHEN precioPC > 0 THEN precioPC
+                            WHEN precioPP > 0 THEN precioPP
+                            ELSE precioLP
+                        END
+                    )) / precioLP) * 100.0, 0)
+                ELSE 0.0
+            END AS PorcentajeDescuento
+        FROM X2;
     """)
-    suspend fun getPrecioArticulo(fecha: String, articulo: String, listaPrecio: String, cantidad: Int, cardCode: String):Double
+    suspend fun getPrecioArticulo(
+        fecha: String,
+        articulo: String,
+        listaPrecio: Int,
+        cantidad: Int,
+        cardCode: String,
+        priceDec: Int
+    ): ArticuloPedido
+
+
+
+
+    @Query("""
+        SELECT
+            ROUND(((Z1.Rate/100) * :price) + :price, (SELECT PriceDec FROM Sociedad LIMIT 1))
+            FROM Impuesto Z1
+            WHERE Z1.Code = (SELECT DefaultTaxCode FROM Usuario LIMIT 1)
+    """)
+    suspend fun getPrecioAftVat(price: Double): Double
+
+
+    @Query("""
+        SELECT
+            T0.PriceDec
+        FROM Sociedad T0 LIMIT 1
+    """)
+    suspend fun getPriceDec(): Int
 
     @Query("""
         SELECT 
@@ -192,7 +706,8 @@ interface ClientePedidosDao:BaseDao<ClientePedidosEntity> {
             T0.TaxDate,
             T0.VatSum,
             T0.VatSumFC,
-            T0.ObjType
+            T0.ObjType,
+            T0.AccControl
         FROM ClientePedidos T0
         LEFT JOIN Vendedor T1 ON T0.SlpCode = T1.SlpCode 
         WHERE accDocEntry = :accDocEntry

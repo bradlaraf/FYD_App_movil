@@ -49,7 +49,8 @@ data class DoClientePago(
     val TrsfrRef: String,
     val TrsfrSum: Double,
     val TrsfrSumFC: Double,
-    val ObjType: Int
+    val ObjType: Int,
+    val AccControl: String
 ){
     constructor() : this(
         AccAction = "",
@@ -97,7 +98,8 @@ data class DoClientePago(
         TrsfrRef = "",
         TrsfrSum = 0.0,
         TrsfrSumFC = 0.0,
-        ObjType = -1
+        ObjType = -1,
+        AccControl = "N"
     )
 }
 
@@ -147,7 +149,8 @@ fun ClientePagos.toDomain() = DoClientePago(
     TrsfrRef = TrsfrRef,
     TrsfrSum = TrsfrSum,
     TrsfrSumFC = TrsfrSumFC,
-    ObjType = ObjType
+    ObjType = ObjType,
+    AccControl = AccControl
 )
 
 fun ClientePagosEntity.toDomain() = DoClientePago(
@@ -196,5 +199,6 @@ fun ClientePagosEntity.toDomain() = DoClientePago(
     TrsfrRef = TrsfrRef,
     TrsfrSum = TrsfrSum,
     TrsfrSumFC = TrsfrSumFC,
-    ObjType = ObjType
+    ObjType = ObjType,
+    AccControl = AccControl
 )

@@ -22,6 +22,7 @@ import com.mobile.massiveapp.ui.view.util.getBoolFromAccLocked
 import com.mobile.massiveapp.ui.view.util.getStringBool
 import com.mobile.massiveapp.ui.view.util.getStringForAccLocked
 import com.mobile.massiveapp.ui.view.util.observeOnce
+import com.mobile.massiveapp.ui.view.util.showMessage
 import com.mobile.massiveapp.ui.viewmodel.ArticuloViewModel
 import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
 import com.mobile.massiveapp.ui.viewmodel.ProviderViewModel
@@ -55,7 +56,8 @@ class UsuarioGeneralFragment : Fragment() {
             hideImages()
             setNoSelectableContainers()
         }
-
+        val usuarioCode = requireActivity().intent.getStringExtra("usuarioCode").toString()
+        usuariosViewModel.getUsuarioInfo(usuarioCode)
         binding.clUsuarioGeneralPassword.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -78,36 +80,37 @@ class UsuarioGeneralFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        usuariosViewModel.dataGetAllUsuarioGeneralInfo.observe(viewLifecycleOwner){ infoUsuario->
-
-            binding.txvUsuarioGeneralCodigoValue.text = infoUsuario.Code
+        usuariosViewModel.dataGetusuarioInfo.observe(viewLifecycleOwner){ infoUsuario->
+            binding.txvUsuarioGeneralCodigoValue.text = infoUsuario.Codigo
             binding.txvUsuarioGeneralPasswordValue.text = infoUsuario.Password
-            binding.txvUsuarioGeneralIDTelefonoValue.text = infoUsuario.IdPhone1
-            binding.txvUsuarioGeneralNombreValue.text = infoUsuario.Name
-            binding.txvUsuarioGeneralCorreoValue.text = infoUsuario.Email
-            binding.txvUsuarioGeneralTelefonoValue.text = infoUsuario.Phone1
-            binding.txvUsuarioGeneralVendedorValue.text = infoUsuario.DefaultSlpCode
-            binding.txvUsuarioGeneralSerieClientesValue.text = infoUsuario.DefaultSNSerieCli
-            binding.txvUsuarioGeneralSeriePedidosValue.text = infoUsuario.DefaultOrderSeries
-            binding.txvUsuarioGeneralSeriePagosValue.text = infoUsuario.DefaultPagoRSeries
-            binding.txvUsuarioGeneralListaPrecioValue.text = infoUsuario.DefaultPriceList
-            binding.txvUsuarioGeneralImpuestoValue.text = infoUsuario.DefaultTaxCode
-            binding.txvUsuarioGeneralMonedaValue.text = infoUsuario.DefaultCurrency
-            binding.txvUsuarioGeneralProyectoValue.text = infoUsuario.DefaultProyecto
-            binding.txvUsuarioGeneralAlmacenValue.text = infoUsuario.DefaultWarehouse
-            binding.txvUsuarioGeneralCuentaEfectivoValue.text = infoUsuario.DefaultAcctCodeEf
-            binding.txvUsuarioGeneralCuentaTransferenciaValue.text = infoUsuario.DefaultAcctCodeTr
-            binding.txvUsuarioGeneralCuentaDepositoValue.text = infoUsuario.DefaultAcctCodeDe
-            binding.txvUsuarioGeneralCuentaChequeValue.text = infoUsuario.DefaultAcctCodeCh
+            binding.txvUsuarioGeneralIDTelefonoValue.text = infoUsuario.IdTelefono
+            binding.txvUsuarioGeneralNombreValue.text = infoUsuario.Nombre
+            binding.txvUsuarioGeneralCorreoValue.text = infoUsuario.Correo
+            binding.txvUsuarioGeneralTelefonoValue.text = infoUsuario.Telefono
+            binding.txvUsuarioGeneralUsuarioZonaValue.text = infoUsuario.Zona
+            binding.txvUsuarioGeneralVendedorValue.text = infoUsuario.Vendedor
+            binding.txvUsuarioGeneralSerieClientesValue.text = ""
+            binding.txvUsuarioGeneralSeriePedidosValue.text = ""
+            binding.txvUsuarioGeneralSeriePagosValue.text = ""
+            binding.txvUsuarioGeneralListaPrecioValue.text = infoUsuario.ListaPrecio
+            binding.txvUsuarioGeneralImpuestoValue.text = infoUsuario.Impuesto
+            binding.txvUsuarioGeneralMonedaValue.text = infoUsuario.Moneda
+            binding.txvUsuarioGeneralProyectoValue.text = ""
+            binding.txvUsuarioGeneralAlmacenValue.text = infoUsuario.Almacen
+            binding.txvUsuarioGeneralCuentaEfectivoValue.text = ""
+            binding.txvUsuarioGeneralCuentaTransferenciaValue.text = ""
+            binding.txvUsuarioGeneralCuentaDepositoValue.text = ""
+            binding.txvUsuarioGeneralCuentaChequeValue.text = ""
+            binding.txvUsuarioGeneralConductorValue.text = ""
 
-            binding.cbUsuarioActivo.isChecked = infoUsuario.AccLocked.getBoolFromAccLocked()
+            binding.cbUsuarioActivo.isChecked = infoUsuario.Activo.getBoolFromAccLocked()
             binding.cbUsuarioSuperUsuario.isChecked = infoUsuario.SuperUser.getBoolByYorN()
-            binding.cbUsuarioEdicionPrecios.isChecked = infoUsuario.CanEditPrice.getBoolByYorN()
-            binding.cbUsuarioPuedeCrear.isChecked = infoUsuario.CanCreate.getBoolByYorN()
-            binding.cbUsuarioPuedeActualizar.isChecked = infoUsuario.CanUpdate.getBoolByYorN()
-            binding.cbUsuarioPuedeDeclinar.isChecked = infoUsuario.CanDecline.getBoolByYorN()
-            binding.cbUsuarioPuedeAprovar.isChecked = infoUsuario.CanApprove.getBoolByYorN()
-            binding.cbUsuarioSesionActiva.isChecked = infoUsuario.AccStatusSession.getBoolByYorN()
+            binding.cbUsuarioEdicionPrecios.isChecked = infoUsuario.EditarListaPrecios.getBoolByYorN()
+            binding.cbUsuarioPuedeCrear.isChecked = infoUsuario.PuedeCrear.getBoolByYorN()
+            binding.cbUsuarioPuedeActualizar.isChecked = infoUsuario.PuedeActualizar.getBoolByYorN()
+            binding.cbUsuarioPuedeDeclinar.isChecked = infoUsuario.PuedeDeclinar.getBoolByYorN()
+            binding.cbUsuarioPuedeAprovar.isChecked = infoUsuario.PuedeAprobar.getBoolByYorN()
+            binding.cbUsuarioSesionActiva.isChecked = infoUsuario.SesionActiva.getBoolByYorN()
         }
 
         providerViewModel.dataRecolectarData.observeOnce(viewLifecycleOwner){
@@ -436,6 +439,7 @@ class UsuarioGeneralFragment : Fragment() {
         binding.imvIDTelefono.isVisible = mostrar
         binding.imvNombre.isVisible = mostrar
         binding.imvCorreo.isVisible = mostrar
+        binding.imvConductor.isVisible = mostrar
         binding.imvTelefono.isVisible = mostrar
         binding.imvRRHHEmpleado.isVisible = mostrar
         binding.imvVendedor.isVisible = mostrar
@@ -478,6 +482,9 @@ class UsuarioGeneralFragment : Fragment() {
             DefaultAcctCodeDe = "",
             DefaultAcctCodeEf = infoUsuario["acctEfectivo"].toString(),
             DefaultAcctCodeTr = infoUsuario["acctTransferencia"].toString(),
+            DefaultConductor = "",
+
+            DefaultZona = "",
 
             AccStatusSession = binding.cbUsuarioSesionActiva.isChecked.getStringBool(),
             SuperUser = binding.cbUsuarioSuperUsuario.isChecked.getStringForAccLocked(),

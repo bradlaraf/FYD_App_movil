@@ -54,6 +54,8 @@ import com.mobile.massiveapp.data.model.GeneralVendedores
 import com.mobile.massiveapp.data.model.GeneralZonas
 import com.mobile.massiveapp.data.model.GrupoDescuento
 import com.mobile.massiveapp.data.model.GrupoDescuentoDetalle
+import com.mobile.massiveapp.data.model.Manifiesto
+import com.mobile.massiveapp.data.model.ManifiestoDocumento
 import com.mobile.massiveapp.data.model.PrecioEspecial
 import com.mobile.massiveapp.data.model.PrecioEspecial1
 import com.mobile.massiveapp.data.model.PrecioEspecial2
@@ -163,6 +165,15 @@ class DatosMaestrosRepository @Inject constructor(
                         }
                     }
 
+                    "Manifiestos" -> {
+                        val listaManifiesto = dataList as List<Manifiesto>
+                        val listaEmbebida = listaManifiesto.map { it.Documento }
+                        listaEmbebida.forEach {
+                            val dataMaped = getMap(ManifiestoDocumento(), it) as List<Any>
+                            managerImputData.registrarMaestro("ManifiestoDocumento", dataMaped)
+                        }
+                    }
+
                     "PreciosEspecial" -> {
                         val listaPrecioEspecial = dataList as List<PrecioEspecial>
                         val listaEmbebida = listaPrecioEspecial.map { it.Linea1 }
@@ -235,7 +246,7 @@ class DatosMaestrosRepository @Inject constructor(
                     "Zonas" -> { getMap(GeneralZonas(), dataList) }
 
                     "GruposDE" -> { getMap(GrupoDescuento(), dataList) }
-                    //"PreciosEspecial" -> { getMap(PrecioEspecial(), dataList) }
+                    "Manifiestos" -> { getMap(Manifiesto(), dataList) }
                     "Camionetas" -> { getMap(Camioneta(), dataList) }
                     "TiposCambio" -> { getMap(TipoCambio(), dataList) }
                     "Conductores" -> { getMap(Conductor(), dataList) }

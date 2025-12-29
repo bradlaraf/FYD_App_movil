@@ -23,6 +23,7 @@ import com.mobile.massiveapp.domain.model.DoArticulo
 import com.mobile.massiveapp.domain.model.DoArticuloAlmacenes
 import com.mobile.massiveapp.domain.model.DoArticuloCantidades
 import com.mobile.massiveapp.domain.model.DoArticuloInfo
+import com.mobile.massiveapp.domain.model.DoArticuloInv
 import com.mobile.massiveapp.domain.model.DoArticuloInventario
 import com.mobile.massiveapp.domain.model.DoArticuloListaPrecios
 import com.mobile.massiveapp.domain.model.DoArticuloPedidoInfo
@@ -56,7 +57,7 @@ class ArticuloViewModel @Inject constructor(
 
 
         //Articulos CON Stock
-    val dataGetArticulosConStock = MutableLiveData<List<DoArticuloInventario>>()
+    val dataGetArticulosConStock = MutableLiveData<List<DoArticuloInv>>()
     fun getArticulosConStock(){
         viewModelScope.launch {
             val result = getArticulosConStockUseCase()
@@ -79,12 +80,13 @@ class ArticuloViewModel @Inject constructor(
 
 
         //Seleccion de info de articulo
-    val articuloSeleccionado = MutableLiveData<DoArticuloInventario>()
-    fun saveArticuloSeleccionado(articulo: DoArticuloInventario){
+    val articuloSeleccionado = MutableLiveData<DoArticuloInv>()
+    fun saveArticuloSeleccionado(articulo: DoArticuloInv){
         viewModelScope.launch {
             articuloSeleccionado.postValue(articulo)
         }
     }
+
 
 
 

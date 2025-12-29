@@ -35,7 +35,8 @@ class AuthFragment : Fragment() {
 
     private val IP_LOCAL = "192.168.1.3"
     //http://45.71.35.225:82/WebS_APPMOVIL.asmx
-    //private val IP_PUBLICA = "45.232.150.245"
+    //private val IP_PUBLICA = "45.232.150.245"http://45.71.35.225:82/WebS_APPMOVIL.asmx
+
     private val IP_PUBLICA = "45.71.35.225"
     private val PUERTO = "82"
     private val BASE_DEFAULT = "MSV_MOVIL_PRAGSA"

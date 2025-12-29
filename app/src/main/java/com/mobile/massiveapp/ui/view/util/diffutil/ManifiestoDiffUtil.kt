@@ -17,7 +17,7 @@ class ManifiestoDiffUtil (
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].Numero == newList[newItemPosition].Numero
+        return oldList[oldItemPosition].DocEntry == newList[newItemPosition].DocEntry
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

@@ -13,6 +13,7 @@ data class DoClienteInfo(
     val U_MSV_LO_SEGUNOM: String,
     val GroupName: String,
     val Currency: String,
+    val E_Mail: String,
     val Phone1: String,
     val Phone2: String,
     val Cellular: String,
@@ -22,6 +23,7 @@ data class DoClienteInfo(
     var Zona: String
 ){
     constructor():this(
+        "",
         "",
         "",
         "",

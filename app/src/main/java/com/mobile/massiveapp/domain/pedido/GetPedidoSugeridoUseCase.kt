@@ -50,7 +50,9 @@ class GetPedidoSugeridoUseCase @Inject constructor(
                 0,
                 0.0,
                 0.0,
-                "WHSCODE"
+                "WHSCODE",
+                        -1,
+                        "N"
             )
         }
         return pedidoRepository.savePedidoDetalle(pedidoPrueba)

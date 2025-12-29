@@ -73,6 +73,7 @@ import com.google.gson.reflect.TypeToken
 import com.mobile.massiveapp.data.model.Camioneta
 import com.mobile.massiveapp.data.model.Conductor
 import com.mobile.massiveapp.data.model.GrupoDescuento
+import com.mobile.massiveapp.data.model.Manifiesto
 import com.mobile.massiveapp.data.model.PrecioEspecial
 import com.mobile.massiveapp.data.model.Sucursal
 import com.mobile.massiveapp.data.model.TipoCambio
@@ -142,6 +143,7 @@ class DatosMaestrosService @Inject constructor(
             "Zonas"                     to object : TypeToken<List<GeneralZonas>>() {}.type,
 
             //FYD Maestros extra
+            "Manifiestos"                     to object : TypeToken<List<Manifiesto>>() {}.type,
             "TiposCambio"                   to object : TypeToken<List<TipoCambio>>() {}.type,
             "PreciosEspecial"                     to object : TypeToken<List<PrecioEspecial>>() {}.type,
             "GruposDE"                     to object : TypeToken<List<GrupoDescuento>>() {}.type,

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.mobile.massiveapp.databinding.FragmentArticulosConStockBinding
 import com.mobile.massiveapp.ui.adapters.ArticuloSeleccionableAdapter
+import com.mobile.massiveapp.ui.adapters.ArticulosSeleccionablesAdapter
 import com.mobile.massiveapp.ui.viewmodel.ArticuloViewModel
 import com.mobile.massiveapp.ui.viewmodel.ProviderViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +20,7 @@ class ArticulosConStockFragment : Fragment() {
     private val binding get() = _binding!!
     private val articuloViewModel: ArticuloViewModel by activityViewModels()
     private val providerViewModel: ProviderViewModel by activityViewModels()
-    private lateinit var articuloSeleccionableAdapter: ArticuloSeleccionableAdapter
+    private lateinit var articuloSeleccionableAdapter: ArticulosSeleccionablesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +29,7 @@ class ArticulosConStockFragment : Fragment() {
     ): View {
         _binding = FragmentArticulosConStockBinding.inflate(inflater, container, false)
 
-        articuloSeleccionableAdapter = ArticuloSeleccionableAdapter(emptyList()){ articulo->
+        articuloSeleccionableAdapter = ArticulosSeleccionablesAdapter(emptyList()){ articulo->
             articuloViewModel.saveArticuloSeleccionado(articulo)
         }
         binding.rvSeleccionarArticuloCStock.adapter = articuloSeleccionableAdapter

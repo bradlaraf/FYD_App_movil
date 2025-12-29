@@ -27,6 +27,8 @@ data class DoSocioDirecciones(
     val Street: String,
     val U_MSV_CP_LATITUD: String,
     val U_MSV_CP_LONGITUD: String,
+    val U_MSV_MA_ZONA: String,
+    val U_MSV_MA_VEN: Int,
     val U_MSV_FE_UBI: String,
     val ZipCode: String
 ){
@@ -53,6 +55,8 @@ data class DoSocioDirecciones(
         Street = "Error",
         U_MSV_CP_LATITUD = "",
         U_MSV_CP_LONGITUD = "",
+        U_MSV_MA_ZONA = "",
+        U_MSV_MA_VEN = -1,
         U_MSV_FE_UBI = "",
         ZipCode = "",
         AccControl = ""
@@ -82,6 +86,8 @@ fun SocioDirecciones.toDomain() = DoSocioDirecciones(
     Street = Street,
     U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
     U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    U_MSV_MA_ZONA = U_MSV_MA_ZONA,
+    U_MSV_MA_VEN = U_MSV_MA_VEN,
     U_MSV_FE_UBI = U_MSV_FE_UBI,
     ZipCode = ZipCode,
     AccControl = AccControl
@@ -110,6 +116,8 @@ fun SocioDireccionesEntity.toDomain() = DoSocioDirecciones (
     Street = Street,
     U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
     U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    U_MSV_MA_ZONA = U_MSV_MA_ZONA,
+    U_MSV_MA_VEN = U_MSV_MA_VEN,
     U_MSV_FE_UBI = U_MSV_FE_UBI,
     ZipCode = ZipCode,
     AccControl = AccControl
@@ -119,3 +127,78 @@ data class DoDireccion(
     val AdresType: String,
     val Street: String,
 )
+
+data class DoDireccionView(
+    val Pais: String,
+    val Departamento: String,
+    val Provincia: String,
+    val Distrito: String,
+    val Calle: String,
+    val Referencia: String,
+
+    val Direccion: String,
+    val CardCode: String,
+
+    val Latitud: String,
+    val Longitud: String,
+    val Vendedor: String,
+    val Zona: String,
+) {
+    constructor(): this(
+        Pais ="",
+        Departamento ="",
+        Provincia ="",
+        Distrito ="",
+        Calle ="",
+        Referencia ="",
+        Direccion ="",
+        CardCode ="",
+        Latitud ="",
+        Longitud ="",
+        Vendedor ="",
+        Zona ="",
+    )
+}
+
+data class DoDireccionEdicionView(
+    val Pais: String,
+    val Departamento: String,
+    val Provincia: String,
+    val Distrito: String,
+    val Calle: String,
+    val Referencia: String,
+
+    val Direccion: String,
+    val CardCode: String,
+
+    val Latitud: String,
+    val Longitud: String,
+    val Vendedor: String,
+    val Zona: String,
+
+    val CodigoPais: String,
+    val CodigoDepartamento: String,
+    val CodigoDistrito: String,
+    val CodigoVendedor: Int,
+    val CodigoZona: String
+) {
+    constructor(): this(
+        Pais ="",
+        Departamento ="",
+        Provincia ="",
+        Distrito ="",
+        Calle ="",
+        Referencia ="",
+        Direccion ="",
+        CardCode ="",
+        Latitud ="",
+        Longitud ="",
+        Vendedor ="",
+        Zona ="",
+        CodigoPais = "",
+        CodigoDepartamento = "",
+        CodigoDistrito = "",
+        CodigoVendedor = -1,
+        CodigoZona = "",
+    )
+}

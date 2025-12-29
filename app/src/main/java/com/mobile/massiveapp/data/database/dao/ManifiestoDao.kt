@@ -20,5 +20,4 @@ interface ManifiestoDao:BaseDao<ManifiestoEntity> {
 
     @Query("DELETE FROM Manifiesto")
     suspend fun clearAll()
-
 }

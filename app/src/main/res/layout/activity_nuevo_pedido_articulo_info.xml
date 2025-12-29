@@ -207,6 +207,7 @@
                     tools:text="Almacen" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/imvArrow675"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
@@ -295,6 +296,7 @@
                     tools:text="Lista de precios" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/imvArrow99"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
@@ -404,6 +406,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/txvNpArtInfoImpuestoTitle"
                     tools:text="Impuesto" />
 
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/imvArrow992342"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/icon_arroy_enter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:srcCompat="@drawable/icon_arroy_enter" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -445,7 +458,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clNpArtInfoTotal"
+                android:id="@+id/clNpArtInfoPrecioDescontando"
                 style="@style/clPedidoInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -453,6 +466,40 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/clNpArtInfoPrecioBruto">
+
+                <TextView
+                    android:id="@+id/txvNpArtInfoPrecioDescontadoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Precio descontado"
+                    android:textColor="@color/color_blue_sap_mobile"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvNpArtInfoPrecioDescontadoValue"
+                    style="edtNewSn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txvNpArtInfoPrecioDescontadoTitle"
+                    tools:text="Precio descontado" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNpArtInfoTotal"
+                style="@style/clPedidoInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clNpArtInfoPrecioDescontando">
 
                 <TextView
                     android:id="@+id/txvNpArtInfoTotalTitle"

@@ -16,16 +16,16 @@ class FMUsuariosInfoAdapter (
     lifecycle: Lifecycle
 ): FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    override fun getItemCount(): Int = 6
+    override fun getItemCount(): Int = 1
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0 -> UsuarioGeneralFragment()
-            1 -> UsuarioAlmacenesFragment()
+      /*      1 -> UsuarioAlmacenesFragment()
             2 -> UsuarioListaPrecioFragment()
             3 -> UsuarioGrupoArticuloFragment()
             4 -> UsuarioGrupoSocioFragment()
-            5 -> UsuarioZonasFragment()
+            5 -> UsuarioZonasFragment()*/
 
             else -> UsuarioGeneralFragment()
         }

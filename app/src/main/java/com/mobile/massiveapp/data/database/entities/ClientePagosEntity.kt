@@ -53,7 +53,9 @@ data class ClientePagosEntity(
     @ColumnInfo(name = "TrsfrRef") val TrsfrRef: String,
     @ColumnInfo(name = "TrsfrSum") val TrsfrSum: Double,
     @ColumnInfo(name = "TrsfrSumFC") val TrsfrSumFC: Double,
-    @ColumnInfo(name = "ObjType") val ObjType: Int
+    @ColumnInfo(name = "ObjType") val ObjType: Int,
+    @ColumnInfo(name = "AccControl") val AccControl: String
+
     )
 
 fun ClientePagos.toDatabase() = ClientePagosEntity(
@@ -102,7 +104,8 @@ fun ClientePagos.toDatabase() = ClientePagosEntity(
     TrsfrSum = TrsfrSum,
     TypePayment = TypePayment,
     ObjType = ObjType,
-    TrsfrSumFC = TrsfrSumFC
+    TrsfrSumFC = TrsfrSumFC,
+    AccControl = AccControl
 )
 
 fun ClientePagosEntity.toModel(listaPagoDetalles:List<ClientePagosDetalleEntity>) = ClientePagos(
@@ -152,5 +155,6 @@ fun ClientePagosEntity.toModel(listaPagoDetalles:List<ClientePagosDetalleEntity>
     TrsfrSumFC = TrsfrSumFC,
     TypePayment = TypePayment,
     ObjType = ObjType,
+    AccControl = AccControl,
     clientePagosDetalles = listaPagoDetalles.map { it.toModel() }
 )

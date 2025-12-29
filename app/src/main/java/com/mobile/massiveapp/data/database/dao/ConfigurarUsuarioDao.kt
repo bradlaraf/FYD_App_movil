@@ -9,6 +9,7 @@ import androidx.room.Update
 import com.mobile.massiveapp.data.database.entities.ConfigurarUsuariosEntity
 import com.mobile.massiveapp.domain.model.DoConfigurarUsuario
 import com.mobile.massiveapp.domain.model.DoConfigurarUsuarioInfo
+import com.mobile.massiveapp.domain.model.DoUsuarioView
 import com.mobile.massiveapp.domain.model.DoValidarUsuario
 import kotlinx.coroutines.flow.Flow
 
@@ -50,6 +51,8 @@ interface ConfigurarUsuarioDao:BaseDao<ConfigurarUsuariosEntity> {
             T0.DefaultAcctCodeDe,
             T0.DefaultAcctCodeEf,
             T0.DefaultAcctCodeTr,
+            T0.DefaultConductor,
+            T0.DefaultZona,
             (SELECT COUNT(*) FROM UsuarioListaPrecios WHERE Code = T0.Code AND AccLocked = "N") as ListaPrecios,
             (SELECT COUNT(*) FROM UsuarioGrupoArticulos WHERE Code = T0.Code AND AccLocked = "N") as GrupoArticulos,
             (SELECT COUNT(*) FROM UsuarioGrupoSocios WHERE Code = T0.Code AND AccLocked = "N") as GrupoSocios,
@@ -104,6 +107,7 @@ interface ConfigurarUsuarioDao:BaseDao<ConfigurarUsuariosEntity> {
             IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeDe) ,'') as DefaultAcctCodeDe,
             IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeEf) ,'') as DefaultAcctCodeEf,
             IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeTr) ,'') as DefaultAcctCodeTr,
+            IFNULL((SELECT Z0.Code FROM Conductor Z0 WHERE Code = T0.DefaultConductor) ,'') as DefaultConductor,
             T0.SuperUser,
             T0.AccLocked,
             T0.CanApprove,
@@ -111,6 +115,7 @@ interface ConfigurarUsuarioDao:BaseDao<ConfigurarUsuariosEntity> {
             T0.CanDecline,
             T0.CanEditPrice,
             T0.CanUpdate,
+            T0.DefaultZona,
             (SELECT COUNT(*) FROM UsuarioListaPrecios WHERE Code = T0.Code AND AccLocked = "N") as ListaPrecios,
             (SELECT COUNT(*) FROM UsuarioGrupoArticulos WHERE Code = T0.Code AND AccLocked = "N") as GrupoArticulos,
             (SELECT COUNT(*) FROM UsuarioGrupoSocios WHERE Code = T0.Code AND AccLocked = "N") as GrupoSocios,
@@ -145,6 +150,7 @@ interface ConfigurarUsuarioDao:BaseDao<ConfigurarUsuariosEntity> {
             T0.DefaultAcctCodeDe,
             T0.DefaultAcctCodeEf,
             T0.DefaultAcctCodeTr,
+            T0.DefaultConductor,
             T0.SuperUser,
             T0.AccLocked,
             T0.CanApprove,
@@ -152,30 +158,59 @@ interface ConfigurarUsuarioDao:BaseDao<ConfigurarUsuariosEntity> {
             T0.CanDecline,
             T0.CanEditPrice,
             T0.CanUpdate,
-            T1.SlpName as NombreVendedor,
-            (SELECT SeriesName FROM SeriesN WHERE Series = T0.DefaultOrderSeries) as SeriePedido,
-            (SELECT SeriesName FROM SeriesN WHERE Series = T0.DefaultPagoRSeries) as SeriePago,
-            (SELECT SeriesName FROM SeriesN WHERE Series = T0.DefaultSNSerieCli) as SerieSocio,
-            T2.ListName as ListaPrecio,
-            T3.WhsName as Almacen,
-            T0.DefaultCurrency as Moneda,
-            (SELECT Name FROM Impuesto WHERE Code = T0.DefaultTaxCode) as Impuesto,
-            IFNULL((SELECT PrjName FROM Proyecto WHERE PrjCode = T0.DefaultProyecto) ,'') as Proyecto,
-            IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeCh) ,'') as CuentaCheque,
-            IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeDe) ,'') as CuentaDeposito,
-            IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeEf) ,'') as CuentaEfectivo,
-            IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeTr) ,'') as CuentaTransferencia,
+            IFNULL(T1.SlpName, ' ') as NombreVendedor,
+            IFNULL((SELECT Z0.Name FROM Zona Z0 WHERE Z0.Code = T0.DefaultZona ), ' ') AS DefaultZona,
+            IFNULL((SELECT SeriesName FROM SeriesN WHERE Series = T0.DefaultOrderSeries), ' ') as SeriePedido,
+            IFNULL((SELECT SeriesName FROM SeriesN WHERE Series = T0.DefaultPagoRSeries), ' ')as SeriePago,
+            IFNULL((SELECT SeriesName FROM SeriesN WHERE Series = T0.DefaultSNSerieCli), ' ') as SerieSocio,
+            IFNULL(T2.ListName, ' ') as ListaPrecio,
+            IFNULL(T3.WhsName, ' ') as Almacen,
+            IFNULL(T0.DefaultCurrency, ' ') as Moneda,
+            IFNULL((SELECT Name FROM Impuesto WHERE Code = T0.DefaultTaxCode), ' ') as Impuesto,
+            IFNULL((SELECT PrjName FROM Proyecto WHERE PrjCode = T0.DefaultProyecto) ,' ') as Proyecto,
+            IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeCh) ,' ') as CuentaCheque,
+            IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeDe) ,' ') as CuentaDeposito,
+            IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeEf) ,' ') as CuentaEfectivo,
+            IFNULL((SELECT AcctName FROM CuentasC WHERE AcctCode = T0.DefaultAcctCodeTr) ,' ') as CuentaTransferencia,
             T0.AccStatusSession
         FROM ConfigurarUsuarios T0
-        INNER JOIN Vendedor T1 ON T0.DefaultSlpCode = T1.SlpCode 
-        INNER JOIN ListaPrecio T2 ON T2.ListNum = T0.DefaultPriceList
-        INNER JOIN Almacenes T3 ON T3.WhsCode = T0.DefaultWarehouse
+        LEFT JOIN Vendedor T1 ON T0.DefaultSlpCode = T1.SlpCode 
+        LEFT JOIN ListaPrecio T2 ON T2.ListNum = T0.DefaultPriceList
+        LEFT JOIN Almacenes T3 ON T3.WhsCode = T0.DefaultWarehouse
         WHERE Code = :userCode
     """)
     suspend fun getUsuarioInfoCodes(userCode:String): DoConfigurarUsuarioInfo
 
     @Query("DELETE FROM ConfigurarUsuarios")
     suspend fun clearAll()
+
+
+    @Query("""
+        SELECT 
+            IFNULL(T0.Code, '') AS Codigo,
+            IFNULL(T0.Password, '') AS Password,
+            IFNULL(T0.IdPhone1, '') AS IdTelefono,
+            IFNULL(T0.Name, '') AS Nombre,
+            IFNULL(T0.Email, '') AS Correo,
+            IFNULL(T0.Phone1, '') AS Telefono, 
+            IFNULL((SELECT Z0.SlpName FROM Vendedor Z0 WHERE Z0.SlpCode = T0.DefaultSlpCode), '') AS Vendedor,
+            IFNULL((SELECT Z0.ListName FROM ListaPrecio Z0 WHERE Z0.ListNum = T0.DefaultPriceList), '') AS ListaPrecio,
+            IFNULL((SELECT Z0.Name FROM Impuesto Z0 WHERE Z0.Code = T0.DefaultTaxCode), '') AS Impuesto,
+            IFNULL(T0.DefaultCurrency, ' ') as Moneda,
+            IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE Z0.WhsCode = T0.DefaultWarehouse), '') AS Almacen,
+            IFNULL((SELECT Z0.Name FROM Zona Z0 WHERE Z0.Code = T0.DefaultZona), '') AS Zona,
+            IFNULL(T0.SuperUser, '')    AS SuperUser,
+            IFNULL(T0.AccLocked, '')    AS Activo,
+            IFNULL(T0.AccStatusSession, '')    AS SesionActiva,
+            IFNULL(T0.CanEditPrice, '') AS EditarListaPrecios,
+            IFNULL(T0.CanCreate, '')    AS PuedeCrear,
+            IFNULL(T0.CanUpdate, '')    AS PuedeActualizar,
+            IFNULL(T0.CanDecline, '')   AS PuedeDeclinar,
+            IFNULL(T0.CanApprove, '')   AS PuedeAprobar
+        FROM ConfigurarUsuarios T0
+        WHERE T0.Code = :code   
+    """)
+    suspend fun getUsuarioViewInfo(code: String): DoUsuarioView
 
     @Transaction
 

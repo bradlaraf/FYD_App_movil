@@ -265,6 +265,10 @@ fun getFechaAyer(): String {
     return dateFormat.format(calendar.time)
 }
 
+fun showMessage(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+}
+
 fun normalizeText(text: String): String {
     val normalizado = Normalizer.normalize(text, Normalizer.Form.NFKD)
     return Pattern.compile("\\p{InCombiningDiacriticalMarks}+").matcher(normalizado).replaceAll("")
@@ -354,61 +358,7 @@ fun getCodigoDeDocumentoActual(context: Context):String{
     return codigoDoc
 }
 
-fun agregarUsuario(
 
-) = ConfigurarUsuarios(
-    AccAction = "",
-    AccControl = "",
-    AccCreateDate = "",
-    AccStatusSession = "",
-    AccCreateHour = "",
-    AccCreateUser = "",
-    AccLocked = "",
-    AccMigrated = "",
-    AccUpdateDate = "",
-    AccUpdateHour = "",
-    AccUpdateUser = "",
-    CanApprove = "",
-    CanCreate = "",
-    CanDecline = "",
-    CanEditPrice = "",
-    CanUpdate = "",
-    Code = "",
-    Comment = "",
-    DefaultAcctCodeCh = "",
-    DefaultAcctCodeDe = "",
-    DefaultAcctCodeEf = "",
-    DefaultAcctCodeTr = "",
-    DefaultCC1 = "",
-    DefaultCC2 = "",
-    DefaultCC3 = "",
-    DefaultCC4 = "",
-    DefaultCC5 = "",
-    DefaultCurrency = "",
-    DefaultEmpId = 0,
-    DefaultOrderSeries = 0,
-    DefaultPagoRSeries = 0,
-    DefaultPriceList = 0,
-    DefaultProyecto = "",
-    DefaultSNSerieCli = 0,
-    DefaultSlpCode = 0,
-    DefaultTaxCode = "",
-    DefaultWarehouse = "",
-    Email = "",
-    IdPhone1 = "",
-    IdPhone1Val = "",
-    Image = "",
-    Name = "",
-    ObjType = 0,
-    Password = "",
-    Phone1 = "",
-    ResetIdPhone = "",
-    ShowImage = "",
-    SuperUser = "",
-    AccError = "",
-    AccFinalized = "",
-    AccMovil = ""
-)
 
 fun agregarSocioNegocio(
     cardCode: String,
@@ -440,6 +390,7 @@ fun agregarSocioNegocio(
     personaNaturalConNegocio: String,
     consultado: String,
     zone: String,
+    correo: String,
     cardFName: String = "",
     fechaConsulta: String
 
@@ -477,6 +428,7 @@ fun agregarSocioNegocio(
     AccMigrated = "N",
     AccMovil = "Y",
     AccUpdateDate = "",
+    E_Mail = correo,
     RGuia = "N",
     AccUpdateHour = "",
     AccUpdateUser = "",
@@ -576,6 +528,7 @@ fun actualizarPagoCabecera(
         TransId = transId,
         TrsfrSumFC = 0.0,
         ObjType = 140,
+        AccControl = "N",
         clientePagosDetalles = listaDetalles
     )
 
@@ -660,7 +613,8 @@ fun agregarPagoCabecera(
         TypePayment = typePayment,
         TrsfrSumFC = 0.0,
         clientePagosDetalles = listaDetalles,
-        ObjType = 140
+        ObjType = 140,
+        AccControl = "N"
     )
 
 
@@ -689,7 +643,9 @@ fun agregarPagoDetalle(
         DocTransId = -1,
         InstId = instId,
         InvType = 13,
-        SumApplied = monto
+        SumApplied = monto,
+        ObjType = 140,
+        AccControl = "N"
     )
 
 fun actualizarPagoDetalle(
@@ -723,7 +679,9 @@ fun actualizarPagoDetalle(
     DocTransId = -1,
     InstId = instId,
     InvType = 13,
-    SumApplied = monto
+    SumApplied = monto,
+    ObjType = 140,
+    AccControl = "N"
 )
 
 fun agregarDireccion(
@@ -737,7 +695,11 @@ fun agregarDireccion(
     cardCode: String,
     tipo: String,
     accDocEntry: String,
-    usuario: String
+    usuario: String,
+    zona: String,
+    latitud: String,
+    longitud: String,
+    vendedor: Int
 
 ) = DoSocioDirecciones(
     AccAction = "I",
@@ -761,8 +723,10 @@ fun agregarDireccion(
     LineNum = lineNum,
     State = codigoDepartamento,
     Street = calle,
-    U_MSV_CP_LATITUD = "",
-    U_MSV_CP_LONGITUD = "",
+    U_MSV_CP_LATITUD = latitud,
+    U_MSV_CP_LONGITUD = longitud,
+    U_MSV_MA_VEN = vendedor,
+    U_MSV_MA_ZONA = zona,
     U_MSV_FE_UBI = ubigeo,
     ZipCode = distrito
 )
@@ -919,6 +883,7 @@ fun actualizarCabeceraDePedido(
         AccFinalized = "N",
         AccError = "",
         ObjType = 112,
+        AccControl = "N",
         clientePedidoDetalles = detallePedido
     )
 
@@ -990,6 +955,9 @@ fun actualizarDetalleDePedido(
         VatSum = impuesto,                  //Suma total igv
         VatSumFrgn = 0.0,                   //Suma total igv en moneda extranjera
         WhsCode = codigoAlmacen,            //Almacen
+        ObjType = 112,
+        AccControl = "N",
+
     )
     return pedidoArticulo
 }
@@ -1002,6 +970,8 @@ fun agregarDetalleDePedido(
     grupoUM:String,
     unidadMedida:String,
     precio:Double,
+    precioAftVat: Double = 0.0,
+    precioLP: Double = 0.0,
     precioBruto: Double,
     porcentajeDescuento: Double,
     total:Double,
@@ -1016,6 +986,8 @@ fun agregarDetalleDePedido(
     uomEntry: Int
 
 ): ClientePedidoDetalle {
+    val gtotals = (precioAftVat*cantidad).format(2)
+    val linetotals = (precio*cantidad).format(2)
     val pedidoArticulo = ClientePedidoDetalle(
         AccAction = "I",
         AccCreateDate = fechaActual,
@@ -1029,19 +1001,19 @@ fun agregarDetalleDePedido(
         DiscPrcnt = porcentajeDescuento,    //Descuento
         DocEntry = -1,                      //Va vacio
         Dscription = nombre,                //ItemName
-        GTotal = total + impuesto,          //Transferencia gratuita
+        GTotal = (precioAftVat*cantidad).format(2),          //Transferencia gratuita
         GTotalFC = 0.0,
         ItemCode = codigo,
         LineNum = lineNum,
-        LineTotal = precio*cantidad.toDouble(),  //Total de la linea
+        LineTotal = (precio*cantidad).format(2),  //Total de la linea
         OcrCode = "",
         OcrCode2 = "",
         OcrCode3 = "",
         OcrCode4 = "",
         OcrCode5 = "",
-        Price = precio,
-        PriceAfVAT = precio,                //Precio con IGV descontado aplicado al impuesto
-        PriceBefDi = precioBruto,           //Precio sin IGV
+        Price = precio,                     //Precio descontado
+        PriceAfVAT = precioAftVat,                //Precio con IGV descontado aplicado al impuesto
+        PriceBefDi = precioLP,           //Precio sin IGV Precio sin descuento
         PriceList = listaPrecios,           //Lista de precio
         Project = "",
         Quantity = cantidad,
@@ -1050,9 +1022,11 @@ fun agregarDetalleDePedido(
         UnitMsr = unidadMedida,
         UomCode = grupoUM,                  //Grupo unidad de medida
         UomEntry = uomEntry,
-        VatSum = impuesto,                  //Suma total igv
+        VatSum = gtotals-linetotals.format(2),                  //Suma total igv
         VatSumFrgn = 0.0,                   //Suma total igv en moneda extranjera
         WhsCode = codigoAlmacen,            //Almacen
+        ObjType = 112,
+        AccControl = "N",
     )
     return pedidoArticulo
 }
@@ -1117,9 +1091,9 @@ fun agregarCabeceraDePedido(
         Address2 = direccionDespacho,
         GrosProfit = valorVenta,
         GrosProfFC = 0.0,
-        VatSum = impuestoTotal,
+        VatSum = impuestoTotal.format(2),
         VatSumFC = 0.0,
-        DocTotal = total,
+        DocTotal = total.format(2),
         DocTotalFC = 0.0,
         Project = "",
         Comments = comentario,
@@ -1135,6 +1109,7 @@ fun agregarCabeceraDePedido(
         AccFinalized = "N",
         AccError = "",
         ObjType = 112,
+        AccControl = "N",
         clientePedidoDetalles = detallePedido
     //AccNotificado
         //N por default
@@ -1191,8 +1166,8 @@ fun crearSocioDireccion(
     U_MSV_CP_LATITUD: String,
     U_MSV_CP_LONGITUD: String,
     U_MSV_FE_UBI: String,
-    U_MSV_MA_SUBZONA: String,
-    U_MSV_MA_ZONA: String,
+    zona: String,
+
     ZipCode: String
 ) = DoSocioDirecciones (
     AccAction = AccAction,
@@ -1218,6 +1193,8 @@ fun crearSocioDireccion(
     Street = Street,
     U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
     U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    U_MSV_MA_ZONA = zona,
+    U_MSV_MA_VEN = -1,
     U_MSV_FE_UBI = U_MSV_FE_UBI,
     ZipCode = ZipCode,
 )

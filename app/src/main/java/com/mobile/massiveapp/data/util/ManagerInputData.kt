@@ -44,6 +44,8 @@ import com.mobile.massiveapp.data.database.dao.GeneralVendedoresDao
 import com.mobile.massiveapp.data.database.dao.GeneralZonasDao
 import com.mobile.massiveapp.data.database.dao.GrupoDescuentoDao
 import com.mobile.massiveapp.data.database.dao.GrupoDescuentoDetalleDao
+import com.mobile.massiveapp.data.database.dao.ManifiestoDao
+import com.mobile.massiveapp.data.database.dao.ManifiestoDocumentoDao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecial1Dao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecial2Dao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecialDao
@@ -120,7 +122,9 @@ class ManagerInputData @Inject constructor(
     val grupoDescuentoDetalleDao: GrupoDescuentoDetalleDao,
     val precioEspecialDao: PrecioEspecialDao,
     val precioEspecial1Dao: PrecioEspecial1Dao,
-    val precioEspecial2Dao: PrecioEspecial2Dao
+    val precioEspecial2Dao: PrecioEspecial2Dao,
+    val manifiestoDao: ManifiestoDao,
+    val manifiestoDocumentoDao: ManifiestoDocumentoDao
 ) {
     companion object {
         const val ACTIVIDADES_E =       "ActividadesE"
@@ -176,6 +180,9 @@ class ManagerInputData @Inject constructor(
         const val CONDUCTOR =                   "Conductores"
         const val GRUPO_DESCUENTO =             "GruposDE"
         const val GRUPO_DESCUENTO_DETALLE =     "GrupoDescuentoDetalle"
+
+        const val MANIFIESTO = "Manifiestos"
+        const val MANIFIESTO_DOCUMENTO = "ManifiestoDocumento"
 
         const val SESION_CERRADA = 500
 
@@ -272,7 +279,10 @@ class ManagerInputData @Inject constructor(
         GRUPO_DESCUENTO_DETALLE     to grupoDescuentoDetalleDao,
         PRECIO_ESPECIAL             to precioEspecialDao,
         PRECIO_ESPECIAL_1           to precioEspecial1Dao,
-        PRECIO_ESPECIAL_2           to precioEspecial2Dao
+        PRECIO_ESPECIAL_2           to precioEspecial2Dao,
+
+        MANIFIESTO                  to manifiestoDao,
+        MANIFIESTO_DOCUMENTO        to manifiestoDocumentoDao
     )
 
 

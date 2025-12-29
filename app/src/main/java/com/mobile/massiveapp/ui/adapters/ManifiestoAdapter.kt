@@ -1,5 +1,6 @@
 package com.mobile.massiveapp.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,13 +36,14 @@ class ManifiestoAdapter (
             txvEstado = view.findViewById(R.id.txvEstadoManifiestoValue)
         }
 
+        @SuppressLint("SetTextI18n")
         fun render(manifiesto: DoManifiesto, onClickListener: (DoManifiesto) -> Unit, onLongPressListener: (View, DoManifiesto) -> Unit) {
 
-            txvNumero.text = manifiesto.Numero
-            txvConductor.text = manifiesto.Conductor
-            txvVehiculo.text = manifiesto.Vehiculo
-            txvFechaSalida.text = manifiesto.FechaSalida
-            txvEstado.text = if (manifiesto.Estado == "Y") "Activo" else "Inactivo"
+            txvNumero.text = "${manifiesto.DocEntry}"
+            txvConductor.text = manifiesto.U_MSV_MA_CON
+            txvVehiculo.text = manifiesto.U_MSV_MA_TRANSPNO
+            txvFechaSalida.text = manifiesto.U_MSV_MA_FECSALIDA
+            txvEstado.text = if (manifiesto.U_MSV_MA_ESTADO == "Y") "Activo" else "Inactivo"
 
             itemView.setOnLongClickListener {
                 onLongPressListener(itemView, manifiesto)

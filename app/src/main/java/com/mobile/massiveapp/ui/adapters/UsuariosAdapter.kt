@@ -61,11 +61,11 @@ class UsuariosAdapter (
                 imvBlocked.setImageResource(R.drawable.icon_person_check)
             }
 
-            imvAlert.isVisible = usuario.ListaPrecios == 0  ||
+           /* imvAlert.isVisible = usuario.ListaPrecios == 0  ||
                                  usuario.Zonas == 0  ||
                                  usuario.Almacenes == 0  ||
                                  usuario.GrupoSocios == 0  ||
-                                 usuario.GrupoArticulos == 0
+                                 usuario.GrupoArticulos == 0*/
 
 
             itemView.setOnLongClickListener {

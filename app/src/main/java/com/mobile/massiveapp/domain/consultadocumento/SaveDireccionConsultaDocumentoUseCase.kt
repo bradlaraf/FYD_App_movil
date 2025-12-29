@@ -54,8 +54,7 @@ class SaveDireccionConsultaDocumentoUseCase @Inject constructor(
                     U_MSV_CP_LATITUD =          direccion.Latitud.toString(),
                     U_MSV_CP_LONGITUD =         direccion.Longitud.toString(),
                     U_MSV_FE_UBI =              direccion.DistritoCodigo,
-                    U_MSV_MA_SUBZONA =          "",
-                    U_MSV_MA_ZONA =             "",
+                    zona = "",
                     ZipCode =                   direccion.DistritoNombre,
                     AccControl =                "N"
                 )

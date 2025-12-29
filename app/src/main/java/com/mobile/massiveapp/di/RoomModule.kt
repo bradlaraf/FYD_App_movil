@@ -239,6 +239,12 @@ object RoomModule {
     fun providesManifiestoDao(db:MassiveDatabase) = db.getManifiestoDao()
     @Singleton
     @Provides
+    fun providesManifiestoAyudanteDao(db:MassiveDatabase) = db.getManifiestoAyudanteDao()
+    @Singleton
+    @Provides
+    fun providesManifiestoDocumentoDao(db:MassiveDatabase) = db.getManifiestoDocumentoDao()
+    @Singleton
+    @Provides
     fun providesAnexoImagenDao(db:MassiveDatabase) = db.getAnexoImagenDao()
     @Singleton
     @Provides

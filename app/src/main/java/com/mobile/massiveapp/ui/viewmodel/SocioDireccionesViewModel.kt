@@ -3,10 +3,14 @@ package com.mobile.massiveapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mobile.massiveapp.domain.model.DoDireccionEdicionView
+import com.mobile.massiveapp.domain.model.DoDireccionView
 import com.mobile.massiveapp.domain.model.DoSocioDirecciones
 import com.mobile.massiveapp.domain.sociouc.GetAllDireccionPorTipoYCardCodeUseCase
 import com.mobile.massiveapp.domain.sociouc.direcciones.DeleteUnaDireccionPorCardCodeYTipoUseCase
 import com.mobile.massiveapp.domain.sociouc.direcciones.GetAllDireccionesPorCardCodeUseCase
+import com.mobile.massiveapp.domain.sociouc.direcciones.GetAllDireccionesViewUseCase
+import com.mobile.massiveapp.domain.sociouc.direcciones.GetDireccionDespachoZonaUseCase
 import com.mobile.massiveapp.domain.sociouc.direcciones.GetDireccionPorCardCodeTipoYLineNumUseCase
 import com.mobile.massiveapp.domain.sociouc.direcciones.GetLineNumPorCardCodeYTipoUseCase
 import com.mobile.massiveapp.domain.sociouc.direcciones.SaveDireccionUseCase
@@ -21,9 +25,35 @@ class SocioDireccionesViewModel @Inject constructor(
     private val getAllDireccionesPorCardCodeYTipoUseCase: GetAllDireccionPorTipoYCardCodeUseCase,
     private val getDireccionPorCardCodeTipoYLineNumUseCase: GetDireccionPorCardCodeTipoYLineNumUseCase,
     private val deleteUnaDireccionPorCardCodeYTipoUseCase: DeleteUnaDireccionPorCardCodeYTipoUseCase,
-    private val getAllDireccionesPorCardCodeUseCase: GetAllDireccionesPorCardCodeUseCase
+    private val getAllDireccionesPorCardCodeUseCase: GetAllDireccionesPorCardCodeUseCase,
+    private val getAllDireccionesViewUseCase: GetAllDireccionesViewUseCase,
+    private val getDireccionDespachoZonaUseCase: GetDireccionDespachoZonaUseCase
 ): ViewModel(){
     val isLoading = MutableLiveData<Boolean>()
+
+    //
+    val dataGetDireccionesDespachoXZona = MutableLiveData<String>()
+    fun getDireccionesDespachoXZona(cardCode: String){
+        viewModelScope.launch {
+            val result = getDireccionDespachoZonaUseCase(cardCode)
+            result.let {
+                dataGetDireccionesDespachoXZona.postValue(it)
+            }
+
+        }
+    }
+
+
+    //Direcciones para la visualización de la info del cliente
+    val dataGetAllDireccionesView = MutableLiveData<List<DoDireccionView>>()
+    fun getAllDireccionesView(cardCode: String){
+        viewModelScope.launch {
+            val result = getAllDireccionesViewUseCase(cardCode)
+            result.let {
+                dataGetAllDireccionesView.postValue(it)
+            }
+        }
+    }
 
 
         //Guardar una direccion de despacho
@@ -88,7 +118,7 @@ class SocioDireccionesViewModel @Inject constructor(
     }
 
         //Obtener una direccion por cardCode, tipo y LineNum
-    val dataGetDireccionPorCardCodeTipoYLineNum = MutableLiveData<DoSocioDirecciones>()
+    val dataGetDireccionPorCardCodeTipoYLineNum = MutableLiveData<DoDireccionEdicionView>()
 
     fun getDireccionPorCardCodeTipoYLineNum(cardCode: String, tipo: String, lineNum: Int){
         viewModelScope.launch {

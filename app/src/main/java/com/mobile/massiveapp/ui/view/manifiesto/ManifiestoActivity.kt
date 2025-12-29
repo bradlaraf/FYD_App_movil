@@ -15,9 +15,12 @@ import com.google.android.gms.location.LocationServices
 import com.mobile.massiveapp.databinding.ActivityManiefiestoBinding
 import com.mobile.massiveapp.ui.adapters.ManifiestoAdapter
 import com.mobile.massiveapp.ui.view.facturas.FacturasActivity
+import com.mobile.massiveapp.ui.view.manifiesto.info.ManifiestoInfoActivity
 import com.mobile.massiveapp.ui.view.menu.drawer.DrawerBaseActivity
 import com.mobile.massiveapp.ui.viewmodel.ManifiestoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ManifiestoActivity : DrawerBaseActivity() {
     private lateinit var binding: ActivityManiefiestoBinding
     private lateinit var manifiestoAdapter: ManifiestoAdapter
@@ -39,9 +42,9 @@ class ManifiestoActivity : DrawerBaseActivity() {
     private fun setDefaultUi() {
         manifiestoAdapter = ManifiestoAdapter(listOf(),
             onClickListener = {manifiesto->
-                Intent(this, FacturasActivity::class.java)
-                    .putExtra("coductor", manifiesto.Conductor)
-                    .putExtra("vehiculo", manifiesto.Vehiculo)
+                Intent(this, ManifiestoInfoActivity::class.java)
+                    .putExtra("coductor", manifiesto.U_MSV_MA_CON)
+                    .putExtra("vehiculo", manifiesto.U_MSV_MA_TRANSPNO)
                     .also { startActivity(it)  }},
             onLongPressListener = {view, manifiesto->})
 
@@ -59,7 +62,8 @@ class ManifiestoActivity : DrawerBaseActivity() {
                 manifiestoAdapter.updateData(listaManifiestos)
                 binding.swipe.isRefreshing = false
             } catch (e: Exception){
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
+
             }
         }
         binding.swipe.setOnRefreshListener {

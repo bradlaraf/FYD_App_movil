@@ -31,6 +31,7 @@ class ContenidoArticulosActivity : AppCompatActivity() {
     private lateinit var pedidoDetalleItemsAdapter: PedidoDetalleAdapter
     private val pedidoViewModel: PedidoViewModel by viewModels()
     private var accDocEntry = ""
+    private var gTotal = 0.0
     private var listaPedidosAEliminar: List<ClientePedidoDetalle> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -156,6 +157,8 @@ class ContenidoArticulosActivity : AppCompatActivity() {
             binding.txvCantidadPedidos.isVisible = false
         }
         val total = listaDetalles.sumOf { pedido -> pedido.LineTotal }
+        gTotal = listaDetalles.sumOf { pedido -> pedido.GTotal }
+
         setTotal(total)
         if (editMode){
             pedidoDetalleItemsAdapter.updateDataEditMode(listaDetalles)
@@ -250,6 +253,7 @@ class ContenidoArticulosActivity : AppCompatActivity() {
             val intentArticulosAgregador = Intent()
             intentArticulosAgregador.putExtra("cantidadArticulos", pedidoDetalleItemsAdapter.itemCount)
             intentArticulosAgregador.putExtra("total", binding.txvNpArtInfoTotalValue.text.toString())
+            intentArticulosAgregador.putExtra("gTotal", gTotal)
             setResult(RESULT_OK, intentArticulosAgregador)
             super.onBackPressed()
 

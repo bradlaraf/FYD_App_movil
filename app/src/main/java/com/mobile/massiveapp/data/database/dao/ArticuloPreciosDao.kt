@@ -30,7 +30,13 @@ interface ArticuloPreciosDao: BaseDao<ArticuloPreciosEntity> {
 
 
         //Obtener todos los articulo precios con el nombre de lista
-    @Query("SELECT * FROM ArticuloPrecio T0 INNER JOIN ListaPrecio T1 ON T0.PriceList = T1.ListNum WHERE ItemCode = :itemCode")
+    @Query("""
+        SELECT 
+            * 
+        FROM ArticuloPrecio T0 
+        LEFT JOIN ListaPrecio T1 ON T0.PriceList = T1.ListNum 
+        WHERE ItemCode = :itemCode
+    """)
     suspend fun getAllArticuloPreciosPorItemCode(itemCode:String): List<DoArticuloPrecios>
 
 

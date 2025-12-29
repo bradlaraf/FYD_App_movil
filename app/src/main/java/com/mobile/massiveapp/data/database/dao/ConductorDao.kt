@@ -20,6 +20,9 @@ interface ConductorDao : BaseDao<ConductorEntity>  {
     @Query("SELECT * FROM Conductor")
     suspend fun getAll(): List<ConductorEntity>
 
+    @Query("SELECT * FROM Conductor ORDER BY Name, Code")
+    suspend fun getAllOrder(): List<ConductorEntity>
+
     @Query("DELETE FROM Conductor")
     suspend fun clearAll()
 

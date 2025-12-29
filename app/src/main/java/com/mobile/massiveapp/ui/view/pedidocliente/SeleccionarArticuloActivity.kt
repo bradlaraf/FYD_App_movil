@@ -19,6 +19,9 @@ import com.mobile.massiveapp.ui.viewmodel.ArticuloViewModel
 import com.mobile.massiveapp.ui.viewmodel.ProviderViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import com.mobile.massiveapp.databinding.FragmentArticulosConStockBinding
+import com.mobile.massiveapp.domain.model.DoArticuloInv
+import com.mobile.massiveapp.ui.view.pedidocliente.fragments.ArticulosConStockFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +32,7 @@ class SeleccionarArticuloActivity : AppCompatActivity() {
     private val providerViewModel: ProviderViewModel by viewModels()
     private val usuarioViewModel: UsuarioViewModel by viewModels()
     private val articuloViewModel: ArticuloViewModel by viewModels()
-    private var articuloSeleccionado: DoArticuloInventario? = null
+    private var articuloSeleccionado: DoArticuloInv? = null
     private var codigoAlmacen = ""
 
     private val tabTitle = arrayOf("Con Stock", "Sin Stock")
@@ -39,6 +42,12 @@ class SeleccionarArticuloActivity : AppCompatActivity() {
         binding = ActivitySeleccionarArticuloBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, ArticulosConStockFragment())
+                .commit()
+        }
 
         setValoresIniciales()
         setDefaultUi()
@@ -101,13 +110,14 @@ class SeleccionarArticuloActivity : AppCompatActivity() {
     private fun setDefaultUi() {
 
         //TabLayout
-        val pager = binding.viewPagerSeleccionarArticulo
+        /*val pager = binding.viewPagerSeleccionarArticulo
         val tl = binding.tabLayoutSeleccionarArticulo
         pager.adapter = FMSeleccionarArticuloAdapter(supportFragmentManager, lifecycle)
 
         TabLayoutMediator(tl, pager){ tab, position ->
             tab.text = tabTitle[position]
-        }.attach()
+        }.attach()*/
+
     }
 
 

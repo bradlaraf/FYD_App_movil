@@ -10,10 +10,9 @@ class GetAllUsuarioGeneralInfoUseCase @Inject constructor(
     suspend operator fun invoke(userCode: String) =
         try {
             if (userCode.isEmpty()){
-                DoConfigurarUsuarioInfo()
-            } else {
-                configurarUsuarioDao.getUsuarioInfoCodes(userCode)
+                throw Exception("Codigo Vacío")
             }
+            configurarUsuarioDao.getUsuarioInfoCodes(userCode)
         } catch (e:Exception){
             e.printStackTrace()
             DoConfigurarUsuarioInfo()

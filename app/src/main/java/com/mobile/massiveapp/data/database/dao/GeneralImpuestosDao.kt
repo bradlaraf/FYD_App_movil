@@ -10,7 +10,12 @@ import com.mobile.massiveapp.data.database.entities.GeneralImpuestosEntity
 @Dao
 interface GeneralImpuestosDao:BaseDao<GeneralImpuestosEntity> {
 
-    @Query("SELECT * FROM Impuesto")
+    @Query("""
+        SELECT 
+            *
+        FROM Impuesto T0
+        WHERE T0.Code <> 'IGV'
+    """)
     suspend fun getAll(): List<GeneralImpuestosEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -26,6 +31,11 @@ interface GeneralImpuestosDao:BaseDao<GeneralImpuestosEntity> {
     suspend fun update(generalImpuestos: List<GeneralImpuestosEntity>)
 
         //Obtener el impuesto por default
-    @Query("SELECT * FROM Impuesto WHERE Code = (SELECT DefaultTaxCode FROM Usuario LIMIT 1)")
+    @Query("""
+        SELECT 
+            * 
+        FROM Impuesto 
+        WHERE Code = 'IGV_18'
+        """)
     suspend fun getImpuestoDefault(): GeneralImpuestosEntity
 }

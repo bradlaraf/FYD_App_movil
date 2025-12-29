@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobile.massiveapp.data.model.ClientePedidoDetalle
 import com.mobile.massiveapp.data.model.ClientePedidos
+import com.mobile.massiveapp.domain.model.ArticuloPedido
 import com.mobile.massiveapp.domain.model.DoArticuloUnidades
 import com.mobile.massiveapp.domain.model.DoClientePedido
 import com.mobile.massiveapp.domain.model.DoError
@@ -33,6 +34,7 @@ import com.mobile.massiveapp.domain.pedido.GetPedidoPorAccDocEntryUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidoSugeridoUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidosCanceladosUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidosDeAyerUseCase
+import com.mobile.massiveapp.domain.pedido.GetPrecioArticuloUseCase
 import com.mobile.massiveapp.domain.pedido.GetUnPedidoDetallePorAccDocEntryYLineNumUseCase
 import com.mobile.massiveapp.domain.pedido.GetUnidadMedidaYEquivalenciaUseCase
 import com.mobile.massiveapp.domain.pedido.SavePedidoCabeceraUseCase
@@ -71,7 +73,8 @@ class PedidoViewModel @Inject constructor(
     private val getPedidoCabeceraInfoUseCase: GetPedidoCabeceraInfoUseCase,
     private val getPedidoDetallesInfoUseCase: GetPedidoDetallesInfoUseCase,
     private val comprobarEstadoActualPedidoUseCase: ComprobarEstadoActualPedidoUseCase,
-    private val getPedidoSugeridoUseCase: GetPedidoSugeridoUseCase
+    private val getPedidoSugeridoUseCase: GetPedidoSugeridoUseCase,
+    private val getPrecioArticuloUseCase: GetPrecioArticuloUseCase
     )
     : ViewModel(){
     val isLoading = MutableLiveData<Boolean>()
@@ -93,6 +96,17 @@ class PedidoViewModel @Inject constructor(
             result.let {
                 dataComprobarEstadoActualPedido.postValue(it)
                 isLoadingComprobarPedido.postValue(false)
+            }
+        }
+    }
+
+    //Obtener el precio
+    val dataGetPrecioArticulo = MutableLiveData<ArticuloPedido>()
+    fun getPrecioArticulo(cantidad: Int, itemCode: String, listaPrecio: Int){
+        viewModelScope.launch {
+            val result = getPrecioArticuloUseCase(cantidad, itemCode, listaPrecio)
+            result.let {
+                dataGetPrecioArticulo.postValue(it)
             }
         }
     }

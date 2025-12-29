@@ -8,14 +8,16 @@ data class Sociedad(
     val CompnyName: String,
     val E_Mail: String,
     val TaxIdNum: String,
-    val WebSite: String
+    val WebSite: String,
+    val PriceDec: Int
 ): MappingInteface<Sociedad>(){
     constructor(): this(
         AliasName = "",
         CompnyName = "",
         E_Mail = "",
         TaxIdNum = "",
-        WebSite = ""
+        WebSite = "",
+        PriceDec = 2
     )
     override fun map(data: List<Sociedad>): List<*> {
         return data.map { it.toDatabase() }

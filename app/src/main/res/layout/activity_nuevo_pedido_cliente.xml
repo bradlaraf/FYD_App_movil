@@ -174,7 +174,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clNuevoPedidoMoneda"
+                android:id="@+id/clNuevoPedidoCorreo"
                 style="@style/clPedidoInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -182,6 +182,39 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/clNuevoPedidoContacto">
+
+                <TextView
+                    android:id="@+id/txvNuevoPedidoCorreoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Correo"
+                    android:textColor="@color/color_blue_sap_mobile"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvNuevoPedidoCorreoValue"
+                    style="edtNewSn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txvNuevoPedidoCorreoTitle"
+                    tools:text="Correo" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNuevoPedidoMoneda"
+                style="@style/clPedidoInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clNuevoPedidoCorreo">
 
                 <TextView
                     android:id="@+id/txvNuevoPedidoMonedaTitle"
@@ -286,6 +319,51 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNuevoPedidoFechaEntrega"
+                style="@style/clPedidoInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clNuecoPedidoComentarios">
+
+                <TextView
+                    android:id="@+id/txvNuevoPedidoFechaEntregaTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha Entrega"
+                    android:textColor="@color/color_blue_sap_mobile"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvNuevoPedidoFechaEntregaValue"
+                    style="edtNewSn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txvNuevoPedidoFechaEntregaTitle"
+                    tools:text="Fecha Entrega" />
+
+                <ImageView
+                    android:id="@+id/imvArr"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/icon_arroy_enter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:srcCompat="@drawable/icon_arroy_enter" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNuevoPedidoFechaContable"
                 style="@style/clPedidoInfo"
                 android:layout_width="match_parent"
@@ -293,7 +371,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clNuecoPedidoComentarios">
+                app:layout_constraintTop_toBottomOf="@+id/clNuevoPedidoFechaEntrega">
 
                 <TextView
                     android:id="@+id/txvNuevoPedidoFechaContableTitle"
@@ -320,6 +398,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNuevoPedidoFechaVencimiento"
+                android:visibility="gone"
                 style="@style/clPedidoInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -562,6 +641,7 @@
                     tools:text="Condición Pago" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/imvArrow9338"
                     android:layout_width="35dp"
                     android:layout_height="35dp"

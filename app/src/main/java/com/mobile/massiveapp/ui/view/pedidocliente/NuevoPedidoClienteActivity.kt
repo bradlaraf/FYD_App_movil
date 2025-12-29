@@ -3,6 +3,7 @@ package com.mobile.massiveapp.ui.view.pedidocliente
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -23,15 +24,18 @@ import com.mobile.massiveapp.ui.base.BaseDialogSImpleLoading
 import com.mobile.massiveapp.ui.view.login.LoginActivity
 import com.mobile.massiveapp.ui.view.util.SendData
 import com.mobile.massiveapp.ui.view.util.agregarCabeceraDePedido
+import com.mobile.massiveapp.ui.view.util.format
 import com.mobile.massiveapp.ui.view.util.formatoSinModena
 import com.mobile.massiveapp.ui.view.util.getCodigoDeDocumentoActual
 import com.mobile.massiveapp.ui.view.util.getFechaActual
 import com.mobile.massiveapp.ui.view.util.getHoraActual
+import com.mobile.massiveapp.ui.view.util.mostrarCalendarioMaterial
 import com.mobile.massiveapp.ui.view.util.observeOnce
 import com.mobile.massiveapp.ui.view.util.obtenerTipoDocumentoIndicadorPorCodigo
 import com.mobile.massiveapp.ui.view.util.setCopyToClipboardOnLongClick
 import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
 import com.mobile.massiveapp.ui.viewmodel.PedidoViewModel
+import com.mobile.massiveapp.ui.viewmodel.SocioDireccionesViewModel
 import com.mobile.massiveapp.ui.viewmodel.SocioViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +48,7 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
     private val pedidoViewModel: PedidoViewModel by viewModels()
     private val generalViewModel: GeneralViewModel by viewModels()
     private val usuarioViewModel: UsuarioViewModel by viewModels()
+    private val socioDireccionesViewModel: SocioDireccionesViewModel by viewModels()
     private var datosPedido: HashMap<String, Any> = HashMap()
     private val CANTIDAD_ARTICULOS_DEFAULT = 0
 
@@ -68,6 +73,7 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
                 datosPedido["groupNum"] = socioSeleccionado.GroupNum
                 datosPedido["accDocEntrySN"] = socioSeleccionado.AccDocEntry
 
+                binding.txvNuevoPedidoCorreoValue.text = socioSeleccionado.E_Mail
                 binding.txvNuevoPedidoCodigoSnValue.text = socioSeleccionado.CardCode
                 binding.txvNuevoPedidoNombreSnValue.text = socioSeleccionado.CardName
                 binding.txvNuevoPedidoIndicadorValue.text = obtenerTipoDocumentoIndicadorPorCodigo(socioSeleccionado.Indicator)
@@ -76,6 +82,17 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
             }
         }
 
+        //Direccion Despacho Predeterminada
+        socioDireccionesViewModel.dataGetDireccionesDespachoXZona.observe(this) { direccionDespacho->
+            try {
+                if (direccionDespacho.isNotEmpty()){
+                    binding.txvNuevoPedidoDireccionEntregaValue.text = direccionDespacho.toString()
+                    datosPedido["shipToCode"] = direccionDespacho
+                }
+            } catch (e:Exception) {
+                e.printStackTrace()
+            }
+        }
 
         //Livedata todas las direcciones
         socioViewModel.dataSocioDireccionesPorCardCode.observe(this){ direcciones->
@@ -86,12 +103,15 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
 
                     if (direccionesFiscales.isNotEmpty()){
                         binding.txvNuevoPedidoDireccionFiscalValue.text = direccionesFiscales[0].Street
+                        datosPedido["payToCode"] = direccionesFiscales[0].Address
                     }
 
                     if (direccionesDespacho.isNotEmpty()){
-                        binding.txvNuevoPedidoDireccionEntregaValue.text = direccionesDespacho[0].Street
+                        /*binding.txvNuevoPedidoDireccionEntregaValue.text = direccionesDespacho[0].Street
+                        datosPedido["shipToCode"] = direccionesDespacho[0].Address*/
                     }
 
+                    //Direcciones fiscales
                     binding.clNuevoPedidoDireccionFiscal.setOnClickListener {
                         BaseDialogChecklistWithId(
                             binding.txvNuevoPedidoDireccionFiscalValue.text.toString(),
@@ -99,6 +119,20 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
                         ){ direccionSeleccionada , id ->
                             if (direccionSeleccionada.isNotEmpty()){
                                 binding.txvNuevoPedidoDireccionFiscalValue.text = direccionSeleccionada
+                                datosPedido["payToCode"] = direccionesFiscales[id].Address
+                            }
+                        }.show(supportFragmentManager, "DireccionFiscalDialog")
+                    }
+
+                    //Direcciones despacho
+                    binding.clNuevoPedidoDireccionEntrega.setOnClickListener {
+                        BaseDialogChecklistWithId(
+                            binding.txvNuevoPedidoDireccionEntregaValue.text.toString(),
+                            direccionesDespacho.map { direccion -> direccion.Street }
+                        ){ direccionSeleccionada , id ->
+                            if (direccionSeleccionada.isNotEmpty()){
+                                binding.txvNuevoPedidoDireccionEntregaValue.text = direccionSeleccionada
+                                datosPedido["shipToCode"] = direccionesDespacho[id].Address
                             }
                         }.show(supportFragmentManager, "DireccionFiscalDialog")
                     }
@@ -138,17 +172,20 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
         pedidoViewModel.dataGetAllPedidoDetallePorAccDocEntry.observe(this){ listaPedidoDetalles->
             try {
                 val total = listaPedidoDetalles.sumOf { it.LineTotal }.toString().format(2)
+                val gTotal = listaPedidoDetalles.sumOf { it.GTotal }.toString().format(2)
+                val vatSum = listaPedidoDetalles.sumOf { it.VatSum.format(2) }.toString().format(2)
 
                 binding.txvNuevoPedidoArticulosValue.text = "${listaPedidoDetalles.size} artículos"
 
                 binding.txvNuevoPedidoTotalAntesDescuentoValue.text = "${SendData.instance.simboloMoneda} ${total.format(2)}"
-                binding.txvNuevoPedidoTotalValue.text = "${SendData.instance.simboloMoneda} ${total.format(2)}"
+                binding.txvNuevoPedidoTotalValue.text = "${SendData.instance.simboloMoneda} ${gTotal.format(2)}"
 
                 binding.txvNuevoPedidoPorcentajeDescuentoValue.text = "0.00"
-                binding.txvNuevoPedidoImpuestoValue.text = "0.0"
+                binding.txvNuevoPedidoImpuestoValue.text = vatSum
                 binding.txvNuevoPedidoDescuentoValue.text = "0.00"
 
             } catch (e: Exception){
+                e.printStackTrace()
                 Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
@@ -265,22 +302,34 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
         }
 
         // Click DocumentoDireccion de entrega
-        binding.clNuevoPedidoDireccionEntrega.setOnClickListener {
+        /*binding.clNuevoPedidoDireccionEntrega.setOnClickListener {
             //Se configura el Dialog de edicion
             BaseDialogEdt(
                 binding.txvNuevoPedidoDireccionEntregaValue.text.toString()
             ){ direccionDespachoDialog->
                 binding.txvNuevoPedidoDireccionEntregaValue.text = direccionDespachoDialog
             }.show(supportFragmentManager, "BaseDialogEdt")
+        }*/
+
+        //Fecha Entrega
+        binding.clNuevoPedidoFechaEntrega.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mostrarCalendarioMaterial(
+                    this,
+                    binding.txvNuevoPedidoFechaEntregaValue.text.toString().ifEmpty { getFechaActual() }
+                ){dia, mes, anio->
+                    binding.txvNuevoPedidoFechaEntregaValue.text = "$anio-$mes-$dia"
+                }
+            }
         }
 
         //Click Condicion de pago
-        binding.clNuevoPedidoCondicionPago.setOnClickListener {
+        /*binding.clNuevoPedidoCondicionPago.setOnClickListener {
             val cardCode = binding.txvNuevoPedidoCodigoSnValue.text.toString()
             if (cardCode.isNotEmpty()){
                 generalViewModel.getCondicionesSocio(cardCode)
             }
-        }
+        }*/
     }
 
     private fun setValoresIniciales() {
@@ -347,6 +396,7 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
                     //Se trae el cliente seleccionado , las direcciones fiscales y los contactos
                 socioViewModel.getSocioNegocioPorCardCode(cardCodeClienteSeleccionado)
                 socioViewModel.getSocioDireccionesPorCardCode(cardCodeClienteSeleccionado)
+                socioDireccionesViewModel.getDireccionesDespachoXZona(cardCodeClienteSeleccionado)
                 socioViewModel.getSocioContactoPorCardCode(cardCodeClienteSeleccionado)
                     //visible el boton de articulo
                 binding.clPedidoNuevoArticulos.visibility = android.view.View.VISIBLE
@@ -361,13 +411,14 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
             val data = result.data
             val cantidadArticulos = data?.getIntExtra("cantidadArticulos", 0)
             val total = data?.getStringExtra("total")?.format(2) ?: "0.0"
+            val gTotal = data?.getStringExtra("gtotal")?.format(2)?: "0.0"
             if (cantidadArticulos != null) {
                 if (cantidadArticulos > 0){
                     totalesPedidoVisibles(true)
                     binding.txvNuevoPedidoTotalAntesDescuentoValue.text = total
-                    binding.txvNuevoPedidoTotalValue.text = total
+                    binding.txvNuevoPedidoTotalValue.text = gTotal
                     binding.txvNuevoPedidoPorcentajeDescuentoValue.text = "0.00"
-                    binding.txvNuevoPedidoImpuestoValue.text = "0.0"
+                    //binding.txvNuevoPedidoImpuestoValue.text = "0.0"
                     binding.txvNuevoPedidoDescuentoValue.text = "0.00"
 
                 }    //Get todos los detalles del pedido
@@ -410,6 +461,13 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
+    private fun validateFields():String{
+        var validFor = ""
+        if (binding.txvNuevoPedidoFechaEntregaValue.text.isEmpty()) validFor = "Fecha de entrega"
+        if (binding.txvNuevoPedidoDireccionEntregaValue.text.isEmpty()) validFor = "Dirección de entrega"
+       return validFor
+    }
+
 
 
     /*----------------BARRA DE TITULO - NAV -------------------*/
@@ -444,66 +502,77 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
                 showDialogConfirmBack()
             }
 
+
             R.id.app_bar_check -> {
-                pedidoViewModel.dataGetAllPedidoDetallePorAccDocEntry.observe(this){ listaDetalle->
-                    try {
-                        if (listaDetalle.isNotEmpty()){
-                            //Se traen los datos del cliente
-                            socioViewModel.getSocioNegocioPorCardCode(binding.txvNuevoPedidoCodigoSnValue.text.toString())
-
-                            pedidoViewModel.savePedidoCabecera(
-                                agregarCabeceraDePedido(
-                                    accDocEntry =       binding.txvNuevoPedidoNumeroDocumentoValue.text.toString(),
-                                    cardCode =          binding.txvNuevoPedidoCodigoSnValue.text.toString(),
-                                    cardName =          binding.txvNuevoPedidoNombreSnValue.text.toString().replace("\n", " "),
-                                    docDate =           binding.txvNuevoPedidoFechaContableValue.text.toString(),
-                                    docDueDate =        binding.txvNuevoPedidoFechaVencimientoValue.text.toString(),
-                                    direccionDespacho = binding.txvNuevoPedidoDireccionEntregaValue.text.toString().replace("\n", " "),
-                                    valorVenta =        binding.txvNuevoPedidoTotalValue.text.toString().formatoSinModena(SendData.instance.simboloMoneda),
-                                    impuestoTotal =     binding.txvNuevoPedidoImpuestoValue.text.toString().formatoSinModena(SendData.instance.simboloMoneda),
-                                    total =             binding.txvNuevoPedidoTotalValue.text.toString().formatoSinModena(SendData.instance.simboloMoneda),
-                                    comentario =        binding.txvNuevoPedidoComentariosValue.text.toString(),
-                                    codigoUsuario =     datosPedido["codigoUsuario"] as String,     //Se necesita traer del valor default del Usuario
-                                    fechaCreacion =     binding.txvNuevoPedidoFechaContableValue.text.toString(),
-                                    horaCreacion =      getHoraActual(),
-                                    numeroSeriePedido = datosPedido["numeroSeriePedido"] as Int,
-                                    slpCode =           datosPedido["slpCode"] as Int,
-                                    docCur =            datosPedido["docCur"] as String,
-                                    payToCode =         "FISCAL",
-                                    shipToCode =        "DESPACHO",
-                                    indicator =         binding.txvNuevoPedidoIndicadorValue.text.toString().take(2),
-                                    groupNum =          datosPedido["groupNum"] as Int,
-                                    priceList =         datosPedido["priceList"] as Int,   //Se necesita traer del valor default del Usuario
-                                    licTradNum =        datosPedido["licTradNum"] as String,
-                                    cntctCode =         datosPedido["cntctCode"] as? Int?: 0,    //Se necesita traer desde documentoContactos
-                                    taxDate =           binding.txvNuevoPedidoFechaContableValue.text.toString(),
-                                    direccionFiscal =   binding.txvNuevoPedidoDireccionFiscalValue.text.toString().replace("\n", " "),
-                                    accDocEntrySN =     datosPedido["accDocEntrySN"] as String,
-                                    detallePedido =     listaDetalle
-                                )
-                            )
-                        }
-
-                        pedidoViewModel.dataSavePedidoCabecera.observe(this){ response->
-                            when(response.ErrorCodigo){
-                                500 ->{
-                                    BaseDialogAlert(this).showConfirmationDialog("Su sesión ha sido cerrada"){
-                                        //Aceptar
-                                        usuarioViewModel.logOut()
-                                    }
-                                }
-                                0 -> {
-                                    showMessage(response.ErrorMensaje)
-                                    setResult(RESULT_OK)
-                                    onBackPressedDispatcher.onBackPressed()
-                                }
-                                else -> { showMessage(response.ErrorMensaje) }
-                            }
-                        }
-                    } catch (e: Exception){
-                        e.printStackTrace()
-                        Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                try {
+                    val campoAValidar = validateFields()
+                    if (campoAValidar.isNotEmpty()){
+                        throw Exception("Debe llenar el campo ${campoAValidar}")
                     }
+                    pedidoViewModel.dataGetAllPedidoDetallePorAccDocEntry.observe(this){ listaDetalle->
+                        try {
+
+                            if (listaDetalle.isNotEmpty()){
+                                //Se traen los datos del cliente
+                                socioViewModel.getSocioNegocioPorCardCode(binding.txvNuevoPedidoCodigoSnValue.text.toString())
+
+                                pedidoViewModel.savePedidoCabecera(
+                                    agregarCabeceraDePedido(
+                                        accDocEntry =       binding.txvNuevoPedidoNumeroDocumentoValue.text.toString(),
+                                        cardCode =          binding.txvNuevoPedidoCodigoSnValue.text.toString(),
+                                        cardName =          binding.txvNuevoPedidoNombreSnValue.text.toString().replace("\n", " "),
+                                        docDate =           binding.txvNuevoPedidoFechaContableValue.text.toString(),
+                                        docDueDate =        binding.txvNuevoPedidoFechaEntregaValue.text.toString(),
+                                        direccionDespacho = binding.txvNuevoPedidoDireccionEntregaValue.text.toString().replace("\n", " "),
+                                        valorVenta =        binding.txvNuevoPedidoTotalAntesDescuentoValue.text.toString().formatoSinModena(SendData.instance.simboloMoneda),
+                                        impuestoTotal =     binding.txvNuevoPedidoImpuestoValue.text.toString().formatoSinModena(SendData.instance.simboloMoneda),
+                                        total =             binding.txvNuevoPedidoTotalValue.text.toString().formatoSinModena(SendData.instance.simboloMoneda),
+                                        comentario =        binding.txvNuevoPedidoComentariosValue.text.toString(),
+                                        codigoUsuario =     datosPedido["codigoUsuario"] as String,     //Se necesita traer del valor default del Usuario
+                                        fechaCreacion =     binding.txvNuevoPedidoFechaContableValue.text.toString(),
+                                        horaCreacion =      getHoraActual(),
+                                        numeroSeriePedido = datosPedido["numeroSeriePedido"] as Int,
+                                        slpCode =           datosPedido["slpCode"] as Int,
+                                        docCur =            datosPedido["docCur"] as String,
+                                        payToCode =         datosPedido["payToCode"] as String,
+                                        shipToCode =        datosPedido["shipToCode"] as String,
+                                        indicator =         binding.txvNuevoPedidoIndicadorValue.text.toString().take(2),
+                                        groupNum =          datosPedido["groupNum"] as Int,
+                                        priceList =         datosPedido["priceList"] as Int,   //Se necesita traer del valor default del Usuario
+                                        licTradNum =        datosPedido["licTradNum"] as String,
+                                        cntctCode =         datosPedido["cntctCode"] as? Int?: 0,    //Se necesita traer desde documentoContactos
+                                        taxDate =           binding.txvNuevoPedidoFechaContableValue.text.toString(),
+                                        direccionFiscal =   binding.txvNuevoPedidoDireccionFiscalValue.text.toString().replace("\n", " "),
+                                        accDocEntrySN =     datosPedido["accDocEntrySN"] as String,
+                                        detallePedido =     listaDetalle
+                                    )
+                                )
+                            }
+
+                            pedidoViewModel.dataSavePedidoCabecera.observe(this){ response->
+                                when(response.ErrorCodigo){
+                                    500 ->{
+                                        BaseDialogAlert(this).showConfirmationDialog("Su sesión ha sido cerrada"){
+                                            //Aceptar
+                                            usuarioViewModel.logOut()
+                                        }
+                                    }
+                                    0 -> {
+                                        showMessage(response.ErrorMensaje)
+                                        setResult(RESULT_OK)
+                                        onBackPressedDispatcher.onBackPressed()
+                                    }
+                                    else -> { showMessage(response.ErrorMensaje) }
+                                }
+                            }
+                        } catch (e: Exception){
+                            e.printStackTrace()
+                            Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }

@@ -67,7 +67,9 @@ import com.mobile.massiveapp.data.database.dao.ErrorLogDao
 import com.mobile.massiveapp.data.database.dao.GrupoDescuentoDao
 import com.mobile.massiveapp.data.database.dao.GrupoDescuentoDetalleDao
 import com.mobile.massiveapp.data.database.dao.InfoTablasDao
+import com.mobile.massiveapp.data.database.dao.ManifiestoAyudanteDao
 import com.mobile.massiveapp.data.database.dao.ManifiestoDao
+import com.mobile.massiveapp.data.database.dao.ManifiestoDocumentoDao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecial1Dao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecial2Dao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecialDao
@@ -130,6 +132,8 @@ import com.mobile.massiveapp.data.database.entities.ErrorLogEntity
 import com.mobile.massiveapp.data.database.entities.GrupoDescuentoDetalleEntity
 import com.mobile.massiveapp.data.database.entities.GrupoDescuentoEntity
 import com.mobile.massiveapp.data.database.entities.InfoTablasEntity
+import com.mobile.massiveapp.data.database.entities.ManifiestoAyudanteEntity
+import com.mobile.massiveapp.data.database.entities.ManifiestoDocumentoEntity
 import com.mobile.massiveapp.data.database.entities.ManifiestoEntity
 import com.mobile.massiveapp.data.database.entities.PrecioEspecial1Entity
 import com.mobile.massiveapp.data.database.entities.PrecioEspecial2Entity
@@ -204,7 +208,11 @@ import com.mobile.massiveapp.data.database.entities.UsuarioZonasEntity
         UsuarioZonasEntity::class,
         SeriesNEntity::class,
         CuentasCEntity::class,
+
         ManifiestoEntity::class,
+        ManifiestoAyudanteEntity::class,
+        ManifiestoDocumentoEntity::class,
+
         AnexoImagenEntity::class,
 
         TipoCambioEntity::class,
@@ -215,7 +223,7 @@ import com.mobile.massiveapp.data.database.entities.UsuarioZonasEntity
         GrupoDescuentoDetalleEntity::class,
         PrecioEspecialEntity::class,
         PrecioEspecial1Entity::class,
-        PrecioEspecial2Entity::class
+        PrecioEspecial2Entity::class,
        ],
     version = 2,
 
@@ -282,7 +290,11 @@ abstract class MassiveDatabase: RoomDatabase() {
     abstract fun getUsuarioZonasDao(): UsuarioZonasDao
     abstract fun getSeriesNDao(): SeriesNDao
     abstract fun getCuentasC(): CuentasCDao
+
     abstract fun getManifiestoDao(): ManifiestoDao
+    abstract fun getManifiestoAyudanteDao(): ManifiestoAyudanteDao
+    abstract fun getManifiestoDocumentoDao(): ManifiestoDocumentoDao
+
     abstract fun getAnexoImagenDao(): AnexoImagenDao
 
     abstract fun getTipoCambioDao(): TipoCambioDao

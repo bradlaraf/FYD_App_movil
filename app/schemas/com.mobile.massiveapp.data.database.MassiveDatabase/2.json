@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "6055386c59fbcc31c5c099bfd5643101",
+    "identityHash": "60b515ab1430af1a6fba671b6465f66b",
     "entities": [
       {
         "tableName": "Articulo",
@@ -86,7 +86,7 @@
       },
       {
         "tableName": "SocioNegocio",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CardCode` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccControl` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `BillToDef` TEXT NOT NULL, `CANCELED` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CardType` TEXT NOT NULL, `Cellular` TEXT NOT NULL, `CreditLine` REAL NOT NULL, `Currency` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `GroupCode` INTEGER NOT NULL, `GroupNum` INTEGER NOT NULL, `Indicator` TEXT NOT NULL, `LicTradNum` TEXT NOT NULL, `ListNum` INTEGER NOT NULL, `Phone1` TEXT NOT NULL, `Phone2` TEXT NOT NULL, `RGuia` TEXT NOT NULL, `Series` INTEGER NOT NULL, `ShipToDef` TEXT NOT NULL, `SlpCode` INTEGER NOT NULL, `U_MSV_LO_APELMAT` TEXT NOT NULL, `U_MSV_LO_APELPAT` TEXT NOT NULL, `U_MSV_LO_PRIMNOM` TEXT NOT NULL, `U_MSV_LO_SEGUNOM` TEXT NOT NULL, `U_MSV_LO_TIPODOC` TEXT NOT NULL, `U_MSV_LO_TIPOPER` TEXT NOT NULL, `Zone` TEXT NOT NULL, PRIMARY KEY(`CardCode`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CardCode` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccControl` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `BillToDef` TEXT NOT NULL, `CANCELED` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CardType` TEXT NOT NULL, `Cellular` TEXT NOT NULL, `CreditLine` REAL NOT NULL, `Currency` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `GroupCode` INTEGER NOT NULL, `GroupNum` INTEGER NOT NULL, `Indicator` TEXT NOT NULL, `LicTradNum` TEXT NOT NULL, `ListNum` INTEGER NOT NULL, `Phone1` TEXT NOT NULL, `Phone2` TEXT NOT NULL, `RGuia` TEXT NOT NULL, `Series` INTEGER NOT NULL, `ShipToDef` TEXT NOT NULL, `SlpCode` INTEGER NOT NULL, `E_Mail` TEXT NOT NULL, `U_MSV_LO_APELMAT` TEXT NOT NULL, `U_MSV_LO_APELPAT` TEXT NOT NULL, `U_MSV_LO_PRIMNOM` TEXT NOT NULL, `U_MSV_LO_SEGUNOM` TEXT NOT NULL, `U_MSV_LO_TIPODOC` TEXT NOT NULL, `U_MSV_LO_TIPOPER` TEXT NOT NULL, `Zone` TEXT NOT NULL, PRIMARY KEY(`CardCode`))",
         "fields": [
           {
             "fieldPath": "CardCode",
@@ -293,6 +293,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "E_Mail",
+            "columnName": "E_Mail",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "U_MSV_LO_APELMAT",
             "columnName": "U_MSV_LO_APELMAT",
             "affinity": "TEXT",
@@ -346,7 +352,7 @@
       },
       {
         "tableName": "ClientePedidos",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccDocEntry` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccNotificado` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `Address` TEXT NOT NULL, `Address2` TEXT NOT NULL, `Authorized` TEXT NOT NULL, `CANCELED` TEXT NOT NULL, `CardCode` TEXT NOT NULL, `AccDocEntrySN` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CntctCode` INTEGER NOT NULL, `Comments` TEXT NOT NULL, `DocCur` TEXT NOT NULL, `DocDate` TEXT NOT NULL, `DocDueDate` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocRate` REAL NOT NULL, `DocStatus` TEXT NOT NULL, `DocTotal` REAL NOT NULL, `DocTotalFC` REAL NOT NULL, `GrosProfFC` REAL NOT NULL, `GrosProfit` REAL NOT NULL, `GroupNum` INTEGER NOT NULL, `Indicator` TEXT NOT NULL, `LicTradNum` TEXT NOT NULL, `NumAtCard` TEXT NOT NULL, `PayToCode` TEXT NOT NULL, `PriceList` INTEGER NOT NULL, `Project` TEXT NOT NULL, `Series` INTEGER NOT NULL, `ShipToCode` TEXT NOT NULL, `SlpCode` INTEGER NOT NULL, `TaxDate` TEXT NOT NULL, `VatSum` REAL NOT NULL, `VatSumFC` REAL NOT NULL, `ObjType` INTEGER NOT NULL, PRIMARY KEY(`AccDocEntry`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccDocEntry` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccNotificado` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `Address` TEXT NOT NULL, `Address2` TEXT NOT NULL, `Authorized` TEXT NOT NULL, `CANCELED` TEXT NOT NULL, `CardCode` TEXT NOT NULL, `AccDocEntrySN` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CntctCode` INTEGER NOT NULL, `Comments` TEXT NOT NULL, `DocCur` TEXT NOT NULL, `DocDate` TEXT NOT NULL, `DocDueDate` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocRate` REAL NOT NULL, `DocStatus` TEXT NOT NULL, `DocTotal` REAL NOT NULL, `DocTotalFC` REAL NOT NULL, `GrosProfFC` REAL NOT NULL, `GrosProfit` REAL NOT NULL, `GroupNum` INTEGER NOT NULL, `Indicator` TEXT NOT NULL, `LicTradNum` TEXT NOT NULL, `NumAtCard` TEXT NOT NULL, `PayToCode` TEXT NOT NULL, `PriceList` INTEGER NOT NULL, `Project` TEXT NOT NULL, `Series` INTEGER NOT NULL, `ShipToCode` TEXT NOT NULL, `SlpCode` INTEGER NOT NULL, `TaxDate` TEXT NOT NULL, `VatSum` REAL NOT NULL, `VatSumFC` REAL NOT NULL, `ObjType` INTEGER NOT NULL, `AccControl` TEXT NOT NULL, PRIMARY KEY(`AccDocEntry`))",
         "fields": [
           {
             "fieldPath": "AccDocEntry",
@@ -629,6 +635,12 @@
             "columnName": "ObjType",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "AccControl",
+            "columnName": "AccControl",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -642,7 +654,7 @@
       },
       {
         "tableName": "ClientePedidosDetalle",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`LineNum` INTEGER NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `DiscPrcnt` REAL NOT NULL, `DocEntry` INTEGER NOT NULL, `Dscription` TEXT NOT NULL, `GTotal` REAL NOT NULL, `GTotalFC` REAL NOT NULL, `ItemCode` TEXT NOT NULL, `LineTotal` REAL NOT NULL, `OcrCode` TEXT NOT NULL, `OcrCode2` TEXT NOT NULL, `OcrCode3` TEXT NOT NULL, `OcrCode4` TEXT NOT NULL, `OcrCode5` TEXT NOT NULL, `Price` REAL NOT NULL, `PriceAfVAT` REAL NOT NULL, `PriceBefDi` REAL NOT NULL, `PriceList` INTEGER NOT NULL, `Project` TEXT NOT NULL, `Quantity` REAL NOT NULL, `TaxCode` TEXT NOT NULL, `TotalFrgn` REAL NOT NULL, `UnitMsr` TEXT NOT NULL, `UomCode` TEXT NOT NULL, `UomEntry` INTEGER NOT NULL, `VatSum` REAL NOT NULL, `VatSumFrgn` REAL NOT NULL, `WhsCode` TEXT NOT NULL, PRIMARY KEY(`AccDocEntry`, `LineNum`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`LineNum` INTEGER NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `DiscPrcnt` REAL NOT NULL, `DocEntry` INTEGER NOT NULL, `Dscription` TEXT NOT NULL, `GTotal` REAL NOT NULL, `GTotalFC` REAL NOT NULL, `ItemCode` TEXT NOT NULL, `LineTotal` REAL NOT NULL, `OcrCode` TEXT NOT NULL, `OcrCode2` TEXT NOT NULL, `OcrCode3` TEXT NOT NULL, `OcrCode4` TEXT NOT NULL, `OcrCode5` TEXT NOT NULL, `Price` REAL NOT NULL, `PriceAfVAT` REAL NOT NULL, `PriceBefDi` REAL NOT NULL, `PriceList` INTEGER NOT NULL, `Project` TEXT NOT NULL, `Quantity` REAL NOT NULL, `TaxCode` TEXT NOT NULL, `TotalFrgn` REAL NOT NULL, `UnitMsr` TEXT NOT NULL, `UomCode` TEXT NOT NULL, `UomEntry` INTEGER NOT NULL, `VatSum` REAL NOT NULL, `VatSumFrgn` REAL NOT NULL, `WhsCode` TEXT NOT NULL, `ObjType` INTEGER NOT NULL, `AccControl` TEXT NOT NULL, PRIMARY KEY(`AccDocEntry`, `LineNum`))",
         "fields": [
           {
             "fieldPath": "LineNum",
@@ -859,6 +871,18 @@
             "columnName": "WhsCode",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "ObjType",
+            "columnName": "ObjType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccControl",
+            "columnName": "AccControl",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -873,7 +897,7 @@
       },
       {
         "tableName": "ClientePagos",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccDocEntry` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccNotificado` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `Authorized` TEXT NOT NULL, `Canceled` TEXT NOT NULL, `CheckAct` TEXT NOT NULL, `CountryCod` TEXT NOT NULL, `BankCode` TEXT NOT NULL, `DueDate` TEXT NOT NULL, `CheckSum` REAL NOT NULL, `CheckNum` INTEGER NOT NULL, `CardCode` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CashAcct` TEXT NOT NULL, `CashSum` REAL NOT NULL, `CashSumFC` REAL NOT NULL, `Comments` TEXT NOT NULL, `CounterRef` TEXT NOT NULL, `DocCurr` TEXT NOT NULL, `DocDate` TEXT NOT NULL, `DocDueDate` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocRate` REAL NOT NULL, `JrnlMemo` TEXT NOT NULL, `PrjCode` TEXT NOT NULL, `Series` INTEGER NOT NULL, `TaxDate` TEXT NOT NULL, `TrsfrAcct` TEXT NOT NULL, `TransId` INTEGER NOT NULL, `TypePayment` TEXT NOT NULL, `TrsfrDate` TEXT NOT NULL, `TrsfrRef` TEXT NOT NULL, `TrsfrSum` REAL NOT NULL, `TrsfrSumFC` REAL NOT NULL, `ObjType` INTEGER NOT NULL, PRIMARY KEY(`AccDocEntry`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccDocEntry` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccNotificado` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `Authorized` TEXT NOT NULL, `Canceled` TEXT NOT NULL, `CheckAct` TEXT NOT NULL, `CountryCod` TEXT NOT NULL, `BankCode` TEXT NOT NULL, `DueDate` TEXT NOT NULL, `CheckSum` REAL NOT NULL, `CheckNum` INTEGER NOT NULL, `CardCode` TEXT NOT NULL, `CardName` TEXT NOT NULL, `CashAcct` TEXT NOT NULL, `CashSum` REAL NOT NULL, `CashSumFC` REAL NOT NULL, `Comments` TEXT NOT NULL, `CounterRef` TEXT NOT NULL, `DocCurr` TEXT NOT NULL, `DocDate` TEXT NOT NULL, `DocDueDate` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocRate` REAL NOT NULL, `JrnlMemo` TEXT NOT NULL, `PrjCode` TEXT NOT NULL, `Series` INTEGER NOT NULL, `TaxDate` TEXT NOT NULL, `TrsfrAcct` TEXT NOT NULL, `TransId` INTEGER NOT NULL, `TypePayment` TEXT NOT NULL, `TrsfrDate` TEXT NOT NULL, `TrsfrRef` TEXT NOT NULL, `TrsfrSum` REAL NOT NULL, `TrsfrSumFC` REAL NOT NULL, `ObjType` INTEGER NOT NULL, `AccControl` TEXT NOT NULL, PRIMARY KEY(`AccDocEntry`))",
         "fields": [
           {
             "fieldPath": "AccDocEntry",
@@ -1150,6 +1174,12 @@
             "columnName": "ObjType",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "AccControl",
+            "columnName": "AccControl",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -1163,7 +1193,7 @@
       },
       {
         "tableName": "ClientePagosDetalle",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`DocEntry` INTEGER NOT NULL, `DocLine` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocTransId` INTEGER NOT NULL, `InstId` INTEGER NOT NULL, `InvType` INTEGER NOT NULL, `SumApplied` REAL NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `AppliedFC` REAL NOT NULL, PRIMARY KEY(`AccDocEntry`, `DocLine`, `DocEntry`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`DocEntry` INTEGER NOT NULL, `DocLine` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `DocTransId` INTEGER NOT NULL, `InstId` INTEGER NOT NULL, `InvType` INTEGER NOT NULL, `SumApplied` REAL NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `AppliedFC` REAL NOT NULL, `ObjType` INTEGER NOT NULL, `AccControl` TEXT NOT NULL, PRIMARY KEY(`AccDocEntry`, `DocLine`, `DocEntry`))",
         "fields": [
           {
             "fieldPath": "DocEntry",
@@ -1265,6 +1295,18 @@
             "fieldPath": "AppliedFC",
             "columnName": "AppliedFC",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ObjType",
+            "columnName": "ObjType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccControl",
+            "columnName": "AccControl",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -1592,7 +1634,7 @@
       },
       {
         "tableName": "SocioDirecciones",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CardCode` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccControl` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `Address` TEXT NOT NULL, `AdresType` TEXT NOT NULL, `Block` TEXT NOT NULL, `City` TEXT NOT NULL, `Country` TEXT NOT NULL, `County` TEXT NOT NULL, `LineNum` INTEGER NOT NULL, `State` TEXT NOT NULL, `Street` TEXT NOT NULL, `U_MSV_CP_LATITUD` TEXT NOT NULL, `U_MSV_CP_LONGITUD` TEXT NOT NULL, `U_MSV_FE_UBI` TEXT NOT NULL, `ZipCode` TEXT NOT NULL, PRIMARY KEY(`CardCode`, `LineNum`, `AdresType`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CardCode` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccControl` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `Address` TEXT NOT NULL, `AdresType` TEXT NOT NULL, `Block` TEXT NOT NULL, `City` TEXT NOT NULL, `Country` TEXT NOT NULL, `County` TEXT NOT NULL, `LineNum` INTEGER NOT NULL, `State` TEXT NOT NULL, `Street` TEXT NOT NULL, `U_MSV_CP_LATITUD` TEXT NOT NULL, `U_MSV_CP_LONGITUD` TEXT NOT NULL, `U_MSV_MA_ZONA` TEXT NOT NULL, `U_MSV_MA_VEN` INTEGER NOT NULL, `U_MSV_FE_UBI` TEXT NOT NULL, `ZipCode` TEXT NOT NULL, PRIMARY KEY(`CardCode`, `LineNum`, `AdresType`))",
         "fields": [
           {
             "fieldPath": "CardCode",
@@ -1730,6 +1772,18 @@
             "fieldPath": "U_MSV_CP_LONGITUD",
             "columnName": "U_MSV_CP_LONGITUD",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_ZONA",
+            "columnName": "U_MSV_MA_ZONA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_VEN",
+            "columnName": "U_MSV_MA_VEN",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -3167,7 +3221,7 @@
       },
       {
         "tableName": "Usuario",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `Comment` TEXT NOT NULL, `DefaultCC1` TEXT NOT NULL, `DefaultCC2` TEXT NOT NULL, `DefaultCC3` TEXT NOT NULL, `DefaultCC4` TEXT NOT NULL, `DefaultCC5` TEXT NOT NULL, `DefaultCurrency` TEXT NOT NULL, `DefaultEmpId` INTEGER NOT NULL, `DefaultOrderSeries` INTEGER NOT NULL, `DefaultPagoRSeries` INTEGER NOT NULL, `DefaultPriceList` INTEGER NOT NULL, `DefaultAcctCodeEf` TEXT NOT NULL, `DefaultAcctCodeTr` TEXT NOT NULL, `DefaultAcctCodeCh` TEXT NOT NULL, `DefaultAcctCodeDe` TEXT NOT NULL, `DefaultProyecto` TEXT NOT NULL, `DefaultSNSerieCli` INTEGER NOT NULL, `DefaultSlpCode` INTEGER NOT NULL, `DefaultTaxCode` TEXT NOT NULL, `DefaultWarehouse` TEXT NOT NULL, `Email` TEXT NOT NULL, `IdPhone1` TEXT NOT NULL, `IdPhone1Val` TEXT NOT NULL, `Image` TEXT NOT NULL, `Name` TEXT NOT NULL, `Password` TEXT NOT NULL, `Phone1` TEXT NOT NULL, `ShowImage` TEXT NOT NULL, `SuperUser` TEXT NOT NULL, `CanApprove` TEXT NOT NULL, `CanCreate` TEXT NOT NULL, `CanDecline` TEXT NOT NULL, `CanEditPrice` TEXT NOT NULL, `CanUpdate` TEXT NOT NULL, PRIMARY KEY(`Code`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `Comment` TEXT NOT NULL, `DefaultCC1` TEXT NOT NULL, `DefaultCC2` TEXT NOT NULL, `DefaultCC3` TEXT NOT NULL, `DefaultCC4` TEXT NOT NULL, `DefaultCC5` TEXT NOT NULL, `DefaultCurrency` TEXT NOT NULL, `DefaultEmpId` INTEGER NOT NULL, `DefaultOrderSeries` INTEGER NOT NULL, `DefaultPagoRSeries` INTEGER NOT NULL, `DefaultPriceList` INTEGER NOT NULL, `DefaultAcctCodeEf` TEXT NOT NULL, `DefaultAcctCodeTr` TEXT NOT NULL, `DefaultAcctCodeCh` TEXT NOT NULL, `DefaultAcctCodeDe` TEXT NOT NULL, `DefaultProyecto` TEXT NOT NULL, `DefaultSNSerieCli` INTEGER NOT NULL, `DefaultSlpCode` INTEGER NOT NULL, `DefaultTaxCode` TEXT NOT NULL, `DefaultWarehouse` TEXT NOT NULL, `DefaultConductor` TEXT NOT NULL, `DefaultZona` TEXT NOT NULL, `Email` TEXT NOT NULL, `IdPhone1` TEXT NOT NULL, `IdPhone1Val` TEXT NOT NULL, `Image` TEXT NOT NULL, `Name` TEXT NOT NULL, `Password` TEXT NOT NULL, `Phone1` TEXT NOT NULL, `ShowImage` TEXT NOT NULL, `SuperUser` TEXT NOT NULL, `CanApprove` TEXT NOT NULL, `CanCreate` TEXT NOT NULL, `CanDecline` TEXT NOT NULL, `CanEditPrice` TEXT NOT NULL, `CanUpdate` TEXT NOT NULL, PRIMARY KEY(`Code`))",
         "fields": [
           {
             "fieldPath": "Code",
@@ -3292,6 +3346,18 @@
           {
             "fieldPath": "DefaultWarehouse",
             "columnName": "DefaultWarehouse",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DefaultConductor",
+            "columnName": "DefaultConductor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DefaultZona",
+            "columnName": "DefaultZona",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -3737,7 +3803,7 @@
       },
       {
         "tableName": "Sociedad",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`TaxIdNum` TEXT NOT NULL, `CompnyName` TEXT NOT NULL, `AliasName` TEXT NOT NULL, `E_Mail` TEXT NOT NULL, `WebSite` TEXT NOT NULL, PRIMARY KEY(`TaxIdNum`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`TaxIdNum` TEXT NOT NULL, `CompnyName` TEXT NOT NULL, `AliasName` TEXT NOT NULL, `E_Mail` TEXT NOT NULL, `WebSite` TEXT NOT NULL, `PriceDec` INTEGER NOT NULL, PRIMARY KEY(`TaxIdNum`))",
         "fields": [
           {
             "fieldPath": "TaxIdNum",
@@ -3767,6 +3833,12 @@
             "fieldPath": "WebSite",
             "columnName": "WebSite",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PriceDec",
+            "columnName": "PriceDec",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -4161,7 +4233,7 @@
       },
       {
         "tableName": "ConfigurarUsuarios",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccControl` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccStatusSession` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `CanApprove` TEXT NOT NULL, `CanCreate` TEXT NOT NULL, `CanDecline` TEXT NOT NULL, `CanEditPrice` TEXT NOT NULL, `CanUpdate` TEXT NOT NULL, `Comment` TEXT NOT NULL, `DefaultAcctCodeCh` TEXT NOT NULL, `DefaultAcctCodeDe` TEXT NOT NULL, `DefaultAcctCodeEf` TEXT NOT NULL, `DefaultAcctCodeTr` TEXT NOT NULL, `DefaultCC1` TEXT NOT NULL, `DefaultCC2` TEXT NOT NULL, `DefaultCC3` TEXT NOT NULL, `DefaultCC4` TEXT NOT NULL, `DefaultCC5` TEXT NOT NULL, `DefaultCurrency` TEXT NOT NULL, `DefaultEmpId` INTEGER NOT NULL, `DefaultOrderSeries` INTEGER NOT NULL, `DefaultPagoRSeries` INTEGER NOT NULL, `DefaultPriceList` INTEGER NOT NULL, `DefaultProyecto` TEXT NOT NULL, `DefaultSNSerieCli` INTEGER NOT NULL, `DefaultSlpCode` INTEGER NOT NULL, `DefaultTaxCode` TEXT NOT NULL, `DefaultWarehouse` TEXT NOT NULL, `Email` TEXT NOT NULL, `IdPhone1` TEXT NOT NULL, `IdPhone1Val` TEXT NOT NULL, `Image` TEXT NOT NULL, `Name` TEXT NOT NULL, `ObjType` INTEGER NOT NULL, `Password` TEXT NOT NULL, `Phone1` TEXT NOT NULL, `ResetIdPhone` TEXT NOT NULL, `ShowImage` TEXT NOT NULL, `SuperUser` TEXT NOT NULL, PRIMARY KEY(`Code`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Code` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccControl` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccError` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccStatusSession` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `CanApprove` TEXT NOT NULL, `CanCreate` TEXT NOT NULL, `CanDecline` TEXT NOT NULL, `CanEditPrice` TEXT NOT NULL, `CanUpdate` TEXT NOT NULL, `Comment` TEXT NOT NULL, `DefaultAcctCodeCh` TEXT NOT NULL, `DefaultAcctCodeDe` TEXT NOT NULL, `DefaultAcctCodeEf` TEXT NOT NULL, `DefaultAcctCodeTr` TEXT NOT NULL, `DefaultCC1` TEXT NOT NULL, `DefaultCC2` TEXT NOT NULL, `DefaultCC3` TEXT NOT NULL, `DefaultCC4` TEXT NOT NULL, `DefaultCC5` TEXT NOT NULL, `DefaultCurrency` TEXT NOT NULL, `DefaultEmpId` INTEGER NOT NULL, `DefaultOrderSeries` INTEGER NOT NULL, `DefaultPagoRSeries` INTEGER NOT NULL, `DefaultPriceList` INTEGER NOT NULL, `DefaultProyecto` TEXT NOT NULL, `DefaultSNSerieCli` INTEGER NOT NULL, `DefaultSlpCode` INTEGER NOT NULL, `DefaultTaxCode` TEXT NOT NULL, `DefaultWarehouse` TEXT NOT NULL, `DefaultConductor` TEXT NOT NULL, `DefaultZona` TEXT NOT NULL, `Email` TEXT NOT NULL, `IdPhone1` TEXT NOT NULL, `IdPhone1Val` TEXT NOT NULL, `Image` TEXT NOT NULL, `Name` TEXT NOT NULL, `ObjType` INTEGER NOT NULL, `Password` TEXT NOT NULL, `Phone1` TEXT NOT NULL, `ResetIdPhone` TEXT NOT NULL, `ShowImage` TEXT NOT NULL, `SuperUser` TEXT NOT NULL, PRIMARY KEY(`Code`))",
         "fields": [
           {
             "fieldPath": "Code",
@@ -4400,6 +4472,18 @@
           {
             "fieldPath": "DefaultWarehouse",
             "columnName": "DefaultWarehouse",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DefaultConductor",
+            "columnName": "DefaultConductor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DefaultZona",
+            "columnName": "DefaultZona",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -4952,7 +5036,7 @@
       },
       {
         "tableName": "SeriesN",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ObjectCode` INTEGER NOT NULL, `Series` INTEGER NOT NULL, `SeriesName` TEXT NOT NULL, PRIMARY KEY(`ObjectCode`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ObjectCode` INTEGER NOT NULL, `Series` INTEGER NOT NULL, `SeriesName` TEXT NOT NULL, PRIMARY KEY(`ObjectCode`, `Series`))",
         "fields": [
           {
             "fieldPath": "ObjectCode",
@@ -4976,7 +5060,8 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "ObjectCode"
+            "ObjectCode",
+            "Series"
           ]
         },
         "indices": [],
@@ -5010,35 +5095,175 @@
       },
       {
         "tableName": "Manifiesto",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Numero` TEXT NOT NULL, `Conductor` TEXT NOT NULL, `Vehiculo` TEXT NOT NULL, `FechaSalida` TEXT NOT NULL, `Estado` TEXT NOT NULL, PRIMARY KEY(`Numero`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`DocEntry` INTEGER NOT NULL, `DocNum` INTEGER NOT NULL, `U_MSV_MA_SERIE` TEXT NOT NULL, `U_MSV_MA_FOLIO` INTEGER NOT NULL, `U_MSV_MA_ESTADO` TEXT NOT NULL, `U_MSV_MA_TIPODES` TEXT NOT NULL, `U_MSV_MA_FECSALIDA` TEXT NOT NULL, `U_MSV_MA_DESCRIPCION` TEXT NOT NULL, `U_MSV_MA_ALMACEN` TEXT NOT NULL, `U_MSV_MA_ENC` TEXT NOT NULL, `U_MSV_MA_TRANSP` TEXT NOT NULL, `U_MSV_MA_TRANSPNO` TEXT NOT NULL, `U_MSV_MA_CON` TEXT NOT NULL, `U_MSV_MA_CAM` TEXT NOT NULL, `U_MSV_MA_VPESOTO` REAL NOT NULL, `U_MSV_MA_VVOLM` REAL NOT NULL, `U_MSV_MA_PESOTO` REAL NOT NULL, `U_MSV_MA_VOLM` REAL NOT NULL, `U_MSV_MA_TOCONL` REAL NOT NULL, `U_MSV_MA_TOCONE` REAL NOT NULL, `U_MSV_MA_TOCREL` REAL NOT NULL, `U_MSV_MA_TOCREE` REAL NOT NULL, PRIMARY KEY(`DocEntry`))",
         "fields": [
           {
-            "fieldPath": "Numero",
-            "columnName": "Numero",
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DocNum",
+            "columnName": "DocNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_SERIE",
+            "columnName": "U_MSV_MA_SERIE",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "Conductor",
-            "columnName": "Conductor",
+            "fieldPath": "U_MSV_MA_FOLIO",
+            "columnName": "U_MSV_MA_FOLIO",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_ESTADO",
+            "columnName": "U_MSV_MA_ESTADO",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "Vehiculo",
-            "columnName": "Vehiculo",
+            "fieldPath": "U_MSV_MA_TIPODES",
+            "columnName": "U_MSV_MA_TIPODES",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "FechaSalida",
-            "columnName": "FechaSalida",
+            "fieldPath": "U_MSV_MA_FECSALIDA",
+            "columnName": "U_MSV_MA_FECSALIDA",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "Estado",
-            "columnName": "Estado",
+            "fieldPath": "U_MSV_MA_DESCRIPCION",
+            "columnName": "U_MSV_MA_DESCRIPCION",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_ALMACEN",
+            "columnName": "U_MSV_MA_ALMACEN",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_ENC",
+            "columnName": "U_MSV_MA_ENC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TRANSP",
+            "columnName": "U_MSV_MA_TRANSP",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TRANSPNO",
+            "columnName": "U_MSV_MA_TRANSPNO",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CON",
+            "columnName": "U_MSV_MA_CON",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CAM",
+            "columnName": "U_MSV_MA_CAM",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_VPESOTO",
+            "columnName": "U_MSV_MA_VPESOTO",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_VVOLM",
+            "columnName": "U_MSV_MA_VVOLM",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_PESOTO",
+            "columnName": "U_MSV_MA_PESOTO",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_VOLM",
+            "columnName": "U_MSV_MA_VOLM",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOCONL",
+            "columnName": "U_MSV_MA_TOCONL",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOCONE",
+            "columnName": "U_MSV_MA_TOCONE",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOCREL",
+            "columnName": "U_MSV_MA_TOCREL",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOCREE",
+            "columnName": "U_MSV_MA_TOCREE",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "DocEntry"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ManifiestoAyudante",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`DocEntry` INTEGER NOT NULL, `LineId` INTEGER NOT NULL, `U_MSV_MA_CODIGO` INTEGER NOT NULL, `U_MSV_MA_NOMBRE` TEXT NOT NULL, PRIMARY KEY(`DocEntry`, `LineId`))",
+        "fields": [
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LineId",
+            "columnName": "LineId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CODIGO",
+            "columnName": "U_MSV_MA_CODIGO",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_NOMBRE",
+            "columnName": "U_MSV_MA_NOMBRE",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -5046,7 +5271,167 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "Numero"
+            "DocEntry",
+            "LineId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ManifiestoDocumento",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`DocEntry` INTEGER NOT NULL, `LineId` INTEGER NOT NULL, `U_MSV_MA_OBJETO` INTEGER NOT NULL, `U_MSV_MA_TIPODOC` TEXT NOT NULL, `U_MSV_MA_CLAVE` INTEGER NOT NULL, `U_MSV_MA_NUMERO` INTEGER NOT NULL, `U_MSV_MA_SUNAT` TEXT NOT NULL, `U_MSV_MA_FECEMI` TEXT NOT NULL, `U_MSV_MA_SOCCOD` TEXT NOT NULL, `U_MSV_MA_SOCNOM` TEXT NOT NULL, `U_MSV_MA_CONDP` INTEGER NOT NULL, `U_MSV_MA_VENDEDOR` INTEGER NOT NULL, `U_MSV_MA_MON` TEXT NOT NULL, `U_MSV_MA_TOTCONLOC` REAL NOT NULL, `U_MSV_MA_TOTCONEXT` REAL NOT NULL, `U_MSV_MA_TOTCRELOC` REAL NOT NULL, `U_MSV_MA_TOTCREEXT` REAL NOT NULL, `U_MSV_MA_UBIGEO` TEXT NOT NULL, `U_MSV_MA_PESOT` REAL NOT NULL, `U_MSV_MA_VOLUMENM` REAL NOT NULL, `U_MSV_MA_ESTADOE` TEXT NOT NULL, `U_MSV_MA_FECLLE` TEXT NOT NULL, `U_MSV_MA_HORLLE` TEXT NOT NULL, `U_MSV_MA_DISTRITO` TEXT NOT NULL, PRIMARY KEY(`DocEntry`, `LineId`))",
+        "fields": [
+          {
+            "fieldPath": "DocEntry",
+            "columnName": "DocEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LineId",
+            "columnName": "LineId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_OBJETO",
+            "columnName": "U_MSV_MA_OBJETO",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TIPODOC",
+            "columnName": "U_MSV_MA_TIPODOC",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CLAVE",
+            "columnName": "U_MSV_MA_CLAVE",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_NUMERO",
+            "columnName": "U_MSV_MA_NUMERO",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_SUNAT",
+            "columnName": "U_MSV_MA_SUNAT",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_FECEMI",
+            "columnName": "U_MSV_MA_FECEMI",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_SOCCOD",
+            "columnName": "U_MSV_MA_SOCCOD",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_SOCNOM",
+            "columnName": "U_MSV_MA_SOCNOM",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_CONDP",
+            "columnName": "U_MSV_MA_CONDP",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_VENDEDOR",
+            "columnName": "U_MSV_MA_VENDEDOR",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_MON",
+            "columnName": "U_MSV_MA_MON",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOTCONLOC",
+            "columnName": "U_MSV_MA_TOTCONLOC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOTCONEXT",
+            "columnName": "U_MSV_MA_TOTCONEXT",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOTCRELOC",
+            "columnName": "U_MSV_MA_TOTCRELOC",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOTCREEXT",
+            "columnName": "U_MSV_MA_TOTCREEXT",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_UBIGEO",
+            "columnName": "U_MSV_MA_UBIGEO",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_PESOT",
+            "columnName": "U_MSV_MA_PESOT",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_VOLUMENM",
+            "columnName": "U_MSV_MA_VOLUMENM",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_ESTADOE",
+            "columnName": "U_MSV_MA_ESTADOE",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_FECLLE",
+            "columnName": "U_MSV_MA_FECLLE",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_HORLLE",
+            "columnName": "U_MSV_MA_HORLLE",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_DISTRITO",
+            "columnName": "U_MSV_MA_DISTRITO",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "DocEntry",
+            "LineId"
           ]
         },
         "indices": [],
@@ -5342,7 +5727,7 @@
       },
       {
         "tableName": "GrupoDescuentoDetalle",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AbsEntry` INTEGER NOT NULL, `Obj` TEXT NOT NULL, `ObjKey` TEXT NOT NULL, `DiscType` TEXT NOT NULL, `Discount` REAL NOT NULL, `PayFor` REAL NOT NULL, `ForFree` REAL NOT NULL, `UpTo` REAL NOT NULL, PRIMARY KEY(`AbsEntry`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AbsEntry` INTEGER NOT NULL, `Obj` TEXT NOT NULL, `ObjKey` TEXT NOT NULL, `DiscType` TEXT NOT NULL, `Discount` REAL NOT NULL, `PayFor` REAL NOT NULL, `ForFree` REAL NOT NULL, `UpTo` REAL NOT NULL, PRIMARY KEY(`AbsEntry`, `ObjKey`))",
         "fields": [
           {
             "fieldPath": "AbsEntry",
@@ -5396,7 +5781,8 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "AbsEntry"
+            "AbsEntry",
+            "ObjKey"
           ]
         },
         "indices": [],
@@ -5622,7 +6008,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6055386c59fbcc31c5c099bfd5643101')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '60b515ab1430af1a6fba671b6465f66b')"
     ]
   }
 }

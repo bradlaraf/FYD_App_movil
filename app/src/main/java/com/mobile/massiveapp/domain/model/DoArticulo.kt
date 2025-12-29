@@ -73,3 +73,20 @@ data class DoArticuloInventario(
     var OnHand: Double,
     var GrupoArticulo: String
 )
+
+data class DoArticuloInv(
+    val ItemCode: String,
+    val ItemName: String,
+    val WhsName1: String,
+    val WhsName2: String,
+    var OnHand1: Double,
+    var OnHand2: Double,
+    var GrupoArticulo: String
+)
+
+fun DoArticuloInv.toInv() = DoArticuloInventario(
+    ItemCode = ItemCode,
+    ItemName = ItemName,
+    OnHand = OnHand1,
+    GrupoArticulo = GrupoArticulo
+)

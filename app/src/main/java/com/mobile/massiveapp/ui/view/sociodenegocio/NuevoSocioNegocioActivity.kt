@@ -492,7 +492,8 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
                                 tipoPersona =       newSocioRucConsulta.TipoPersona,
                                 personaNaturalConNegocio = newSocioRucConsulta.PersonaNaturalConNegocio,
                                 consultado =        newSocioRucConsulta.Consulta,
-                                zone =              infomacionSocioHash["zona"] as String,
+                                correo =            binding.edtNuevoSnCorreoElectronico.text.toString(),
+                                zone =              "",
                                 fechaConsulta = formatearFecha(newSocioRucConsulta.Fecha),
 
                                 )
@@ -531,7 +532,7 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
         if (binding.edtNuevoSnDestinatarioFactura.text.isEmpty()) emptyFields.add("Dirección fiscal")
         if (binding.edtNuevoSnDestinatario.text.isEmpty()) emptyFields.add("Dirección de despacho")
         if (binding.txvNuevoSnCodigo.text.isEmpty()) emptyFields.add("Código")
-        if (binding.txvNuevoSnZonasValue.text.isEmpty()) emptyFields.add("Zona")
+        //if (binding.txvNuevoSnZonasValue.text.isEmpty()) emptyFields.add("Zona")
         if (binding.txvNuevoSnNombre.text.isEmpty()) emptyFields.add("Nombre")
         if (binding.edtNuevoSnDocumento.text.isEmpty()) emptyFields.add("Documento")
         return emptyFields.joinToString()

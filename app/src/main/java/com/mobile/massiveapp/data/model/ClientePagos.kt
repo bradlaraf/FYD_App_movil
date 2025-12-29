@@ -52,6 +52,7 @@ data class ClientePagos(
     val TrsfrSum: Double,
     val TrsfrSumFC: Double,
     val ObjType: Int,
+    val AccControl: String,
     @SerializedName("Lineas")
     val clientePagosDetalles: List<ClientePagosDetalle>
 ):MappingInteface<ClientePagos>(){
@@ -102,6 +103,7 @@ data class ClientePagos(
         TrsfrSum = 0.0,
         TrsfrSumFC = 0.0,
         ObjType = -1,
+        AccControl = "N",
         clientePagosDetalles = emptyList()
     )
 
@@ -161,5 +163,6 @@ fun DoClientePago.toModel() = ClientePagos(
     TrsfrSum = TrsfrSum,
     TrsfrSumFC = TrsfrSumFC,
     ObjType = ObjType,
+    AccControl = AccControl,
     clientePagosDetalles = emptyList()
 )

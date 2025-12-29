@@ -23,7 +23,9 @@ data class ClientePagosDetalleEntity (
     @ColumnInfo(name = "AccUpdateDate") val AccUpdateDate: String,
     @ColumnInfo(name = "AccUpdateHour") val AccUpdateHour: String,
     @ColumnInfo(name = "AccUpdateUser") val AccUpdateUser: String,
-    @ColumnInfo(name = "AppliedFC") val AppliedFC: Double
+    @ColumnInfo(name = "AppliedFC") val AppliedFC: Double,
+    @ColumnInfo(name = "ObjType") val ObjType: Int,
+    @ColumnInfo(name = "AccControl") val AccControl: String
     )
 
 fun ClientePagosDetalle.toDatabase() = ClientePagosDetalleEntity(
@@ -44,6 +46,8 @@ fun ClientePagosDetalle.toDatabase() = ClientePagosDetalleEntity(
     AccUpdateHour = AccUpdateHour,
     AccUpdateUser = AccUpdateUser,
     AppliedFC = AppliedFC,
+    AccControl = AccControl,
+    ObjType = ObjType
 )
 
 fun DoClientePagoDetalle.toDatabase()= ClientePagosDetalleEntity(
@@ -64,6 +68,8 @@ fun DoClientePagoDetalle.toDatabase()= ClientePagosDetalleEntity(
     AccUpdateHour = AccUpdateHour,
     AccUpdateUser = AccUpdateUser,
     AppliedFC = AppliedFC,
+    AccControl = AccControl,
+    ObjType = ObjType
 )
 
 fun ClientePagosDetalleEntity.toModel() = ClientePagosDetalle(
@@ -83,5 +89,7 @@ fun ClientePagosDetalleEntity.toModel() = ClientePagosDetalle(
     AccUpdateDate = AccUpdateDate,
     AccUpdateHour = AccUpdateHour,
     AccUpdateUser = AccUpdateUser,
-    AppliedFC = AppliedFC
+    AppliedFC = AppliedFC,
+    AccControl = AccControl,
+    ObjType = ObjType
 )

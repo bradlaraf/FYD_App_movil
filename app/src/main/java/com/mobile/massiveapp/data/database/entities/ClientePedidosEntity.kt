@@ -54,7 +54,8 @@ data class ClientePedidosEntity (
     @ColumnInfo(name = "TaxDate") val TaxDate: String,
     @ColumnInfo(name = "VatSum") val VatSum: Double,
     @ColumnInfo(name = "VatSumFC") val VatSumFC: Double,
-    @ColumnInfo(name = "ObjType") val ObjType: Int
+    @ColumnInfo(name = "ObjType") val ObjType: Int,
+    @ColumnInfo(name = "AccControl") val AccControl: String
     )
 
 fun ClientePedidos.toDatabase() = ClientePedidosEntity(
@@ -104,5 +105,6 @@ fun ClientePedidos.toDatabase() = ClientePedidosEntity(
     TaxDate = TaxDate,
     VatSum = VatSum,
     ObjType =  ObjType,
-    VatSumFC = VatSumFC
+    VatSumFC = VatSumFC,
+    AccControl = AccControl
 )

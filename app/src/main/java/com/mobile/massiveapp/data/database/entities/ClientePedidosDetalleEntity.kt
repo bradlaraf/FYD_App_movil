@@ -41,7 +41,9 @@ data class ClientePedidosDetalleEntity(
     @ColumnInfo(name ="UomEntry") val UomEntry: Int,
     @ColumnInfo(name ="VatSum") val VatSum: Double,
     @ColumnInfo(name ="VatSumFrgn") val VatSumFrgn: Double,
-    @ColumnInfo(name ="WhsCode") val WhsCode: String
+    @ColumnInfo(name ="WhsCode") val WhsCode: String,
+    @ColumnInfo(name = "ObjType") val ObjType: Int,
+    @ColumnInfo(name = "AccControl") val AccControl: String
 )
 
 fun ClientePedidoDetalle.toDatabase() = ClientePedidosDetalleEntity(
@@ -80,7 +82,9 @@ fun ClientePedidoDetalle.toDatabase() = ClientePedidosDetalleEntity(
     UomEntry = UomEntry,
     VatSum = VatSum,
     VatSumFrgn = VatSumFrgn,
-    WhsCode = WhsCode
+    WhsCode = WhsCode,
+    AccControl = AccControl,
+    ObjType = ObjType
 )
 
 fun ClientePedidosDetalleEntity.toModel() = ClientePedidoDetalle(
@@ -119,5 +123,8 @@ fun ClientePedidosDetalleEntity.toModel() = ClientePedidoDetalle(
     UomEntry = UomEntry,
     VatSum = VatSum,
     VatSumFrgn = VatSumFrgn,
-    WhsCode = WhsCode
+    WhsCode = WhsCode,
+    AccControl = AccControl,
+    ObjType = ObjType
+
 )

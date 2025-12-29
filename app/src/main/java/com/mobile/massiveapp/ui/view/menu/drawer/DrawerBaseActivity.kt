@@ -73,6 +73,13 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+        val menu = navigationView.menu
+        menu.findItem(R.id.nav_drawer_reset_id_movil).isVisible = false
+        menu.findItem(R.id.nav_drawer_manifiesto).isVisible = true
+        menu.findItem(R.id.nav_drawer_cobranzas).isVisible = true
+        menu.findItem(R.id.nav_drawer_reportes).isVisible = false
+        menu.findItem(R.id.nav_drawer_facturas).isVisible = true
+
 
             //Set USUARIO NAME
         usuarioViewModel.getUsuarioFromDatabase()
@@ -90,7 +97,7 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
                 val menu = navigationView.menu
                 menu.setGroupVisible(R.id.group_usuarios, true)
                 menu.findItem(R.id.nav_drawer_sincronizar_usuarios).isVisible = true
-                menu.findItem(R.id.nav_drawer_reset_id_movil).isVisible = true
+                menu.findItem(R.id.nav_drawer_reset_id_movil).isVisible = false
             }
         }
 

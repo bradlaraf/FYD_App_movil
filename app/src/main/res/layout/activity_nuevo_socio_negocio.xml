@@ -723,6 +723,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clNuevoSnZonas"
             style="@style/box_key_value_arrow"
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

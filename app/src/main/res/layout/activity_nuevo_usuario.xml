@@ -133,13 +133,53 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUsuarioGeneralConductor"
+            android:visibility="gone"
+            style="@style/box_key_value_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralIDTelefono">
+
+            <TextView
+                android:id="@+id/txvUsuarioGeneralConductorTitle"
+                style="@style/default_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Conductor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txvUsuarioGeneralConductorValue"
+                style="@style/default_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvUsuarioGeneralConductorTitle"
+                tools:text="Conductor" />
+
+            <ImageView
+                android:id="@+id/imvConductor"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icon_arroy_enter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralAlmacenesLista"
             style="@style/box_key_value_arrow"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralIDTelefono">
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralConductor">
 
             <TextView
                 android:id="@+id/txvUsuarioGeneralAlmacenesListaTitle"
@@ -161,6 +201,7 @@
                 tools:text="Lista de almacenes" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/imvAlmacenesLista"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -200,6 +241,7 @@
                 tools:text="Lista de precios" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/imvListaPrecios"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -541,6 +583,7 @@
             android:id="@+id/clUsuarioGeneralSerieClientes"
             style="@style/box_key_value_arrow"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -584,6 +627,7 @@
             android:id="@+id/clUsuarioGeneralSeriePedidos"
             style="@style/box_key_value_arrow"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -626,6 +670,7 @@
             android:id="@+id/clUsuarioGeneralSeriePagos"
             style="@style/box_key_value_arrow"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -665,6 +710,49 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUsuarioGeneralZonaUsuario"
+            style="@style/box_key_value_arrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralSeriePagos">
+
+
+            <TextView
+                android:id="@+id/txvUsuarioGeneralZonaUsuarioTitle"
+                style="@style/default_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zona"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txvUsuarioGeneralZonaUsuarioValue"
+                style="@style/default_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvUsuarioGeneralZonaUsuarioTitle"
+                tools:text="Zona" />
+
+            <ImageView
+                android:id="@+id/imvzonaUsuaroi"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icon_arroy_enter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralListaPrecio"
             style="@style/box_key_value_arrow"
             android:layout_width="0dp"
@@ -672,7 +760,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralSeriePagos">
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralZonaUsuario">
 
 
             <TextView
@@ -696,6 +784,7 @@
 
             <ImageView
                 android:id="@+id/imvListaPrecio"
+                android:visibility="gone"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@drawable/icon_arroy_enter"
@@ -737,6 +826,7 @@
                 tools:text="Impuesto" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/imvImpuesto"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -780,6 +870,7 @@
                 tools:text="Moneda" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/imvMoneda"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -795,6 +886,7 @@
             android:id="@+id/clUsuarioGeneralProyecto"
             style="@style/box_key_value_arrow"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -864,6 +956,7 @@
                 tools:text="Almacen" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/imvAlmacen"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -877,6 +970,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralCuentaEfectivo"
+            android:visibility="gone"
             style="@style/box_key_value_arrow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -920,6 +1014,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralCuentaTransferencia"
+            android:visibility="gone"
             style="@style/box_key_value_arrow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -962,6 +1057,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralCuentaDeposito"
+            android:visibility="gone"
             style="@style/box_key_value_arrow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -1005,6 +1101,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralCuentaCheque"
             style="@style/box_key_value_arrow"
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -1157,7 +1254,7 @@
                 style="@style/default_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Editar Precios"
+                android:text="Editar Lista de Precios"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

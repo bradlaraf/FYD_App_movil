@@ -25,3 +25,17 @@ data class DoPedidoInfoView(
         DocStatus = "",
     )
 }
+
+data class ArticuloPedido(
+    val Precio: Double,
+    val PorcentajeDescuento: Double,
+    val PrecioUnitario: Double,
+    var PrecioIGV: Double
+) {
+    constructor(): this (
+        0.000,
+        0.000,
+        0.000,
+        0.000
+    )
+}

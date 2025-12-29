@@ -20,7 +20,9 @@ data class DoClientePagoDetalle(
     val DocTransId: Int,
     val InstId: Int,
     val InvType: Int,
-    val SumApplied: Double
+    val SumApplied: Double,
+    val ObjType: Int,
+    val AccControl: String
 ){
     constructor(): this(
         AccAction = "",
@@ -39,7 +41,9 @@ data class DoClientePagoDetalle(
         DocTransId = -1,
         InstId = -1,
         InvType = -1,
-        SumApplied = 0.0
+        SumApplied = 0.0,
+        AccControl = "",
+        ObjType = -1
 
     )
 }
@@ -61,7 +65,9 @@ fun ClientePagosDetalleEntity.toDomain() = DoClientePagoDetalle(
     DocTransId = DocTransId,
     InstId = InstId,
     InvType = InvType,
-    SumApplied = SumApplied
+    SumApplied = SumApplied,
+    AccControl = AccControl,
+    ObjType = ObjType
 )
 
 fun ClientePagosDetalle.toDomain() = DoClientePagoDetalle(
@@ -81,7 +87,9 @@ fun ClientePagosDetalle.toDomain() = DoClientePagoDetalle(
     DocTransId = DocTransId,
     InstId = InstId,
     InvType = InvType,
-    SumApplied = SumApplied
+    SumApplied = SumApplied,
+    AccControl = AccControl,
+    ObjType = ObjType
 )
 
 data class DoPagoDetalle(

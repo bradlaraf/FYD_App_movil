@@ -29,6 +29,8 @@ data class SocioDirecciones(
     val Street: String,
     val U_MSV_CP_LATITUD: String,
     val U_MSV_CP_LONGITUD: String,
+    val U_MSV_MA_VEN: Int,
+    val U_MSV_MA_ZONA: String,
     val U_MSV_FE_UBI: String,
     val ZipCode: String
 ): MappingInteface<SocioDirecciones>(){
@@ -56,6 +58,8 @@ data class SocioDirecciones(
         Street = "",
         U_MSV_CP_LATITUD = "",
         U_MSV_CP_LONGITUD = "",
+        U_MSV_MA_ZONA = "",
+        U_MSV_MA_VEN = -1,
         U_MSV_FE_UBI = "",
         ZipCode = ""
     )
@@ -92,6 +96,8 @@ fun SocioDireccionesEntity.toModel() = SocioDirecciones(
     Street = Street,
     U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
     U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    U_MSV_MA_ZONA = U_MSV_MA_ZONA,
+    U_MSV_MA_VEN = U_MSV_MA_VEN,
     U_MSV_FE_UBI = U_MSV_FE_UBI,
     ZipCode = ZipCode,
     AccControl = AccControl
@@ -120,6 +126,8 @@ fun DoSocioDirecciones.toModel() = SocioDirecciones(
     Street = Street,
     U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
     U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    U_MSV_MA_ZONA = U_MSV_MA_ZONA,
+    U_MSV_MA_VEN = U_MSV_MA_VEN,
     U_MSV_FE_UBI = U_MSV_FE_UBI,
     ZipCode = ZipCode,
     AccControl = AccControl

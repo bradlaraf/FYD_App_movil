@@ -20,6 +20,7 @@ import com.mobile.massiveapp.data.model.GeneralVendedores
 import com.mobile.massiveapp.data.model.InfoTable
 import com.mobile.massiveapp.domain.general.GetAllBancosUseCase
 import com.mobile.massiveapp.domain.general.GetAllBasesDisponiblesUseCase
+import com.mobile.massiveapp.domain.general.GetAllConductoresUseCase
 import com.mobile.massiveapp.domain.general.GetAllCuentasCUseCase
 import com.mobile.massiveapp.domain.general.GetAllDepartamentosUseCase
 import com.mobile.massiveapp.domain.general.GetAllDistritosUseCase
@@ -43,6 +44,7 @@ import com.mobile.massiveapp.domain.general.GetCuentasDefaultUseCase
 import com.mobile.massiveapp.domain.general.GetDepartamentoCodePorNombreUseCase
 import com.mobile.massiveapp.domain.general.GetImpuestoDefaultUseCase
 import com.mobile.massiveapp.domain.general.GetInfoTablasUseCase
+import com.mobile.massiveapp.domain.model.DoConductor
 import com.mobile.massiveapp.domain.model.DoCuentasC
 import com.mobile.massiveapp.domain.model.DoGeneralMonedas
 import com.mobile.massiveapp.domain.model.DoSeriesN
@@ -78,7 +80,8 @@ class GeneralViewModel @Inject constructor(
     private val getCondicionPorGroupNumUseCase: GetCondicionPorGroupNumUseCase,
     private val getBaseActualUseCase: GetBaseActualUseCase,
     private val getAllGeneralSeriesUseCase: GetAllGeneralSeriesUseCase,
-    private val getAllCuentasCUseCase: GetAllCuentasCUseCase
+    private val getAllCuentasCUseCase: GetAllCuentasCUseCase,
+    private val getAllConductoresUseCase: GetAllConductoresUseCase
 ): ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>()
@@ -91,6 +94,17 @@ class GeneralViewModel @Inject constructor(
     val dataCuentaChequeDefault: Flow<String> = getCuentasDefaultUseCase.getCuentaChequeDefault()
 
     val dataCuentaDepositoDefault: Flow<String> = getCuentasDefaultUseCase.getCuentaDepositoDefault()
+
+
+    val dataGetAllConductores = MutableLiveData<List<DoConductor>>()
+    fun getAllConductores(){
+        viewModelScope.launch {
+            val result = getAllConductoresUseCase()
+            result.let {
+                dataGetAllConductores.postValue(it)
+            }
+        }
+    }
 
 
     //Obtener base actual

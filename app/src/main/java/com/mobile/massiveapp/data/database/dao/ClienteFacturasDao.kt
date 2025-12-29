@@ -40,9 +40,8 @@ interface ClienteFacturasDao:BaseDao<ClienteFacturasEntity>{
             T0.FolioNum, 
             T0.FolioPref, 
             T0.PaidToDate,
-            T1.Name AS Zona
+            IFNULL((SELECT Z0.Name FROM Zona Z0 WHERE Z0.Code = T0.Zona LIMIT 1), "") AS Zona
         FROM Factura T0
-        INNER JOIN Zona T1 ON T0.Zona = T1.Code
         ORDER BY T0.CardName, T0.FolioPref, T0.FolioNum 
     """)
     suspend fun getAllDelVendedorCZona(): List<DoFacturaView>

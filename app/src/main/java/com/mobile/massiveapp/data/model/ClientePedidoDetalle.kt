@@ -40,7 +40,9 @@ data class ClientePedidoDetalle(
     val UomEntry: Int,
     val VatSum: Double,
     val VatSumFrgn: Double,
-    val WhsCode: String
+    val WhsCode: String,
+    val ObjType: Int,
+    val AccControl: String
 ):MappingInteface<ClientePedidoDetalle>(){
     constructor() : this(
         "",
@@ -78,6 +80,8 @@ data class ClientePedidoDetalle(
         0,
         0.0,
         0.0,
+        "",
+        -1,
         ""
     )
 
@@ -127,7 +131,9 @@ fun ClientePedidoDetalle.toEntity() = ClientePedidosDetalleEntity(
     UomEntry = UomEntry,
     VatSum = VatSum,
     VatSumFrgn = VatSumFrgn,
-    WhsCode = WhsCode
+    WhsCode = WhsCode,
+    AccControl = AccControl,
+    ObjType = ObjType
 )
 
 fun ClientePedidosDetalleEntity.toModel() = ClientePedidoDetalle(
@@ -166,5 +172,7 @@ fun ClientePedidosDetalleEntity.toModel() = ClientePedidoDetalle(
     UomEntry = UomEntry,
     VatSum = VatSum,
     VatSumFrgn = VatSumFrgn,
-    WhsCode = WhsCode
+    WhsCode = WhsCode,
+    AccControl = AccControl,
+    ObjType = ObjType
 )

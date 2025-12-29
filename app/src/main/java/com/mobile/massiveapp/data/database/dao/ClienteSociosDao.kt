@@ -201,6 +201,7 @@ interface ClienteSociosDao:BaseDao<ClienteSociosEntity> {
                 IFNULL(T0.Cellular, '--') AS Cellular,
                 IFNULL(T2.PymntGroup, '--') AS PymntGroup,
                 IFNULL(T3.ListName, '--') AS ListName,
+                IFNULL(T0.E_Mail, ' ') AS E_Mail,
                 IFNULL(T4.Name, '--') AS 'Indicador',
                 IFNULL(T5.Name, '--') AS 'Zona'
             FROM SocioNegocio T0
