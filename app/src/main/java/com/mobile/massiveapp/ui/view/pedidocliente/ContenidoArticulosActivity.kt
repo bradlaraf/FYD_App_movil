@@ -20,6 +20,7 @@ import com.mobile.massiveapp.ui.adapters.PedidoDetalleAdapter
 import com.mobile.massiveapp.ui.adapters.extension.SwipeToDeletePedidos
 import com.mobile.massiveapp.ui.base.BaseDialogAceptDialog
 import com.mobile.massiveapp.ui.view.util.SendData
+import com.mobile.massiveapp.ui.view.util.format
 import com.mobile.massiveapp.ui.view.util.formatString
 import com.mobile.massiveapp.ui.viewmodel.PedidoViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -159,7 +160,7 @@ class ContenidoArticulosActivity : AppCompatActivity() {
         val total = listaDetalles.sumOf { pedido -> pedido.LineTotal }
         gTotal = listaDetalles.sumOf { pedido -> pedido.GTotal }
 
-        setTotal(total)
+        setTotal(listaDetalles)
         if (editMode){
             pedidoDetalleItemsAdapter.updateDataEditMode(listaDetalles)
         } else {
@@ -167,13 +168,14 @@ class ContenidoArticulosActivity : AppCompatActivity() {
         }
     }
 
-    private fun setTotal(total: Double) {
-        val totalFormateado = total.formatString(2)
-        binding.txvNPArtInfoTotalAntesDescuentoValue.text = "${SendData.instance.simboloMoneda} $totalFormateado"
-        binding.txvNpArtInfoTotalValue.text = "${SendData.instance.simboloMoneda} $totalFormateado"
-        binding.txvNpArtInfoPorcentajeDescuentoValue.text = "0.00"
-        binding.txvNpArtInfoDescuentoValue.text = "0.00"
-        binding.txvNpArtInfoImpuestoValue.text = "0.0"
+    private fun setTotal(pedidoDetalles: List<ClientePedidoDetalle>) {
+        val totalDespuesImpuestos = pedidoDetalles.sumOf { it.GTotal.format(2) }.format(2)
+        val totolImpuestos = pedidoDetalles.sumOf { it.VatSum.format(2) }.format(2)
+        val totalAntesImpuestos = pedidoDetalles.sumOf { it.LineTotal.format(2) }.format(2)
+
+        binding.txvNPArtInfoTotalAntesDescuentoValue.text = "${SendData.instance.simboloMoneda} $totalAntesImpuestos"
+        binding.txvNpArtInfoTotalValue.text = "${SendData.instance.simboloMoneda} $totalDespuesImpuestos"
+        binding.txvNpArtInfoImpuestoValue.text = "${SendData.instance.simboloMoneda} $totolImpuestos"
     }
 
 
@@ -265,6 +267,7 @@ class ContenidoArticulosActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_contenido_articulos, menu)
         menu?.findItem(R.id.app_bar_delete)?.isVisible = false
+        menu?.findItem(R.id.app_bar_venta_sugerida)?.isVisible = false
         return super.onCreateOptionsMenu(menu)
     }
 

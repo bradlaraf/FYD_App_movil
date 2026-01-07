@@ -170,35 +170,24 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
     }
 
     private fun getInfoArticuloLiveData() {
-        articuloViewModel.dataGetArticuloCantidadesPorItemCodeYWhsCode.observe(this){ cantidadesArticulo->
-            articuloViewModel.dataGetAllArticuloPreciosPorItemCode.observeOnce(this){ listaPrecios->
-                try {
-                    var lista: List<HashMap<String, Pair<Int, String>>> = emptyList()
-                    if (listaPrecios.isNotEmpty()){
-                        lista = listOf(
-                            hashMapOf("Ver Imagen" to Pair(R.drawable.icon_image, "Ver imagen")),
-                            hashMapOf("Descripción" to Pair(R.drawable.icon_description, binding.txvNpArtInfoDescripcionValue.text.toString())),
-                            hashMapOf("Stock" to Pair(R.drawable.icon_inventario, cantidadesArticulo.OnHand.format(2).toString())),
-                            hashMapOf("Comprometido" to Pair(R.drawable.icon_comprometido, cantidadesArticulo.OnHand.format(2).toString())),
-                            hashMapOf("Solicitado" to Pair(R.drawable.icon_solicitado, cantidadesArticulo.OnOrder.toString())),
-                            hashMapOf("Disponible" to Pair(R.drawable.icon_disponible, "${cantidadesArticulo.OnHand - cantidadesArticulo.IsCommited + cantidadesArticulo.OnOrder}")),
-                            hashMapOf(listaPrecios[0].ListName to Pair(R.drawable.icon_number_one, listaPrecios[0].Price.toString())),
-                            hashMapOf(listaPrecios[1].ListName to Pair(R.drawable.icon_number_two, listaPrecios[1].Price.toString()))
-                        )
+        articuloViewModel.dataGetArticuloInfoBaseView.observe(this) { infoArticuloView ->
 
-                    } else {
-                        lista = listOf(
-                            hashMapOf("Ver Imagen" to Pair(R.drawable.icon_image, "Ver imagen")),
-                            hashMapOf("Descripción" to Pair(R.drawable.icon_description, binding.txvNpArtInfoDescripcionValue.text.toString())),
-                            hashMapOf("Stock" to Pair(R.drawable.icon_inventario, cantidadesArticulo.OnHand.format(2).toString())),
-                            hashMapOf("Comprometido" to Pair(R.drawable.icon_comprometido, cantidadesArticulo.OnHand.format(2).toString())),
-                            hashMapOf("Solicitado" to Pair(R.drawable.icon_solicitado, cantidadesArticulo.OnOrder.toString())),
-                            hashMapOf("Disponible" to Pair(R.drawable.icon_disponible, "${cantidadesArticulo.OnHand - cantidadesArticulo.IsCommited + cantidadesArticulo.OnOrder}")))
-                    }
-                    mostrarBottomDialog(lista)
-                } catch (e:Exception){
-                    e.printStackTrace()
-                }
+            try {
+                var lista: List<HashMap<String, Pair<Int, String>>> = emptyList()
+
+                lista = listOf(
+                    hashMapOf("Ver Imagen" to Pair(R.drawable.icon_image, "Ver imagen")),
+                    hashMapOf("Descripción" to Pair(R.drawable.icon_description, infoArticuloView.Descripcion)),
+                    hashMapOf("Stock" to Pair(R.drawable.icon_inventario, infoArticuloView.Stock.toString())),
+                    hashMapOf("Comprometido" to Pair(R.drawable.icon_comprometido, infoArticuloView.Comprometido.format(6).toString())),
+                    hashMapOf("Solicitado" to Pair(R.drawable.icon_solicitado, infoArticuloView.Solicitado.toString())),
+                    hashMapOf("Disponible" to Pair(R.drawable.icon_disponible, infoArticuloView.Disponible.toString())),
+                    hashMapOf("Precio unitario" to Pair(R.drawable.icon_number_one, infoArticuloView.Precio.toString())),
+                )
+
+                mostrarBottomDialog(lista)
+            } catch (e:Exception){
+                e.printStackTrace()
             }
         }
     }
@@ -543,10 +532,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.app_bar_connectivity_status -> {
                 if (binding.txvNPArtInfoArticuloValue.text.toString().isNotEmpty()){
-                    articuloViewModel.getArticuloCantidadesPorItemCodeYWhsCode(
-                        itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
-                        whsCode = hashInfo["codigoAlmacen"] as String
-                    )
+                    articuloViewModel.getArticuloInfoBaseView(itemCode = binding.txvNPArtInfoArticuloValue.text.toString())
                 } else {
                     Toast.makeText(this, "Debe seleccionar un articulo", Toast.LENGTH_SHORT).show()
                 }

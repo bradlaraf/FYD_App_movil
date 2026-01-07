@@ -64,7 +64,7 @@
                     android:id="@+id/txvNPArtInfoTotalAntesDescuentoTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total antes del descuento"
+                    android:text="Total antes del impuesto"
                     android:textColor="@color/color_blue_sap_mobile"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,12 +79,13 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txvNPArtInfoTotalAntesDescuentoTitle"
-                    tools:text="Total antes del descuento" />
+                    tools:text="Total antes del impuesto" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNpArtInfoPorcentajeDescuento"
+                android:visibility="gone"
                 style="@style/box_key_value_arrow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,6 +120,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNpArtInfoDescuento"
+                android:visibility="gone"
                 style="@style/box_key_value_arrow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

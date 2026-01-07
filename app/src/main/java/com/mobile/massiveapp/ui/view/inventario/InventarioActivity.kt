@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.ui.adapters.ArticuloAdapter
 import com.mobile.massiveapp.databinding.ActivityInventarioBinding
+import com.mobile.massiveapp.ui.adapters.ArticuloInventarioFYDAdapter
 import com.mobile.massiveapp.ui.base.BaseDialogSImpleLoading
 import com.mobile.massiveapp.ui.view.menu.drawer.DrawerBaseActivity
 import com.mobile.massiveapp.ui.view.util.SearchViewHelper
@@ -17,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class InventarioActivity : DrawerBaseActivity() {
     private lateinit var binding: ActivityInventarioBinding
-    private lateinit var articuloAdapter: ArticuloAdapter
+    private lateinit var articuloAdapter: ArticuloInventarioFYDAdapter
     private lateinit var searchViewHelper: SearchViewHelper
     private val articuloViewModel: ArticuloViewModel by viewModels()
 
@@ -32,7 +33,7 @@ class InventarioActivity : DrawerBaseActivity() {
         }
 
             //Se inicializa el adapter
-        articuloAdapter = ArticuloAdapter(emptyList()){ articulo->
+        articuloAdapter = ArticuloInventarioFYDAdapter(emptyList()){ articulo->
 
             Intent(this, InventarioInfoActivity::class.java).
             apply {
@@ -54,8 +55,8 @@ class InventarioActivity : DrawerBaseActivity() {
 
 
             //Se traen todos los articulos
-        articuloViewModel.getAllArticulosSm()
-        articuloViewModel.dataGetAllArticulosSm.observe(this) { listaArticulos ->
+        articuloViewModel.getArticulosConStock()
+        articuloViewModel.dataGetArticulosConStock.observe(this) { listaArticulos ->
             try {
                 binding.swipe.isRefreshing = false
 
@@ -86,7 +87,7 @@ class InventarioActivity : DrawerBaseActivity() {
         menu?.findItem(R.id.app_bar_add)?.isVisible = false
 
         searchViewHelper = SearchViewHelper(menu, "Buscar Articulo", { newText->
-            articuloViewModel.dataGetAllArticulosSm.observe(this) { listaArticulos ->
+            articuloViewModel.dataGetArticulosConStock.observe(this) { listaArticulos ->
 
                 val articulosFiltrados = listaArticulos.filter { articulo->
                     articulo.ItemName.contains(newText, ignoreCase = true) ||

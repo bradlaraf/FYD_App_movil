@@ -23,11 +23,13 @@ import com.mobile.massiveapp.domain.model.DoArticulo
 import com.mobile.massiveapp.domain.model.DoArticuloAlmacenes
 import com.mobile.massiveapp.domain.model.DoArticuloCantidades
 import com.mobile.massiveapp.domain.model.DoArticuloInfo
+import com.mobile.massiveapp.domain.model.DoArticuloInfoBaseView
 import com.mobile.massiveapp.domain.model.DoArticuloInv
 import com.mobile.massiveapp.domain.model.DoArticuloInventario
 import com.mobile.massiveapp.domain.model.DoArticuloListaPrecios
 import com.mobile.massiveapp.domain.model.DoArticuloPedidoInfo
 import com.mobile.massiveapp.domain.model.DoArticuloPrecios
+import com.mobile.massiveapp.domain.pedido.GetArticuloInfoBaseViewUseCase
 import com.mobile.massiveapp.domain.pedido.GetArticuloPrecioPorItemCodeYPriceListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -51,10 +53,21 @@ class ArticuloViewModel @Inject constructor(
     private val getCountArticulosUseCase: GetCountArticulosUseCase,
     private val searchArticuloUseCase: SearchArticuloUseCase,
     private val getArticulosConStockUseCase: GetArticulosConStockUseCase,
-    private val getArticulosSinStockUseCase: GetArticulosSinStockUseCase
+    private val getArticulosSinStockUseCase: GetArticulosSinStockUseCase,
+    private val getArticuloInfoBaseViewUseCase: GetArticuloInfoBaseViewUseCase
 ): ViewModel() {
     val isLoading = MutableLiveData<Boolean>()
 
+    //ARticulo base view
+    val dataGetArticuloInfoBaseView = MutableLiveData<DoArticuloInfoBaseView>()
+    fun getArticuloInfoBaseView(itemCode: String) {
+        viewModelScope.launch {
+            val result = getArticuloInfoBaseViewUseCase(itemCode)
+            result.let {
+                dataGetArticuloInfoBaseView.postValue(it)
+            }
+        }
+    }
 
         //Articulos CON Stock
     val dataGetArticulosConStock = MutableLiveData<List<DoArticuloInv>>()

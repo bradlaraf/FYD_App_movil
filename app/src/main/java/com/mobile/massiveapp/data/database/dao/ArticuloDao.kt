@@ -8,6 +8,7 @@ import androidx.room.Update
 import com.mobile.massiveapp.data.database.entities.ArticuloEntity
 import com.mobile.massiveapp.domain.model.DoArticulo
 import com.mobile.massiveapp.domain.model.DoArticuloInfo
+import com.mobile.massiveapp.domain.model.DoArticuloInfoBaseView
 import com.mobile.massiveapp.domain.model.DoArticuloInv
 import com.mobile.massiveapp.domain.model.DoArticuloInventario
 import com.mobile.massiveapp.domain.model.DoArticuloPedidoInfo
@@ -43,7 +44,18 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
     """)
     suspend fun searchArticulos(text: String): List<DoArticuloInventario>
 
-
+    @Query("""
+        SELECT
+            IFNULL((SELECT Z0.ItemName FROM Articulo Z0 WHERE Z0.ItemCode = T0.ItemCode), '') AS Descripcion,
+            IFNULL(T0.OnHand, 0.0) AS Stock,
+            IFNULL(T0.IsCommited, 0.0) AS Comprometido,
+            IFNULL(T0.OnOrder, 0.0) AS Solicitado,
+            IFNULL(((T0.OnHand + T0.OnOrder) - T0.IsCommited), 0.0) AS Disponible,
+            IFNULL((SELECT Z0.Price FROM ArticuloPrecio Z0 WHERE Z0.ItemCode = T0.ItemCode), 0.0) AS Precio
+        FROM ArticuloCantidad T0
+        WHERE T0.ItemCode = :itemCode
+    """)
+    suspend fun getArticuloInfoBaseView(itemCode: String): DoArticuloInfoBaseView
 
     @Query("SELECT * FROM Articulo WHERE AccLocked ='N' ORDER BY ItemName")
     suspend fun getAllArticulos(): List<ArticuloEntity>

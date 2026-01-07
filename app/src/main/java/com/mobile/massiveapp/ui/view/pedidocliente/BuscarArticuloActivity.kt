@@ -83,7 +83,6 @@ class BuscarArticuloActivity : AppCompatActivity() {
                             hashMapOf("Solicitado" to Pair(R.drawable.icon_solicitado, cantidadesArticulo.OnOrder.toString())),
                             hashMapOf("Disponible" to Pair(R.drawable.icon_disponible, "${cantidadesArticulo.OnHand - cantidadesArticulo.IsCommited + cantidadesArticulo.OnOrder}")),
                             hashMapOf(listaPrecios[0].ListName to Pair(R.drawable.icon_number_one, listaPrecios[0].Price.toString())),
-                            hashMapOf(listaPrecios[1].ListName to Pair(R.drawable.icon_number_two, listaPrecios[1].Price.toString()))
                         )
 
                     } else {

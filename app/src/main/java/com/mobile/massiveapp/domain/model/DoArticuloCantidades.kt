@@ -32,3 +32,12 @@ fun ArticuloCantidadesEntity.toDomain() = DoArticuloCantidades(
     OnOrder = OnOrder,
     WhsCode = WhsCode
 )
+
+data class DoArticuloInfoBaseView(
+    val Descripcion: String,
+    val Stock: Double,
+    val Comprometido: Double,
+    val Solicitado: Double,
+    val Disponible: Double,
+    val Precio: Double,
+)

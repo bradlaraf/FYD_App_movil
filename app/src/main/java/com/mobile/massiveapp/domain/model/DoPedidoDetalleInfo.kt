@@ -19,3 +19,9 @@ data class DoPedidoDetalleInfo(
         Almacen = "",
 )
 }
+
+data class DoTotalesContenidoView(
+    val TotalAntesImpuesto: Double,
+    val TotalImpuesto: Double,
+    val TotalConImpuesto: Double
+)

@@ -415,8 +415,8 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
             if (cantidadArticulos != null) {
                 if (cantidadArticulos > 0){
                     totalesPedidoVisibles(true)
-                    binding.txvNuevoPedidoTotalAntesDescuentoValue.text = total
-                    binding.txvNuevoPedidoTotalValue.text = gTotal
+                    binding.txvNuevoPedidoTotalAntesDescuentoValue.text = total.format(2)
+                    binding.txvNuevoPedidoTotalValue.text = gTotal.format(2)
                     binding.txvNuevoPedidoPorcentajeDescuentoValue.text = "0.00"
                     //binding.txvNuevoPedidoImpuestoValue.text = "0.0"
                     binding.txvNuevoPedidoDescuentoValue.text = "0.00"
@@ -430,11 +430,11 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
 
 
     fun totalesPedidoVisibles(visible: Boolean){
-        binding.clNuevoPedidoPorcentajeDescuento.isVisible = visible
-        binding.clNuevopedidoTotalAntesDescuento.isVisible = visible
+        binding.clNuevoPedidoPorcentajeDescuento.isVisible = false
+        binding.clNuevopedidoTotalAntesDescuento.isVisible = false
         binding.clNuevoPedidoTotal.isVisible = visible
         binding.clNuevoPedidoImpuesto.isVisible = visible
-        binding.clNuevoPedidoDescuento.isVisible = visible
+        binding.clNuevoPedidoDescuento.isVisible = false
     }
 
 

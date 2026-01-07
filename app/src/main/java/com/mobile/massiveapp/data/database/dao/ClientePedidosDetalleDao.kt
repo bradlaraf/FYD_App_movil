@@ -9,6 +9,7 @@ import com.mobile.massiveapp.data.database.entities.ClientePedidosDetalleEntity
 import com.mobile.massiveapp.data.model.ClientePedidoDetalle
 import com.mobile.massiveapp.domain.model.DoPedidoDetalle
 import com.mobile.massiveapp.domain.model.DoPedidoDetalleInfo
+import com.mobile.massiveapp.domain.model.DoTotalesContenidoView
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -29,6 +30,16 @@ interface ClientePedidosDetalleDao:BaseDao<ClientePedidosDetalleEntity> {
     @Update
     suspend fun update(items: ClientePedidosDetalleEntity)
 
+    @Query("""
+        SELECT
+            IFNULL((SELECT SUM(T0.GTotal) FROM ClientePedidosDetalle), 0.0) AS TotalAntesImpuesto,
+            IFNULL((SELECT SUM(T0.LineTotal) FROM ClientePedidosDetalle), 0.0) AS TotalImpuesto,
+            IFNULL((SELECT SUM(T0.LineTotal) FROM ClientePedidosDetalle), 0.0) AS TotalConImpuesto
+        FROM ClientePedidosDetalle T0
+        WHERE T0.AccDocEntry = :accDocEntry
+         AND LineNum >= 1000 
+    """)
+    fun getTotalesContenidoView(accDocEntry: String): Flow<DoTotalesContenidoView>
 
         //Insertar un pedido detalle
     @Insert(onConflict = OnConflictStrategy.REPLACE)
