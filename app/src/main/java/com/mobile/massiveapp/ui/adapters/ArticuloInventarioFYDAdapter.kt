@@ -1,6 +1,5 @@
 package com.mobile.massiveapp.ui.adapters
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -16,13 +14,11 @@ import com.mobile.massiveapp.R
 import com.mobile.massiveapp.domain.model.DoArticuloInv
 import com.mobile.massiveapp.ui.view.util.diffutil.ArticuloSeleccionableDiffUtil
 
-class ArticulosSeleccionablesAdapter(
+class ArticuloInventarioFYDAdapter (
     private var dataSet: List<DoArticuloInv>,
     private val onClickListener:(DoArticuloInv) -> Unit
-): RecyclerView.Adapter<ArticulosSeleccionablesAdapter.ViewHolder>() {
+): RecyclerView.Adapter<ArticuloInventarioFYDAdapter.ViewHolder>() {
 
-    private var selectedPosition = -1
-    private var lastSelectedPosition = -1
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val imvArticulo: ImageView
         val txvItemCode: TextView
@@ -63,29 +59,9 @@ class ArticulosSeleccionablesAdapter(
         viewHolder.txvAlmacen1.text =       currentArticulo.WhsName1
         viewHolder.txvAlmacen2.text =       currentArticulo.WhsName2
 
+        viewHolder.txvBonificacion.isVisible = currentArticulo.ItemCode.startsWith("B")
         viewHolder.clItemArticulo.setOnClickListener {
-            lastSelectedPosition = selectedPosition
-            selectedPosition = viewHolder.adapterPosition
-            notifyItemChanged(lastSelectedPosition)
-            notifyItemChanged(selectedPosition)
             render(currentArticulo, onClickListener)
-        }
-
-       /* if (currentArticulo.ItemCode.startsWith("B")){
-
-            viewHolder.imvArticulo.imageTintList =
-                ColorStateList.valueOf(
-                    ContextCompat.getColor(viewHolder.itemView.context, R.color.color_red_bonificacion)
-                )
-
-        }*/
-        if (selectedPosition ==viewHolder.adapterPosition){
-            viewHolder.clItemArticulo.setBackgroundColor(Color.parseColor("#85D8FA"))
-            viewHolder.txvBonificacion.isVisible = currentArticulo.ItemCode.startsWith("B")
-        }
-        else {
-            viewHolder.clItemArticulo.setBackgroundColor(Color.parseColor("#FFFFFF"))
-            viewHolder.txvBonificacion.isVisible = currentArticulo.ItemCode.startsWith("B")
         }
 
 

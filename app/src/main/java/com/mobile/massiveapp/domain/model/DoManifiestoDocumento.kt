@@ -37,6 +37,6 @@ data class DoManifiestoDocumentoView(
     val Pagado: Double,
     val Moneda: String,
     val MonedaSimbolo: String,
-    val DocEntry: Int,
+    val DocEntryFactura: Int,
     val CodigoSocio: String,
 )

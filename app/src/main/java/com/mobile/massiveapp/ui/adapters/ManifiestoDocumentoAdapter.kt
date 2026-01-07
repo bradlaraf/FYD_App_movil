@@ -3,6 +3,7 @@ package com.mobile.massiveapp.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,8 @@ import com.mobile.massiveapp.ui.view.util.diffutil.ManifiestoDocuementoDiffUtil
 class ManifiestoDocumentoAdapter(
     private var dataSet: List<DoManifiestoDocumentoView>,
     private val onClickListener:(DoManifiestoDocumentoView) -> Unit,
-    private val onLongPressListener: (View, DoManifiestoDocumentoView) -> Unit
+    private val onLongPressListener: (View, DoManifiestoDocumentoView) -> Unit,
+    private val onButtonClickListener: (DoManifiestoDocumentoView) -> Unit
 ): RecyclerView.Adapter<ManifiestoDocumentoAdapter.ViewHolder>(){
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txvNombreCliente: TextView
@@ -24,6 +26,7 @@ class ManifiestoDocumentoAdapter(
         val txvTotal: TextView
         val txvSaldo: TextView
         val txvPagado: TextView
+        val btnCobrar: Button
 
         init {
             txvNombreCliente = view.findViewById(R.id.txvManDocNombreClienteValue)
@@ -34,9 +37,14 @@ class ManifiestoDocumentoAdapter(
             txvTotal = view.findViewById(R.id.txvManDocTotalValue)
             txvSaldo = view.findViewById(R.id.txvManDocSaldoValue)
             txvPagado = view.findViewById(R.id.txvManDocPagadoValue)
+            btnCobrar = view.findViewById(R.id.btnManDocCobrar)
         }
 
-        fun render(documento: DoManifiestoDocumentoView, onClickListener: (DoManifiestoDocumentoView) -> Unit, onLongPressListener: (View, DoManifiestoDocumentoView) -> Unit) {
+        fun render(documento: DoManifiestoDocumentoView,
+                   onClickListener: (DoManifiestoDocumentoView) -> Unit,
+                   onLongPressListener: (View, DoManifiestoDocumentoView) -> Unit,
+                   onButtonClickListener: (DoManifiestoDocumentoView) -> Unit
+        ) {
             txvVendedor.text = documento.Vendedor
             txvSUNAT.text = documento.SUNAT
             txvTipoDocumento.text = documento.TipoDocumento
@@ -47,12 +55,16 @@ class ManifiestoDocumentoAdapter(
             txvPagado.text = "${documento.MonedaSimbolo}${documento.Pagado}"
 
             itemView.setOnLongClickListener {
-                onLongPressListener(itemView, documento)
+                onLongPressListener(txvMoneda, documento)
                 true
             }
 
             itemView.setOnClickListener {
                 onClickListener(documento)
+            }
+
+            btnCobrar.setOnClickListener {
+                onButtonClickListener(documento)
             }
         }
 
@@ -67,7 +79,7 @@ class ManifiestoDocumentoAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentdocumento = dataSet[position]
-        viewHolder.render(currentdocumento, onClickListener, onLongPressListener)
+        viewHolder.render(currentdocumento, onClickListener, onLongPressListener, onButtonClickListener)
     }
 
     override fun getItemCount() = dataSet.size

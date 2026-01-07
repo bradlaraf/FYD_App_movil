@@ -22,6 +22,7 @@ import com.mobile.massiveapp.domain.cobranza.GetCobranzasDeAyerUseCase
 import com.mobile.massiveapp.domain.cobranza.GetCurrentDocLineFlowUseCase
 import com.mobile.massiveapp.domain.cobranza.GetCurrentDocLineUseCase
 import com.mobile.massiveapp.domain.cobranza.GetCurrentPaidToCodeUseCase
+import com.mobile.massiveapp.domain.cobranza.GetLiquidacionPorCodeYLineNumUseCase
 import com.mobile.massiveapp.domain.cobranza.GetPagoCabeceraPorAccDocEntryUseCase
 import com.mobile.massiveapp.domain.cobranza.GetPagosDetalleFlowUseCase
 import com.mobile.massiveapp.domain.cobranza.SaveCobranzaCabeceraUseCase
@@ -32,9 +33,19 @@ import com.mobile.massiveapp.domain.cobranza.UpdateAllPagosDetalleUseCase
 import com.mobile.massiveapp.domain.model.DoClientePago
 import com.mobile.massiveapp.domain.model.DoClientePagoDetalle
 import com.mobile.massiveapp.domain.model.DoError
+import com.mobile.massiveapp.domain.model.DoLiquidacionPago
+import com.mobile.massiveapp.domain.model.DoLiquidacionPagoView
 import com.mobile.massiveapp.domain.model.DoPagoDetalle
+import com.mobile.massiveapp.ui.view.cobranzas.uistate.PagosDetalleUiState
+import com.mobile.massiveapp.ui.view.util.SendData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -63,7 +74,8 @@ class CobranzaViewModel @Inject constructor(
     private val getPagosDetalleFlowUseCase: GetPagosDetalleFlowUseCase,
     private val getCurrentDocLineFlowUseCase: GetCurrentDocLineFlowUseCase,
     private val getCobranzasCanceladasUseCase: GetCobranzasCanceladasUseCase,
-    private val getCobranzasDeAyerUseCase: GetCobranzasDeAyerUseCase
+    private val getCobranzasDeAyerUseCase: GetCobranzasDeAyerUseCase,
+    private val getLiquidacionPorCodeYLineNumUseCase: GetLiquidacionPorCodeYLineNumUseCase
 ) : ViewModel(){
     val isLoading = MutableLiveData<Boolean>()
 
@@ -72,6 +84,17 @@ class CobranzaViewModel @Inject constructor(
     val dataSetConbranzasHoy = MutableLiveData<Boolean>()
     fun setCobranzasHoy(value: Boolean){
         dataSetConbranzasHoy.postValue(value)
+    }
+
+    //Liquidacion por code y docline
+    val dataGetLiquidacionPorCodeYLineNum = MutableLiveData<DoLiquidacionPago>()
+    fun getLiquidacionPorCodeYLineNum(accDocEntry: String, docLine: Int){
+        viewModelScope.launch {
+            val result = getLiquidacionPorCodeYLineNumUseCase(accDocEntry, docLine)
+            result.let {
+                dataGetLiquidacionPorCodeYLineNum.postValue(it)
+            }
+        }
     }
 
     //Pagos de AYER
@@ -85,11 +108,36 @@ class CobranzaViewModel @Inject constructor(
         }
     }
 
+    //Pago Detalle Liquidación con StateFlow
+    // Ideal: el docEntry debe venir como parámetro (no desde SendData en el usecase)
+    private val accDocEntry = MutableStateFlow(SendData.instance.accDocEntryDoc)
+
+    /*val uiState: StateFlow<PagosDetalleUiState> =
+        accDocEntry
+            .flatMapLatest { doc ->
+                getPagosDetalleFlowUseCase.getAllPagosLiquidacion(doc)
+            }
+            .map { lista ->
+                PagosDetalleUiState(
+                    pagos = lista,
+                    total = lista.sumOf { it.U_MSV_MA_IMP },
+                    cantidad = lista.size
+                )
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = PagosDetalleUiState(loading = true)
+            )*/
+
+
 
     //Docline Actual
     val dataDoclineActual: Flow<Int> = getCurrentDocLineFlowUseCase.getCurrentDocline()
 
     val dataAllPagoDetalleFLow: Flow<List<DoPagoDetalle>> = getPagosDetalleFlowUseCase.getAllPagosDetalle()
+
+    val dataGetAllLiquidacionPagoFlow: Flow<List<DoLiquidacionPagoView>> = getPagosDetalleFlowUseCase.getAllPagosLiquidacion()
 
     //Monto Total pagos detalle
     val dataMontoTotalPagosDetalle: Flow<Double> = getPagosDetalleFlowUseCase.getTotalPagosDetalle()

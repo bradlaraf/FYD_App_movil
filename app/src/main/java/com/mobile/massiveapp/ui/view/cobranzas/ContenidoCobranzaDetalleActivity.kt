@@ -8,11 +8,14 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.databinding.ActivityContenidoCobranzaDetalleBinding
+import com.mobile.massiveapp.ui.adapters.LiquidacionPagoAdapter
 import com.mobile.massiveapp.ui.adapters.PagoDetalleAdapter
 import com.mobile.massiveapp.ui.adapters.extension.SwipeToDeletePedidos
 import com.mobile.massiveapp.ui.base.BaseDialogChecklistWithId
@@ -21,12 +24,15 @@ import com.mobile.massiveapp.ui.view.util.format
 import com.mobile.massiveapp.ui.view.util.observeOnce
 import com.mobile.massiveapp.ui.viewmodel.CobranzaViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ContenidoCobranzaDetalleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityContenidoCobranzaDetalleBinding
-    private lateinit var pagoDetalleAdapter: PagoDetalleAdapter
+    private lateinit var pagoDetalleAdapter: LiquidacionPagoAdapter
     private val cobranzaViewModel: CobranzaViewModel by viewModels()
     private var hashInfo = HashMap<String, Any>()
 
@@ -38,11 +44,11 @@ class ContenidoCobranzaDetalleActivity : AppCompatActivity() {
 
 
             //Inicializacion del adapter
-        pagoDetalleAdapter = PagoDetalleAdapter(emptyList()){ pedidoDetalleSeleccionado->
+        pagoDetalleAdapter = LiquidacionPagoAdapter(emptyList()){ pedidoDetalleSeleccionado->
             Intent(this, NuevoPagoDetalleActivity::class.java)
                 .putExtra("editMode", true)
                 .putExtra("docLine", pedidoDetalleSeleccionado.DocLine)
-                .putExtra("docEntry", pedidoDetalleSeleccionado.DocEntry)
+                .putExtra("docEntry", pedidoDetalleSeleccionado.DocEntryFactura)
                 .putExtra("cardCode", intent.getStringExtra("cardCode"))
                 .also { startForNuevoPagoDetalleResult.launch(it) }
         }
@@ -63,13 +69,16 @@ class ContenidoCobranzaDetalleActivity : AppCompatActivity() {
         /******Cambio de model******/
 
         lifecycleScope.launch {
-            cobranzaViewModel.dataAllPagoDetalleFLow.collect{ listaPagosDetalle->
-                try {
-                    pagoDetalleAdapter.updateData(listaPagosDetalle)
-                    val total = listaPagosDetalle.sumOf { it.SumApplied }.format(2)
-                    binding.txvContenidoPagoDetalleMontoPagoValue.text = "${SendData.instance.simboloMoneda} $total"
-                } catch (e: Exception){
-                    e.printStackTrace()
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                cobranzaViewModel.dataGetAllLiquidacionPagoFlow
+                    .distinctUntilChanged()
+                    .catch { e -> e.printStackTrace() }
+                    .collectLatest { listaPagosDetalle->
+
+                        pagoDetalleAdapter.updateData(listaPagosDetalle)
+                        val total = listaPagosDetalle.sumOf { it.Monto }.format(2)
+                        binding.txvContenidoPagoDetalleMontoPagoValue.text = "${SendData.instance.simboloMoneda} $total"
+
                 }
             }
         }
@@ -132,6 +141,7 @@ class ContenidoCobranzaDetalleActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_contenido_articulos, menu)
         menu?.findItem(R.id.app_bar_delete)?.isVisible = false
+        menu?.findItem(R.id.app_bar_venta_sugerida)?.isVisible = false
         return super.onCreateOptionsMenu(menu)
     }
 

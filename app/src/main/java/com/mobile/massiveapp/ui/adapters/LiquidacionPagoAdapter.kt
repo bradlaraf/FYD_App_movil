@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.massiveapp.R
-import com.mobile.massiveapp.domain.model.DoPagoDetalle
+import com.mobile.massiveapp.domain.model.DoLiquidacionPagoView
 import com.mobile.massiveapp.ui.view.util.SendData
-import com.mobile.massiveapp.ui.view.util.diffutil.PagoDetalleDiffUtil
+import com.mobile.massiveapp.ui.view.util.diffutil.LiquidacionPagoDiffUtil
 
-class PagoDetalleAdapter(
-    private var dataSet: List<DoPagoDetalle>,
-    private val onClickListener:(DoPagoDetalle) -> Unit
-): RecyclerView.Adapter<PagoDetalleAdapter.ViewHolder>() {
+class LiquidacionPagoAdapter(
+    private var dataSet: List<DoLiquidacionPagoView>,
+    private val onClickListener:(DoLiquidacionPagoView) -> Unit
+): RecyclerView.Adapter<LiquidacionPagoAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txvNombre: TextView
@@ -33,11 +33,12 @@ class PagoDetalleAdapter(
         }
 
         @SuppressLint("SetTextI18n")
-        fun render(clientePago: DoPagoDetalle, onClickListener: (DoPagoDetalle) -> Unit){
-            txvNombre.text = clientePago.NumeroFactura
-            txvPago.text = "Pago: ${SendData.instance.simboloMoneda}${clientePago.SumApplied}"
-            txvFecha.text = clientePago.AccCreateDate
-            txvDocLine.text = "${clientePago.DocLine}"
+        fun render(clientePago: DoLiquidacionPagoView, onClickListener: (DoLiquidacionPagoView) -> Unit){
+            txvNombre.text = clientePago.SUNAT
+            txvPago.text = "${SendData.instance.simboloMoneda}${clientePago.Monto}"
+            txvFecha.text = clientePago.FechaCreacion
+            txvMontoRestante.text = "${clientePago.Saldo}"
+            txvDocLine.text = "${clientePago.DocLine+1}"
             itemView.setOnClickListener { onClickListener(clientePago) }
         }
     }
@@ -57,8 +58,8 @@ class PagoDetalleAdapter(
 
     override fun getItemCount() = dataSet.size
 
-    fun updateData(newDataSet: List<DoPagoDetalle>){
-        val pagoDetalleItemsDiffUtil = PagoDetalleDiffUtil(dataSet, newDataSet)
+    fun updateData(newDataSet: List<DoLiquidacionPagoView>){
+        val pagoDetalleItemsDiffUtil = LiquidacionPagoDiffUtil(dataSet, newDataSet)
         val diffResult = DiffUtil.calculateDiff(pagoDetalleItemsDiffUtil)
         dataSet = newDataSet
         diffResult.dispatchUpdatesTo(this)

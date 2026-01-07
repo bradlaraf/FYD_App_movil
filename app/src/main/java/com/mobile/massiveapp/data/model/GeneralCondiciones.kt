@@ -13,7 +13,8 @@ data class GeneralCondiciones(
         -11,
         -11,
         -11,
-        "")
+        ""
+    )
 
     override fun map(data: List<GeneralCondiciones>): List<*> {
         return data.map { it.toDatabase() }

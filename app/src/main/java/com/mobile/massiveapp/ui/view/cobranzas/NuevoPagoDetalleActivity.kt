@@ -51,14 +51,19 @@ class NuevoPagoDetalleActivity : AppCompatActivity() {
 
 
         //Pago detalle
-        cobranzaViewModel.getCobranzaDetallePorAccDocEntryYLineNum(
+        cobranzaViewModel.getLiquidacionPorCodeYLineNum(
             accDocEntry = SendData.instance.accDocEntryDoc,
-            lineNum = intent.getIntExtra("docLine", -1).toString()
+            docLine = intent.getIntExtra("docLine", -1)
         )
-        cobranzaViewModel.dataGetCobranzaDetallePorAccDocEntryYLineNum.observe(this){ pagoDetalle->
+        cobranzaViewModel.dataGetLiquidacionPorCodeYLineNum.observe(this){ pagoDetalle->
             try {
-                binding.txvNuevoPagoDetalleMontoValue.text = "S/${pagoDetalle.SumApplied}"
-                hashInfo["montoActual"] = pagoDetalle.SumApplied
+                binding.txvFacturaInfoFechaContableValue.text = pagoDetalle.U_MSV_MA_FECHA
+                binding.txvFacturaInfoMonedaValue.text = pagoDetalle.U_MSV_MA_MON
+
+                binding.txvNuevoPagoDetalleMontoValue.text = "S/${pagoDetalle.U_MSV_MA_IMP}"
+                hashInfo["montoActual"] = pagoDetalle.U_MSV_MA_IMP
+
+
             } catch (e: Exception){
                 e.printStackTrace()
             }
@@ -69,21 +74,7 @@ class NuevoPagoDetalleActivity : AppCompatActivity() {
         facturasViewModel.dataGetFacturaPorDocEntry.observe(this){ factura->
             try {
                 val numeroSunat = "${factura.FolioPref} - ${factura.FolioNum}"
-                hashInfo["docEntry"] = factura.DocEntry
-                hashInfo["instId"] = factura.InstlmntID
-                hashInfo["paidToDate"] = factura.PaidToDate
-
                 binding.txvFacturaInfoNumeroSunatValue.text = numeroSunat
-                binding.txvFacturaInfoMonedaValue.text = factura.DocCur
-                binding.txvFacturaInfoComentarioValue.text = factura.Comments
-                binding.txvFacturaInfoFechaContableValue.text = factura.TaxDate
-                binding.txvFacturaInfoFechaVencimientoValue.text = factura.DocDueDate
-                binding.txvFacturaInfoSubTotalValue.text = factura.DocTotal.toString()
-                binding.txvFacturaInfoDescuentoValue.text = "0.0"
-                binding.txvFacturaInfoImpuestoValue.text = "0.0"
-                binding.txvFacturaInfoTotalValue.text = factura.DocTotal.toString()
-                binding.txvFacturaInfoSaldoValue.text = factura.PaidToDate.toString()
-
 
             } catch (e: Exception){
                 e.printStackTrace()

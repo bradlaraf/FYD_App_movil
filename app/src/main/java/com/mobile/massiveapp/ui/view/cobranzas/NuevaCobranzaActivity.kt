@@ -350,41 +350,6 @@ class NuevaCobranzaActivity : AppCompatActivity() {
         prefs.saveTipoPago("Efectivo")
     }
 
-    fun asignarVariables() {
-        val monto_pago = binding.txvNuevaCobranzaMontoTotalValue.text.toString().formatoSinModena(SendData.instance.simboloMoneda)
-
-        when (prefs.getTipoPago()){
-            "Efectivo"-> {
-                MONTO_PAGO_CASH = monto_pago
-                CUENTA_PAGO_CASH = prefs.getCuentaPago()
-                TIPO_PAGO = "E"
-            }
-            "Cheque"-> {
-                MONTO_PAGO_CHEQUE = monto_pago
-                FECHA_VENCIMIENTO_CHEQUE = prefs.getFechaCheque()
-                CUENTA_PAGO_CHEQUE = prefs.getCuentaPago()
-                CODIGO_BANCO = prefs.getBancoCheque()
-                NUMERO_CHEQUE = prefs.getNumeroCheque()
-                TIPO_PAGO = "C"
-            }
-            "Transferencia"-> {
-                MONTO_PAGO_TRANSFERENCIA = monto_pago
-                NUMERO_REFERENCIA_TRANSFERENCIA = prefs.getReferenciaTransfer()
-                CUENTA_PAGO_TRANSFERENCIA = prefs.getCuentaPago()
-                FECHA_TRANSFERENCIA = getFechaActual()
-                TIPO_PAGO = "T"
-            }
-
-            "Depósito"-> {
-                MONTO_PAGO_TRANSFERENCIA = monto_pago
-                NUMERO_REFERENCIA_TRANSFERENCIA = prefs.getReferenciaTransfer()
-                CUENTA_PAGO_TRANSFERENCIA = prefs.getCuentaPago()
-                FECHA_TRANSFERENCIA = getFechaActual()
-                TIPO_PAGO = "D"
-            }
-
-        }
-    }
 
     private fun showDialogConfirmBack(){
         val builder = AlertDialog.Builder(this)
@@ -443,8 +408,6 @@ class NuevaCobranzaActivity : AppCompatActivity() {
                     if (binding.txvNuevaCobranzaTipoPagoValue.text.isEmpty()){
                         throw Exception("Elija un tipo de pago")
                     }
-                    asignarVariables()
-                    /*Toast.makeText(this, "$MONTO_PAGO_CASH-${prefs.getTipoPago()}", Toast.LENGTH_SHORT).show()*/
 
                     cobranzaViewModel.dataGetAllPagosDetallePorAccDocEntry.observe(this){ listaPagosDetalle->
                         cobranzaViewModel.saveCobranzaCabecera(

@@ -28,6 +28,7 @@ class PedidoDetalleAdapter(
         val txvUnidadMedida: TextView
         val txvLineNum: TextView
         val txvNuevoLanzamiento: TextView
+        val txvBonifiacion: TextView
 
         init {
             txvNombre = view.findViewById(R.id.txvPedidoInfoNombreItem)
@@ -37,6 +38,7 @@ class PedidoDetalleAdapter(
             txvUnidadMedida = view.findViewById(R.id.txvUnidadMedida)
             txvLineNum = view.findViewById(R.id.txvLineNum)
             txvNuevoLanzamiento = view.findViewById(R.id.txvNuevoLanzamiento)
+            txvBonifiacion = view.findViewById(R.id.txvPedidoInfoBonificacion)
         }
 
         fun render(articuloinfo: ClientePedidoDetalle, onClickListener: (ClientePedidoDetalle) -> Unit){
@@ -54,6 +56,8 @@ class PedidoDetalleAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentArticulo = dataSet[position]
+        viewHolder.txvBonifiacion.isVisible = currentArticulo.ItemCode.startsWith("B")
+
         viewHolder.txvNombre.text = dataSet[position].Dscription
         viewHolder.txvCantidad.text = "Cantidad: ${currentArticulo.Quantity} / Precio: ${currentArticulo.Price}"
         viewHolder.txvItemTotal.text = "${SendData.instance.simboloMoneda} ${dataSet[position].LineTotal.format(2)}"

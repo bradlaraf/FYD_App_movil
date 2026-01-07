@@ -89,18 +89,16 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
 
     @Query("""
         SELECT DISTINCT
-        T0.ItemCode,
-        T0.ItemName,
-        IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A8000' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS 'OnHand1',
-        IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A0203' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS 'OnHand2',
-        IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A8000' LIMIT 1), 'ALMACEN 1') AS 'WhsName1',
-        IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A0203' LIMIT 1), 'ALMACEN 2') AS 'WhsName2',
-        T2.ItmsGrpNam AS 'GrupoArticulo' 
+            T0.ItemCode,
+            T0.ItemName,
+            IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A8000' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS OnHand1,
+            IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A0203' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS OnHand2,
+            IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A8000' LIMIT 1), 'ALMACEN 1') AS WhsName1,
+            IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A0203' LIMIT 1), 'ALMACEN 2') AS WhsName2,
+            IFNULL((SELECT Z0.ItmsGrpNam FROM GrupoArticulo Z0 WHERE Z0.ItmsGrpCod = T0.ItmsGrpCod), '') AS GrupoArticulo
         FROM Articulo T0
-        INNER JOIN ArticuloCantidad T1 ON T0.ItemCode = T1.ItemCode
-        INNER JOIN GrupoArticulo T2 ON T0.ItmsGrpCod = T2.ItmsGrpCod
-        WHERE T0.AccLocked = 'N' AND T1.OnHand > 0.0
-        ORDER BY T0.ItemName, T1.OnHand desc, T0.ItemCode
+        WHERE T0.AccLocked = 'N'
+        ORDER BY T0.ItemCode, OnHand1 desc, T0.ItemName
         """)
     suspend fun getAllArticulosInvConStocks(): List<DoArticuloInv>
 

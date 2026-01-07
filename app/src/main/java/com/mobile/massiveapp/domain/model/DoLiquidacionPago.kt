@@ -1,15 +1,13 @@
-package com.mobile.massiveapp.data.model
+package com.mobile.massiveapp.domain.model
 
 import com.mobile.massiveapp.data.database.entities.LiquidacionPagoEntity
-import com.mobile.massiveapp.data.database.entities.toDatabase
-import com.mobile.massiveapp.data.util.MappingInteface
 
-
-data class LiquidacionPago(
+data class DoLiquidacionPago(
     val AccDocEntry: String,
     val Code: String,
     val Name: String,
     val DocEntry: Int,
+    val DocLine: Int,
     val U_MSV_MA_LIQ: Int,
     val U_MSV_MA_MANIF: Int,
     val U_MSV_MA_OBJETO: Int,
@@ -21,35 +19,10 @@ data class LiquidacionPago(
     val U_MSV_MA_NROOPE: String,
     val U_MSV_MA_CTA: String,
     val U_MSV_MA_PAGO: Int,
-):MappingInteface<LiquidacionPago>(){
-    constructor():this(
-        AccDocEntry = "",
-        Code = "",
-        Name = "",
-        DocEntry = -1,
-        U_MSV_MA_LIQ = -1,
-        U_MSV_MA_MANIF = -1,
-        U_MSV_MA_OBJETO = -1,
-        U_MSV_MA_CLAVE = -1,
-        U_MSV_MA_FECHA = "",
-        U_MSV_MA_MEDIO = "",
-        U_MSV_MA_MON = "",
-        U_MSV_MA_IMP = 0.0,
-        U_MSV_MA_NROOPE = "",
-        U_MSV_MA_CTA = "",
-        U_MSV_MA_PAGO = -1,
-    )
-    override fun map(data: List<LiquidacionPago>): List<*> {
-        return data.map { it.toDatabase() }
-    }
+    val EditableMovil: String,
+)
 
-    override fun listOfKeys(data: List<LiquidacionPago>): List<Any> {
-        return data.map { it.AccDocEntry }
-    }
-
-}
-
-fun LiquidacionPagoEntity.toModel() = LiquidacionPago(
+fun LiquidacionPagoEntity.toDomain() = DoLiquidacionPago(
     AccDocEntry = AccDocEntry,
     Code = Code,
     Name = Name,
@@ -65,4 +38,18 @@ fun LiquidacionPagoEntity.toModel() = LiquidacionPago(
     U_MSV_MA_NROOPE = U_MSV_MA_NROOPE,
     U_MSV_MA_CTA = U_MSV_MA_CTA,
     U_MSV_MA_PAGO = U_MSV_MA_PAGO,
+    EditableMovil = EditableMovil,
+    DocLine = DocLine
 )
+
+
+data class DoLiquidacionPagoView(
+    val DocLine: Int,
+    val DocEntryFactura: Int,
+    val SUNAT: String,
+    val FechaCreacion: String,
+    val Monto: Double,
+    val Saldo: Double
+)
+
+

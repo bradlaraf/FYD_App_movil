@@ -169,7 +169,7 @@
             app:tint="@color/color_blue_lighter_10" />
 
         <Button
-            android:id="@+id/btnCobrar"
+            android:id="@+id/btnManDocCobrar"
             style="@style/default_text"
             android:layout_width="wrap_content"
             android:layout_height="38dp"

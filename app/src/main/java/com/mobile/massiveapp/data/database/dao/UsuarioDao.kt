@@ -15,6 +15,14 @@ interface UsuarioDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(usuario: UsuarioEntity)
 
+    @Query("""
+        SELECT 
+            T0.DefaultPriceList
+        FROM Usuario T0
+        LIMIT 1
+    """)
+    suspend fun getListaPrecioDefault(): Int
+
     @Query("INSERT INTO Usuario (\n" +
             "    Code,\n" +
             "    Comment,\n" +

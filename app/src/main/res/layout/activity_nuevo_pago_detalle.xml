@@ -74,6 +74,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:id="@+id/clFacturaInfoComentario"
         android:layout_width="match_parent"
@@ -140,6 +141,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:id="@+id/clFacturaInfoFechaVencimiento"
         android:layout_width="match_parent"
@@ -173,6 +175,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:id="@+id/clFacturaInfoSubTotal"
         android:layout_width="match_parent"
@@ -206,6 +209,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:id="@+id/clFacturaInfoDescuento"
         android:layout_width="match_parent"
@@ -239,6 +243,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:id="@+id/clFacturaInfoImpuesto"
         android:layout_width="match_parent"
@@ -272,6 +277,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:id="@+id/clFacturaInfoTotal"
         android:layout_width="match_parent"

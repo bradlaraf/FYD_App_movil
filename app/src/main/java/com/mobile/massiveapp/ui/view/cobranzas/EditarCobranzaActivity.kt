@@ -226,8 +226,7 @@ class EditarCobranzaActivity : AppCompatActivity() {
                 binding.txvNuevaCobranzaMontoTotalValue.text = pagoCabecera.CheckSum.toString()
                 binding.txvNuevaCobranzaTipoPagoValue.text = "Cheque"
                 prefs.saveCuentaPago(pagoCabecera.CheckAct)
-                prefs.saveBancoCheque(pagoCabecera.BankCode)
-                prefs.saveNumeroCheque(pagoCabecera.CheckNum)
+
             }
             "T"-> {
                 binding.txvNuevaCobranzaMontoTotalValue.text = pagoCabecera.TrsfrSum.toString()
@@ -366,14 +365,7 @@ class EditarCobranzaActivity : AppCompatActivity() {
                 CUENTA_PAGO_CASH = prefs.getCuentaPago()
                 TIPO_PAGO = "E"
             }
-            "Cheque"-> {
-                MONTO_PAGO_CHEQUE = monto_pago
-                FECHA_VENCIMIENTO_CHEQUE = prefs.getFechaCheque()
-                CUENTA_PAGO_CHEQUE = prefs.getCuentaPago()
-                CODIGO_BANCO = prefs.getBancoCheque()
-                NUMERO_CHEQUE = prefs.getNumeroCheque()
-                TIPO_PAGO = "C"
-            }
+
             "Transferencia"-> {
                 MONTO_PAGO_TRANSFERENCIA = monto_pago
                 NUMERO_REFERENCIA_TRANSFERENCIA = prefs.getReferenciaTransfer()

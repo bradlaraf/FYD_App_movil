@@ -113,7 +113,10 @@ class GeneralViewModel @Inject constructor(
     val dataGetAllFormasPago = MutableLiveData<List<FormaPago>>()
     fun getAllFormasPago(){
         viewModelScope.launch {
-
+            val result = getAllFormasPagoUseCase()
+            result.let {
+                dataGetAllFormasPago.postValue(it)
+            }
         }
     }
 

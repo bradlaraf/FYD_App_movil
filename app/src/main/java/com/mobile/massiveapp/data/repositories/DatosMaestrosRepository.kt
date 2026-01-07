@@ -84,6 +84,7 @@ import com.mobile.massiveapp.domain.model.DoConfirmacionGuardado
 import com.mobile.massiveapp.domain.model.DoUsuario
 import com.mobile.massiveapp.ui.view.util.getFechaActual
 import com.mobile.massiveapp.ui.view.util.getHoraActual
+import timber.log.Timber
 import javax.inject.Inject
 
 class DatosMaestrosRepository @Inject constructor(
@@ -247,14 +248,17 @@ class DatosMaestrosRepository @Inject constructor(
                     "Localidades" -> { getMap(ArticuloLocalidades(), dataList) }
                     "Zonas" -> { getMap(GeneralZonas(), dataList) }
 
+
+                    "Cargos" -> { getMap(Cargos(), dataList) }
+                    "FormaPagos" -> { getMap(FormaPago(), dataList) }
+
                     "GruposDE" -> { getMap(GrupoDescuento(), dataList) }
                     "Manifiestos" -> { getMap(Manifiesto(), dataList) }
                     "Camionetas" -> { getMap(Camioneta(), dataList) }
                     "TiposCambio" -> { getMap(TipoCambio(), dataList) }
                     "Conductores" -> { getMap(Conductor(), dataList) }
                     "Sucursales" -> { getMap(Sucursal(), dataList) }
-                    "Cargos" -> { getKeys(Cargos(), dataList) }
-                    "FormaPagos" -> { getKeys(FormaPago(), dataList) }
+
 
                     else -> { emptyList<Any>() }
                 } as List<Any>

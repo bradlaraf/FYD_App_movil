@@ -62,6 +62,7 @@ import com.mobile.massiveapp.data.database.dao.UsuarioGrupoArticuloDao
 import com.mobile.massiveapp.data.database.dao.UsuarioGrupoSociosDao
 import com.mobile.massiveapp.data.database.dao.UsuarioListaPreciosDao
 import com.mobile.massiveapp.data.database.dao.UsuarioZonasDao
+import timber.log.Timber
 import javax.inject.Inject
 
 class ManagerInputData @Inject constructor(
@@ -316,6 +317,7 @@ class ManagerInputData @Inject constructor(
     suspend fun registrarMaestro(endpoint: String, listaDatos: List<Any>) {
         val dao = daoMap[endpoint] ?: return
         (dao as BaseDao<*>).insertAllData(listaDatos as List<Nothing>)
+
     }
 }
 

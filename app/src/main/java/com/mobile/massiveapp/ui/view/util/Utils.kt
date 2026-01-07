@@ -32,6 +32,8 @@ import com.mobile.massiveapp.domain.model.DoClienteSocios
 import com.mobile.massiveapp.domain.model.DoSocioContactos
 import com.mobile.massiveapp.domain.model.DoSocioDirecciones
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.mobile.massiveapp.data.model.LiquidacionPago
+import com.mobile.massiveapp.domain.model.DoLiquidacionPago
 import java.io.File
 import java.text.DecimalFormat
 import java.text.Normalizer
@@ -647,6 +649,38 @@ fun agregarPagoDetalle(
         ObjType = 140,
         AccControl = "N"
     )
+
+fun agregarPagoLiquidacion(
+    docLine: Int,
+    monto:Double,
+    accDocEntry: String,
+    numeroOperacion: String,
+    numeroCuenta: String,
+    moneda: String,
+    medio: String,
+    instId: Int,
+    liquidacion: Int,
+    manifiesto: Int,
+    docEntryFactura: Int
+) = DoLiquidacionPago(
+    AccDocEntry = accDocEntry,
+    Code = "",
+    Name = "",
+    DocEntry = -1,
+    U_MSV_MA_LIQ = liquidacion,
+    U_MSV_MA_MANIF = manifiesto,
+    U_MSV_MA_OBJETO = -1,
+    U_MSV_MA_CLAVE = docEntryFactura,
+    U_MSV_MA_FECHA = getFechaActual(),
+    U_MSV_MA_MEDIO = medio,
+    U_MSV_MA_MON = moneda,
+    U_MSV_MA_IMP = monto,
+    U_MSV_MA_NROOPE = numeroOperacion,
+    U_MSV_MA_CTA = numeroCuenta,
+    U_MSV_MA_PAGO = instId,
+    EditableMovil = "Y",
+    DocLine = docLine
+)
 
 fun actualizarPagoDetalle(
     monto:Double,

@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.google.common.primitives.Ints
 import com.mobile.massiveapp.data.database.entities.ClientePedidosEntity
+import com.mobile.massiveapp.data.model.PrecioFinalView
 import com.mobile.massiveapp.domain.model.ArticuloPedido
 import com.mobile.massiveapp.domain.model.DoPedidoInfoView
 
@@ -29,6 +30,43 @@ interface ClientePedidosDao:BaseDao<ClientePedidosEntity> {
         ORDER BY CardName
     """)
     suspend fun getAll(fechaActual: String): List<ClientePedidosEntity>
+
+    @Query("""
+    SELECT
+        IFNULL(AP.Price, 0.0) AS precioUnitario,
+        IFNULL(ROUND(
+            IFNULL(AP.Price, 0) * (100 - IFNULL(GDD.Discount, 0)) / 100.0
+        , 2), 0) AS precioFinal,
+    
+        IFNULL(ROUND(
+            IFNULL(AP.Price, 0)
+            - (IFNULL(AP.Price, 0) * (100 - IFNULL(GDD.Discount, 0)) / 100.0)
+        , 2), 0) AS precioDescontado,
+    
+        IFNULL(ROUND(
+            IFNULL(GDD.Discount, 0)
+        , 2), 0) AS porcentajeDescuento,
+    
+        IFNULL(ROUND(
+            (IFNULL(AP.Price, 0) * (100 - IFNULL(GDD.Discount, 0)) / 100.0) * 1.18
+        , 2), 0) AS precioBruto
+    FROM SocioNegocio SN
+    LEFT JOIN GrupoDescuento GD
+        ON GD.ObjCode = SN.GroupCode
+    LEFT JOIN GrupoDescuentoDetalle GDD
+        ON GDD.AbsEntry = GD.AbsEntry
+       AND GDD.ObjKey = :articulo
+    LEFT JOIN ArticuloPrecio AP
+        ON AP.ItemCode = :articulo
+       AND AP.PriceList = :listaPrecio
+    WHERE SN.CardCode = :cardCode
+    LIMIT 1
+    """)
+    suspend fun obtenerPrecioFinal(
+        articulo: String,
+        listaPrecio: Int,
+        cardCode: String
+    ): PrecioFinalView?
 
     /*@Query("""
 SELECT

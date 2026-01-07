@@ -37,7 +37,13 @@ class ManifiestoDocumentoFragment : Fragment() {
             onClickListener = { documento -> },
             onLongPressListener = { view, documento ->
                 showPopupMenu(view, documento)
-            })
+            },
+            onButtonClickListener = { documento ->
+                Intent(requireActivity(), NuevaCobranzaActivity::class.java)
+                .putExtra("docEntry", documento.DocEntryFactura)
+                .putExtra("cardCode", documento.CodigoSocio)
+                .also { startActivity(it) }}
+        )
         binding.rvManifiestoDocumentos.adapter = manifiestoDocumentoAdapter
         return binding.root
     }
@@ -60,7 +66,7 @@ class ManifiestoDocumentoFragment : Fragment() {
                         ).show(childFragmentManager, "mensaje")
                     } else {
                         Intent(requireActivity(), NuevaCobranzaActivity::class.java)
-                            .putExtra("docEntry", documento.DocEntry)
+                            .putExtra("docEntry", documento.DocEntryFactura)
                             .putExtra("cardCode", documento.CodigoSocio)
                             .also { startActivity(it) }
                     }

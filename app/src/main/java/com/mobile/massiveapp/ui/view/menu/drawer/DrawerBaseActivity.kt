@@ -74,6 +74,8 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         val menu = navigationView.menu
+
+        //Ocultar opciones
         menu.findItem(R.id.nav_drawer_reset_id_movil).isVisible = false
         menu.findItem(R.id.nav_drawer_manifiesto).isVisible = true
         menu.findItem(R.id.nav_drawer_cobranzas).isVisible = true

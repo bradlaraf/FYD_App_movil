@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobile.massiveapp.data.model.ClientePedidoDetalle
 import com.mobile.massiveapp.data.model.ClientePedidos
+import com.mobile.massiveapp.data.model.PrecioFinalView
 import com.mobile.massiveapp.domain.model.ArticuloPedido
 import com.mobile.massiveapp.domain.model.DoArticuloUnidades
 import com.mobile.massiveapp.domain.model.DoClientePedido
@@ -37,6 +38,7 @@ import com.mobile.massiveapp.domain.pedido.GetPedidosDeAyerUseCase
 import com.mobile.massiveapp.domain.pedido.GetPrecioArticuloUseCase
 import com.mobile.massiveapp.domain.pedido.GetUnPedidoDetallePorAccDocEntryYLineNumUseCase
 import com.mobile.massiveapp.domain.pedido.GetUnidadMedidaYEquivalenciaUseCase
+import com.mobile.massiveapp.domain.pedido.ObtenerPrecioArticuloFYDUseCase
 import com.mobile.massiveapp.domain.pedido.SavePedidoCabeceraUseCase
 import com.mobile.massiveapp.domain.pedido.SavePedidoDetalleParaEditarUseCase
 import com.mobile.massiveapp.domain.pedido.SavePedidoDetalleUseCase
@@ -74,7 +76,8 @@ class PedidoViewModel @Inject constructor(
     private val getPedidoDetallesInfoUseCase: GetPedidoDetallesInfoUseCase,
     private val comprobarEstadoActualPedidoUseCase: ComprobarEstadoActualPedidoUseCase,
     private val getPedidoSugeridoUseCase: GetPedidoSugeridoUseCase,
-    private val getPrecioArticuloUseCase: GetPrecioArticuloUseCase
+    private val getPrecioArticuloUseCase: GetPrecioArticuloUseCase,
+    private val obtenerPrecioArticuloFYDUseCase: ObtenerPrecioArticuloFYDUseCase
     )
     : ViewModel(){
     val isLoading = MutableLiveData<Boolean>()
@@ -83,6 +86,17 @@ class PedidoViewModel @Inject constructor(
     val dataSetPedidosHoy = MutableLiveData<Boolean>()
     fun setPedidosHoy(value: Boolean){
         dataSetPedidosHoy.postValue(value)
+    }
+
+    //Obtener Precio Articulo (FYD)
+    val dataGetPrecioArticuloFYD = MutableLiveData<PrecioFinalView>()
+    fun getPrecioArticuloFYD(itemCode: String, cantidad: Double, cardCode: String){
+        viewModelScope.launch {
+            val result = obtenerPrecioArticuloFYDUseCase(itemCode = itemCode, cantidad = cantidad, cardCode = cardCode)
+            result.let {
+                dataGetPrecioArticuloFYD.postValue(it)
+            }
+        }
     }
 
     //Comprobar si puede editar

@@ -222,3 +222,19 @@ fun ClientePedidosEntity.toModel(detallePedido: List<ClientePedidosDetalleEntity
     AccControl = AccControl,
     clientePedidoDetalles = detallePedido.map { it.toModel() }
 )
+
+data class PrecioFinalView(
+    val precioUnitario: Double,
+    val precioFinal: Double,
+    val precioDescontado: Double,
+    val porcentajeDescuento: Double,
+    val precioBruto: Double
+) {
+    constructor():this(
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+    )
+}

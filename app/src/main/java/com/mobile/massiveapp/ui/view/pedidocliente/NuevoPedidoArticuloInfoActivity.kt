@@ -155,6 +155,17 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             }
         }
 
+        pedidoViewModel.dataGetPrecioArticuloFYD.observe(this) { infoPrecioFinal->
+            val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toInt()
+            //binding.txvNpArtInfoPrecioUnitarioValue.text = infoPrecioFinal.precioDescontado.toString()
+            binding.txvNpArtInfoPorcentajeDescuentoValue.text = infoPrecioFinal.porcentajeDescuento.toString()
+            binding.txvNpArtInfoPrecioDescontadoValue.text = infoPrecioFinal.precioFinal.toString()
+            binding.txvNpArtInfoPrecioBrutoValue.text = infoPrecioFinal.precioBruto.toString()
+            binding.txvNpArtInfoPrecioUnitarioValue.text = infoPrecioFinal.precioUnitario.toString()
+
+            binding.txvNpArtInfoTotalValue.text = (infoPrecioFinal.precioFinal * cantidad).format(2).toString()
+        }
+
 
     }
 
@@ -346,46 +357,6 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
         }
 
 
-        //Set ALMACENES
-        /*binding.clNpArtInfoAlmacen.setOnClickListener {
-            articuloViewModel.getAllArticuloAlmacenes()
-            articuloViewModel.dataGetAllArticuloAlmacenes.observeOnce(this) { almacenes ->
-                BaseDialogChecklistWithId(
-                    binding.txvNpArtInfoAlmacenValue.text.toString(),
-                    almacenes.map { it.WhsName }
-                ){ almacenSeleccionado, id ->
-                    if (almacenSeleccionado.isNotEmpty()){
-                        binding.txvNpArtInfoAlmacenValue.text = almacenSeleccionado
-                        hashInfo["codigoAlmacen"] = almacenes[id].WhsCode
-                        articuloViewModel.getArticuloCantidadesPorItemCodeYWhsCode(
-                            itemCode = itemCode,
-                            whsCode = almacenes[id].WhsCode
-                        )
-                    }
-                }.show(supportFragmentManager, "almacenes")
-            }
-        }*/
-
-
-        //Set LISTA DE PRECIOS
-        /*binding.clNpArtInfoListaPrecios.setOnClickListener {
-
-            articuloViewModel.getAllArticuloListaPrecios()
-            articuloViewModel.dataGetAllArticuloListaPrecios.observeOnce(this){ listasPrecio->
-                //Lista Mayorista = 2
-                //Lista Cobertura = 1
-                try {
-                    if (usuario.CanEditPrice == "N"){
-                        throw Exception("No tiene permisos para editar el precio")
-                    }
-                    showListaPrecioDialog(listasPrecio)
-
-                } catch (e: Exception) {
-                    Toast.makeText(this, "${e.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }*/
-
         //Set Cantidad
         binding.clNpArtInfoCantidad.setOnClickListener {
             try {
@@ -401,10 +372,16 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                         binding.txvNpArtInfoCantidadValue.text = cantidad
                         val precio = binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble()
 
-                        pedidoViewModel.getPrecioArticulo(
+                        /*pedidoViewModel.getPrecioArticulo(
                             cantidad.toInt(),
                             itemCode,
                             hashInfo["listaPrecioCodigo"] as Int
+                        )*/
+
+                        pedidoViewModel.getPrecioArticuloFYD(
+                            itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
+                            cardCode = prefsPedido.getCardCode(),
+                            cantidad = cantidad.toDouble()
                         )
                     }
                 }.show(supportFragmentManager, "cantidad")
@@ -495,6 +472,9 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
         //TOTAL
         binding.txvNpArtInfoTotalValue.text = (cantidad*precioDescontado).format(2).toString()
+
+
+
     }
 
 

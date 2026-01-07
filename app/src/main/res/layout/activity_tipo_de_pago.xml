@@ -54,6 +54,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoEfectivoCuenta"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -97,6 +98,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoEfectivoImporte"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -141,7 +143,7 @@
         app:layout_constraintTop_toBottomOf="@+id/clCobranzaTipoPagoEfectivoImporte">
 
         <TextView
-            android:id="@+id/clCobranzaTipoPagoTransferenciaCuentaTitle"
+            android:id="@+id/txvCobranzaTipoPagoTransferenciaCuentaTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Transferencia cuenta"
@@ -151,17 +153,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/clCobranzaTipoPagoTransferenciaCuentaValue"
+            android:id="@+id/txvCobranzaTipoPagoTransferenciaCuentaValue"
             style="edtNewSn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clCobranzaTipoPagoTransferenciaCuentaTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txvCobranzaTipoPagoTransferenciaCuentaTitle"
             tools:text="" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/imvArrowtransfc"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -175,6 +178,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoTransferenciaReferencia"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -184,7 +188,7 @@
         app:layout_constraintTop_toBottomOf="@+id/clCobranzaTipoPagoTransferenciaCuenta">
 
         <TextView
-            android:id="@+id/clCobranzaTipoPagoTransferenciaReferenciaTitle"
+            android:id="@+id/txvCobranzaTipoPagoTransferenciaReferenciaTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Transferencia referencia"
@@ -194,14 +198,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/clCobranzaTipoPagoTransferenciaReferenciaValue"
+            android:id="@+id/txvCobranzaTipoPagoTransferenciaReferenciaValue"
             style="edtNewSn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clCobranzaTipoPagoTransferenciaReferenciaTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txvCobranzaTipoPagoTransferenciaReferenciaTitle"
             tools:text="" />
 
         <ImageView
@@ -218,6 +222,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoTransferenciaImporte"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -227,7 +232,7 @@
         app:layout_constraintTop_toBottomOf="@+id/clCobranzaTipoPagoTransferenciaReferencia">
 
         <TextView
-            android:id="@+id/clCobranzaTipoPagoTransferenciaImporteTitle"
+            android:id="@+id/txvCobranzaTipoPagoTransferenciaImporteTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Transferencia importe"
@@ -237,20 +242,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/clCobranzaTipoPagoTransferenciaImporteValue"
+            android:id="@+id/txvCobranzaTipoPagoTransferenciaImporteValue"
             style="edtNewSn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clCobranzaTipoPagoTransferenciaImporteTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txvCobranzaTipoPagoTransferenciaImporteTitle"
             tools:text="" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoChequeCuenta"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -294,6 +300,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoChequeBanco"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -338,6 +345,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoChequeVencimiento"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -381,6 +389,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoChequeNumero"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -433,7 +442,7 @@
         app:layout_constraintTop_toBottomOf="@+id/clCobranzaTipoPagoChequeNumero">
 
         <TextView
-            android:id="@+id/clCobranzaTipoPagoChequeImporteTitle"
+            android:id="@+id/txvCobranzaTipoPagoChequeImporteTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Importe"
@@ -443,20 +452,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/clCobranzaTipoPagoChequeImporteValue"
+            android:id="@+id/txvCobranzaTipoPagoChequeImporteValue"
             style="edtNewSn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clCobranzaTipoPagoChequeImporteTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txvCobranzaTipoPagoChequeImporteTitle"
             tools:text="" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoDepositoCuenta"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -500,6 +510,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoDepositoReferencia"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -543,6 +554,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCobranzaTipoPagoDepositoImporte"
+        android:visibility="gone"
         style="@style/box_key_value_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
