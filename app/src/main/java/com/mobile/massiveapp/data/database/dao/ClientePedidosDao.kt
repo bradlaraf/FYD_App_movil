@@ -36,35 +36,30 @@ interface ClientePedidosDao:BaseDao<ClientePedidosEntity> {
         IFNULL(AP.Price, 0.0) AS precioUnitario,
         IFNULL(ROUND(
             IFNULL(AP.Price, 0) * (100 - IFNULL(GDD.Discount, 0)) / 100.0
-        , 2), 0) AS precioFinal,
+        , 2), 0.0) AS precioFinal,
     
         IFNULL(ROUND(
             IFNULL(AP.Price, 0)
             - (IFNULL(AP.Price, 0) * (100 - IFNULL(GDD.Discount, 0)) / 100.0)
-        , 2), 0) AS precioDescontado,
+        , 2), 0.0) AS precioDescontado,
     
         IFNULL(ROUND(
             IFNULL(GDD.Discount, 0)
-        , 2), 0) AS porcentajeDescuento,
+        , 2), 0.0) AS porcentajeDescuento,
     
         IFNULL(ROUND(
             (IFNULL(AP.Price, 0) * (100 - IFNULL(GDD.Discount, 0)) / 100.0) * 1.18
-        , 2), 0) AS precioBruto
+        , 2), 0.0) AS precioBruto
     FROM SocioNegocio SN
-    LEFT JOIN GrupoDescuento GD
-        ON GD.ObjCode = SN.GroupCode
-    LEFT JOIN GrupoDescuentoDetalle GDD
-        ON GDD.AbsEntry = GD.AbsEntry
-       AND GDD.ObjKey = :articulo
-    LEFT JOIN ArticuloPrecio AP
-        ON AP.ItemCode = :articulo
-       AND AP.PriceList = :listaPrecio
+    LEFT JOIN GrupoDescuento GD ON GD.ObjCode = SN.GroupCode
+    LEFT JOIN GrupoDescuentoDetalle GDD ON GDD.AbsEntry = GD.AbsEntry
+    LEFT JOIN ArticuloPrecio AP ON AP.ItemCode = GDD.ObjKey
     WHERE SN.CardCode = :cardCode
-    LIMIT 1
+      AND AP.ItemCode = :articulo
+      AND AP.PriceList = 1
     """)
     suspend fun obtenerPrecioFinal(
         articulo: String,
-        listaPrecio: Int,
         cardCode: String
     ): PrecioFinalView?
 

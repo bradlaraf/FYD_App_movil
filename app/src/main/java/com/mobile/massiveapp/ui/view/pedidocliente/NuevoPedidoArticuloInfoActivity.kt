@@ -109,10 +109,10 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     binding.txvNpArtInfoUnidadMedidaValue.text.toString(),  //UomName
                     hashInfo["listaPrecioCodigo"] as Int
                 )*/
-                pedidoViewModel.getPrecioArticulo(
-                    cantidad,
-                    articuloSeleccionado.ItemCode,
-                    hashInfo["listaPrecioCodigo"] as Int
+                pedidoViewModel.getPrecioArticuloFYD(
+                    itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
+                    cardCode = prefsPedido.getCardCode(),
+                    cantidad = cantidad.toDouble()
                 )
 
             } catch (e: Exception) {

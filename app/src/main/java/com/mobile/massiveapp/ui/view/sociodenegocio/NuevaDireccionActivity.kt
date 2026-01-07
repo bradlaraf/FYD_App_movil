@@ -32,7 +32,14 @@ class NuevaDireccionActivity : AppCompatActivity() {
         binding = ActivityNuevaDireccionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        //Se setea el TITULO de la ACTIVITY
+        title = if (intent.getStringExtra("tipo").toString() == "S") {
+            "Nueva Dirección Despacho"
+        } else if (intent.getStringExtra("tipo").toString() == "B") {
+            "Nueva Dirección Fiscal"
+        } else {
+            ""
+        }
 
         usuarioViewModel.getUsuarioFromDatabase()
         usuarioViewModel.dataGetUsuarioFromDatabase.observe(this){ usuario->

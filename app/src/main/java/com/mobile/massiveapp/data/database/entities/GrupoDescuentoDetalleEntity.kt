@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.mobile.massiveapp.data.model.GrupoDescuentoDetalle
 import com.mobile.massiveapp.domain.model.DoGrupoDescuentoDetalle
 
-@Entity(tableName = "GrupoDescuentoDetalle", primaryKeys = ["AbsEntry", "ObjKey"])
+@Entity(tableName = "GrupoDescuentoDetalle", primaryKeys = ["AbsEntry", "Obj", "ObjKey"])
 data class GrupoDescuentoDetalleEntity(
     @ColumnInfo(name = "AbsEntry") val AbsEntry: Int,
     @ColumnInfo(name = "Obj") val Obj: String,

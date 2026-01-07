@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "a0146d2521d0c068474ced2c225a7f8c",
+    "identityHash": "3176b0a9eaaa3e17a527f7ba3b715fee",
     "entities": [
       {
         "tableName": "Articulo",
@@ -5727,7 +5727,7 @@
       },
       {
         "tableName": "GrupoDescuentoDetalle",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AbsEntry` INTEGER NOT NULL, `Obj` TEXT NOT NULL, `ObjKey` TEXT NOT NULL, `DiscType` TEXT NOT NULL, `Discount` REAL NOT NULL, `PayFor` REAL NOT NULL, `ForFree` REAL NOT NULL, `UpTo` REAL NOT NULL, PRIMARY KEY(`AbsEntry`, `ObjKey`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AbsEntry` INTEGER NOT NULL, `Obj` TEXT NOT NULL, `ObjKey` TEXT NOT NULL, `DiscType` TEXT NOT NULL, `Discount` REAL NOT NULL, `PayFor` REAL NOT NULL, `ForFree` REAL NOT NULL, `UpTo` REAL NOT NULL, PRIMARY KEY(`AbsEntry`, `Obj`, `ObjKey`))",
         "fields": [
           {
             "fieldPath": "AbsEntry",
@@ -5782,6 +5782,7 @@
           "autoGenerate": false,
           "columnNames": [
             "AbsEntry",
+            "Obj",
             "ObjKey"
           ]
         },
@@ -6188,7 +6189,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a0146d2521d0c068474ced2c225a7f8c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3176b0a9eaaa3e17a527f7ba3b715fee')"
     ]
   }
 }

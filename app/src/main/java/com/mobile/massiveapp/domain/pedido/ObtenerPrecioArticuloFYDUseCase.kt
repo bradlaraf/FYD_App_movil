@@ -1,6 +1,7 @@
 package com.mobile.massiveapp.domain.pedido
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.mobile.massiveapp.data.database.dao.ClientePedidosDao
 import com.mobile.massiveapp.data.database.dao.UsuarioDao
 import com.mobile.massiveapp.data.model.PrecioFinalView
@@ -13,9 +14,9 @@ class ObtenerPrecioArticuloFYDUseCase @Inject constructor(
     @SuppressLint("LogNotTimber")
     suspend operator fun invoke(itemCode: String, cantidad: Double, cardCode: String) =
         try {
+            Log.d("Log", "$itemCode-$cardCode")
             pedidosDao.obtenerPrecioFinal(
                 articulo = itemCode,
-                listaPrecio = usuarioDao.getListaPrecioDefault(),
                 cardCode = cardCode
             )
         } catch (e:Exception){
