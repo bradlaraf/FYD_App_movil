@@ -110,9 +110,8 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     hashInfo["listaPrecioCodigo"] as Int
                 )*/
                 pedidoViewModel.getPrecioArticuloFYD(
-                    itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
-                    cardCode = prefsPedido.getCardCode(),
-                    cantidad = cantidad.toDouble()
+                    itemCode = articuloSeleccionado.ItemCode,
+                    cardCode = prefsPedido.getCardCode()
                 )
 
             } catch (e: Exception) {
@@ -139,10 +138,10 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
         }*/
 
         //LiveData Precio articulo
-        pedidoViewModel.dataGetPrecioArticulo.observe(this){ articuloPedido->
+        /*pedidoViewModel.dataGetPrecioArticulo.observe(this){ articuloPedido->
             binding.txvNpArtInfoPorcentajeDescuentoValue.text = articuloPedido.PorcentajeDescuento.toString()
             setTotalValues(precioUnitario = articuloPedido.PrecioUnitario, precioDescontado = articuloPedido.Precio, precioIGV = articuloPedido.PrecioIGV)
-        }
+        }*/
 
 
         //LiveData PrecioFinal por UM y ListaPrecio
@@ -156,14 +155,19 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
         }
 
         pedidoViewModel.dataGetPrecioArticuloFYD.observe(this) { infoPrecioFinal->
-            val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toInt()
-            //binding.txvNpArtInfoPrecioUnitarioValue.text = infoPrecioFinal.precioDescontado.toString()
-            binding.txvNpArtInfoPorcentajeDescuentoValue.text = infoPrecioFinal.porcentajeDescuento.toString()
-            binding.txvNpArtInfoPrecioDescontadoValue.text = infoPrecioFinal.precioFinal.toString()
-            binding.txvNpArtInfoPrecioBrutoValue.text = infoPrecioFinal.precioBruto.toString()
-            binding.txvNpArtInfoPrecioUnitarioValue.text = infoPrecioFinal.precioUnitario.toString()
+            try {
+                val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toInt()
+                //binding.txvNpArtInfoPrecioUnitarioValue.text = infoPrecioFinal.precioDescontado.toString()
+                binding.txvNpArtInfoPorcentajeDescuentoValue.text = infoPrecioFinal.porcentajeDescuento.toString()
+                binding.txvNpArtInfoPrecioDescontadoValue.text = infoPrecioFinal.precioFinal.toString()
+                binding.txvNpArtInfoPrecioBrutoValue.text = infoPrecioFinal.precioBruto.toString()
+                binding.txvNpArtInfoPrecioUnitarioValue.text = infoPrecioFinal.precioUnitario.toString()
 
-            binding.txvNpArtInfoTotalValue.text = (infoPrecioFinal.precioFinal * cantidad).format(2).toString()
+                binding.txvNpArtInfoTotalValue.text = (infoPrecioFinal.precioFinal * cantidad).format(2).toString()
+            } catch (e:Exception){
+                e.printStackTrace()
+            }
+
         }
 
 
@@ -369,8 +373,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
                         pedidoViewModel.getPrecioArticuloFYD(
                             itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
-                            cardCode = prefsPedido.getCardCode(),
-                            cantidad = cantidad.toDouble()
+                            cardCode = prefsPedido.getCardCode()
                         )
                     }
                 }.show(supportFragmentManager, "cantidad")
@@ -480,6 +483,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             val data = result.data
             val itemCodeArticuloSeleccionado = data?.getStringExtra("itemCodeArticulo")
             if (!itemCodeArticuloSeleccionado.isNullOrEmpty()){
+
                 articuloViewModel.getArticuloPedidoInfo(itemCodeArticuloSeleccionado)
                 itemCode = itemCodeArticuloSeleccionado
             }

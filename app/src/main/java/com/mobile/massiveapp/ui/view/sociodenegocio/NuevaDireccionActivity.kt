@@ -282,7 +282,9 @@ class NuevaDireccionActivity : AppCompatActivity() {
                     binding.txvDepartamentoDFiscalValue.text.isNotEmpty() &&
                     binding.txvProvinciaDFiscalValue.text.isNotEmpty() &&
                     binding.txvDistritoDFiscal.text.isNotEmpty() &&
-                    binding.txvCallenDFiscalValue.text.isNotEmpty() ) {
+                    binding.txvCallenDFiscalValue.text.isNotEmpty() &&
+                    binding.txvZonaDireccionValue.text.isNotEmpty() &&
+                    binding.txvVendedorDireccionValue.text.isNotEmpty()) {
 
                     direccionesViewModel.dataGetLineNumPorCardCodeYTipo.observe(this){ lineNum->
                         val lineNumToUse = if(intent.getIntExtra("lineNum", -1) != -1) intent.getIntExtra("lineNum", -1) else lineNum

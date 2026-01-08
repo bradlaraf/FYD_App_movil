@@ -90,9 +90,9 @@ class PedidoViewModel @Inject constructor(
 
     //Obtener Precio Articulo (FYD)
     val dataGetPrecioArticuloFYD = MutableLiveData<PrecioFinalView>()
-    fun getPrecioArticuloFYD(itemCode: String, cantidad: Double, cardCode: String){
+    fun getPrecioArticuloFYD(itemCode: String, cardCode: String){
         viewModelScope.launch {
-            val result = obtenerPrecioArticuloFYDUseCase(itemCode = itemCode, cantidad = cantidad, cardCode = cardCode)
+            val result = obtenerPrecioArticuloFYDUseCase(itemCode = itemCode, cardCode = cardCode)
             result.let {
                 dataGetPrecioArticuloFYD.postValue(it)
             }

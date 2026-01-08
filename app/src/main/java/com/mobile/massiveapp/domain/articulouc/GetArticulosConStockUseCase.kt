@@ -9,9 +9,11 @@ class GetArticulosConStockUseCase @Inject constructor(
     private val articulosDao: ArticuloDao,
     private val errorLogDao: ErrorLogDao
 ) {
-    suspend operator fun invoke() =
+    suspend operator fun invoke(cardCode: String) =
         try {
-            articulosDao.getAllArticulosInvConStocks()
+            if (cardCode.isEmpty()) articulosDao.getAllArticulosInvConStocks()
+            else articulosDao.getAllArticulosInvConStocks(cardCode)
+
         } catch (e:Exception){
             errorLogDao.insert(getError("${e.message}","${e.message}"))
             emptyList()

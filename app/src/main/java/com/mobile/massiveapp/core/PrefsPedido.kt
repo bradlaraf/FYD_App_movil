@@ -31,7 +31,7 @@ class PrefsPedido(
     fun getCardName(): String{
         return storage.getString(SHARED_CARD_NAME, "")!!
     }
-    fun getCardCode(): String{
+    fun     getCardCode(): String{
         return storage.getString(SHARED_CARD_CODE, "")!!
     }
     fun getMaximoLineas(): Int{

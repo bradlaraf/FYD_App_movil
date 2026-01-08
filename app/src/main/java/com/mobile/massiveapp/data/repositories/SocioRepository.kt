@@ -83,7 +83,7 @@ class SocioRepository @Inject constructor(
         //Se traen todos los socios migrados
     suspend fun getAllSociosFiltradoPorMigrado(migrado: String):List<DoClienteSocios> =
         try {
-            val response = clienteSociosDao.getAllSocioFiltradoPorMigrado(migrado)
+            val response = clienteSociosDao.getAllSocioFiltradoPorMigrado()
             response.map { it.toDomain() }
         } catch (e: Exception){
             e.printStackTrace()

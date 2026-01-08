@@ -19,6 +19,7 @@ import com.mobile.massiveapp.ui.viewmodel.ArticuloViewModel
 import com.mobile.massiveapp.ui.viewmodel.ProviderViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import com.mobile.massiveapp.MassiveApp.Companion.prefsPedido
 import com.mobile.massiveapp.databinding.FragmentArticulosConStockBinding
 import com.mobile.massiveapp.domain.model.DoArticuloInv
 import com.mobile.massiveapp.ui.view.pedidocliente.fragments.ArticulosConStockFragment
@@ -84,7 +85,7 @@ class SeleccionarArticuloActivity : AppCompatActivity() {
 
         //Articulos
 
-        articuloViewModel.getArticulosConStock()
+        articuloViewModel.getArticulosConStock(prefsPedido.getCardCode())
         articuloViewModel.getArticulosSinStock()
 
 

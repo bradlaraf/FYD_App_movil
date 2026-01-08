@@ -71,9 +71,9 @@ class ArticuloViewModel @Inject constructor(
 
         //Articulos CON Stock
     val dataGetArticulosConStock = MutableLiveData<List<DoArticuloInv>>()
-    fun getArticulosConStock(){
+    fun getArticulosConStock(cardCode: String = ""){
         viewModelScope.launch {
-            val result = getArticulosConStockUseCase()
+            val result = getArticulosConStockUseCase(cardCode)
             result.let {
                 dataGetArticulosConStock.postValue(it)
             }

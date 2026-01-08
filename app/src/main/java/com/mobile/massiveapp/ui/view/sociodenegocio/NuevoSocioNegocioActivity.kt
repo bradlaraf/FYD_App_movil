@@ -143,7 +143,7 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
 
-            binding.clNuevoSnCondicioPago.setOnClickListener {
+            /*binding.clNuevoSnCondicioPago.setOnClickListener {
                 BaseDialogChecklistWithId(
                     binding.txvNuevoSnCondicionPagoValue.text.toString(),
                     listaCondiciones.map { it.PymntGroup }
@@ -151,7 +151,7 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
                     binding.txvNuevoSnCondicionPagoValue.text = condicionSeleccionada
                     infomacionSocioHash["condicionPago"] = listaCondiciones[id].GroupNum
                 }.show(supportFragmentManager, "Condicion Dialog")
-            }
+            }*/
         }
 
 

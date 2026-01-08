@@ -35,7 +35,9 @@ interface ClienteSociosDao:BaseDao<ClienteSociosEntity> {
          T0.LicTradNum,
          T0.ListNum
         FROM SocioNegocio T0
-        WHERE T0.AccMigrated = 'Y' AND AccLocked = 'N'
+        WHERE T0.AccMigrated = 'Y' 
+            AND AccLocked = 'N'
+            AND CardType = 'C'
         ORDER BY AccFinalized,CardName, CardCode
     """)
     suspend fun getAllSociosScreen(): List<DoClienteScreen>
@@ -171,11 +173,10 @@ interface ClienteSociosDao:BaseDao<ClienteSociosEntity> {
         SELECT 
             * 
         FROM SocioNegocio 
-        WHERE AccMigrated = :migrado AND AccLocked == 'N' 
+        WHERE CardType = "L"
         ORDER BY CardName
-        LIMIT 400"""
-        )
-    suspend fun getAllSocioFiltradoPorMigrado(migrado: String): List<ClienteSociosEntity>
+        """)
+    suspend fun getAllSocioFiltradoPorMigrado(): List<ClienteSociosEntity>
 
 
 

@@ -72,7 +72,7 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
         (SELECT T1.OnHand 
             FROM ArticuloCantidad T1 
             WHERE T1.ItemCode = T0.ItemCode 
-              AND T1.WhsCode = 'A0203'
+              AND T1.WhsCode = 'A0202'
         ) AS 'OnHand2',
         "" AS 'WhsName1',
         "" AS 'WhsName2',
@@ -104,15 +104,33 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
             T0.ItemCode,
             T0.ItemName,
             IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A8000' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS OnHand1,
-            IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A0203' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS OnHand2,
+            IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A0202' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS OnHand2,
             IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A8000' LIMIT 1), 'ALMACEN 1') AS WhsName1,
-            IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A0203' LIMIT 1), 'ALMACEN 2') AS WhsName2,
+            IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A0202' LIMIT 1), 'ALMACEN 2') AS WhsName2,
             IFNULL((SELECT Z0.ItmsGrpNam FROM GrupoArticulo Z0 WHERE Z0.ItmsGrpCod = T0.ItmsGrpCod), '') AS GrupoArticulo
         FROM Articulo T0
         WHERE T0.AccLocked = 'N'
         ORDER BY T0.ItemCode, OnHand1 desc, T0.ItemName
         """)
     suspend fun getAllArticulosInvConStocks(): List<DoArticuloInv>
+
+    @Query("""
+        SELECT DISTINCT
+            T0.ItemCode,
+            T0.ItemName,
+            IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A8000' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS OnHand1,
+            IFNULL((SELECT Z0.OnHand FROM ArticuloCantidad Z0 WHERE Z0.WhsCode = 'A0202' AND ItemCode = T0.ItemCode LIMIT 1), 0.0) AS OnHand2,
+            IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A8000' LIMIT 1), 'ALMACEN 1') AS WhsName1,
+            IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE WhsCode = 'A0202' LIMIT 1), 'ALMACEN 2') AS WhsName2,
+            IFNULL((SELECT Z0.ItmsGrpNam FROM GrupoArticulo Z0 WHERE Z0.ItmsGrpCod = T0.ItmsGrpCod), '') AS GrupoArticulo
+        FROM Articulo T0
+        INNER JOIN GrupoDescuentoDetalle T1 ON T1.ObjKey = T0.ItemCode
+        INNER JOIN GrupoDescuento T2 ON T1.AbsEntry = T2.AbsEntry 
+        WHERE T0.AccLocked = 'N'
+          AND T2.ObjCode = (SELECT Z0.GroupCode FROM SocioNegocio Z0 WHERE Z0.CardCode = :cardCode LIMIT 1)
+        ORDER BY T0.ItemCode, OnHand1 desc, T0.ItemName
+        """)
+    suspend fun getAllArticulosInvConStocks(cardCode:String): List<DoArticuloInv>
 
     @Query("""
         SELECT 
