@@ -8,6 +8,7 @@ class PrefsApp (
     val SHARED_NAME = "PrefsApp"
     val SHARED_VERSION_APP = "versionApp"
     val SHARED_USER_NAME = "userName"
+    val SHARED_USER_CODE = "userCode"
     val SHARED_CHANGE_HAPPENED = "change_happened"
 
     val storage = context.getSharedPreferences(SHARED_NAME, 0)
@@ -18,6 +19,10 @@ class PrefsApp (
 
     fun saveUserName(userName: String){
         storage.edit().putString(SHARED_USER_NAME, userName).apply()
+    }
+
+    fun saveUserCode(userCode: String){
+        storage.edit().putString(SHARED_USER_CODE, userCode).apply()
     }
 
     fun saveChangeHappened(change: String){
@@ -31,6 +36,10 @@ class PrefsApp (
 
     fun getUserName(): String{
         return storage.getString(SHARED_USER_NAME, "")!!
+    }
+
+    fun getUserCode(): String{
+        return storage.getString(SHARED_USER_CODE, "")!!
     }
 
     fun getChangeHappened():String {

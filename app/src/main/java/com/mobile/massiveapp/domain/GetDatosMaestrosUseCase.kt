@@ -63,6 +63,7 @@ class GetDatosMaestrosUseCase @Inject constructor(
                 ).filter { it.Cantidad > 0 }
 
                 val listaDatosBetados = listOf(
+                    ManagerInputData.MANIFIESTO,
                     ManagerInputData.CLIENTE_SOCIOS,
                     ManagerInputData.CLIENTE_SOCIOS_CONTACTOS,
                     ManagerInputData.CLIENTE_SOCIOS_DIRECCIONES,

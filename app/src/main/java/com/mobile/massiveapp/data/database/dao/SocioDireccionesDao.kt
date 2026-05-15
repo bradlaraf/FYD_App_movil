@@ -121,9 +121,17 @@ interface SocioDireccionesDao:BaseDao<SocioDireccionesEntity> {
     @Query("SELECT * FROM SocioDirecciones WHERE CardCode = :cardCode AND AdresType = :tipo")
     suspend fun getDireccionesPorTipoYCardCode(cardCode: String, tipo: String): List<SocioDireccionesEntity>
 
+    @Query("""
+        SELECT 
+            * 
+        FROM SocioDirecciones 
+        WHERE CardCode = :cardCode
+        """)
+    fun getDireccionesFlow(cardCode: String): Flow<List<SocioDireccionesEntity>>
 
 
-        //Eliminar direccion de socio de negocio por CardCode
+
+    //Eliminar direccion de socio de negocio por CardCode
     @Query("DELETE FROM SocioDirecciones WHERE CardCode = :cardCode ")
     suspend fun deleteSocioDireccionesByCardCode(cardCode: String)
 

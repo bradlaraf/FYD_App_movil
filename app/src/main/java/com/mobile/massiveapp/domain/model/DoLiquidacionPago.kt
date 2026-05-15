@@ -7,7 +7,9 @@ data class DoLiquidacionPago(
     val Code: String,
     val Name: String,
     val DocEntry: Int,
-    val DocLine: Int,
+    var DocLine: Int,
+    val ObjType: Int,
+    val Canceled: String,
     val U_MSV_MA_LIQ: Int,
     val U_MSV_MA_MANIF: Int,
     val U_MSV_MA_OBJETO: Int,
@@ -20,6 +22,19 @@ data class DoLiquidacionPago(
     val U_MSV_MA_CTA: String,
     val U_MSV_MA_PAGO: Int,
     val EditableMovil: String,
+    val AccAction: String,
+    val AccCreateDate: String,
+    val AccCreateHour: String,
+    val AccCreateUser: String,
+    val AccError: String,
+    val AccNotificado: String,
+    var AccFinalized: String,
+    val AccMigrated: String,
+    val AccMovil: String,
+    val AccUpdateDate: String,
+    val AccUpdateHour: String,
+    val AccUpdateUser: String,
+    val AccControl: String
 )
 
 fun LiquidacionPagoEntity.toDomain() = DoLiquidacionPago(
@@ -39,7 +54,22 @@ fun LiquidacionPagoEntity.toDomain() = DoLiquidacionPago(
     U_MSV_MA_CTA = U_MSV_MA_CTA,
     U_MSV_MA_PAGO = U_MSV_MA_PAGO,
     EditableMovil = EditableMovil,
-    DocLine = DocLine
+    DocLine = DocLine,
+    ObjType = ObjType,
+    AccAction = AccAction,
+    Canceled = Canceled,
+    AccCreateDate = AccCreateDate,
+    AccCreateHour = AccCreateHour,
+    AccCreateUser = AccCreateUser,
+    AccError = AccError,
+    AccControl = AccControl,
+    AccNotificado = AccNotificado,
+    AccFinalized = AccFinalized,
+    AccMigrated = AccMigrated,
+    AccMovil = AccMovil,
+    AccUpdateDate = AccUpdateDate,
+    AccUpdateHour = AccUpdateHour,
+    AccUpdateUser = AccUpdateUser,
 )
 
 
@@ -49,7 +79,19 @@ data class DoLiquidacionPagoView(
     val SUNAT: String,
     val FechaCreacion: String,
     val Monto: Double,
-    val Saldo: Double
+    val Saldo: Double,
+    val TipoPago: String,
+    val Moneda: String,
+    val AccMigrated: String,
+    val NroOperacion: String,
+    val DocEntry: Int,
+    val AccFinalized: String,
+    val AccDocEntry: String,
+    val Canceled: String
 )
 
+data class DoLiquidacionPagosTotales(
+    val TotalCobrado:Double,
+    val TotalPorCobrar: Double
+)
 

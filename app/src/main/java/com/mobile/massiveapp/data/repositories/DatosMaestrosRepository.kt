@@ -56,6 +56,7 @@ import com.mobile.massiveapp.data.model.GeneralVendedores
 import com.mobile.massiveapp.data.model.GeneralZonas
 import com.mobile.massiveapp.data.model.GrupoDescuento
 import com.mobile.massiveapp.data.model.GrupoDescuentoDetalle
+import com.mobile.massiveapp.data.model.LiquidacionPago
 import com.mobile.massiveapp.data.model.Manifiesto
 import com.mobile.massiveapp.data.model.ManifiestoDocumento
 import com.mobile.massiveapp.data.model.PrecioEspecial
@@ -258,6 +259,7 @@ class DatosMaestrosRepository @Inject constructor(
                     "TiposCambio" -> { getMap(TipoCambio(), dataList) }
                     "Conductores" -> { getMap(Conductor(), dataList) }
                     "Sucursales" -> { getMap(Sucursal(), dataList) }
+                    "ClienteLiquidacionPagos" -> {getMap(LiquidacionPago(), dataList)}
 
 
                     else -> { emptyList<Any>() }

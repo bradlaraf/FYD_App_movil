@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.manifiesto.cobranza.VerCobranzasManifiestoActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="4dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#E0E0E0"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clManifiesto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datos Generales"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txvNumeroManifiestoTitle"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manifiesto"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <TextView
+                android:id="@+id/txvNumeroManifiestoValue"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/txvNumeroManifiestoTitle"
+                app:layout_constraintStart_toEndOf="@id/txvNumeroManifiestoTitle" />
+
+            <TextView
+                android:id="@+id/txvFechaSalidaTitle"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txvNumeroManifiestoTitle" />
+
+            <TextView
+                android:id="@+id/txvFechaSalidaManifiestoValue"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/txvFechaSalidaTitle"
+                app:layout_constraintStart_toEndOf="@id/txvFechaSalidaTitle" />
+
+            <TextView
+                android:id="@+id/txvMonedaTitle"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Moneda"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txvFechaSalidaTitle" />
+
+            <TextView
+                android:id="@+id/txvMonedaManifiestoValue"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="SOL"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/txvMonedaTitle"
+                app:layout_constraintStart_toEndOf="@id/txvMonedaTitle" />
+
+            <TextView
+                android:id="@+id/txvMontoPendienteTitle"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monto Pendiente"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txvMonedaTitle" />
+
+            <TextView
+                android:id="@+id/txvMontoPendienteManifiestoValue"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/txvMontoPendienteTitle"
+                app:layout_constraintStart_toEndOf="@id/txvMontoPendienteTitle" />
+
+            <TextView
+                android:id="@+id/txvMontoCobradoTitle"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monto Cobrado"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txvMontoPendienteTitle" />
+
+            <TextView
+                android:id="@+id/txvMontoCobradoManifiestoValue"
+                style="@style/default_title_large_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/txvMontoCobradoTitle"
+                app:layout_constraintStart_toEndOf="@id/txvMontoCobradoTitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPagos"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+</androidx.constraintlayout.widget.ConstraintLayout>

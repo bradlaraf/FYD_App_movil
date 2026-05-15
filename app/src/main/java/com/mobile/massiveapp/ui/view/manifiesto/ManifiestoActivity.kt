@@ -7,16 +7,21 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.mobile.massiveapp.R
 import com.mobile.massiveapp.databinding.ActivityManiefiestoBinding
 import com.mobile.massiveapp.ui.adapters.ManifiestoAdapter
 import com.mobile.massiveapp.ui.view.facturas.FacturasActivity
+import com.mobile.massiveapp.ui.view.manifiesto.cobranza.VerCobranzasManifiestoActivity
 import com.mobile.massiveapp.ui.view.manifiesto.info.ManifiestoInfoActivity
 import com.mobile.massiveapp.ui.view.menu.drawer.DrawerBaseActivity
+import com.mobile.massiveapp.ui.view.util.SearchViewHelper
+import com.mobile.massiveapp.ui.view.util.SendData
 import com.mobile.massiveapp.ui.viewmodel.ManifiestoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,6 +30,7 @@ class ManifiestoActivity : DrawerBaseActivity() {
     private lateinit var binding: ActivityManiefiestoBinding
     private lateinit var manifiestoAdapter: ManifiestoAdapter
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var searchViewHelper: SearchViewHelper
     private val manifiestoViewModel: ManifiestoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +48,16 @@ class ManifiestoActivity : DrawerBaseActivity() {
     private fun setDefaultUi() {
         manifiestoAdapter = ManifiestoAdapter(listOf(),
             onClickListener = {manifiesto->
+                SendData.instance.docEntry = manifiesto.DocEntry
+
                 Intent(this, ManifiestoInfoActivity::class.java)
-                    .putExtra("coductor", manifiesto.U_MSV_MA_CON)
-                    .putExtra("vehiculo", manifiesto.U_MSV_MA_TRANSPNO)
+                    .putExtra("docEntry", manifiesto.DocEntry)
                     .also { startActivity(it)  }},
-            onLongPressListener = {view, manifiesto->})
+            onVerPagosClickListener = {manifiesto->
+                Intent(this, VerCobranzasManifiestoActivity::class.java)
+                    .putExtra("docEntry", manifiesto.DocEntry)
+                    .also { startActivity(it)  }
+            })
 
         binding.rvManifiesto.adapter = manifiestoAdapter
 
@@ -119,5 +130,28 @@ class ManifiestoActivity : DrawerBaseActivity() {
                 Toast.makeText(this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //Se sete la buscqueda de items
+        menuInflater.inflate(R.menu.menu_socio_lupa_add, menu)
+        menu?.findItem(R.id.app_bar_add)?.isVisible = false
+
+        searchViewHelper = SearchViewHelper(menu, "Buscar Manifiesto", { newText->
+            manifiestoViewModel.dataGetAllManifiestos.observe(this){ listaManifiestos->
+
+                val manifiestosFiltrados = listaManifiestos.filter { manifiesto ->
+                            manifiesto.DocEntry.toString().contains(newText, ignoreCase = true) ||
+                            manifiesto.FechaSalida.contains(newText, ignoreCase = true)
+                            //manifiesto.U_MSV_MA_DESCRIPCION.contains(newText, ignoreCase = true) ||
+                           // manifiesto.U_MSV_MA_TRANSPNO.contains(newText, ignoreCase = true)
+                }
+                manifiestoAdapter.updateData(manifiestosFiltrados)
+
+            }
+        },{textSubmit-> })
+        searchViewHelper.setOnDismiss {}
+
+        return super.onCreateOptionsMenu(menu)
     }
 }

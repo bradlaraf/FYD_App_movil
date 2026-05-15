@@ -8,6 +8,9 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.massiveapp.R
@@ -19,6 +22,7 @@ import com.mobile.massiveapp.ui.base.BaseDialogChecklist
 import com.mobile.massiveapp.ui.base.BaseDialogChecklistWithId
 import com.mobile.massiveapp.ui.viewmodel.SocioDireccionesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DireccionesActivity : AppCompatActivity() {
@@ -69,7 +73,6 @@ class DireccionesActivity : AppCompatActivity() {
                 }
             }
         binding.rvDireccionesFiscal.adapter = adapterDireccionesFiscales
-
 
             //LiveData de las direcciones
         direccionesViewModel.dataGetAllDireccionesPorCardCodeYTipo.observe(this){ listaDirecciones->

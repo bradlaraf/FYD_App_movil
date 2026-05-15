@@ -18,6 +18,7 @@ import com.mobile.massiveapp.domain.GetDatosMaestrosUseCase
 import com.mobile.massiveapp.domain.SendDatosMaestrosUseCase
 import com.mobile.massiveapp.domain.configuracion.GetConfiguracionActualUseCase
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.mobile.massiveapp.core.PrefsSocio
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import javax.inject.Inject
@@ -29,6 +30,7 @@ class MassiveApp:Application(), Configuration.Provider {
         lateinit var prefs: Prefs
         lateinit var prefsPedido: PrefsPedido
         lateinit var prefsApp: PrefsApp
+        lateinit var prefsSocio: PrefsSocio
     }
 
     @Inject
@@ -38,6 +40,7 @@ class MassiveApp:Application(), Configuration.Provider {
         prefs = Prefs(applicationContext)
         prefsPedido = PrefsPedido(applicationContext)
         prefsApp = PrefsApp(applicationContext)
+        prefsSocio = PrefsSocio(applicationContext)
 
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

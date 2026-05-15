@@ -16,7 +16,8 @@ data class DoClientePedido(
     val DocTotal: Double,
     val NumAtCard: String,
     val Indicator: String,
-    val ObjType: Int
+    val ObjType: Int,
+    val DocNum: Int
 )
 
 fun ClientePedidosEntity.toDomain() = DoClientePedido(
@@ -32,7 +33,8 @@ fun ClientePedidosEntity.toDomain() = DoClientePedido(
     DocTotal = DocTotal,
     NumAtCard = NumAtCard,
     Indicator = Indicator,
-    ObjType = ObjType
+    ObjType = ObjType,
+    DocNum = DocNum
 )
 
 

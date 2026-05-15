@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -508,6 +509,13 @@ class NuevoPedidoClienteActivity : AppCompatActivity() {
                     val campoAValidar = validateFields()
                     if (campoAValidar.isNotEmpty()){
                         throw Exception("Debe llenar el campo ${campoAValidar}")
+                    }
+
+                    val articulos = binding.txvNuevoPedidoArticulosValue.text.toString()
+                    val cantidadArticulosString = if (articulos.isNotEmpty()) articulos.take(1) else ""
+                    val cantidadArticulos = cantidadArticulosString.toInt()
+                    if (cantidadArticulos <= 0){
+                        throw Exception("Debe agregar al menos un artículo")
                     }
                     pedidoViewModel.dataGetAllPedidoDetallePorAccDocEntry.observe(this){ listaDetalle->
                         try {

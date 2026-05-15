@@ -13,6 +13,11 @@ class ProviderViewModel @Inject constructor(
 
 ):ViewModel() {
 
+    val dataSendSincronizarClientes = MutableLiveData<Boolean>()
+    fun sendSincronizarCLientes(value: Boolean){
+        dataSendSincronizarClientes.postValue(value)
+    }
+
     //LiveData para Strings en general
     private val mutableGetData = MutableLiveData<Boolean>()
     val dataRecolectarData: LiveData<Boolean> get() = mutableGetData

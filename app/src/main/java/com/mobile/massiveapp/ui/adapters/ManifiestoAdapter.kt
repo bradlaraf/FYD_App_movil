@@ -4,55 +4,58 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.massiveapp.R
-import com.mobile.massiveapp.domain.model.DoManifiesto
-import com.mobile.massiveapp.ui.view.util.diffutil.FacturasDoDiffUtil
+import com.mobile.massiveapp.domain.model.DoManifiestoView
 import com.mobile.massiveapp.ui.view.util.diffutil.ManifiestoDiffUtil
 
 
 class ManifiestoAdapter (
-    private var dataSet: List<DoManifiesto>,
-    private val onClickListener:(DoManifiesto) -> Unit,
-    private val onLongPressListener: (View, DoManifiesto) -> Unit
+    private var dataSet: List<DoManifiestoView>,
+    private val onClickListener:(DoManifiestoView) -> Unit,
+    private val onVerPagosClickListener: (DoManifiestoView) -> Unit
 
 ): RecyclerView.Adapter<ManifiestoAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txvNumero: TextView
-        val txvConductor: TextView
-        val txvVehiculo: TextView
+        val txvMoneda: TextView
+        val txvMontoPendiente: TextView
+        val txvMontoCobrado: TextView
         val txvFechaSalida: TextView
-        val txvEstado: TextView
-
+        val btnVerPagos: Button
 
         init {
             txvNumero = view.findViewById(R.id.txvNumeroManifiestoValue)
-            txvConductor = view.findViewById(R.id.txvNombreConductorValue)
-            txvVehiculo = view.findViewById(R.id.txvVehiculoManifiestoValue)
             txvFechaSalida = view.findViewById(R.id.txvFechaSalidaManifiestoValue)
-            txvEstado = view.findViewById(R.id.txvEstadoManifiestoValue)
+            txvMoneda = view.findViewById(R.id.txvMonedaManifiestoValue)
+            txvMontoPendiente = view.findViewById(R.id.txvMontoPendienteManifiestoValue)
+            txvMontoCobrado = view.findViewById(R.id.txvMontoCobradoManifiestoValue)
+            btnVerPagos = view.findViewById(R.id.btnManifiestoVerPagos)
         }
 
         @SuppressLint("SetTextI18n")
-        fun render(manifiesto: DoManifiesto, onClickListener: (DoManifiesto) -> Unit, onLongPressListener: (View, DoManifiesto) -> Unit) {
+        fun render(manifiesto: DoManifiestoView, onClickListener: (DoManifiestoView) -> Unit, onVerPagosClickListener: (DoManifiestoView) -> Unit) {
 
-            txvNumero.text = "${manifiesto.DocEntry}"
-            txvConductor.text = manifiesto.U_MSV_MA_CON
-            txvVehiculo.text = manifiesto.U_MSV_MA_TRANSPNO
-            txvFechaSalida.text = manifiesto.U_MSV_MA_FECSALIDA
-            txvEstado.text = if (manifiesto.U_MSV_MA_ESTADO == "Y") "Activo" else "Inactivo"
+            txvNumero.text = "#${manifiesto.DocEntry}"
+            txvFechaSalida.text = manifiesto.FechaSalida
+            txvMoneda.text = manifiesto.Moneda
+            txvMontoPendiente.text = "S/ ${manifiesto.MontoPendiente}"
+            txvMontoCobrado.text = "S/ ${manifiesto.MontoCobrado}"
 
-            itemView.setOnLongClickListener {
-                onLongPressListener(itemView, manifiesto)
-                true
-            }
 
             itemView.setOnClickListener {
                 onClickListener(manifiesto)
             }
+
+            btnVerPagos.setOnClickListener {
+                onVerPagosClickListener(manifiesto)
+            }
+
+
         }
     }
 
@@ -64,13 +67,13 @@ class ManifiestoAdapter (
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentManifiesto = dataSet[position]
-        viewHolder.render(currentManifiesto, onClickListener, onLongPressListener)
+        viewHolder.render(currentManifiesto, onClickListener, onVerPagosClickListener)
     }
 
     override fun getItemCount() = dataSet.size
 
 
-    fun updateData(newDataSet: List<DoManifiesto>){
+    fun updateData(newDataSet: List<DoManifiestoView>){
         val manifiestoDiffUtil = ManifiestoDiffUtil(dataSet, newDataSet)
         val diffResult = DiffUtil.calculateDiff(manifiestoDiffUtil)
         dataSet = newDataSet

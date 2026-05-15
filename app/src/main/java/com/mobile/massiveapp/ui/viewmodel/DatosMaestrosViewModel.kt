@@ -40,6 +40,7 @@ class DatosMaestrosViewModel @Inject constructor(
         }
     }
 
+
     //Sincronizar Socios
     val dataGetInfoSocios = MutableLiveData<DoError>()
     fun getInfoSocios(progressCallBack: (Int, String, Int) -> Unit){

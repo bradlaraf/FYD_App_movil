@@ -51,6 +51,8 @@ class PedidoClienteAdapter(
                 txvCancelado.isVisible = true
             }
 
+            txvNumAtCard.isVisible = clientePedido.DocNum != -1
+            txvNumAtCard.text = clientePedido.DocNum.toString()
 
 
             if (clientePedido.AccNotificado == "Y"){
@@ -90,10 +92,10 @@ class PedidoClienteAdapter(
                         imvMigrado.setColorFilter(color, PorterDuff.Mode.SRC_IN)
                     }
 
-                    if (tieneNumAtCard){
+                   /* if (tieneNumAtCard){
                         txvNumAtCard.isVisible = true
                         txvNumAtCard.text = clientePedido.NumAtCard
-                    }
+                    }*/
                 }
             }
         }

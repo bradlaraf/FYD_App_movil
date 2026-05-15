@@ -2,6 +2,7 @@ package com.mobile.massiveapp.ui.base
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
@@ -10,7 +11,7 @@ import com.mobile.massiveapp.R
 import com.mobile.massiveapp.databinding.DialogLoadingBinding
 
 class BaseDialogLoading(
-    private val mActivity: Activity,
+    private val mActivity: Context,
     private val title: String = "Sincronizando Datos Maestros..."
 ) {
     private lateinit var binding: DialogLoadingBinding

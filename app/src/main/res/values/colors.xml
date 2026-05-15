@@ -44,7 +44,7 @@
     <color name="color_red_stock_out">#1AFF3131</color>
     <color name="color_red_swipe_to_delete">#E84242</color>
     <color name="color_red_btn">#f44336</color>
-
+    <color name="lightblue_pago_manifiesto">#edf4fc</color>
     <color name="color_red_bonificacion">#D4CF3715</color>
 
 </resources>

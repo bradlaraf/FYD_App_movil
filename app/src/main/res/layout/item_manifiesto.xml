@@ -1,107 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clManifiesto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_white"
-    android:layout_marginTop="2dp"
-    android:padding="10dp">
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#E0E0E0">
 
-    <TextView
-        android:id="@+id/txvNumeroManifiestoTitle"
-        style="@style/default_title_large_text"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clManifiesto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textStyle="bold"
-        android:text="Numero" />
+        android:padding="12dp">
 
-    <TextView
-        android:id="@+id/txvNumeroManifiestoValue"
-        style="@style/default_title_large_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Numero" />
+        <TextView
+            android:id="@+id/txvNumeroManifiestoTitle"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manifiesto"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txvNombreConductorTitle"
-        style="@style/default_title_large_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvNumeroManifiestoTitle"
-        android:textStyle="bold"
-        android:text="Conductor" />
+        <TextView
+            android:id="@+id/txvNumeroManifiestoValue"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/txvNumeroManifiestoTitle"
+            app:layout_constraintStart_toEndOf="@id/txvNumeroManifiestoTitle"/>
 
-    <TextView
-        android:id="@+id/txvNombreConductorValue"
-        style="@style/default_title_large_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvNumeroManifiestoValue"
-        tools:text="Conductor" />
+        <TextView
+            android:id="@+id/txvFechaSalidaTitle"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvNumeroManifiestoTitle"/>
 
-    <TextView
-        android:id="@+id/txvVehiculoTitle"
-        style="@style/default_title_large_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvNombreConductorTitle"
-        android:textStyle="bold"
-        android:text="Vehiculo" />
+        <TextView
+            android:id="@+id/txvFechaSalidaManifiestoValue"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/txvFechaSalidaTitle"
+            app:layout_constraintStart_toEndOf="@id/txvFechaSalidaTitle"/>
 
-    <TextView
-        android:id="@+id/txvVehiculoManifiestoValue"
-        style="@style/default_title_large_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvNombreConductorValue"
-        tools:text="Vehiculo" />
+        <TextView
+            android:id="@+id/txvMonedaTitle"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Moneda"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvFechaSalidaTitle"/>
 
-    <TextView
-        android:id="@+id/txvFechaSalidaTitle"
-        style="@style/default_title_large_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvVehiculoTitle"
-        android:textStyle="bold"
-        android:text="Fecha Salida"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/txvMonedaManifiestoValue"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SOL"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/txvMonedaTitle"
+            app:layout_constraintStart_toEndOf="@id/txvMonedaTitle"/>
 
-    <TextView
-        android:id="@+id/txvFechaSalidaManifiestoValue"
-        style="@style/default_title_large_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvVehiculoManifiestoValue"
-        tools:text="Fecha Salida" />
+        <TextView
+            android:id="@+id/txvMontoPendienteTitle"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monto Pendiente"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvMonedaTitle"/>
 
-    <TextView
-        android:id="@+id/txvEstadoManifiestoValue"
-        style="@style/default_title_large_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:background="@drawable/rounded_txv_background_gris"
-        android:backgroundTint="@color/color_green_dark"
-        android:textColor="@color/white"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:paddingHorizontal="7dp"
-        android:paddingVertical="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvFechaSalidaManifiestoValue"
-        tools:text="Estado" />
+        <TextView
+            android:id="@+id/txvMontoPendienteManifiestoValue"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/txvMontoPendienteTitle"
+            app:layout_constraintStart_toEndOf="@id/txvMontoPendienteTitle"/>
 
+        <TextView
+            android:id="@+id/txvMontoCobradoTitle"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monto Cobrado"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvMontoPendienteTitle"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txvMontoCobradoManifiestoValue"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/txvMontoCobradoTitle"
+            app:layout_constraintStart_toEndOf="@id/txvMontoCobradoTitle"/>
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btnManifiestoVerPagos"
+            style="@style/default_text"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_btn_cobrar"
+            android:text="Ver Pagos"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvMontoCobradoTitle"/>
+
+        <ImageView
+            android:id="@+id/imgChevron"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:alpha="0.6"
+            android:src="@drawable/icon_arroy_enter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

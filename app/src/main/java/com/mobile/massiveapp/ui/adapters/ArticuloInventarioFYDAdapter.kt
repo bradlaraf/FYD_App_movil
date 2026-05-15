@@ -1,6 +1,5 @@
 package com.mobile.massiveapp.ui.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,7 @@ class ArticuloInventarioFYDAdapter (
             txvCantidad1 = view.findViewById(R.id.txvCantidad1)
             txvCantidad2 = view.findViewById(R.id.txvCantidad2)
             txvAlmacen1 = view.findViewById(R.id.txvAlmacen1)
-            txvAlmacen2 = view.findViewById(R.id.txvAlmacen2)
+            txvAlmacen2 = view.findViewById(R.id.txvLiqPagoViewSunat)
             txvBonificacion = view.findViewById(R.id.txvIndicadorBonificacion)
         }
     }

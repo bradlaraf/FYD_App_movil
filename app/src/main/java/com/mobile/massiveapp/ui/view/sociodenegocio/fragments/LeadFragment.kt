@@ -7,15 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.mobile.massiveapp.databinding.FragmentLeadBinding
 import com.mobile.massiveapp.ui.adapters.SocioAdapter
+import com.mobile.massiveapp.ui.base.BaseDialogAlert
+import com.mobile.massiveapp.ui.base.BaseDialogLoading
 import com.mobile.massiveapp.ui.view.sociodenegocio.InfoSocioNegocioActivity
 import com.mobile.massiveapp.ui.view.sociodenegocio.NuevoSocioNegocioActivity
 import com.mobile.massiveapp.ui.view.util.observeOnce
+import com.mobile.massiveapp.ui.view.util.showMessage
+import com.mobile.massiveapp.ui.viewmodel.DatosMaestrosViewModel
 import com.mobile.massiveapp.ui.viewmodel.ProviderViewModel
 import com.mobile.massiveapp.ui.viewmodel.SocioViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
@@ -32,7 +37,6 @@ class LeadFragment : Fragment() {
     private val usuarioViewModel: UsuarioViewModel by activityViewModels()
     private lateinit var socioAdapter: SocioAdapter
     private var isLoading = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

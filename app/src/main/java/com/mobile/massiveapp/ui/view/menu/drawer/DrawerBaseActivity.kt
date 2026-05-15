@@ -77,7 +77,7 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
 
         //Ocultar opciones
         menu.findItem(R.id.nav_drawer_reset_id_movil).isVisible = false
-        menu.findItem(R.id.nav_drawer_manifiesto).isVisible = false
+        //menu.findItem(R.id.nav_drawer_manifiesto).isVisible = false
         menu.findItem(R.id.nav_drawer_cobranzas).isVisible = false
         menu.findItem(R.id.nav_drawer_reportes).isVisible = false
         menu.findItem(R.id.nav_drawer_facturas).isVisible = false

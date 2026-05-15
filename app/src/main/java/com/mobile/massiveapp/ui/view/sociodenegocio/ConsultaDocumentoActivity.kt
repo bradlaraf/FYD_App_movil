@@ -18,10 +18,14 @@ import com.mobile.massiveapp.databinding.ActivityConsultaDocumentoBinding
 import com.mobile.massiveapp.domain.model.DoConsultaDocumento
 import com.mobile.massiveapp.domain.model.DoUsuario
 import com.mobile.massiveapp.ui.adapters.ConsultaRucAdapter
+import com.mobile.massiveapp.ui.base.BaseDialogAlert
+import com.mobile.massiveapp.ui.base.BaseDialogLoading
 import com.mobile.massiveapp.ui.base.BaseDialogLoadingCustom
 import com.mobile.massiveapp.ui.view.util.hideKeyboard
 import com.mobile.massiveapp.ui.view.util.observeOnce
+import com.mobile.massiveapp.ui.view.util.showMessage
 import com.mobile.massiveapp.ui.viewmodel.ConsultaDocumentoViewModel
+import com.mobile.massiveapp.ui.viewmodel.DatosMaestrosViewModel
 import com.mobile.massiveapp.ui.viewmodel.SocioViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,48 +38,19 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
     private val socioViewModel: SocioViewModel by viewModels()
     private val usuarioViewModel: UsuarioViewModel by viewModels()
     private val consultaDocumentoViewModel: ConsultaDocumentoViewModel by viewModels()
+    private val datosMaestrosViewModel: DatosMaestrosViewModel by viewModels()
     private lateinit var usuario: DoUsuario
-    private lateinit var connectivityObserver: ConnectivityObserver
     private var successfulResponse: Boolean = false
-    private var intenetConnection: Boolean = false
     private var datosDocumento = DoConsultaDocumento()
     private lateinit var consultaDocumentoAdapter: ConsultaRucAdapter
+    private val loadinDialog = BaseDialogLoading(this, "Sincronizando Clientes")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityConsultaDocumentoBinding.inflate(layoutInflater)
-        connectivityObserver = NetworkConnectivityObserver(applicationContext)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-        /*---------OBSERVER DE CONEXION-------*/
-        val statusFlow = connectivityObserver.observe()
-        lifecycleScope.launch {
-            statusFlow.collect { newStatus ->
-                when (newStatus) {
-                    ConnectivityObserver.Status.Available -> {
-                        intenetConnection = true
-                        invalidateOptionsMenu()
-                    }
-
-                    ConnectivityObserver.Status.Unavailable -> {
-                        intenetConnection = false
-                        invalidateOptionsMenu()
-                    }
-
-                    ConnectivityObserver.Status.Losing -> {
-                        intenetConnection = false
-                        invalidateOptionsMenu()
-                    }
-
-                    ConnectivityObserver.Status.Lost -> {
-                        intenetConnection = false
-                        invalidateOptionsMenu()
-                    }
-                }
-            }
-        }
 
             //Se Inicializa el Dilog del loading
         val gif = GifDrawable(this.resources, R.drawable.gif_searching6)
@@ -205,8 +180,6 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
 
 
 
-
-
     fun setConsultaRUC(tipoDocumento: String, numeroDocumento: String){
         try {
             when (tipoDocumento) {
@@ -232,19 +205,6 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
     }
-
-
-
-    fun validateBlankSpaces(tipoDocumento: String): Boolean =
-        when (tipoDocumento) {
-            "6" -> {
-                binding.edtRuc.text.toString().trim().length < 11
-            }
-            "1" -> {
-                binding.edtRuc.text.toString().trim().length < 8
-            }
-            else -> true
-        }
 
 
 
@@ -288,13 +248,6 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_nuevo_sn, menu)
         val menuItem = menu?.findItem(R.id.app_bar_connectivity_status)
-            //Seteo del icono de conexion
-        if (intenetConnection) {
-            menuItem?.setIcon(R.drawable.icon_wifi_available)
-        } else {
-            menuItem?.setIcon(R.drawable.icon_wifi_not_available)
-        }
-
         menuItem?.isVisible = false
         return true
     }
@@ -307,21 +260,49 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
             }
             R.id.app_bar_check -> {
                 if (successfulResponse) {
-                    consultaDocumentoViewModel.validarExistenciaDeDocumento(binding.edtRuc.text.toString())
-                    consultaDocumentoViewModel.dataValidarExistenciaDeDocumento.observeOnce(this){
-                        if (it){
-                            Toast.makeText(this, "El cliente ya existe", Toast.LENGTH_LONG).show()
-                        } else{
-                            if(setDireccionFiscal()){
-                                setResult(RESULT_OK,
-                                    Intent()
-                                        .putExtra("insertSuccess", successfulResponse)
-                                        .putExtra("tipo", binding.switchDocumento.text.toString())
-                                )
-                                onBackPressedDispatcher.onBackPressed()
+                    loadinDialog.startLoading()
+
+                    datosMaestrosViewModel.getInfoSocios {progress, message, maxLenght->
+                        loadinDialog.updateProgress(progress, message, maxLenght)
+                    }
+
+                    /***************/
+
+                    //LiveData de la sincronizacion de Socios
+                    datosMaestrosViewModel.dataGetInfoSocios.observe(this){ response->
+                        loadinDialog.onDismiss()
+
+                        when(response.ErrorCodigo){
+                            500->{
+                                BaseDialogAlert(this).showConfirmationDialog("Su sesión ha sido cerrada"){
+                                    //Aceptar
+                                    usuarioViewModel.logOutDrawer()
+                                }
+                            }
+                            else -> {
+                                //showMessage(this, response.ErrorMensaje)
+                            }
+                        }
+
+                        consultaDocumentoViewModel.validarExistenciaDeDocumento(binding.edtRuc.text.toString())
+                        consultaDocumentoViewModel.dataValidarExistenciaDeDocumento.observeOnce(this){
+                            if (it){
+                                Toast.makeText(this, "El cliente ya existe", Toast.LENGTH_LONG).show()
+                            } else{
+                                if(setDireccionFiscal()){
+                                    setResult(RESULT_OK,
+                                        Intent()
+                                            .putExtra("insertSuccess", successfulResponse)
+                                            .putExtra("tipo", binding.switchDocumento.text.toString())
+                                    )
+                                    onBackPressedDispatcher.onBackPressed()
+                                }
                             }
                         }
                     }
+                    /****************/
+
+
                 } else {
                     Toast.makeText(this, "No se encontraron datos, vuelva a consultar", Toast.LENGTH_LONG).show()
                 }

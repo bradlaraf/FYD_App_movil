@@ -17,8 +17,8 @@ class FMManifiestoAdapter (
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0 -> ManifiestoFragment()
-            1 -> ManifiestoDocumentoFragment()
+            0 -> ManifiestoDocumentoFragment()
+            1 -> ManifiestoFragment()
 
             else -> ManifiestoFragment()
         }

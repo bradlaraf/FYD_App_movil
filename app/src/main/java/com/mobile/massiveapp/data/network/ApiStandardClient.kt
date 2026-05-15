@@ -12,6 +12,7 @@ import com.mobile.massiveapp.data.network.response.SoapEnvelopeEstadoSesion
 import com.mobile.massiveapp.data.network.response.SoapEnvelopeFacturas
 import com.mobile.massiveapp.data.network.response.SoapEnvelopeFacturasDetalle
 import com.mobile.massiveapp.data.network.response.SoapEnvelopeInsertarClientes
+import com.mobile.massiveapp.data.network.response.SoapEnvelopeInsertarLiquidacionPago
 import com.mobile.massiveapp.data.network.response.SoapEnvelopeInsertarUsuario
 import com.mobile.massiveapp.data.network.response.SoapEnvelopeUsuario
 import okhttp3.RequestBody
@@ -41,6 +42,11 @@ interface ApiStandardClient {
         @Url url: String
     ): Response<SoapEnvelopeInsertarUsuario>
 
+    @POST
+    suspend fun sendLiquidacionPago(
+        @Body xmlRequestBody: RequestBody,
+        @Url url: String
+    ): Response<SoapEnvelopeInsertarLiquidacionPago>
 
     @POST
     @Headers("Content-Type: text/xml")

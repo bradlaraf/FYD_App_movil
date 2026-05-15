@@ -19,16 +19,16 @@ class PagoDetalleAdapter(
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val txvNombre: TextView
-        val txvFecha: TextView
+
         val txvPago: TextView
-        val txvMontoRestante: TextView
+
         val txvDocLine: TextView
 
         init {
             txvNombre = view.findViewById(R.id.txvPagoDetalleNombre)
-            txvFecha = view.findViewById(R.id.txvPagoDetalleFecha)
+
             txvPago = view.findViewById(R.id.txvPagoDetallePago)
-            txvMontoRestante = view.findViewById(R.id.txvPagoDetalleMontoRestante)
+
             txvDocLine = view.findViewById(R.id.txvPagoDetalleDocLine)
         }
 
@@ -36,7 +36,7 @@ class PagoDetalleAdapter(
         fun render(clientePago: DoPagoDetalle, onClickListener: (DoPagoDetalle) -> Unit){
             txvNombre.text = clientePago.NumeroFactura
             txvPago.text = "Pago: ${SendData.instance.simboloMoneda}${clientePago.SumApplied}"
-            txvFecha.text = clientePago.AccCreateDate
+
             txvDocLine.text = "${clientePago.DocLine}"
             itemView.setOnClickListener { onClickListener(clientePago) }
         }

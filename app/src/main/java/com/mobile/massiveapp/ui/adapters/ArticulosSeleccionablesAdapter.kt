@@ -1,6 +1,5 @@
 package com.mobile.massiveapp.ui.adapters
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +40,7 @@ class ArticulosSeleccionablesAdapter(
             txvCantidad1 = view.findViewById(R.id.txvCantidad1)
             txvCantidad2 = view.findViewById(R.id.txvCantidad2)
             txvAlmacen1 = view.findViewById(R.id.txvAlmacen1)
-            txvAlmacen2 = view.findViewById(R.id.txvAlmacen2)
+            txvAlmacen2 = view.findViewById(R.id.txvLiqPagoViewSunat)
             txvBonificacion = view.findViewById(R.id.txvIndicadorBonificacion)
         }
     }

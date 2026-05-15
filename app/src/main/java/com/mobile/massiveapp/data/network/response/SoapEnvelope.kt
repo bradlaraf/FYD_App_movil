@@ -484,6 +484,43 @@ data class MSVAppObtenerInsertarUsuarioResult @JvmOverloads constructor(
     var json: String? = null
 )
 
+
+//Insertar Liquidacion pago------------------
+
+@Root(name = "Envelope", strict = false)
+@Namespace(reference = "http://schemas.xmlsoap.org/soap/envelope/", prefix = "soap")
+data class SoapEnvelopeInsertarLiquidacionPago @JvmOverloads constructor(
+    @field:Element(name = "Body", required = false)
+    var body: SoapBodyInsertarLiquidacionPago? = null
+)
+
+@Root(name = "Body", strict = false)
+@Namespace(reference = "http://schemas.xmlsoap.org/soap/envelope/", prefix = "soap")
+data class SoapBodyInsertarLiquidacionPago @JvmOverloads constructor(
+    @field:Element(name = "MSV_APP_Insertar_ClienteLiquidacionPagosResponse", required = false)
+    var response: MSVAppObtenerInsertarLiquidacionPagoResponse? = null
+)
+
+@Root(name = "MSV_APP_Insertar_ClienteLiquidacionPagosResponse", strict = false)
+@Namespace(reference = "http://massive.org/")
+data class MSVAppObtenerInsertarLiquidacionPagoResponse @JvmOverloads constructor(
+    @field:Element(name = "MSV_APP_Insertar_ClienteLiquidacionPagosResult", required = false)
+    var result: MSVAppObtenerInsertarLiquidacionPagoResult? = null
+)
+
+@Root(name = "MSV_APP_Insertar_ClienteLiquidacionPagosResult", strict = false)
+@Namespace(reference = "http://massive.org/")
+data class MSVAppObtenerInsertarLiquidacionPagoResult @JvmOverloads constructor(
+    @field:Element(name = "ErrorCodigo", required = false)
+    var errorCodigo: Int = 0,
+
+    @field:Element(name = "ErrorMensaje", required = false)
+    var errorMensaje: String? = null,
+
+    @field:Element(name = "Json", required = false)
+    var json: String? = null
+)
+
 //Estado Sesion------------------
 
 @Root(name = "Envelope", strict = false)

@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.mobile.massiveapp.data.database.entities.ClienteFacturasEntity
 import com.mobile.massiveapp.domain.model.DoFacturaView
+import com.mobile.massiveapp.domain.model.DoInfoCobranzaManifiesto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -28,6 +29,7 @@ interface ClienteFacturasDao:BaseDao<ClienteFacturasEntity>{
         ORDER BY T0.CardName, T0.FolioPref, T0.FolioNum
     """)
     suspend fun getAllDelVendedor(): List<DoFacturaView>
+
 
     @Query("""
         SELECT 

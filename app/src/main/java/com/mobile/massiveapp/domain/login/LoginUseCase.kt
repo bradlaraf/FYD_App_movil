@@ -25,6 +25,7 @@ class LoginUseCase @Inject constructor(
                 is Usuario -> {
                     loginRepository.saveUsuarioInDatabase( login )
                     prefsApp.saveUserName(login.Name)
+                    prefsApp.saveUserCode(login.Code)
                     "Login exitoso"
                 }
                 is DoError -> {

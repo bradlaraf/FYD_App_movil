@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.databinding.FragmentManifiestoDocumentoBinding
 import com.mobile.massiveapp.domain.model.DoFacturaView
@@ -17,14 +20,24 @@ import com.mobile.massiveapp.ui.adapters.ManifiestoDocumentoAdapter
 import com.mobile.massiveapp.ui.base.BaseSimpleInformativeDialog
 import com.mobile.massiveapp.ui.view.cobranzas.NuevaCobranzaActivity
 import com.mobile.massiveapp.ui.view.facturas.InfoFacturaActivity
+import com.mobile.massiveapp.ui.view.manifiesto.cobranza.CobranzaManifiestoActivity
+import com.mobile.massiveapp.ui.view.manifiesto.cobranza.NuevoPagoManifiestoActivity
+import com.mobile.massiveapp.ui.view.manifiesto.cobranza.VerCobranzasManifiestoActivity
+import com.mobile.massiveapp.ui.view.util.SendData
+import com.mobile.massiveapp.ui.view.util.getCodigoDeDocumentoActual
+import com.mobile.massiveapp.ui.view.util.getFechaActual
+import com.mobile.massiveapp.ui.view.util.getHoraActual
 import com.mobile.massiveapp.ui.viewmodel.ManifiestoViewModel
+import com.mobile.massiveapp.ui.viewmodel.ProviderViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManifiestoDocumentoFragment : Fragment() {
     private var _binding: FragmentManifiestoDocumentoBinding? = null
     private val binding get() = _binding!!
     private val manifiestoViewModel: ManifiestoViewModel by activityViewModels()
+    private val providerViewModel: ProviderViewModel by activityViewModels()
     private lateinit var manifiestoDocumentoAdapter: ManifiestoDocumentoAdapter
 
     override fun onCreateView(
@@ -34,13 +47,24 @@ class ManifiestoDocumentoFragment : Fragment() {
         _binding = FragmentManifiestoDocumentoBinding.inflate(inflater, container, false)
 
         manifiestoDocumentoAdapter = ManifiestoDocumentoAdapter(emptyList(),
-            onClickListener = { documento -> },
+            onClickListener = { documento ->
+                SendData.instance.lineIdManifiestoDocumento = documento.LineId
+                SendData.instance.docEntryFactura = documento.DocEntryFactura
+                SendData.instance.docEntry = documento.DocEntry
+                Intent(requireActivity(), CobranzaManifiestoActivity::class.java)
+                    .putExtra("docEntryFactura", documento.DocEntryFactura)
+                    .putExtra("cardCode", documento.CodigoSocio)
+                    .putExtra("docEntry", documento.DocEntry)
+                    .also { startActivity(it) }
+            },
             onLongPressListener = { view, documento ->
-                showPopupMenu(view, documento)
+               // showPopupMenu(view, documento)
             },
             onButtonClickListener = { documento ->
-                Intent(requireActivity(), NuevaCobranzaActivity::class.java)
-                .putExtra("docEntry", documento.DocEntryFactura)
+                SendData.instance.accDocEntryDoc = documento.SUNAT
+                SendData.instance.docEntry = documento.DocEntry
+                Intent(requireActivity(), CobranzaManifiestoActivity::class.java)
+                .putExtra("docEntryFactura", documento.DocEntryFactura)
                 .putExtra("cardCode", documento.CodigoSocio)
                 .also { startActivity(it) }}
         )
@@ -80,9 +104,36 @@ class ManifiestoDocumentoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        manifiestoViewModel.dataGetAllManifiestoDocumento.observe(viewLifecycleOwner){ listaDocumentos->
-            manifiestoDocumentoAdapter.updateData(listaDocumentos)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                launch {
+                    manifiestoViewModel.dataGetManifiestosDocumentos.collect{ listaDocumentos->
+                        manifiestoDocumentoAdapter.updateData(listaDocumentos)
+
+                        providerViewModel.data.observe(viewLifecycleOwner){ newText->
+                            val facturasFiltradas = listaDocumentos.filter { factura->
+                                factura.SUNAT.contains(newText, true) ||
+                                        factura.NombreCliente.contains(newText, true) ||
+                                        factura.Vendedor.contains(newText, true)
+                            }
+                            manifiestoDocumentoAdapter.updateData(facturasFiltradas)
+                        }
+                    }
+                }
+            }
         }
+        /*manifiestoViewModel.dataGetAllManifiestoDocumento.observe(viewLifecycleOwner){ listaDocumentos->
+            manifiestoDocumentoAdapter.updateData(listaDocumentos)
+
+            providerViewModel.data.observe(viewLifecycleOwner){ newText->
+                val facturasFiltradas = listaDocumentos.filter { factura->
+                        factura.SUNAT.contains(newText, true) ||
+                        factura.NombreCliente.contains(newText, true) ||
+                        factura.Vendedor.contains(newText, true)
+                }
+                manifiestoDocumentoAdapter.updateData(facturasFiltradas)
+            }
+        }*/
 
         super.onViewCreated(view, savedInstanceState)
     }

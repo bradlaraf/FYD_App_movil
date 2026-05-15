@@ -24,6 +24,7 @@ import com.mobile.massiveapp.ui.view.util.format
 import com.mobile.massiveapp.ui.view.util.getFechaActual
 import com.mobile.massiveapp.ui.view.util.getHoraActual
 import com.mobile.massiveapp.ui.view.util.observeOnce
+import com.mobile.massiveapp.ui.view.util.showMessage
 import com.mobile.massiveapp.ui.viewmodel.ArticuloViewModel
 import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
 import com.mobile.massiveapp.ui.viewmodel.PedidoViewModel
@@ -64,6 +65,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
             //EDICION ARTICULO - Get Pedido Info
         if (intent.getBooleanExtra("edicionDetalle", false)){
+            showMessage(this, intent.getStringExtra("accDocEntry").toString())
             pedidoViewModel.getPedidoDetalleInfo(
                 accDocEntry = intent.getStringExtra("accDocEntry").toString(),
                 lineNum = intent.getIntExtra("lineNum", -1)
@@ -74,26 +76,32 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
         //LiveData del pedido Detalle
         pedidoViewModel.dataGetPedidoDetalleInfo.observe(this){ detalleInfo->
-            itemCode = detalleInfo.ItemCode
+            try {
+                itemCode = detalleInfo.ItemCode
 
-            binding.txvNPArtInfoArticuloValue.text = detalleInfo.ItemCode
-            binding.txvNpArtInfoDescripcionValue.text = detalleInfo.ItemName
-            binding.txvNpArtInfoGrupoUnidadMedidaValue.text = detalleInfo.UgpName   //Grupo unidad medida
-            binding.txvNpArtInfoUnidadMedidaValue.text = detalleInfo.UomName        //Unidad medida
-            binding.txvNpArtInfoPrecioUnitarioValue.text = detalleInfo.Price.toString()
-            binding.txvNpArtInfoPrecioBrutoValue.text = detalleInfo.Price.toString()
-            binding.txvNpArtInfoTotalValue.text = detalleInfo.LineTotal.toString()
-            binding.txvNpArtInfoCantidadValue.text = "${detalleInfo.Quantity.toInt()}"
-            binding.txvNpArtInfoAlmacenValue.text = detalleInfo.Almacen
-            binding.txvNpArtInfoListaPreciosValue.text = detalleInfo.ListaPrecio
-            binding.txvNpArtInfoImpuestoValue.text = detalleInfo.Impuesto
-            binding.txvNpArtInfoPorcentajeDescuentoValue.text = PORCENTAJE_DESCUENTO.toString()
+                binding.txvNPArtInfoArticuloValue.text = detalleInfo.ItemCode
+                binding.txvNpArtInfoDescripcionValue.text = detalleInfo.ItemName
+                binding.txvNpArtInfoGrupoUnidadMedidaValue.text = detalleInfo.UgpName   //Grupo unidad medida
+                binding.txvNpArtInfoUnidadMedidaValue.text = detalleInfo.UomName        //Unidad medida
+                binding.txvNpArtInfoPrecioUnitarioValue.text = detalleInfo.Price.toString()
+                binding.txvNpArtInfoPrecioBrutoValue.text = detalleInfo.Price.toString()
+                binding.txvNpArtInfoTotalValue.text = detalleInfo.LineTotal.toString()
+                binding.txvNpArtInfoCantidadValue.text = "${detalleInfo.Quantity.toInt()}"
+                binding.txvNpArtInfoAlmacenValue.text = detalleInfo.Almacen
+                binding.txvNpArtInfoListaPreciosValue.text = detalleInfo.ListaPrecio
+                binding.txvNpArtInfoImpuestoValue.text = detalleInfo.Impuesto
+                binding.txvNpArtInfoPorcentajeDescuentoValue.text = PORCENTAJE_DESCUENTO.toString()
 
-            hashInfo["codigoImpuesto"] = detalleInfo.TaxCode
-            hashInfo["listaPrecioCodigo"] = detalleInfo.PriceList
-            hashInfo["codigoAlmacen"] = detalleInfo.WhsCode
-            hashInfo["uomEntry"] = detalleInfo.UomEntry
-            hashInfo["uomCode"] = detalleInfo.UomCode
+                hashInfo["codigoImpuesto"] = detalleInfo.TaxCode
+                hashInfo["listaPrecioCodigo"] = detalleInfo.PriceList
+                hashInfo["codigoAlmacen"] = detalleInfo.WhsCode
+                hashInfo["uomEntry"] = detalleInfo.UomEntry
+                hashInfo["uomCode"] = detalleInfo.UomCode
+
+            } catch (e:Exception){
+                //showMessage(this, e.message.toString())
+                e.printStackTrace()
+            }
         }
 
 
@@ -162,6 +170,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                 binding.txvNpArtInfoPrecioDescontadoValue.text = infoPrecioFinal.precioFinal.toString()
                 binding.txvNpArtInfoPrecioBrutoValue.text = infoPrecioFinal.precioBruto.toString()
                 binding.txvNpArtInfoPrecioUnitarioValue.text = infoPrecioFinal.precioUnitario.toString()
+                binding.txvNpArtInfoImpuestoValue.text = (infoPrecioFinal.precioBruto -infoPrecioFinal.precioFinal).format(2).toString()
 
                 binding.txvNpArtInfoTotalValue.text = (infoPrecioFinal.precioFinal * cantidad).format(2).toString()
             } catch (e:Exception){

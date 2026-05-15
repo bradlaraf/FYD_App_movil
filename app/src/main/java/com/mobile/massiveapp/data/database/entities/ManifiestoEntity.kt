@@ -29,10 +29,10 @@ data class ManifiestoEntity (
     @ColumnInfo(name = "U_MSV_MA_VVOLM") val U_MSV_MA_VVOLM: Double,
     @ColumnInfo(name = "U_MSV_MA_PESOTO") val U_MSV_MA_PESOTO: Double,
     @ColumnInfo(name = "U_MSV_MA_VOLM") val U_MSV_MA_VOLM: Double,
-    @ColumnInfo(name = "U_MSV_MA_TOCONL") val U_MSV_MA_TOCONL: Double,
-    @ColumnInfo(name = "U_MSV_MA_TOCONE") val U_MSV_MA_TOCONE: Double,
-    @ColumnInfo(name = "U_MSV_MA_TOCREL") val U_MSV_MA_TOCREL: Double,
-    @ColumnInfo(name = "U_MSV_MA_TOCREE") val U_MSV_MA_TOCREE: Double
+    @ColumnInfo(name = "U_MSV_MA_TOCONL") val U_MSV_MA_TOCONL: Double,//Total contado
+    @ColumnInfo(name = "U_MSV_MA_TOCONE") val U_MSV_MA_TOCONE: Double,//Total contado cobrado
+    @ColumnInfo(name = "U_MSV_MA_TOCREL") val U_MSV_MA_TOCREL: Double,//Total Credito
+    @ColumnInfo(name = "U_MSV_MA_TOCREE") val U_MSV_MA_TOCREE: Double //Total Credito cobrado
 )
 
 fun Manifiesto.toDatabase() = ManifiestoEntity(

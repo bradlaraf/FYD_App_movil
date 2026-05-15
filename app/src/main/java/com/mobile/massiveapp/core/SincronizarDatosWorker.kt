@@ -69,7 +69,21 @@ class SincronizarDatosWorker @AssistedInject constructor (
     }
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
-        return getForegroundInfo(applicationContext)
+        //return getForegroundInfo(applicationContext)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ForegroundInfo(
+                1,
+                createNotification(context = applicationContext),
+                // CAMBIO: De NONE a DATA_SYNC
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+                } else {
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+                }
+            )
+        } else {
+            ForegroundInfo(1, createNotification(context = applicationContext))
+        }
     }
 
     @SuppressLint("MissingPermission")

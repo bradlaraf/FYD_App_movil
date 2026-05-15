@@ -46,6 +46,7 @@ import com.mobile.massiveapp.data.database.dao.GeneralVendedoresDao
 import com.mobile.massiveapp.data.database.dao.GeneralZonasDao
 import com.mobile.massiveapp.data.database.dao.GrupoDescuentoDao
 import com.mobile.massiveapp.data.database.dao.GrupoDescuentoDetalleDao
+import com.mobile.massiveapp.data.database.dao.LiquidacionPagoDao
 import com.mobile.massiveapp.data.database.dao.ManifiestoDao
 import com.mobile.massiveapp.data.database.dao.ManifiestoDocumentoDao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecial1Dao
@@ -129,7 +130,8 @@ class ManagerInputData @Inject constructor(
     val manifiestoDao: ManifiestoDao,
     val manifiestoDocumentoDao: ManifiestoDocumentoDao,
     val cargosDao: CargosDao,
-    val formaPagoDao: FormaPagoDao
+    val formaPagoDao: FormaPagoDao,
+    val liquidacionPagoDao: LiquidacionPagoDao
 ) {
     companion object {
         const val ACTIVIDADES_E =       "ActividadesE"
@@ -186,6 +188,7 @@ class ManagerInputData @Inject constructor(
         const val GRUPO_DESCUENTO =             "GruposDE"
         const val GRUPO_DESCUENTO_DETALLE =     "GrupoDescuentoDetalle"
         const val MANIFIESTO_DOCUMENTO =        "ManifiestoDocumento"
+        const val LIQUIDACION_PAGO =            "ClienteLiquidacionPagos"
 
         const val CARGOS =                      "Cargos"
         const val FORMA_PAGOS =                 "FormaPagos"
@@ -289,6 +292,7 @@ class ManagerInputData @Inject constructor(
         PRECIO_ESPECIAL_2           to precioEspecial2Dao,
         CARGOS                      to cargosDao,
         FORMA_PAGOS                 to formaPagoDao,
+        LIQUIDACION_PAGO            to liquidacionPagoDao,
 
         MANIFIESTO                  to manifiestoDao,
         MANIFIESTO_DOCUMENTO        to manifiestoDocumentoDao

@@ -32,6 +32,7 @@ import com.mobile.massiveapp.domain.model.DoClienteSocios
 import com.mobile.massiveapp.domain.model.DoSocioContactos
 import com.mobile.massiveapp.domain.model.DoSocioDirecciones
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.mobile.massiveapp.MassiveApp.Companion.prefsApp
 import com.mobile.massiveapp.data.model.LiquidacionPago
 import com.mobile.massiveapp.domain.model.DoLiquidacionPago
 import java.io.File
@@ -661,15 +662,16 @@ fun agregarPagoLiquidacion(
     instId: Int,
     liquidacion: Int,
     manifiesto: Int,
-    docEntryFactura: Int
+    docEntryFactura: Int,
+    docEntryManifiesto:Int
 ) = DoLiquidacionPago(
     AccDocEntry = accDocEntry,
-    Code = "",
-    Name = "",
+    Code = accDocEntry,
+    Name = accDocEntry,
     DocEntry = -1,
     U_MSV_MA_LIQ = liquidacion,
-    U_MSV_MA_MANIF = manifiesto,
-    U_MSV_MA_OBJETO = -1,
+    U_MSV_MA_MANIF = docEntryManifiesto,
+    U_MSV_MA_OBJETO = 13,
     U_MSV_MA_CLAVE = docEntryFactura,
     U_MSV_MA_FECHA = getFechaActual(),
     U_MSV_MA_MEDIO = medio,
@@ -679,9 +681,86 @@ fun agregarPagoLiquidacion(
     U_MSV_MA_CTA = numeroCuenta,
     U_MSV_MA_PAGO = instId,
     EditableMovil = "Y",
-    DocLine = docLine
+    DocLine = docLine,
+    AccError = "",
+    AccControl = "N",
+    AccAction = "I",
+    AccCreateDate = getFechaActual(),
+    AccCreateHour = getHoraActual(),
+    AccCreateUser = prefsApp.getUserCode(),
+    AccNotificado = "N",
+    AccFinalized = "N",
+    AccMigrated = "N",
+    AccMovil = "Y",
+    AccUpdateDate = "",
+    AccUpdateHour = "",
+    AccUpdateUser = "",
+    ObjType = -2020,
+    Canceled = "N"
 )
 
+fun editarPagoLiquidacion(
+    docLine: Int,
+    monto:Double,
+    accDocEntry: String,
+    numeroOperacion: String,
+    numeroCuenta: String,
+    moneda: String,
+    medio: String,
+    instId: Int,
+    liquidacion: Int,
+    manifiesto: Int,
+    docEntryFactura: Int,
+    docEntryManifiesto:Int
+) = DoLiquidacionPago(
+    AccDocEntry = accDocEntry,
+    Code = accDocEntry,
+    Name = accDocEntry,
+    DocEntry = docEntryManifiesto,
+    U_MSV_MA_LIQ = liquidacion,
+    U_MSV_MA_MANIF = manifiesto,
+    U_MSV_MA_OBJETO = 13,
+    U_MSV_MA_CLAVE = docEntryFactura,
+    U_MSV_MA_FECHA = getFechaActual(),
+    U_MSV_MA_MEDIO = medio,
+    U_MSV_MA_MON = moneda,
+    U_MSV_MA_IMP = monto,
+    U_MSV_MA_NROOPE = numeroOperacion,
+    U_MSV_MA_CTA = numeroCuenta,
+    U_MSV_MA_PAGO = instId,
+    EditableMovil = "Y",
+    DocLine = docLine,
+    AccError = "",
+    AccControl = "N",
+    AccAction = "U",
+    AccCreateDate = getFechaActual(),
+    AccCreateHour = getHoraActual(),
+    AccCreateUser = prefsApp.getUserCode(),
+    AccNotificado = "N",
+    AccFinalized = "N",
+    AccMigrated = "N",
+    AccMovil = "Y",
+    AccUpdateDate = "",
+    AccUpdateHour = "",
+    AccUpdateUser = "",
+    ObjType = -2020,
+    Canceled = "N"
+
+    )
+/*
+*         AccCreateUser = codigoUsuario,
+        AccCreateDate = fechaCreacion,
+        AccCreateHour = horaCreacion,
+        AccUpdateUser = "",
+        AccUpdateDate = "",
+        AccUpdateHour = "",
+        AccMovil = "Y",
+        AccMigrated = "N",
+        AccAction = "I",
+        AccFinalized = "N",
+        AccError = "",
+        ObjType = 112,
+        AccControl = "N",*/
 fun actualizarPagoDetalle(
     monto:Double,
     accDocEntry: String,

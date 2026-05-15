@@ -13,6 +13,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.mobile.massiveapp.MassiveApp.Companion.prefsSocio
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.core.ConnectivityObserver
 import com.mobile.massiveapp.databinding.ActivityNuevoSocioNegocioBinding
@@ -34,7 +38,9 @@ import com.mobile.massiveapp.ui.view.util.getCodigoDeDocumentoActual
 import com.mobile.massiveapp.ui.view.util.hideKeyboard
 import com.mobile.massiveapp.ui.viewmodel.ArticuloViewModel
 import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
+import com.mobile.massiveapp.ui.viewmodel.SocioDireccionesViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
+import kotlinx.coroutines.launch
 import pl.droidsonroids.gif.GifDrawable
 
 
@@ -49,6 +55,7 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
     private val articuloViewModel: ArticuloViewModel by viewModels()
     private val generalViewModel: GeneralViewModel by viewModels()
     private val usuarioViewModel: UsuarioViewModel by viewModels()
+    private val direccionesViewModel: SocioDireccionesViewModel by viewModels()
     private var ZONA = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,16 +149,6 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
             } catch (e: Exception){
                 e.printStackTrace()
             }
-
-            /*binding.clNuevoSnCondicioPago.setOnClickListener {
-                BaseDialogChecklistWithId(
-                    binding.txvNuevoSnCondicionPagoValue.text.toString(),
-                    listaCondiciones.map { it.PymntGroup }
-                ){ condicionSeleccionada, id->
-                    binding.txvNuevoSnCondicionPagoValue.text = condicionSeleccionada
-                    infomacionSocioHash["condicionPago"] = listaCondiciones[id].GroupNum
-                }.show(supportFragmentManager, "Condicion Dialog")
-            }*/
         }
 
 
@@ -224,7 +221,6 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
         binding.txvNuevoSnCodigoDocumentoValue.text = getCodigoDeDocumentoActual(this)
 
 
-
             //LiveData la consulta de RUC
         socioViewModel.consultaRucFromDatabase.observe(this){ rucConsulta->
             try {
@@ -233,6 +229,21 @@ class NuevoSocioNegocioActivity : AppCompatActivity() {
                 binding.edtNuevoSnDocumento.text =              rucConsulta.NumeroDocumento
                 binding.edtNuevoSnNombre.text =                 if (rucConsulta.TipoDocumento == "6") rucConsulta.RazonSocial else "${rucConsulta.PrimerNombre} ${rucConsulta.SegundoNombre} ${rucConsulta.ApellidoPaterno} ${rucConsulta.ApellidoMaterno}"
                 binding.edtNuevoSnDestinatarioFactura.text =    rucConsulta.Calle
+
+                prefsSocio.saveCardCode(binding.edtNuevoSnCodigo.text.toString())
+
+                //Direcciones
+                lifecycleScope.launch {
+                    repeatOnLifecycle(Lifecycle.State.STARTED){
+                        direccionesViewModel.dataGetDirecciones.collect{ listaDirecciones->
+                            val direccionDespacho = listaDirecciones.filter { it.AdresType == "S" }.firstOrNull()?.Street?:""
+                            val direccionFiscal = listaDirecciones.filter { it.AdresType == "B" }.firstOrNull()?.Street?:""
+
+                            binding.edtNuevoSnDestinatarioFactura.text = direccionFiscal
+                            binding.edtNuevoSnDestinatario.text = direccionDespacho
+                        }
+                    }
+                }
             } catch (e: Exception){
                 e.printStackTrace()
             }

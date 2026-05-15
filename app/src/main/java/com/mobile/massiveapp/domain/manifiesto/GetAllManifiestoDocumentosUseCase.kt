@@ -6,9 +6,9 @@ import javax.inject.Inject
 class GetAllManifiestoDocumentosUseCase @Inject constructor(
     private val manifiestoDocumentoDao: ManifiestoDocumentoDao
 ) {
-    suspend operator fun invoke() =
+    suspend operator fun invoke(docEntry: Int) =
         try {
-            manifiestoDocumentoDao.getAllManDocView()
+            manifiestoDocumentoDao.getAllManDocView(docEntry)
         } catch (e:Exception){
             e.printStackTrace()
             emptyList()

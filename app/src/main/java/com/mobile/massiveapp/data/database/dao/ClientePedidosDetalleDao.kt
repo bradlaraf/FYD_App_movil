@@ -145,32 +145,28 @@ interface ClientePedidosDetalleDao:BaseDao<ClientePedidosDetalleEntity> {
 
     @Query("""
         SELECT 
-            IFNULL(T0.ItemName, 'Nombre de Articulo') AS 'ItemName',
-            IFNULL(T0.ItemCode, '--') AS 'ItemCode', 
-            IFNULL(Z0.Price, 1.0) AS 'Price',
-            IFNULL(Z0.LineTotal, 0.0) AS 'LineTotal',
-            IFNULL(Z0.Quantity, 0.0) AS 'Quantity',
-            IFNULL(T2.UgpName, '') AS 'UgpName', 
-            IFNULL(T3.UomName,'') AS 'UomName', 
-            IFNULL(T4.Name,'') AS 'Impuesto',
-            IFNULL(T5.WhsName,'') AS 'Almacen',
-            IFNULL(T6.ListName,'') AS 'ListaPrecio',
+            IFNULL(T1.ItemName, '') AS ItemName,
+            IFNULL(T0.ItemCode, '--') AS ItemCode, 
+            IFNULL(T0.Price, 0.0) AS Price,
+            IFNULL(T0.LineTotal, 0.0) AS LineTotal,
+            IFNULL(T0.Quantity, 0.0) AS Quantity,
+            IFNULL((SELECT Z0.UgpName FROM GrupoUnidadMedida Z0 WHERE T1.UgpEntry = Z0.UgpEntry), '') AS UgpName, 
+            IFNULL((SELECT Z0.UomName FROM UnidadMedida Z0 WHERE Z0.UomEntry = T0.UomEntry),'') AS UomName, 
+            IFNULL((SELECT Z0.Name FROM Impuesto Z0 WHERE T0.TaxCode = Z0.Code),'') AS Impuesto,
+            IFNULL((SELECT Z0.WhsName FROM Almacenes Z0 WHERE Z0.WhsCode = T0.WhsCode ) ,'') AS Almacen,
+            IFNULL((SELECT Z0.ListName FROM ListaPrecio Z0 WHERE Z0.ListNum = T0.PriceList),'') AS ListaPrecio,
             
-            IFNULL(T5.WhsCode,'') AS 'WhsCode',
-            IFNULL(T6.ListNum,'') AS 'PriceList',
-            IFNULL(T4.Code,'') AS 'TaxCode',
-            IFNULL(T3.UomCode, '') AS 'UomCode',
-            IFNULL(T3.UomEntry, -1) AS 'UomEntry'
+            IFNULL((SELECT Z0.WhsCode FROM Almacenes Z0 WHERE Z0.WhsCode = T0.WhsCode ),'') AS WhsCode,
+            IFNULL((SELECT Z0.ListNum FROM ListaPrecio Z0 WHERE Z0.ListNum = T0.PriceList),'') AS PriceList,
+            IFNULL((SELECT Z0.Code FROM Impuesto Z0 WHERE T0.TaxCode = Z0.Code),'') AS TaxCode,
+            IFNULL((SELECT Z0.UomCode FROM UnidadMedida Z0 WHERE Z0.UomEntry = T0.UomEntry), '') AS UomCode,
+            IFNULL((SELECT Z0.UomEntry FROM UnidadMedida Z0 WHERE Z0.UomEntry = T0.UomEntry), -1) AS UomEntry
             
-        FROM ClientePedidosDetalle Z0
-        INNER JOIN Articulo T0 ON T0.ItemCode = Z0.ItemCode 
-        LEFT JOIN ArticuloPrecio T1 ON Z0.ItemCode = T1.ItemCode
-        INNER JOIN GrupoUnidadMedida T2 ON T0.UgpEntry = T2.UgpEntry
-        INNER JOIN UnidadMedida T3 ON Z0.UomEntry = T3.UomEntry
-        INNER JOIN Impuesto T4 ON Z0.TaxCode = T4.Code
-        INNER JOIN Almacenes T5 ON T5.WhsCode = Z0.WhsCode
-        INNER JOIN ListaPrecio T6 ON Z0.PriceList = T6.ListNum
-        WHERE Z0.AccDocEntry = :accDocEntry AND LineNum = :lineNum AND T1.PriceList = Z0.PriceList
+        FROM ClientePedidosDetalle T0
+        LEFT JOIN Articulo T1 ON T0.ItemCode = T0.ItemCode 
+        LEFT JOIN ArticuloPrecio T2 ON T0.ItemCode = T1.ItemCode
+  
+        WHERE T0.AccDocEntry = :accDocEntry AND LineNum = :lineNum AND T2.PriceList = T0.PriceList
     """)
     suspend fun getDetalleInfo(accDocEntry: String, lineNum: Int): DoPedidoDetalle
 

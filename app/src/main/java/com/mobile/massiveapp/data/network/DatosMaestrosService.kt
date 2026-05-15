@@ -75,6 +75,7 @@ import com.mobile.massiveapp.data.model.Cargos
 import com.mobile.massiveapp.data.model.Conductor
 import com.mobile.massiveapp.data.model.FormaPago
 import com.mobile.massiveapp.data.model.GrupoDescuento
+import com.mobile.massiveapp.data.model.LiquidacionPago
 import com.mobile.massiveapp.data.model.Manifiesto
 import com.mobile.massiveapp.data.model.PrecioEspecial
 import com.mobile.massiveapp.data.model.Sucursal
@@ -154,6 +155,7 @@ class DatosMaestrosService @Inject constructor(
             "Sucursales"                     to object : TypeToken<List<Sucursal>>() {}.type,
             "FormaPagos"                    to object : TypeToken<List<FormaPago>>() {}.type,
             "Cargos"                    to object : TypeToken<List<Cargos>>() {}.type,
+            "ClienteLiquidacionPagos"   to object : TypeToken<List<LiquidacionPago>>() {}.type,
 
 
             "UsuariosAlmacenes" to object : TypeToken<List<UsuarioAlmacenes>>() {}.type,
@@ -814,6 +816,48 @@ class DatosMaestrosService @Inject constructor(
         }
     }
 
+    suspend fun sendPagoLiquidacion(
+        usuarioToSend: LiquidacionPago,
+        configuracion: DoConfiguracion,
+        usuario: DoUsuario,
+        url: String,
+        timeout: Long = 60L
+    ): Any{
+        return withContext(Dispatchers.IO){
+            val gson = Gson()
+            val listaDatosJsonArray = gson.toJson(listOf(usuarioToSend))
+
+            val retrofit = createRetrofitClient(timeout)
+            val apiService = retrofit.create(ApiStandardClient::class.java)
+
+            val requestBody = "".ToXmlSendRequestBody("ClienteLiquidacionPagos", listaDatosJsonArray, configuracion, usuario)
+            val response = apiService.sendLiquidacionPago(requestBody, url)
+            val soapBody = response.body()?.body
+
+            val codigoError = soapBody?.response?.result?.errorCodigo
+            val codigoMensaje = soapBody?.response?.result?.errorMensaje
+
+            val json = soapBody?.response?.result?.json
+
+            val objType = object : TypeToken<List<LiquidacionPago>>() {}.type
+            val listaPagos = gson.fromJson<List<LiquidacionPago>>(json, objType)?: emptyList()
+
+            if ((codigoError?: -1) == 0){
+                return@withContext gson.fromJson(json, objType)
+            } else if((codigoError?: -1) == -2){
+                val messageError = listaPagos.first().AccError
+                DoError(
+                    ErrorCodigo = codigoError?:-1,
+                    ErrorMensaje = messageError
+                )
+            } else {
+                DoError(
+                    ErrorCodigo = codigoError?:-1,
+                    ErrorMensaje = codigoMensaje?:"No se pudo conectar a la BD"
+                )
+            }
+        }
+    }
 
     suspend fun sendSocios(
         listaSociosAEnviar: List<ClienteSocios>,

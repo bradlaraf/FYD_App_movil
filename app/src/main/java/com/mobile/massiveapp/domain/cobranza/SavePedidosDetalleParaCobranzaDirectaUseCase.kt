@@ -31,7 +31,7 @@ class SavePedidosDetalleParaCobranzaDirectaUseCase @Inject constructor(
                 usuario = usuario.Code
             )
             val liquidacionAGuardar = agregarPagoLiquidacion(
-                docLine = liquidacionPagoDao.getLineNumeLiquidacion(accDocEntry),
+                docLine = 0,
                 monto = factura.PaidToDate,
                 accDocEntry = accDocEntry,
                 numeroOperacion = "",
@@ -42,6 +42,7 @@ class SavePedidosDetalleParaCobranzaDirectaUseCase @Inject constructor(
                 liquidacion = -1,
                 manifiesto = -1,
                 docEntryFactura = factura.DocEntry,
+                docEntryManifiesto = -1
             )
 
             /*facturasDao.restarPaidToDate(factura.DocEntry, factura.DocTotal)*/

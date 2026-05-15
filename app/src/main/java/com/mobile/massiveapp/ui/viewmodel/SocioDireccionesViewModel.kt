@@ -12,9 +12,11 @@ import com.mobile.massiveapp.domain.sociouc.direcciones.GetAllDireccionesPorCard
 import com.mobile.massiveapp.domain.sociouc.direcciones.GetAllDireccionesViewUseCase
 import com.mobile.massiveapp.domain.sociouc.direcciones.GetDireccionDespachoZonaUseCase
 import com.mobile.massiveapp.domain.sociouc.direcciones.GetDireccionPorCardCodeTipoYLineNumUseCase
+import com.mobile.massiveapp.domain.sociouc.direcciones.GetDireccionesFlowUseCase
 import com.mobile.massiveapp.domain.sociouc.direcciones.GetLineNumPorCardCodeYTipoUseCase
 import com.mobile.massiveapp.domain.sociouc.direcciones.SaveDireccionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +29,8 @@ class SocioDireccionesViewModel @Inject constructor(
     private val deleteUnaDireccionPorCardCodeYTipoUseCase: DeleteUnaDireccionPorCardCodeYTipoUseCase,
     private val getAllDireccionesPorCardCodeUseCase: GetAllDireccionesPorCardCodeUseCase,
     private val getAllDireccionesViewUseCase: GetAllDireccionesViewUseCase,
-    private val getDireccionDespachoZonaUseCase: GetDireccionDespachoZonaUseCase
+    private val getDireccionDespachoZonaUseCase: GetDireccionDespachoZonaUseCase,
+    private val getDireccionesFlowUseCase: GetDireccionesFlowUseCase
 ): ViewModel(){
     val isLoading = MutableLiveData<Boolean>()
 
@@ -42,6 +45,9 @@ class SocioDireccionesViewModel @Inject constructor(
 
         }
     }
+
+    //Direciones por CardCode FLOW
+    val dataGetDirecciones: Flow<List<DoSocioDirecciones>> =  getDireccionesFlowUseCase.getDireccionesFlow()
 
 
     //Direcciones para la visualización de la info del cliente

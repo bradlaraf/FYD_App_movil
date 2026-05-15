@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "3176b0a9eaaa3e17a527f7ba3b715fee",
+    "identityHash": "ea0e14beee4ee66d477d96266e878a00",
     "entities": [
       {
         "tableName": "Articulo",
@@ -5280,7 +5280,7 @@
       },
       {
         "tableName": "ManifiestoDocumento",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`DocEntry` INTEGER NOT NULL, `LineId` INTEGER NOT NULL, `U_MSV_MA_OBJETO` INTEGER NOT NULL, `U_MSV_MA_TIPODOC` TEXT NOT NULL, `U_MSV_MA_CLAVE` INTEGER NOT NULL, `U_MSV_MA_NUMERO` INTEGER NOT NULL, `U_MSV_MA_SUNAT` TEXT NOT NULL, `U_MSV_MA_FECEMI` TEXT NOT NULL, `U_MSV_MA_SOCCOD` TEXT NOT NULL, `U_MSV_MA_SOCNOM` TEXT NOT NULL, `U_MSV_MA_CONDP` INTEGER NOT NULL, `U_MSV_MA_VENDEDOR` INTEGER NOT NULL, `U_MSV_MA_MON` TEXT NOT NULL, `U_MSV_MA_TOTCONLOC` REAL NOT NULL, `U_MSV_MA_TOTCONEXT` REAL NOT NULL, `U_MSV_MA_TOTCRELOC` REAL NOT NULL, `U_MSV_MA_TOTCREEXT` REAL NOT NULL, `U_MSV_MA_UBIGEO` TEXT NOT NULL, `U_MSV_MA_PESOT` REAL NOT NULL, `U_MSV_MA_VOLUMENM` REAL NOT NULL, `U_MSV_MA_ESTADOE` TEXT NOT NULL, `U_MSV_MA_FECLLE` TEXT NOT NULL, `U_MSV_MA_HORLLE` TEXT NOT NULL, `U_MSV_MA_DISTRITO` TEXT NOT NULL, PRIMARY KEY(`DocEntry`, `LineId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`DocEntry` INTEGER NOT NULL, `LineId` INTEGER NOT NULL, `U_MSV_MA_OBJETO` INTEGER NOT NULL, `U_MSV_MA_TIPODOC` TEXT NOT NULL, `U_MSV_MA_CLAVE` INTEGER NOT NULL, `U_MSV_MA_NUMERO` INTEGER NOT NULL, `U_MSV_MA_SUNAT` TEXT NOT NULL, `U_MSV_MA_FECEMI` TEXT NOT NULL, `U_MSV_MA_SOCCOD` TEXT NOT NULL, `U_MSV_MA_SOCNOM` TEXT NOT NULL, `U_MSV_MA_CONDP` INTEGER NOT NULL, `U_MSV_MA_VENDEDOR` INTEGER NOT NULL, `U_MSV_MA_MON` TEXT NOT NULL, `U_MSV_MA_TOT` REAL NOT NULL, `U_MSV_MA_TOTCONLOC` REAL NOT NULL, `U_MSV_MA_TOTCONEXT` REAL NOT NULL, `U_MSV_MA_TOTCRELOC` REAL NOT NULL, `U_MSV_MA_TOTCREEXT` REAL NOT NULL, `U_MSV_MA_UBIGEO` TEXT NOT NULL, `U_MSV_MA_PESOT` REAL NOT NULL, `U_MSV_MA_VOLUMENM` REAL NOT NULL, `U_MSV_MA_ESTADOE` TEXT NOT NULL, `U_MSV_MA_FECLLE` TEXT NOT NULL, `U_MSV_MA_HORLLE` TEXT NOT NULL, `U_MSV_MA_DISTRITO` TEXT NOT NULL, PRIMARY KEY(`DocEntry`, `LineId`))",
         "fields": [
           {
             "fieldPath": "DocEntry",
@@ -5358,6 +5358,12 @@
             "fieldPath": "U_MSV_MA_MON",
             "columnName": "U_MSV_MA_MON",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_MA_TOT",
+            "columnName": "U_MSV_MA_TOT",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -6071,11 +6077,95 @@
       },
       {
         "tableName": "LiquidacionPago",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccDocEntry` TEXT NOT NULL, `Code` TEXT NOT NULL, `Name` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `DocLine` INTEGER NOT NULL, `U_MSV_MA_LIQ` INTEGER NOT NULL, `U_MSV_MA_MANIF` INTEGER NOT NULL, `U_MSV_MA_OBJETO` INTEGER NOT NULL, `U_MSV_MA_CLAVE` INTEGER NOT NULL, `U_MSV_MA_FECHA` TEXT NOT NULL, `U_MSV_MA_MEDIO` TEXT NOT NULL, `U_MSV_MA_MON` TEXT NOT NULL, `U_MSV_MA_IMP` REAL NOT NULL, `U_MSV_MA_NROOPE` TEXT NOT NULL, `U_MSV_MA_CTA` TEXT NOT NULL, `U_MSV_MA_PAGO` INTEGER NOT NULL, `EditableMovil` TEXT NOT NULL, PRIMARY KEY(`AccDocEntry`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccDocEntry` TEXT NOT NULL, `AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccError` TEXT NOT NULL, `Canceled` TEXT NOT NULL, `AccNotificado` TEXT NOT NULL, `AccFinalized` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccMovil` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `AccControl` TEXT NOT NULL, `Code` TEXT NOT NULL, `Name` TEXT NOT NULL, `DocEntry` INTEGER NOT NULL, `DocLine` INTEGER NOT NULL, `ObjType` INTEGER NOT NULL, `U_MSV_MA_LIQ` INTEGER NOT NULL, `U_MSV_MA_MANIF` INTEGER NOT NULL, `U_MSV_MA_OBJETO` INTEGER NOT NULL, `U_MSV_MA_CLAVE` INTEGER NOT NULL, `U_MSV_MA_FECHA` TEXT NOT NULL, `U_MSV_MA_MEDIO` TEXT NOT NULL, `U_MSV_MA_MON` TEXT NOT NULL, `U_MSV_MA_IMP` REAL NOT NULL, `U_MSV_MA_NROOPE` TEXT NOT NULL, `U_MSV_MA_CTA` TEXT NOT NULL, `U_MSV_MA_PAGO` INTEGER NOT NULL, `EditableMovil` TEXT NOT NULL, PRIMARY KEY(`AccDocEntry`))",
         "fields": [
           {
             "fieldPath": "AccDocEntry",
             "columnName": "AccDocEntry",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccAction",
+            "columnName": "AccAction",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateDate",
+            "columnName": "AccCreateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateHour",
+            "columnName": "AccCreateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccCreateUser",
+            "columnName": "AccCreateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccError",
+            "columnName": "AccError",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Canceled",
+            "columnName": "Canceled",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccNotificado",
+            "columnName": "AccNotificado",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccFinalized",
+            "columnName": "AccFinalized",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMigrated",
+            "columnName": "AccMigrated",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccMovil",
+            "columnName": "AccMovil",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateDate",
+            "columnName": "AccUpdateDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateHour",
+            "columnName": "AccUpdateHour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccUpdateUser",
+            "columnName": "AccUpdateUser",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AccControl",
+            "columnName": "AccControl",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -6100,6 +6190,12 @@
           {
             "fieldPath": "DocLine",
             "columnName": "DocLine",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ObjType",
+            "columnName": "ObjType",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -6189,7 +6285,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3176b0a9eaaa3e17a527f7ba3b715fee')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ea0e14beee4ee66d477d96266e878a00')"
     ]
   }
 }

@@ -20,7 +20,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.mobile.massiveapp.MassiveApp.Companion.prefsApp
 import com.mobile.massiveapp.R
-import com.mobile.massiveapp.core.ForegroundDatosMaestrosService
+
 import com.mobile.massiveapp.core.SincronizarDatosWorker
 import com.mobile.massiveapp.databinding.ActivityMenuBinding
 import com.mobile.massiveapp.ui.base.BaseDialogAlert
@@ -54,7 +54,7 @@ class MenuActivity : DrawerBaseActivity() {
     private val configuracionViewModel: ConfiguracionViewModel by viewModels()
     private val dashboardViewModel: DashboardViewModel by viewModels()
     private val generalViewModel: GeneralViewModel by viewModels()
-    private var foregroundDMService: Intent? = null
+    //private var foregroundDMService: Intent? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +62,7 @@ class MenuActivity : DrawerBaseActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
         allocateActivityTitle("Inicio")
-        foregroundDMService = Intent(this, ForegroundDatosMaestrosService::class.java)
+        //foregroundDMService = Intent(this, ForegroundDatosMaestrosService::class.java)
 
 
         /*verificarPermisosDeEscritura(binding.root)

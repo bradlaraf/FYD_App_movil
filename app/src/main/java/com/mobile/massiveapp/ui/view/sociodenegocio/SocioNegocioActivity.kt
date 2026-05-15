@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.databinding.ActivitySocioNegocioBinding
 import com.mobile.massiveapp.ui.adapters.fragment.FMClientesAdapter
@@ -13,6 +14,9 @@ import com.mobile.massiveapp.ui.viewmodel.ProviderViewModel
 import com.mobile.massiveapp.ui.viewmodel.SocioViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import com.mobile.massiveapp.ui.base.BaseDialogAlert
+import com.mobile.massiveapp.ui.base.BaseDialogLoading
+import com.mobile.massiveapp.ui.viewmodel.DatosMaestrosViewModel
 import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SocioNegocioActivity : DrawerBaseActivity() {
@@ -22,6 +26,7 @@ class SocioNegocioActivity : DrawerBaseActivity() {
     private val providerViewModel: ProviderViewModel by viewModels()
     private val usuarioViewModel: UsuarioViewModel by viewModels()
     private var tabTitle = arrayOf("Clientes", "Leads")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

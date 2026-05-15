@@ -18,9 +18,11 @@
         <TextView
             android:id="@+id/txvManDocNombreClienteValue"
             style="@style/default_title_large_text"
-            android:textStyle="bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/txvManDocSUNATValue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Nombre Cliente" />
@@ -34,9 +36,9 @@
             android:background="@drawable/rounded_txv_background_gris"
             android:backgroundTint="@color/color_blue_lighter"
             android:paddingHorizontal="7dp"
-            android:textStyle="bold"
             android:paddingVertical="2dp"
             android:textColor="@color/white"
+            android:textStyle="bold"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -169,6 +171,7 @@
             app:tint="@color/color_blue_lighter_10" />
 
         <Button
+            android:visibility="gone"
             android:id="@+id/btnManDocCobrar"
             style="@style/default_text"
             android:layout_width="wrap_content"
@@ -178,6 +181,19 @@
             android:text="Cobrar"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btnManDocVerPagos"
+            style="@style/default_text"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_btn_cobrar"
+            android:text="Ver Pagos"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

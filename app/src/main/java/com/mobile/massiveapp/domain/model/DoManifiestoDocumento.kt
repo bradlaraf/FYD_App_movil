@@ -28,6 +28,8 @@ data class DoManifiestoDocumento(
 )
 
 data class DoManifiestoDocumentoView(
+    val LineId: Int,
+    val DocEntry: Int,
     val TipoDocumento: String,
     val SUNAT: String,
     val Vendedor: String,
@@ -40,3 +42,17 @@ data class DoManifiestoDocumentoView(
     val DocEntryFactura: Int,
     val CodigoSocio: String,
 )
+
+data class DoInfoCobranzaManifiesto (
+    val DocEntry: Int,
+    val Comprobante: String,
+    val FechaEmision: String,
+    val CodigoCliente: String,
+    val NombreCliente: String,
+    val Moneda: String,
+    val Total: Double,
+    val TotalCobrado: Double,
+    val TotalPendiente: Double
+) {
+
+}

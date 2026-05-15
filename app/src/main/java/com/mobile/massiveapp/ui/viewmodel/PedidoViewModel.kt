@@ -161,7 +161,7 @@ class PedidoViewModel @Inject constructor(
     }
 
         //Info Detalle
-        val dataGetPedidoDetalleInfo = MutableLiveData<DoPedidoDetalle>()
+    val dataGetPedidoDetalleInfo = MutableLiveData<DoPedidoDetalle>()
     fun getPedidoDetalleInfo(accDocEntry: String, lineNum: Int){
         viewModelScope.launch {
             val result = getPedidoDetalleInfoUseCase(accDocEntry, lineNum)

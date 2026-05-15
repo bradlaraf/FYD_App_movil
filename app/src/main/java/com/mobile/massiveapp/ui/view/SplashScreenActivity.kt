@@ -83,6 +83,7 @@ class SplashScreenActivity : AppCompatActivity(){
                         .also { startActivity(it) }
                     finish()
                 } else {
+                    prefsApp.saveUserCode(usuario.Code)
                     prefsApp.saveUserName(usuario.Name)
                     Intent(this, MenuActivity::class.java).also {
                         startActivity(it)

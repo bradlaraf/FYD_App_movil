@@ -83,7 +83,9 @@ class ClientesFragment : Fragment() {
                                     .replace("´", "")
                                     .replace("?", "")
                                     .replace("°", "")
-                                cardNameLimpiado.trim().contains(newText.trim(), ignoreCase = true)
+                                cardNameLimpiado.trim().contains(newText.trim(), ignoreCase = true) ||
+                                socio.CardCode.contains(newText.trim(), ignoreCase = true) ||
+                                socio.LicTradNum.contains(newText.trim(), ignoreCase = true)
                             }
                         }
                         socioAdapter.updateDataForSearching(sociosFiltered)

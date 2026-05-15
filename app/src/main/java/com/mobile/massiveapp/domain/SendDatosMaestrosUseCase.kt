@@ -63,6 +63,8 @@ class SendDatosMaestrosUseCase @Inject constructor(
                 datosMaestrosRepository.getDatosMaestrosFromEndpointAndSave(listOf(
                     "ClientePagos",
                     "ClientePedidos",
+                    "ClienteLiquidacionPagos",
+                    "Manifiestos",
                     ManagerInputData.FACTURAS_CL,
                     ManagerInputData.FACTURAS_CL_DETALLE),
                     configuracion,

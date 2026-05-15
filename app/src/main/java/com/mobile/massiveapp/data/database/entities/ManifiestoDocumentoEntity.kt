@@ -20,11 +20,12 @@ data class ManifiestoDocumentoEntity(
     @ColumnInfo(name = "U_MSV_MA_CONDP") val U_MSV_MA_CONDP: Int,
     @ColumnInfo(name = "U_MSV_MA_VENDEDOR") val U_MSV_MA_VENDEDOR: Int,
     @ColumnInfo(name = "U_MSV_MA_MON") val U_MSV_MA_MON: String,
+    @ColumnInfo(name = "U_MSV_MA_TOT") val U_MSV_MA_TOT: Double, //Total de la factura
 
-    @ColumnInfo(name = "U_MSV_MA_TOTCONLOC") val U_MSV_MA_TOTCONLOC: Double,
-    @ColumnInfo(name = "U_MSV_MA_TOTCONEXT") val U_MSV_MA_TOTCONEXT: Double,
-    @ColumnInfo(name = "U_MSV_MA_TOTCRELOC") val U_MSV_MA_TOTCRELOC: Double,
-    @ColumnInfo(name = "U_MSV_MA_TOTCREEXT") val U_MSV_MA_TOTCREEXT: Double,
+    @ColumnInfo(name = "U_MSV_MA_TOTCONLOC") val U_MSV_MA_TOTCONLOC: Double,//Total contado
+    @ColumnInfo(name = "U_MSV_MA_TOTCONEXT") val U_MSV_MA_TOTCONEXT: Double,//Total contado cobrado
+    @ColumnInfo(name = "U_MSV_MA_TOTCRELOC") val U_MSV_MA_TOTCRELOC: Double, //Total credito
+    @ColumnInfo(name = "U_MSV_MA_TOTCREEXT") val U_MSV_MA_TOTCREEXT: Double,  //Total credito cobrado
     @ColumnInfo(name = "U_MSV_MA_UBIGEO") val U_MSV_MA_UBIGEO: String,
     @ColumnInfo(name = "U_MSV_MA_PESOT") val U_MSV_MA_PESOT: Double,
     @ColumnInfo(name = "U_MSV_MA_VOLUMENM") val U_MSV_MA_VOLUMENM: Double,
@@ -47,6 +48,7 @@ fun ManifiestoDocumento.toDatabase() = ManifiestoDocumentoEntity (
     U_MSV_MA_SOCCOD = U_MSV_MA_SOCCOD,
     U_MSV_MA_SOCNOM = U_MSV_MA_SOCNOM,
     U_MSV_MA_CONDP = U_MSV_MA_CONDP,
+    U_MSV_MA_TOT = U_MSV_MA_TOT,
     U_MSV_MA_VENDEDOR = U_MSV_MA_VENDEDOR,
     U_MSV_MA_MON = U_MSV_MA_MON,
     U_MSV_MA_TOTCONLOC = U_MSV_MA_TOTCONLOC,

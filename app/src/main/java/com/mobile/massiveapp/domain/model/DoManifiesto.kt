@@ -53,11 +53,19 @@ fun ManifiestoEntity.toDomain() = DoManifiesto(
 )
 
 data class DoManifiestoView(
-    val NumeroManifiesto: String,
-    val Conductor: String,
-    val Vehiculo: String,
+    val DocEntry: Int,
     val FechaSalida: String,
-    val Estado: String,
-    val Total: Double,
-    val Saldo: Double,
-)
+    val Moneda: String,
+    val MontoPendiente: Double,
+    val MontoCobrado: Double,
+) {
+    constructor ():this(
+        DocEntry = -1,
+        FechaSalida = "",
+        Moneda = "",
+        MontoPendiente = 0.0,
+        MontoCobrado = 0.0,
+    )
+}
+
+

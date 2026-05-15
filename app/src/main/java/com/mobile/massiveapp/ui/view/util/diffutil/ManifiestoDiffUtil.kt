@@ -3,10 +3,11 @@ package com.mobile.massiveapp.ui.view.util.diffutil
 import androidx.recyclerview.widget.DiffUtil
 import com.mobile.massiveapp.domain.model.DoClienteFacturaDetalle
 import com.mobile.massiveapp.domain.model.DoManifiesto
+import com.mobile.massiveapp.domain.model.DoManifiestoView
 
 class ManifiestoDiffUtil (
-    private val oldList: List<DoManifiesto>,
-    private val newList: List<DoManifiesto>
+    private val oldList: List<DoManifiestoView>,
+    private val newList: List<DoManifiestoView>
 ): DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
