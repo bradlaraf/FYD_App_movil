@@ -112,6 +112,26 @@ interface SocioDireccionesDao:BaseDao<SocioDireccionesEntity> {
             WHERE T0.CardCode = :cardCode""")
     fun getDirecciones(cardCode: String): Flow<List<DoDireccion>>
 
+    @Query("""
+            SELECT
+            T0.AdresType,
+            T0.Street
+            FROM SocioDirecciones T0 
+            WHERE T0.CardCode = :cardCode
+            GROUP BY T0.Street
+            """)
+    suspend fun getDireccionesCliente(cardCode: String): List<DoDireccion>
+
+    @Query("""
+            SELECT
+            T0.AdresType,
+            T0.Street
+            FROM SocioDirecciones T0 
+            WHERE T0.CardCode = :cardCode
+            GROUP BY T0.Street
+            """)
+    suspend fun getDireccionesSocio(cardCode: String): List<DoDireccion>
+
     //Buscar direcciones de despacho por CardCode
     @Query("SELECT * FROM SocioDirecciones WHERE CardCode = :cardCode")
     suspend fun getDireccionesPorCardCode(cardCode: String): List<SocioDireccionesEntity>

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"app/src/main/java/com/mobile/massiveapp/ui\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(git push *)",
+      "Bash(grep -E \"^\\\\-.*\\\\.\\(md|txt|gradle|xml\\)$\")",
+      "Bash(Get-ChildItem -Path \"app/src/main/java/com/mobile/massiveapp/data/database/entities/\" -Filter \"*.kt\")",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}

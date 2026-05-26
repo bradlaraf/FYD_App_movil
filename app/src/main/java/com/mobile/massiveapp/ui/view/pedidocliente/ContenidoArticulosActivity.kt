@@ -125,6 +125,7 @@ class ContenidoArticulosActivity : AppCompatActivity() {
 
 
 
+
             //LiveData del detalle pedido por el accDocEntry
         /*pedidoViewModel.dataGetAllPedidoDetallePorAccDocEntry.observe(this){ listaPedidoDetalle->
             try {
@@ -267,7 +268,7 @@ class ContenidoArticulosActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_contenido_articulos, menu)
         menu?.findItem(R.id.app_bar_delete)?.isVisible = false
-        menu?.findItem(R.id.app_bar_venta_sugerida)?.isVisible = false
+        menu?.findItem(R.id.app_bar_venta_sugerida)?.isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -275,13 +276,12 @@ class ContenidoArticulosActivity : AppCompatActivity() {
         when (item.itemId) {
 
             R.id.app_bar_venta_sugerida -> {
-                BaseDialogAceptDialog(this).showConfirmationDialog("¿Desea agregar un pedido sugerido?",
+                BaseDialogAceptDialog(this).showConfirmationDialog(
+                    "¿Desea ver los productos frecuentes del cliente?",
                     onConfirmacion = {
                         pedidoViewModel.getPedidoSugerido(prefsPedido.getCardCode())
                     },
-                    onCancel = {
-
-                    }
+                    onCancel = {}
                 )
             }
 

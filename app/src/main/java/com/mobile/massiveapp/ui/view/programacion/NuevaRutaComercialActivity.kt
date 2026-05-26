@@ -16,33 +16,44 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
+import com.mobile.massiveapp.MassiveApp.Companion.prefsRutaComercial
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.databinding.ActivityNuevaRutaComercialBinding
 import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleView
 import com.mobile.massiveapp.ui.adapters.RutaComercialDetalleAdapter
 import com.mobile.massiveapp.ui.adapters.extension.SwipeToDeletePedidos
+import com.mobile.massiveapp.ui.base.BaseDialogAlert
 import com.mobile.massiveapp.ui.base.BaseDialogChecklistWithId
+import com.mobile.massiveapp.ui.base.BaseDialogDireccionCliente
+import com.mobile.massiveapp.ui.base.BaseDialogEdtCharacterLimit
+import com.mobile.massiveapp.ui.base.BaseDialogLoadingCustom
 import com.mobile.massiveapp.ui.view.pedidocliente.BuscarClienteActivity
+import com.mobile.massiveapp.ui.view.util.agregarRutaComercialCabecera
 import com.mobile.massiveapp.ui.view.util.getFechaActual
 import com.mobile.massiveapp.ui.view.util.getCodigoDeDocumentoActual
 import com.mobile.massiveapp.ui.view.util.mostrarCalendarioMaterial
 import com.mobile.massiveapp.ui.view.util.observeOnce
 import com.mobile.massiveapp.ui.view.util.observeOnceNotNull
+import com.mobile.massiveapp.ui.view.util.showMessage
 import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
 import com.mobile.massiveapp.ui.viewmodel.RutaComercialViewModel
+import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import pl.droidsonroids.gif.GifDrawable
 
 @AndroidEntryPoint
 class NuevaRutaComercialActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNuevaRutaComercialBinding
     private val rutaComercialViewModel: RutaComercialViewModel by viewModels()
     private val generalViewModel: GeneralViewModel by viewModels()
-    private lateinit var accDocEntry: String
+    private val usuarioViewModel: UsuarioViewModel by viewModels()
     private lateinit var detalleAdapter: RutaComercialDetalleAdapter
     private val addedCardCodes = mutableSetOf<String>()
     private var listaRutaDetalles:List<DoRutaComercialDetalleView> = emptyList()
+    private var slpCode = -1
 
     private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
@@ -71,9 +82,6 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
         title = "Nueva Ruta Comercial"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        accDocEntry = getCodigoDeDocumentoActual(this)
-        rutaComercialViewModel.initAccDocEntry(accDocEntry)
-
         setDefaultUi()
         observeDetalle()
         setData()
@@ -85,6 +93,8 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
 
 
     private fun setDefaultUi() {
+        (binding.rvNuevaRutaClientes.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
+
         binding.txvNuevaRutaFechaRutaValue.text = getFechaActual()
 
         binding.clNuevaRutaVendedor.setOnClickListener {
@@ -92,12 +102,22 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
                 BaseDialogChecklistWithId(
                     checkSelected = binding.txvNuevaRutaVendedorValue.text.toString(),
                     opciones = vendedores.map { it.SlpName }
-                ) { nombreSeleccionado, _ ->
+                ) { nombreSeleccionado, id ->
                     if (nombreSeleccionado.isNotEmpty()) {
                         binding.txvNuevaRutaVendedorValue.text = nombreSeleccionado
+                        slpCode = vendedores[id].SlpCode
                     }
                 }.show(supportFragmentManager, "VendedorDialog")
             }
+        }
+
+        binding.clNuevaRutaComentarios.setOnClickListener {
+            BaseDialogEdtCharacterLimit(
+                binding.txvNuevaRutaComentariosValue.text.toString(),
+                "Ingrese el comentario"
+            ){ comentario->
+                binding.txvNuevaRutaComentariosValue.text = comentario
+            }.show(supportFragmentManager, "BaseDialogEdt")
         }
 
         binding.clNuevaRutaFechaRuta.setOnClickListener {
@@ -113,6 +133,17 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
 
         binding.clNuevaRutaClientes.setOnClickListener {
             startForClienteResult.launch(Intent(this, BuscarClienteActivity::class.java))
+        }
+
+        //Loading save RutaComercial
+        val gif = GifDrawable(this.resources, R.drawable.gif_loading)
+        val loadingDialog = BaseDialogLoadingCustom(this, "Enviando Ruta Comercial...", gif)
+        rutaComercialViewModel.isLoadingSaveRutaCabecera.observe(this){
+            if (it){
+                loadingDialog.startLoading()
+            } else {
+                loadingDialog.onDismiss()
+            }
         }
 
 
@@ -133,7 +164,7 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
         val swipeToDeleteCallback = object : SwipeToDeletePedidos(this){
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.bindingAdapterPosition
-                val docLine = listaRutaDetalles[position].DocLine
+                val docLine = listaRutaDetalles[position].LineNum
                 val accDocEntr = listaRutaDetalles[position].AccDocEntry
 
                 rutaComercialViewModel.deleteRutaComercialDetalle(docLine, accDocEntr)
@@ -149,13 +180,11 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
     private fun getDireccionesCliente(detalle: DoRutaComercialDetalleView) {
         rutaComercialViewModel.getAllDireccionesCliente(detalle.CardCode)
         rutaComercialViewModel.dataGetAllDireccionesCliente.observeOnceNotNull(this) { direccionesCliente ->
-            BaseDialogChecklistWithId(
+            BaseDialogDireccionCliente(
                 checkSelected = detalle.Address,
-                opciones = direccionesCliente.map { it.Street }
-            ) { calleSeleccionada, _ ->
-                if (calleSeleccionada.isNotEmpty()) {
-                    rutaComercialViewModel.updateAddress(detalle.AccDocEntry, detalle.CardCode, calleSeleccionada)
-                }
+                direcciones = direccionesCliente
+            ) { calleSeleccionada,id ->
+                rutaComercialViewModel.updateAddress(detalle.AccDocEntry, detalle.CardCode, calleSeleccionada)
             }.show(supportFragmentManager, "DireccionClienteDialog")
         }
     }
@@ -178,6 +207,11 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
             "$cantidad ${if (cantidad == 1) "cliente" else "clientes"}"
     }
 
+
+
+
+
+
     private val startForClienteResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -187,7 +221,7 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
                         Toast.makeText(this, "El cliente ya fue agregado", Toast.LENGTH_SHORT).show()
                     } else {
                         addedCardCodes.add(cardCode)
-                        rutaComercialViewModel.saveDetalle(accDocEntry, cardCode)
+                        rutaComercialViewModel.saveDetalle(prefsRutaComercial.getAccDocEntry(), cardCode)
                     }
                 }
             }
@@ -201,34 +235,52 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_check -> guardarRuta()
+            R.id.app_bar_check -> {
+                try {
+                    val nombreVendedor = binding.txvNuevaRutaVendedorValue.text.toString()
+                    if (nombreVendedor == "Seleccionar vendedor") {
+                        throw ( Exception("Debe seleccionar un vendedor"))
+                    }
+
+                    val fechaRuta = binding.txvNuevaRutaFechaRutaValue.text.toString()
+                    if (fechaRuta.isEmpty()) {
+                        throw ( Exception("Debe seleccionar una fecha de ruta"))
+                    }
+                    if (addedCardCodes.isEmpty()) {
+                        throw ( Exception("Debe agregar al menos un cliente"))
+                    }
+
+                    rutaComercialViewModel.saveRutaCabecera(
+                        agregarRutaComercialCabecera(
+                            accDocEntry = prefsRutaComercial.getAccDocEntry(),
+                            fechaRuta = binding.txvNuevaRutaFechaRutaValue.text.toString(),
+                            slpCode = slpCode,
+                            comentarios = binding.txvNuevaRutaComentariosValue.text.toString()
+                        )
+                    )
+
+                    rutaComercialViewModel.dataSaveRutaCabecera.observe(this){ response->
+                        when(response.ErrorCodigo){
+                            500 ->{
+                                BaseDialogAlert(this).showConfirmationDialog("Su sesión ha sido cerrada"){
+                                    //Aceptar
+                                    usuarioViewModel.logOut()
+                                }
+                            }
+                            0 -> {
+                                showMessage(this, response.ErrorMensaje)
+                                setResult(RESULT_OK)
+                                onBackPressedDispatcher.onBackPressed()
+                            }
+                            else -> { showMessage(this, response.ErrorMensaje) }
+                        }
+                    }
+                } catch (e:Exception){
+                    showMessage(this, e.message.toString())
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun guardarRuta() {
-        val nombreVendedor = binding.txvNuevaRutaVendedorValue.text.toString()
-        if (nombreVendedor == "Seleccionar vendedor") {
-            Toast.makeText(this, "Debe seleccionar un vendedor", Toast.LENGTH_SHORT).show()
-            return
-        }
-        val fechaRuta = binding.txvNuevaRutaFechaRutaValue.text.toString()
-        if (fechaRuta.isEmpty()) {
-            Toast.makeText(this, "Debe seleccionar una fecha de ruta", Toast.LENGTH_SHORT).show()
-            return
-        }
-        if (addedCardCodes.isEmpty()) {
-            Toast.makeText(this, "Debe agregar al menos un cliente", Toast.LENGTH_SHORT).show()
-            return
-        }
-        rutaComercialViewModel.saveRutaCabecera(
-            accDocEntry = accDocEntry,
-            fechaRuta = fechaRuta,
-            nombreVendedor = nombreVendedor
-        )
-        Toast.makeText(this, "Ruta guardada exitosamente", Toast.LENGTH_SHORT).show()
-        setResult(Activity.RESULT_OK)
-        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {

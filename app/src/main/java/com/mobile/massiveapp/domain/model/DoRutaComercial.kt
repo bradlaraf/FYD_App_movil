@@ -21,8 +21,8 @@ data class DoRutaComercial(
     val ObjType: Int,
     val DocEntry: Int,
     val DocNum: Int,
-    val NombreVendedor: String,
-    val FechaRuta: String,
+    val SlpCode: Int,
+    val DocDate: String,
     val Comments: String
 )
 
@@ -45,8 +45,8 @@ fun RutaComercialEntity.toDomain() = DoRutaComercial(
     ObjType = ObjType,
     DocEntry = DocEntry,
     DocNum = DocNum,
-    NombreVendedor = NombreVendedor,
-    FechaRuta = FechaRuta,
+    SlpCode = SlpCode,
+    DocDate = DocDate,
     Comments = Comments
 )
 
@@ -54,7 +54,9 @@ data class DoRutaComercialView(
     val AccDocEntry: String,
     val FechaRuta: String,
     val NombreVendedor: String,
-    val CantidadClientes: Int
+    val CantidadClientes: Int,
+    val AccMigrated: String,
+    val Canceled: String
 )
 
 

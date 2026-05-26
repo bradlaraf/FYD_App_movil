@@ -283,4 +283,12 @@ object RoomModule {
     @Provides
     fun providesLiquidacionPagoDao(db:MassiveDatabase) = db.getLiquidacionPagoDao()
 
+    @Singleton
+    @Provides
+    fun providesRutaComercialDao(db:MassiveDatabase) = db.getRutaComercialDao()
+
+    @Singleton
+    @Provides
+    fun providesRutaComercialDetalleDao(db:MassiveDatabase) = db.getRutaComercialDetalleDao()
+
 }

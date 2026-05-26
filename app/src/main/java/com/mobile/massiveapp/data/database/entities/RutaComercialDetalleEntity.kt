@@ -5,7 +5,7 @@ import androidx.room.Entity
 import com.mobile.massiveapp.data.model.RutaComercialDetalle
 import com.mobile.massiveapp.domain.model.DoRutaComercialDetalle
 
-@Entity(tableName = "RutaComercialDetalle", primaryKeys = ["AccDocEntry", "DocLine"])
+@Entity(tableName = "RutaComercialDetalle", primaryKeys = ["AccDocEntry", "LineNum"])
 data class RutaComercialDetalleEntity(
     @ColumnInfo(name = "AccAction") val AccAction: String,
     @ColumnInfo(name = "AccCreateDate") val AccCreateDate: String,
@@ -20,7 +20,7 @@ data class RutaComercialDetalleEntity(
 
     @ColumnInfo(name = "Status") val Status: String, //P(pendiente) R(rechazado) A(aceptado)
     @ColumnInfo(name = "AccDocEntry") val AccDocEntry: String,
-    @ColumnInfo(name = "DocLine") val DocLine: Int,
+    @ColumnInfo(name = "LineNum") val LineNum: Int,
     @ColumnInfo(name = "CardCode") val CardCode: String,
     @ColumnInfo(name = "Address") val Address: String,
     @ColumnInfo(name = "AddressType") val AddressType: String,
@@ -31,7 +31,7 @@ data class RutaComercialDetalleEntity(
 
 fun RutaComercialDetalle.toDatabase() = RutaComercialDetalleEntity(
     AccDocEntry = AccDocEntry,
-    DocLine = DocLine,
+    LineNum = LineNum,
     AccAction = AccAction,
     AccCreateDate = AccCreateDate,
     AccCreateHour = AccCreateHour,
@@ -52,7 +52,7 @@ fun RutaComercialDetalle.toDatabase() = RutaComercialDetalleEntity(
 
 fun DoRutaComercialDetalle.toDatabase() = RutaComercialDetalleEntity(
     AccDocEntry = AccDocEntry,
-    DocLine = DocLine,
+    LineNum = LineNum,
     AccAction = AccAction,
     AccCreateDate = AccCreateDate,
     AccCreateHour = AccCreateHour,

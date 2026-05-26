@@ -47,16 +47,16 @@
         <activity
             android:name=".ui.view.pedidocliente.anexo.AnexoActivity"
             android:exported="false" />
-        <!-- <service
+        <!--
+ <service
             android:name=".core.BackgroundService"
             android:enabled="true"
             android:exported="false" />
         <service
             android:name=".core.ForegroundDatosMaestrosService"
             android:enabled="true"
-            android:exported="false" /> -->
-
-
+            android:exported="false" />
+        -->
         <receiver android:name=".core.TaskReceiver" />
         <receiver
             android:name=".core.SincMaestrosBroadcastReceiver"
@@ -90,13 +90,18 @@
         </provider>
 
         <activity
+            android:name=".ui.view.programacion.user.RutaComercialConfirmacionActivity"
+            android:exported="false"
+            android:label="Confirmar Ruta"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar"/>
+
+        <activity
             android:name=".ui.view.manifiesto.cobranza.EditarPagoManifiestoActivity"
             android:exported="false"
             android:label="Editar Pago"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.ThemeWithActionBar"
-            />
-
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
         <activity
             android:name=".ui.view.manifiesto.cobranza.NuevoPagoManifiestoActivity"
             android:exported="false"
@@ -134,15 +139,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
         <activity
-            android:name=".ui.view.ruta.RutaComercialActivity"
+            android:name=".ui.view.programacion.RutaComercialActivity"
             android:exported="false"
             android:label="Ruta Comercial"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.ThemeWithNoActionBar" />
         <activity
-            android:name=".ui.view.ruta.NuevaRutaComercialActivity"
+            android:name=".ui.view.programacion.NuevaRutaComercialActivity"
             android:exported="false"
             android:label="Nueva Ruta Comercial"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
+        <activity
+            android:name=".ui.view.programacion.EditarRutaComercialActivity"
+            android:exported="false"
+            android:label="Editar Ruta Comercial"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.ThemeWithActionBar" />
         <activity

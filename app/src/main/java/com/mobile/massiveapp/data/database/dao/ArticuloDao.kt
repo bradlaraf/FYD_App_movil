@@ -30,6 +30,16 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
     """)
     suspend fun getAllArticulosWithLimit(): List<ArticuloEntity>
 
+    @Query(
+        """SELECT
+            *
+            FROM Articulo T0
+            WHERE T0.ItemCode = :itemCode
+            LIMIT 1
+        """
+    )
+    suspend fun getArticulo(itemCode: String): ArticuloEntity
+
     @Query("""
         SELECT 
         T0.ItemCode,

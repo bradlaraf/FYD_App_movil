@@ -1,9 +1,11 @@
 package com.mobile.massiveapp.ui.view.programacion
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -16,8 +18,11 @@ import com.mobile.massiveapp.ui.view.menu.drawer.DrawerBaseActivity
 import com.mobile.massiveapp.ui.view.programacion.user.RutaComercialConfirmacionActivity
 import com.mobile.massiveapp.ui.view.util.SearchViewHelper
 import com.mobile.massiveapp.ui.view.util.getCodigoDeDocumentoActual
+import com.mobile.massiveapp.ui.view.util.mostrarCalendarioRangoMaterial
+import com.mobile.massiveapp.ui.view.util.observeOnce
 import com.mobile.massiveapp.ui.viewmodel.ProviderViewModel
 import com.mobile.massiveapp.ui.viewmodel.RutaComercialViewModel
+import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,6 +32,7 @@ class RutaComercialActivity : DrawerBaseActivity() {
     private lateinit var binding: ActivityRutaComercialBinding
     private val rutaComercialViewModel: RutaComercialViewModel by viewModels()
     private val providerViewModel: ProviderViewModel by viewModels()
+    private val usuarioViewModel: UsuarioViewModel by viewModels()
     private lateinit var searchViewHelper: SearchViewHelper
     private lateinit var rutaComercialAdapter: RutaComercialAdapter
 
@@ -40,12 +46,20 @@ class RutaComercialActivity : DrawerBaseActivity() {
 
     private fun setData() {
         var listaRutas: List<DoRutaComercialView> = emptyList()
+        usuarioViewModel.getUsuarioFromDatabase()
+        usuarioViewModel.dataGetUsuarioFromDatabase.observe(this){ usuario->
+            binding.btnAdd.isVisible = usuario.SuperUser == "Y"
+        }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                rutaComercialViewModel.dataGetAllRutas.collectLatest { lista ->
-                    listaRutas = lista
-                    rutaComercialAdapter.updateData(lista)
+        rutaComercialViewModel.saveFechasFiltro()
+
+        rutaComercialViewModel.dataSaveFechasFiltro.observe(this){
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    rutaComercialViewModel.dataGetAllRutas.collect { lista ->
+                        listaRutas = lista
+                        rutaComercialAdapter.updateData(lista)
+                    }
                 }
             }
         }
@@ -61,16 +75,42 @@ class RutaComercialActivity : DrawerBaseActivity() {
 
     private fun setDefaultUi() {
         rutaComercialAdapter = RutaComercialAdapter(emptyList()) { ruta ->
-            Intent(this, RutaComercialConfirmacionActivity::class.java)
-                .putExtra("accDocEntry", ruta.AccDocEntry)
-                .also { startActivity(it) }
+            prefsRutaComercial.saveAccDocEntry(ruta.AccDocEntry)
+            usuarioViewModel.dataGetUsuarioFromDatabase.observe(this){ usuario->
+
+                if (usuario.SuperUser == "Y"){
+                    Intent(this, EditarRutaComercialActivity::class.java)
+                        .putExtra("accDocEntry", ruta.AccDocEntry)
+                        .also { startActivity(it) }
+                } else {
+                    Intent(this, RutaComercialConfirmacionActivity::class.java)
+                        .putExtra("accDocEntry", ruta.AccDocEntry)
+                        .also { startActivity(it) }
+                }
+            }
+
         }
         binding.rvRutaComercial.adapter = rutaComercialAdapter
+        prefsRutaComercial
         binding.swipe.setOnRefreshListener { binding.swipe.isRefreshing = false }
         binding.btnAdd.setOnClickListener {
             prefsRutaComercial.saveAccDocEntry(getCodigoDeDocumentoActual(this))
             Intent(this, NuevaRutaComercialActivity::class.java)
                 .also { startActivity(it) }
+        }
+        //Fecha Rutas
+        binding.btnFechaRutas.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mostrarCalendarioRangoMaterial(
+                    this,
+                    prefsRutaComercial.getFechaInicio(),
+                    prefsRutaComercial.getFechaFin()
+                ) { diaI, mesI, yearI, diaF, mesF, yearF ->
+                    prefsRutaComercial.saveFechaInicio("$yearI-$mesI-$diaI")
+                    prefsRutaComercial.saveFechaFin("$yearF-$mesF-$diaF")
+                    rutaComercialViewModel.saveFechasFiltro()
+                }
+            }
         }
     }
 

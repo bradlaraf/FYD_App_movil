@@ -5,6 +5,7 @@ import com.mobile.massiveapp.data.network.response.SoapEnvelopeReporteCuentaCobr
 import com.mobile.massiveapp.data.network.response.SoapEnvelopeReporteDetalleVenta
 import com.mobile.massiveapp.data.network.response.SoapEnvelopeReporteEstadoCuenta
 import com.mobile.massiveapp.data.network.response.SoapEnvelopeReportePreCobranza
+import com.mobile.massiveapp.data.network.response.SoapEnvelopeReporteProductosFrecuentes
 import com.mobile.massiveapp.data.network.response.SoapEnvelopeReporteVentaDiaria
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -56,4 +57,11 @@ interface ReportesClient {
         @Url url: String,
         @Body requestBody: RequestBody
     ): Response<SoapEnvelopeReporteCuentaCobrar>
+
+    @POST
+    @Headers("Content-Type: text/xml")
+    suspend fun getReporteProductosFrecuentes(
+        @Url url: String,
+        @Body requestBody: RequestBody
+    ): Response<SoapEnvelopeReporteProductosFrecuentes>
 }

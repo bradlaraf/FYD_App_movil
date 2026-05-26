@@ -14,6 +14,7 @@ import com.mobile.massiveapp.domain.model.DoError
 import com.mobile.massiveapp.domain.model.DoPedidoDetalle
 import com.mobile.massiveapp.domain.model.DoPedidoDetalleInfo
 import com.mobile.massiveapp.domain.model.DoPedidoInfoView
+import com.mobile.massiveapp.domain.model.DoReporteProductosFrecuentes
 import com.mobile.massiveapp.domain.model.DoUnidadMedidaInfo
 import com.mobile.massiveapp.domain.pedido.CancelPedidoUseCase
 import com.mobile.massiveapp.domain.pedido.ComprobarEstadoActualPedidoUseCase
@@ -33,6 +34,7 @@ import com.mobile.massiveapp.domain.pedido.GetPedidoDetallePorAccDocEntryUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidoDetallesInfoUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidoPorAccDocEntryUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidoSugeridoUseCase
+import com.mobile.massiveapp.domain.pedido.GetReporteProductosFrecuentesUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidosCanceladosUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidosDeAyerUseCase
 import com.mobile.massiveapp.domain.pedido.GetPrecioArticuloUseCase
@@ -77,7 +79,8 @@ class PedidoViewModel @Inject constructor(
     private val comprobarEstadoActualPedidoUseCase: ComprobarEstadoActualPedidoUseCase,
     private val getPedidoSugeridoUseCase: GetPedidoSugeridoUseCase,
     private val getPrecioArticuloUseCase: GetPrecioArticuloUseCase,
-    private val obtenerPrecioArticuloFYDUseCase: ObtenerPrecioArticuloFYDUseCase
+    private val obtenerPrecioArticuloFYDUseCase: ObtenerPrecioArticuloFYDUseCase,
+    private val getReporteProductosFrecuentesUseCase: GetReporteProductosFrecuentesUseCase
     )
     : ViewModel(){
     val isLoading = MutableLiveData<Boolean>()
@@ -178,6 +181,16 @@ fun getPedidoSugerido(cardCode: String){
         val result = getPedidoSugeridoUseCase(cardCode)
         result.let {
             datagetPedidoSugerido.postValue(it)
+        }
+    }
+}
+
+val dataGetReporteProductosFrecuentes = MutableLiveData<List<DoReporteProductosFrecuentes>>()
+fun getReporteProductosFrecuentes(cardCode: String) {
+    viewModelScope.launch {
+        val result = getReporteProductosFrecuentesUseCase(cardCode)
+        result.let {
+            dataGetReporteProductosFrecuentes.postValue(it)
         }
     }
 }

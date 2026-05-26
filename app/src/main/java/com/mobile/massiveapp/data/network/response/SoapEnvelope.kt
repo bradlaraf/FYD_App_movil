@@ -521,6 +521,78 @@ data class MSVAppObtenerInsertarLiquidacionPagoResult @JvmOverloads constructor(
     var json: String? = null
 )
 
+//Obtener Cliente Rutas Comerciales------------------
+
+@Root(name = "Envelope", strict = false)
+@Namespace(reference = "http://schemas.xmlsoap.org/soap/envelope/", prefix = "soap")
+data class SoapEnvelopeObtenerClienteRutasComerciales @JvmOverloads constructor(
+    @field:Element(name = "Body", required = false)
+    var body: SoapBodyObtenerClienteRutasComerciales? = null
+)
+
+@Root(name = "Body", strict = false)
+@Namespace(reference = "http://schemas.xmlsoap.org/soap/envelope/", prefix = "soap")
+data class SoapBodyObtenerClienteRutasComerciales @JvmOverloads constructor(
+    @field:Element(name = "MSV_APP_Obtener_ClienteRutasComercialesResponse", required = false)
+    var response: MSVAppObtenerClienteRutasComercialesResponse? = null
+)
+
+@Root(name = "MSV_APP_Obtener_ClienteRutasComercialesResponse", strict = false)
+@Namespace(reference = "http://massive.org/")
+data class MSVAppObtenerClienteRutasComercialesResponse @JvmOverloads constructor(
+    @field:Element(name = "MSV_APP_Obtener_ClienteRutasComercialesResult", required = false)
+    var result: MSVAppObtenerClienteRutasComercialesResult? = null
+)
+
+@Root(name = "MSV_APP_Obtener_ClienteRutasComercialesResult", strict = false)
+@Namespace(reference = "http://massive.org/")
+data class MSVAppObtenerClienteRutasComercialesResult @JvmOverloads constructor(
+    @field:Element(name = "ErrorCodigo", required = false)
+    var errorCodigo: Int = 0,
+
+    @field:Element(name = "ErrorMensaje", required = false)
+    var errorMensaje: String? = null,
+
+    @field:Element(name = "Json", required = false)
+    var json: String? = null
+)
+
+//Insertar Cliente Rutas Comerciales------------------
+
+@Root(name = "Envelope", strict = false)
+@Namespace(reference = "http://schemas.xmlsoap.org/soap/envelope/", prefix = "soap")
+data class SoapEnvelopeInsertarClienteRutasComerciales @JvmOverloads constructor(
+    @field:Element(name = "Body", required = false)
+    var body: SoapBodyInsertarClienteRutasComerciales? = null
+)
+
+@Root(name = "Body", strict = false)
+@Namespace(reference = "http://schemas.xmlsoap.org/soap/envelope/", prefix = "soap")
+data class SoapBodyInsertarClienteRutasComerciales @JvmOverloads constructor(
+    @field:Element(name = "MSV_APP_Insertar_ClienteRutasComercialesResponse", required = false)
+    var response: MSVAppInsertarClienteRutasComercialesResponse? = null
+)
+
+@Root(name = "MSV_APP_Insertar_ClienteRutasComercialesResponse", strict = false)
+@Namespace(reference = "http://massive.org/")
+data class MSVAppInsertarClienteRutasComercialesResponse @JvmOverloads constructor(
+    @field:Element(name = "MSV_APP_Insertar_ClienteRutasComercialesResult", required = false)
+    var result: MSVAppInsertarClienteRutasComercialesResult? = null
+)
+
+@Root(name = "MSV_APP_Insertar_ClienteRutasComercialesResult", strict = false)
+@Namespace(reference = "http://massive.org/")
+data class MSVAppInsertarClienteRutasComercialesResult @JvmOverloads constructor(
+    @field:Element(name = "ErrorCodigo", required = false)
+    var errorCodigo: Int = 0,
+
+    @field:Element(name = "ErrorMensaje", required = false)
+    var errorMensaje: String? = null,
+
+    @field:Element(name = "Json", required = false)
+    var json: String? = null
+)
+
 //Estado Sesion------------------
 
 @Root(name = "Envelope", strict = false)

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:strokeColor="#E0E0E0"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clRutaMigrado"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/color_red_light"
+        >
+
+        <ImageView
+            android:id="@+id/imvRutaMigrado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:srcCompat="@drawable/icon_cloud_await"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clRutaComercial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:paddingLeft="48dp"
+        android:paddingRight="12dp"
+        >
+
+
+
+        <TextView
+            android:id="@+id/txvRutaComercialNombreVendedorTitle"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vendedor"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txvRutaComercialNombreVendedorValue"
+            style="@style/default_title_large_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/txvRutaComercialNombreVendedorTitle"
+            app:layout_constraintEnd_toStartOf="@id/imgChevron"
+            app:layout_constraintStart_toEndOf="@id/txvRutaComercialNombreVendedorTitle" />
+
+        <TextView
+            android:id="@+id/txvFechaRutaComercialTitle"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha Programada"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvRutaComercialNombreVendedorTitle" />
+
+        <TextView
+            android:id="@+id/txvFechaRutaComercialValue"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/txvFechaRutaComercialTitle"
+            app:layout_constraintStart_toEndOf="@id/txvFechaRutaComercialTitle" />
+
+        <TextView
+            android:id="@+id/txvRutaComercialCantidadClientesTitle"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clientes"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvFechaRutaComercialTitle" />
+
+        <TextView
+            android:id="@+id/txvRutaComercialCantidadClientesValue"
+            style="@style/default_title_large_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/txvRutaComercialCantidadClientesTitle"
+            app:layout_constraintStart_toEndOf="@id/txvRutaComercialCantidadClientesTitle" />
+
+        <ImageView
+            android:id="@+id/imgChevron"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:alpha="0.6"
+            android:src="@drawable/icon_arroy_enter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txvRutaCancelado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:alpha="0.3"
+            android:elevation="-1dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Cancelado"
+            android:textColor="@color/color_red"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txvRutaComercialCantidadClientesValue"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

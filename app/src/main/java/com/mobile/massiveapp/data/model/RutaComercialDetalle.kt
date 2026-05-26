@@ -1,11 +1,12 @@
 package com.mobile.massiveapp.data.model
 
+import com.mobile.massiveapp.data.database.entities.RutaComercialDetalleEntity
 import com.mobile.massiveapp.data.database.entities.toDatabase
 import com.mobile.massiveapp.data.util.MappingInteface
 
 data class RutaComercialDetalle(
     val AccDocEntry: String,
-    val DocLine: Int,
+    val LineNum: Int,
     val AccAction: String,
     val AccCreateDate: String,
     val AccCreateHour: String,
@@ -25,7 +26,7 @@ data class RutaComercialDetalle(
 ) : MappingInteface<RutaComercialDetalle>() {
     constructor() : this(
         AccDocEntry = "",
-        DocLine = -1,
+        LineNum = -1,
         AccAction = "",
         AccCreateDate = "",
         AccCreateHour = "",
@@ -49,6 +50,27 @@ data class RutaComercialDetalle(
     }
 
     override fun listOfKeys(data: List<RutaComercialDetalle>): List<Any> {
-        return data.map { "${it.AccDocEntry}_${it.DocLine}" }
+        return data.map { "${it.AccDocEntry}_${it.LineNum}" }
     }
 }
+
+fun RutaComercialDetalleEntity.toModel() = RutaComercialDetalle(
+    AccDocEntry = AccDocEntry,
+    LineNum = LineNum,
+    AccAction = AccAction,
+    AccCreateDate = AccCreateDate,
+    AccCreateHour = AccCreateHour,
+    AccCreateUser = AccCreateUser,
+    AccUpdateDate = AccUpdateDate,
+    AccUpdateHour = AccUpdateHour,
+    AccUpdateUser = AccUpdateUser,
+    AccMigrated = AccMigrated,
+    AccControl = AccControl,
+    Status = Status,
+    CardCode = CardCode,
+    Address = Address,
+    AddressType = AddressType,
+    Comments = Comments,
+    ObjType = ObjType,
+    DocEntry = DocEntry
+)

@@ -5,13 +5,16 @@ import com.mobile.massiveapp.data.database.dao.ClientePedidosDetalleDao
 import com.mobile.massiveapp.data.database.entities.ClientePedidosDetalleEntity
 import com.mobile.massiveapp.data.database.entities.toDatabase
 import com.mobile.massiveapp.data.model.ClientePedidoDetalle
+import com.mobile.massiveapp.domain.model.DoReporteProductosFrecuentes
 import com.mobile.massiveapp.data.model.ClientePedidos
+import com.mobile.massiveapp.data.model.ProductoFrecuente
 import com.mobile.massiveapp.data.model.toEntity
 import com.mobile.massiveapp.data.model.toModel
 import com.mobile.massiveapp.data.network.PedidoService
 import com.mobile.massiveapp.domain.model.DoClientePedido
 import com.mobile.massiveapp.domain.model.toDomain
 import com.mobile.massiveapp.ui.view.util.getFechaActual
+import timber.log.Timber
 import javax.inject.Inject
 
 class PedidoRepository @Inject constructor(
@@ -80,12 +83,20 @@ class PedidoRepository @Inject constructor(
         }
     }
 
-    //Pedido  sugerido
-    suspend fun getPedidoSugeridoFromApi(cardCode: String): List<ClientePedidoDetalle>{
+    suspend fun getPedidoSugeridoFromApi(cardCode: String): List<ProductoFrecuente>{
         return try{
-            pedidoService.getPedidoSugerido(cardCode)
+            pedidoService.getReporteProductosFrecuentes(cardCode)
         } catch (e: Exception){
             e.printStackTrace()
+            emptyList()
+        }
+    }
+
+    suspend fun getReporteProductosFrecuentesFromApi(cardCode: String): List<ProductoFrecuente> {
+        return try {
+            pedidoService.getReporteProductosFrecuentes(cardCode)
+        } catch (e: Exception) {
+            Timber.e(e, "ProductosFrecuentes error en repository")
             emptyList()
         }
     }

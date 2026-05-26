@@ -13,16 +13,6 @@ class SavePedidoDetalleUseCase @Inject constructor(
     /** Solo puede un itemCode por pedido **/
     suspend operator fun invoke(clientePedidoDetalle: ClientePedidoDetalle):Boolean =
         try {
-            /*val pagoDetalleBd = clientePagosDetalleDao.getPagoDetalle(cobranzaDetalle.AccDocEntry, cobranzaDetalle.DocEntry)
-
-            if (pagoDetalleBd.isNotEmpty()){
-                val docLineActual = pagoDetalleBd[0].DocLine
-                cobranzaDetalle.DocLine = docLineActual
-                clientePagosDetalleDao.update(cobranzaDetalle.toDatabase())
-            } else {
-                cobranzaRepository.saveCobranzaDetalle(cobranzaDetalle)
-            }
-            true*/
 
             val editMode = clientePedidoDetalle.LineNum >= 1000
 

@@ -38,6 +38,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/svOptionsDialog"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:scrollbars="vertical"
+                    android:scrollbarSize="4dp"
+                    android:fadeScrollbars="false"
+                    android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
+                    app:layout_constraintHeight_default="wrap"
+                    app:layout_constraintHeight_max="300dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21">
+
+                    <RadioGroup
+                        android:id="@+id/rgOptionsDialog"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_gris_dialog" />
+
+                </androidx.core.widget.NestedScrollView>
+
                 <LinearLayout
                     android:id="@+id/linearLayout3"
                     android:layout_width="match_parent"
@@ -47,9 +70,10 @@
                     android:background="@color/color_gris_dialog"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rgOptionsDialog">
+                    app:layout_constraintTop_toBottomOf="@+id/svOptionsDialog">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/dialogBtnCancel"
@@ -74,20 +98,6 @@
                         android:text="Aceptar" />
                 </LinearLayout>
 
-
-                <RadioGroup
-                    android:id="@+id/rgOptionsDialog"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/color_gris_dialog"
-                    android:maxHeight="300dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView21">
-
-                </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

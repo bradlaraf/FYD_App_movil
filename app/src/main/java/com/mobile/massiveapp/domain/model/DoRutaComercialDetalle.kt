@@ -4,7 +4,7 @@ import com.mobile.massiveapp.data.database.entities.RutaComercialDetalleEntity
 
 data class DoRutaComercialDetalle(
     val AccDocEntry: String,
-    val DocLine: Int,
+    val LineNum: Int,
     val AccAction: String,
     val AccCreateDate: String,
     val AccCreateHour: String,
@@ -25,7 +25,7 @@ data class DoRutaComercialDetalle(
 
 fun RutaComercialDetalleEntity.toDomain() = DoRutaComercialDetalle(
     AccDocEntry = AccDocEntry,
-    DocLine = DocLine,
+    LineNum = LineNum,
     AccAction = AccAction,
     AccCreateDate = AccCreateDate,
     AccCreateHour = AccCreateHour,

@@ -24,6 +24,11 @@
             android:title="Manifiesto"/>
 
         <item
+            android:id="@+id/nav_drawer_programacion"
+            android:icon="@drawable/icon_calendar"
+            android:title="Programación Rutas"/>
+
+        <item
             android:id="@+id/nav_drawer_facturas"
             android:icon="@drawable/icon_total_cobranzas"
             android:title="Facturas"/>

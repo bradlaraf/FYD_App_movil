@@ -25,7 +25,6 @@ import com.mobile.massiveapp.data.model.ClientePagos
 import com.mobile.massiveapp.data.model.ClientePagosDetalle
 import com.mobile.massiveapp.data.model.ClientePedidoDetalle
 import com.mobile.massiveapp.data.model.ClientePedidos
-import com.mobile.massiveapp.data.model.ConfigurarUsuarios
 import com.mobile.massiveapp.data.model.ConsultaDocumentoDireccion
 import com.mobile.massiveapp.domain.model.DoClientePagoDetalle
 import com.mobile.massiveapp.domain.model.DoClienteSocios
@@ -33,7 +32,7 @@ import com.mobile.massiveapp.domain.model.DoSocioContactos
 import com.mobile.massiveapp.domain.model.DoSocioDirecciones
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.mobile.massiveapp.MassiveApp.Companion.prefsApp
-import com.mobile.massiveapp.data.model.LiquidacionPago
+import com.mobile.massiveapp.data.model.RutaComercial
 import com.mobile.massiveapp.domain.model.DoLiquidacionPago
 import java.io.File
 import java.text.DecimalFormat
@@ -59,7 +58,17 @@ fun <T> LiveData<T>.observeOnce(owner: LifecycleOwner, observer: (T) -> Unit) {
     observe(owner, object : Observer<T> {
         override fun onChanged(t: T) {
             observer(t)
-            removeObserver(this) // Se elimina automáticamente después de recibir un cambio
+            removeObserver(this)
+        }
+    })
+}
+
+fun <T> LiveData<T?>.observeOnceNotNull(owner: LifecycleOwner, observer: (T) -> Unit) {
+    observe(owner, object : Observer<T?> {
+        override fun onChanged(t: T?) {
+            if (t == null) return
+            removeObserver(this)
+            observer(t)
         }
     })
 }
@@ -349,6 +358,49 @@ fun mostrarCalendarioMaterial(context: Context, fechaActual: String, onAcceptDat
         }
     }
 }
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun mostrarCalendarioRangoMaterial(
+    context: Context,
+    fechaInicio: String,
+    fechaFin: String,
+    onAcceptDateListener: (diaInicio: String, mesInicio: String, yearInicio: String,
+                           diaFin: String, mesFin: String, yearFin: String) -> Unit
+) {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+
+    val startMillis = dateFormat.parse(fechaInicio)?.let { calendar.apply { time = it }.timeInMillis }
+        ?: MaterialDatePicker.todayInUtcMilliseconds()
+    val endMillis = dateFormat.parse(fechaFin)?.let { calendar.apply { time = it }.timeInMillis }
+        ?: MaterialDatePicker.todayInUtcMilliseconds()
+
+    val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+        .setTitleText("Seleccione un rango de fechas")
+        .setSelection(androidx.core.util.Pair(startMillis, endMillis))
+        .build()
+
+    dateRangePicker.show((context as AppCompatActivity).supportFragmentManager, "tag")
+    dateRangePicker.addOnPositiveButtonClickListener { selection ->
+        fun convertir(millis: Long): Triple<String, String, String> {
+            val utcDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneOffset.UTC)
+            val zoned = ZonedDateTime.of(utcDate, ZoneId.systemDefault())
+            val zonedFinal = ZonedDateTime.ofInstant(
+                Instant.ofEpochMilli(zoned.toInstant().toEpochMilli()), ZoneId.systemDefault()
+            )
+            return Triple(
+                String.format("%02d", zonedFinal.dayOfMonth),
+                String.format("%02d", zonedFinal.monthValue),
+                zonedFinal.year.toString()
+            )
+        }
+
+        val (diaI, mesI, yearI) = convertir(selection.first)
+        val (diaF, mesF, yearF) = convertir(selection.second)
+        onAcceptDateListener(diaI, mesI, yearI, diaF, mesF, yearF)
+    }
+}
+
 
 fun getCodigoDeDocumentoActual(context: Context):String{
     val calendar = Calendar.getInstance()
@@ -1231,6 +1283,102 @@ fun agregarCabeceraDePedido(
     return pedidoCabecera
 
 }
+
+fun agregarRutaComercialCabecera(
+    accDocEntry: String,
+    slpCode: Int,
+    fechaRuta: String,
+    comentarios: String
+) = RutaComercial(
+    AccDocEntry = accDocEntry,
+    AccAction = "I",
+    AccCreateDate = getFechaActual(),
+    AccCreateHour = getHoraActual(),
+    AccCreateUser = prefsApp.getUserCode(),
+    AccError = "N",
+    Canceled = "N",
+    AccNotificado = "N",
+    AccFinalized = "N",
+    AccMigrated = "N",
+    AccMovil = "Y",
+    AccUpdateDate = "",
+    AccUpdateHour = "",
+    AccUpdateUser = "",
+    AccControl = "N",
+    ObjType = -1,
+    DocEntry = -1,
+    DocNum = -1,
+    SlpCode = slpCode,
+    DocDate = fechaRuta,
+    Comments = comentarios,
+    Lineas = emptyList()
+)
+
+fun editarRutaComercialCabecera(
+    accDocEntry: String,
+    slpCode: Int,
+    fechaRuta: String,
+    comentarios: String,
+    accCreateUser: String,
+    accCreateDate: String,
+    accCreateHour: String
+) = RutaComercial(
+    AccDocEntry = accDocEntry,
+    AccAction = "U",
+    AccCreateDate = accCreateDate,
+    AccCreateHour = accCreateHour,
+    AccCreateUser = accCreateUser,
+    AccError = "N",
+    Canceled = "N",
+    AccNotificado = "N",
+    AccFinalized = "N",
+    AccMigrated = "N",
+    AccMovil = "Y",
+    AccUpdateDate = getFechaActual(),
+    AccUpdateHour = getHoraActual(),
+    AccUpdateUser = prefsApp.getUserCode(),
+    AccControl = "N",
+    ObjType = -1,
+    DocEntry = -1,
+    DocNum = -1,
+    SlpCode = slpCode,
+    DocDate = fechaRuta,
+    Comments = comentarios,
+    Lineas = emptyList()
+)
+
+fun eliminarRutaComercialCabecera(
+    accDocEntry: String,
+    slpCode: Int,
+    fechaRuta: String,
+    comentarios: String,
+    accCreateUser: String,
+    accCreateDate: String,
+    accCreateHour: String
+) = RutaComercial(
+    AccDocEntry = accDocEntry,
+    AccAction = "U",
+    AccCreateDate = accCreateDate,
+    AccCreateHour = accCreateHour,
+    AccCreateUser = accCreateUser,
+    AccError = "N",
+    Canceled = "Y",
+    AccNotificado = "N",
+    AccFinalized = "N",
+    AccMigrated = "N",
+    AccMovil = "Y",
+    AccUpdateDate = getFechaActual(),
+    AccUpdateHour = getHoraActual(),
+    AccUpdateUser = prefsApp.getUserCode(),
+    AccControl = "N",
+    ObjType = -1,
+    DocEntry = -1,
+    DocNum = -1,
+    SlpCode = slpCode,
+    DocDate = fechaRuta,
+    Comments = comentarios,
+    Lineas = emptyList()
+)
 
 fun solicitarPermisos(context: Context) {
     val permisos = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)

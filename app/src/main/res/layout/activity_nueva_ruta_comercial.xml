@@ -5,6 +5,190 @@
     android:id="@+id/clActivityNuevaRutaComercial"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.ruta.NuevaRutaComercialActivity">
+    android:background="@color/color_gris_fragment"
+    tools:context=".ui.view.programacion.NuevaRutaComercialActivity">
+
+
+            <!-- Vendedor -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNuevaRutaVendedor"
+        style="@style/clPedidoInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txvNuevaRutaVendedorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vendedor"
+            android:textColor="@color/color_blue_sap_mobile"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txvNuevaRutaVendedorValue"
+            style="edtNewSn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Seleccionar vendedor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvNuevaRutaVendedorTitle" />
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:alpha="0.5"
+            android:src="@drawable/icon_arroy_enter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Fecha de Ruta -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNuevaRutaFechaRuta"
+        style="@style/clPedidoInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clNuevaRutaVendedor">
+
+        <TextView
+            android:id="@+id/txvNuevaRutaFechaRutaTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de ruta"
+            android:textColor="@color/color_blue_sap_mobile"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txvNuevaRutaFechaRutaValue"
+            style="edtNewSn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvNuevaRutaFechaRutaTitle"
+            tools:text="2024-01-01" />
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:alpha="0.5"
+            android:src="@drawable/icon_arroy_enter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNuevaRutaComentarios"
+        style="@style/clPedidoInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clNuevaRutaFechaRuta">
+
+        <TextView
+            android:id="@+id/txvNuevaRutaComentariosTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentarios"
+            android:textColor="@color/color_blue_sap_mobile"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txvNuevaRutaComentariosValue"
+            style="edtNewSn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvNuevaRutaComentariosTitle"
+            tools:text="Comentarios" />
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:alpha="0.5"
+            android:src="@drawable/icon_arroy_enter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Seleccionar Clientes -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNuevaRutaClientes"
+        style="@style/clPedidoInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clNuevaRutaComentarios">
+
+        <TextView
+            android:id="@+id/txvNuevaRutaClientesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar clientes"
+            android:textColor="@color/color_blue_sap_mobile"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txvNuevaRutaClientesValue"
+            style="edtNewSn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="0 clientes"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvNuevaRutaClientesTitle" />
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:alpha="0.5"
+            android:src="@drawable/icon_arroy_enter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Lista de clientes seleccionados -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvNuevaRutaClientes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:nestedScrollingEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clNuevaRutaClientes" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

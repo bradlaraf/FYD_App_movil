@@ -9,6 +9,7 @@ import com.mobile.massiveapp.domain.model.DoRutaComercial
 @Entity(tableName = "RutaComercial")
 data class RutaComercialEntity(
     @PrimaryKey
+    @ColumnInfo(name = "AccDocEntry") val AccDocEntry: String,
     @ColumnInfo(name = "AccAction") val AccAction: String,
     @ColumnInfo(name = "AccCreateDate") val AccCreateDate: String,
     @ColumnInfo(name = "AccCreateHour") val AccCreateHour: String,
@@ -24,12 +25,11 @@ data class RutaComercialEntity(
     @ColumnInfo(name = "AccUpdateUser") val AccUpdateUser: String,
     @ColumnInfo(name = "AccControl") val AccControl: String,
 
-    @ColumnInfo(name = "AccDocEntry") val AccDocEntry: String,
     @ColumnInfo(name = "ObjType") val ObjType: Int,
     @ColumnInfo(name = "DocEntry") val DocEntry: Int,
     @ColumnInfo(name = "DocNum") val DocNum: Int,
-    @ColumnInfo(name = "NombreVendedor") val NombreVendedor: String,
-    @ColumnInfo(name = "FechaRuta") val FechaRuta: String,
+    @ColumnInfo(name = "SlpCode") val SlpCode: Int,
+    @ColumnInfo(name = "DocDate") val DocDate: String,
     @ColumnInfo(name = "Comments") val Comments: String
 )
 
@@ -52,8 +52,8 @@ fun RutaComercial.toDatabase() = RutaComercialEntity(
     ObjType = ObjType,
     DocEntry = DocEntry,
     DocNum = DocNum,
-    NombreVendedor = NombreVendedor,
-    FechaRuta = FechaRuta,
+    SlpCode = SlpCode,
+    DocDate = DocDate,
     Comments = Comments
 )
 
@@ -76,7 +76,7 @@ fun DoRutaComercial.toDatabase() = RutaComercialEntity(
     ObjType = ObjType,
     DocEntry = DocEntry,
     DocNum = DocNum,
-    NombreVendedor = NombreVendedor,
-    FechaRuta = FechaRuta,
+    SlpCode = SlpCode,
+    DocDate = DocDate,
     Comments = Comments
 )

@@ -46,7 +46,7 @@ class RutaComercialConfirmacionActivity : AppCompatActivity() {
 
     private fun setData() {
         rutaComercialViewModel.dataGetRutaComercial.observe(this) { ruta ->
-            binding.txvConfFechaRutaValue.text = ruta?.FechaRuta ?: ""
+            binding.txvConfFechaRutaValue.text = ruta?.DocDate ?: ""
         }
 
         lifecycleScope.launch {
@@ -61,9 +61,9 @@ class RutaComercialConfirmacionActivity : AppCompatActivity() {
 
     private fun abrirDialogComentario(detalle: DoRutaComercialDetalleView) {
         BaseDialogComentarioRuta(
-            ""
+            detalle.Comments
         ) { comentario ->
-            // TODO: guardar comentario
+            rutaComercialViewModel.saveConfirmacionRuta(detalle, comentario)
         }.show(supportFragmentManager, "ComentarioRutaDialog")
     }
 

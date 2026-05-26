@@ -1,8 +1,11 @@
 package com.mobile.massiveapp.domain.rutacomercial
 
+import com.mobile.massiveapp.MassiveApp.Companion.prefsApp
 import com.mobile.massiveapp.data.database.dao.RutaComercialDetalleDao
 import com.mobile.massiveapp.data.database.dao.SocioDireccionesDao
 import com.mobile.massiveapp.data.database.entities.RutaComercialDetalleEntity
+import com.mobile.massiveapp.ui.view.util.getFechaActual
+import com.mobile.massiveapp.ui.view.util.getHoraActual
 import javax.inject.Inject
 
 class SaveRutaComercialDetalleUseCase @Inject constructor(
@@ -19,11 +22,11 @@ class SaveRutaComercialDetalleUseCase @Inject constructor(
                 listOf(
                     RutaComercialDetalleEntity(
                         AccDocEntry = accDocEntry,
-                        DocLine = docLine,
+                        LineNum = docLine,
                         AccAction = "I",
-                        AccCreateDate = "",
-                        AccCreateHour = "",
-                        AccCreateUser = "",
+                        AccCreateDate = getFechaActual(),
+                        AccCreateHour = getHoraActual(),
+                        AccCreateUser = prefsApp.getUserCode(),
                         AccUpdateDate = "",
                         AccUpdateHour = "",
                         AccUpdateUser = "",

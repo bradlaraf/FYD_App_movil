@@ -78,6 +78,14 @@ interface ClientePedidosDetalleDao:BaseDao<ClientePedidosDetalleEntity> {
     suspend fun getAllPedidoDetalleEdicion(accDocEntry: String, itemCode: String): List<ClientePedidoDetalle>
 
     @Query("""
+        SELECT
+            COUNT(*)
+        FROM ClientePedidosDetalle T0
+        WHERE T0.AccDocEntry = :accDocEntry
+    """)
+    suspend fun getLineNum(accDocEntry: String):Int
+
+    @Query("""
         SELECT 
             T0.ItemCode as ItemCode,
             T0.Dscription as ItemName,

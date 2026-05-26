@@ -188,6 +188,43 @@ data class MSVAppObtenerReportePreCobranzaResult @JvmOverloads constructor(
 )
 
 
+//Reporte Productos Frecuentes
+
+@Root(name = "Envelope", strict = false)
+@Namespace(reference = "http://schemas.xmlsoap.org/soap/envelope/", prefix = "soap")
+data class SoapEnvelopeReporteProductosFrecuentes @JvmOverloads constructor(
+    @field:Element(name = "Body", required = false)
+    var body: SoapBodyReporteProductosFrecuentes? = null
+)
+
+@Root(name = "Body", strict = false)
+@Namespace(reference = "http://schemas.xmlsoap.org/soap/envelope/", prefix = "soap")
+data class SoapBodyReporteProductosFrecuentes @JvmOverloads constructor(
+    @field:Element(name = "MSV_APP_Obtener_ReporteProductosFrecuentesResponse", required = false)
+    var response: MSVAppObtenerReporteProductosFrecuentesResponse? = null
+)
+
+@Root(name = "MSV_APP_Obtener_ReporteProductosFrecuentesResponse", strict = false)
+@Namespace(reference = "http://massive.org/")
+data class MSVAppObtenerReporteProductosFrecuentesResponse @JvmOverloads constructor(
+    @field:Element(name = "MSV_APP_Obtener_ReporteProductosFrecuentesResult", required = false)
+    var result: MSVAppObtenerReporteProductosFrecuentesResult? = null
+)
+
+@Root(name = "MSV_APP_Obtener_ReporteProductosFrecuentesResult", strict = false)
+@Namespace(reference = "http://massive.org/")
+data class MSVAppObtenerReporteProductosFrecuentesResult @JvmOverloads constructor(
+    @field:Element(name = "ErrorCodigo", required = false)
+    var errorCodigo: Int = 0,
+
+    @field:Element(name = "ErrorMensaje", required = false)
+    var errorMensaje: String? = null,
+
+    @field:Element(name = "Json", required = false)
+    var json: String? = null
+)
+
+
 //Reporte Saldos por Cobrar
 
 @Root(name = "Envelope", strict = false)

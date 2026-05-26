@@ -79,6 +79,8 @@ import com.mobile.massiveapp.data.database.dao.SucursalDao
 import com.mobile.massiveapp.data.database.dao.TipoCambioDao
 import com.mobile.massiveapp.data.database.dao.FormaPagoDao
 import com.mobile.massiveapp.data.database.dao.LiquidacionPagoDao
+import com.mobile.massiveapp.data.database.dao.RutaComercialDao
+import com.mobile.massiveapp.data.database.dao.RutaComercialDetalleDao
 import com.mobile.massiveapp.data.database.dao.UsuarioAlmacenesDao
 import com.mobile.massiveapp.data.database.dao.UsuarioDao
 import com.mobile.massiveapp.data.database.dao.UsuarioGrupoArticuloDao
@@ -147,6 +149,8 @@ import com.mobile.massiveapp.data.database.entities.SucursalEntity
 import com.mobile.massiveapp.data.database.entities.TipoCambioEntity
 import com.mobile.massiveapp.data.database.entities.FormaPagoEntity
 import com.mobile.massiveapp.data.database.entities.LiquidacionPagoEntity
+import com.mobile.massiveapp.data.database.entities.RutaComercialDetalleEntity
+import com.mobile.massiveapp.data.database.entities.RutaComercialEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioAlmacenesEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioEntity
 import com.mobile.massiveapp.data.database.entities.UsuarioGrupoArticulosEntity
@@ -232,9 +236,11 @@ import com.mobile.massiveapp.data.database.entities.UsuarioZonasEntity
         PrecioEspecial2Entity::class,
         FormaPagoEntity::class,
         CargosEntity::class,
-        LiquidacionPagoEntity::class
+        LiquidacionPagoEntity::class,
+        RutaComercialEntity::class,
+        RutaComercialDetalleEntity::class
        ],
-    version = 2,
+    version = 3,
 
 )
 abstract class MassiveDatabase: RoomDatabase() {
@@ -318,4 +324,6 @@ abstract class MassiveDatabase: RoomDatabase() {
     abstract fun getPrecioEspecial2Dao(): PrecioEspecial2Dao
     abstract fun getFormaPagoDao(): FormaPagoDao
     abstract fun getCargosDao(): CargosDao
+    abstract fun getRutaComercialDao(): RutaComercialDao
+    abstract fun getRutaComercialDetalleDao(): RutaComercialDetalleDao
 }

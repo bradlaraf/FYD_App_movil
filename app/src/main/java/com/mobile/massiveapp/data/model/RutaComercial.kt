@@ -1,5 +1,6 @@
 package com.mobile.massiveapp.data.model
 
+import com.mobile.massiveapp.data.database.entities.RutaComercialEntity
 import com.mobile.massiveapp.data.database.entities.toDatabase
 import com.mobile.massiveapp.data.util.MappingInteface
 
@@ -22,10 +23,10 @@ data class RutaComercial(
     val ObjType: Int,
     val DocEntry: Int,
     val DocNum: Int,
-    val NombreVendedor: String,
-    val FechaRuta: String,
+    val SlpCode: Int,
+    val DocDate: String,
     val Comments: String,
-    val Detalle: List<RutaComercialDetalle>
+    var Lineas: List<RutaComercialDetalle>
 ) : MappingInteface<RutaComercial>() {
     constructor() : this(
         AccDocEntry = "",
@@ -46,10 +47,10 @@ data class RutaComercial(
         ObjType = -1,
         DocEntry = -1,
         DocNum = -1,
-        NombreVendedor = "",
-        FechaRuta = "",
+        SlpCode = -1,
+        DocDate = "",
         Comments = "",
-        Detalle = emptyList()
+        Lineas = emptyList()
     )
 
     override fun map(data: List<RutaComercial>): List<*> {
@@ -60,3 +61,30 @@ data class RutaComercial(
         return data.map { it.AccDocEntry }
     }
 }
+
+fun RutaComercialEntity.toModel(lista: List<RutaComercialDetalle>) = RutaComercial(
+        AccDocEntry = AccDocEntry,
+        AccAction = AccAction,
+        AccCreateDate = AccCreateDate,
+        AccCreateHour = AccCreateHour,
+        AccCreateUser = AccCreateUser,
+        AccError = AccError,
+        Canceled = Canceled,
+        AccNotificado = AccNotificado,
+        AccFinalized = AccFinalized,
+        AccMigrated = AccMigrated,
+        AccMovil = AccMovil,
+        AccUpdateDate = AccUpdateDate,
+        AccUpdateHour = AccUpdateHour,
+        AccUpdateUser = AccUpdateUser,
+        AccControl = AccControl,
+        ObjType = ObjType,
+        DocEntry = DocEntry,
+        DocNum = DocNum,
+        SlpCode = SlpCode,
+        DocDate = DocDate,
+        Comments = Comments,
+        Lineas =  lista
+    )
+
+
