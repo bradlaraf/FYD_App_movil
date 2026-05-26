@@ -1,6 +1,7 @@
 package com.mobile.massiveapp.ui.view.util
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -8,6 +9,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import android.view.View
@@ -17,7 +19,12 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import android.location.LocationManager
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.location.CurrentLocationRequest
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.Priority
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -1525,4 +1532,51 @@ fun validateDir(dir: File) {
             deleteDirectory(file)
         }
     }
+}
+
+@SuppressLint("MissingPermission")
+fun obtenerUbicacion(
+    context: Context,
+    fusedLocationClient: FusedLocationProviderClient,
+    onResult: (latitud: String, longitud: String) -> Unit,
+    onError: (mensaje: String) -> Unit
+) {
+    val fineGranted = ContextCompat.checkSelfPermission(
+        context, Manifest.permission.ACCESS_FINE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
+
+    val coarseGranted = ContextCompat.checkSelfPermission(
+        context, Manifest.permission.ACCESS_COARSE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
+
+    if (!fineGranted && !coarseGranted) {
+        onError("Permiso de ubicación no concedido")
+        return
+    }
+
+    val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    val gpsActivo = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                    locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+
+    if (!gpsActivo) {
+        onError("Encienda la ubicación del dispositivo")
+        return
+    }
+
+    val request = CurrentLocationRequest.Builder()
+        .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+        .setDurationMillis(5000)
+        .build()
+
+    fusedLocationClient.getCurrentLocation(request, null)
+        .addOnSuccessListener { location ->
+            if (location != null) {
+                onResult(location.latitude.toString(), location.longitude.toString())
+            } else {
+                onError("No se pudo obtener la ubicación")
+            }
+        }
+        .addOnFailureListener {
+            onError("Error al obtener ubicación: ${it.message}")
+        }
 }

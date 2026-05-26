@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -25,6 +26,8 @@ import com.mobile.massiveapp.ui.adapters.RutaComercialDetalleAdapter
 import com.mobile.massiveapp.ui.adapters.extension.SwipeToDeletePedidos
 import com.mobile.massiveapp.ui.base.BaseDialogAlert
 import com.mobile.massiveapp.ui.base.BaseDialogChecklistWithId
+import com.mobile.massiveapp.ui.base.BaseDialogComentarioRuta
+import com.mobile.massiveapp.ui.base.BaseDialogDireccionCliente
 import com.mobile.massiveapp.ui.base.BaseDialogEdtCharacterLimit
 import com.mobile.massiveapp.ui.view.pedidocliente.BuscarClienteActivity
 import com.mobile.massiveapp.ui.view.util.agregarRutaComercialCabecera
@@ -38,6 +41,7 @@ import com.mobile.massiveapp.ui.view.util.showMessage
 import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
 import com.mobile.massiveapp.ui.viewmodel.RutaComercialViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
+import com.trendyol.bubblescrollbarlib.BubbleTextProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -48,7 +52,7 @@ class EditarRutaComercialActivity : AppCompatActivity() {
     private val rutaComercialViewModel: RutaComercialViewModel by viewModels()
     private val generalViewModel: GeneralViewModel by viewModels()
     private val usuarioViewModel: UsuarioViewModel by viewModels()
-    private lateinit var accDocEntry: String
+
     private lateinit var detalleAdapter: RutaComercialDetalleAdapter
     private val addedCardCodes = mutableSetOf<String>()
     private var listaRutaDetalles:List<DoRutaComercialDetalleView> = emptyList()
@@ -107,6 +111,13 @@ class EditarRutaComercialActivity : AppCompatActivity() {
                     listaRutaDetalles = lista
                     if (addedCardCodes.isEmpty()) lista.forEach { addedCardCodes.add(it.CardCode) }
                     detalleAdapter.updateData(lista)
+
+                    if (lista.isNotEmpty()) {
+                        binding.rvEditarRutaClientes.post {
+                            binding.bubbleScrollBar.visibility = View.VISIBLE
+                            binding.bubbleScrollBar.attachToRecyclerView(binding.rvEditarRutaClientes)
+                        }
+                    }
                     binding.txvEditarRutaClientesValue.text = "${lista.size} ${if (lista.size == 1) "cliente" else "clientes"}"
                 }
             }
@@ -134,12 +145,11 @@ class EditarRutaComercialActivity : AppCompatActivity() {
         }
 
         binding.clEditarRutaComentarios.setOnClickListener {
-            BaseDialogEdtCharacterLimit(
-                binding.txvEditarRutaComentariosValue.text.toString(),
-                "Ingrese el comentario"
-            ){ comentario->
+            BaseDialogComentarioRuta(
+                binding.txvEditarRutaComentariosValue.text.toString()
+            ) { comentario ->
                 binding.txvEditarRutaComentariosValue.text = comentario
-            }.show(supportFragmentManager, "BaseDialogEdt")
+            }.show(supportFragmentManager, "ComentarioRutaDialog")
         }
 
         binding.clEditarRutaFechaRuta.setOnClickListener {
@@ -168,6 +178,8 @@ class EditarRutaComercialActivity : AppCompatActivity() {
         binding.rvEditarRutaClientes.adapter = detalleAdapter
         itemTouchHelper.attachToRecyclerView(binding.rvEditarRutaClientes)
 
+
+
         /**SWIPE TO DELETE**/
         val swipeToDeleteCallback = object : SwipeToDeletePedidos(this){
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -188,14 +200,11 @@ class EditarRutaComercialActivity : AppCompatActivity() {
     private fun getDireccionesCliente(detalle: DoRutaComercialDetalleView) {
         rutaComercialViewModel.getAllDireccionesCliente(detalle.CardCode)
         rutaComercialViewModel.dataGetAllDireccionesCliente.observeOnceNotNull(this) { direccionesCliente ->
-            BaseDialogChecklistWithId(
+            BaseDialogDireccionCliente(
                 checkSelected = detalle.Address,
-                opciones = direccionesCliente.map { it.Street }
-            ) { calleSeleccionada, id ->
-                if (calleSeleccionada.isNotEmpty()) {
-                    val direccionSelect = direccionesCliente[id]
-                    rutaComercialViewModel.updateAddress(detalle.AccDocEntry, detalle.CardCode, direccionSelect)
-                }
+                direcciones = direccionesCliente
+            ) { calleSeleccionada,id ->
+                rutaComercialViewModel.updateAddress(detalle.AccDocEntry, calleSeleccionada, detalle.LineNum)
             }.show(supportFragmentManager, "DireccionClienteDialog")
         }
     }
@@ -227,7 +236,7 @@ class EditarRutaComercialActivity : AppCompatActivity() {
                         Toast.makeText(this, "El cliente ya fue agregado", Toast.LENGTH_SHORT).show()
                     } else {
                         addedCardCodes.add(cardCode)
-                        rutaComercialViewModel.saveDetalle(accDocEntry, cardCode)
+                        rutaComercialViewModel.saveDetalle(prefsRutaComercial.getAccDocEntry(), cardCode)
                     }
                 }
             }

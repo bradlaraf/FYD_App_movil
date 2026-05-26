@@ -82,9 +82,9 @@ interface RutaComercialDetalleDao : BaseDao<RutaComercialDetalleEntity> {
         UPDATE RutaComercialDetalle 
         SET Address = :address,
             AddressType = :addressType
-        WHERE AccDocEntry = :accDocEntry AND CardCode = :cardCode
+        WHERE AccDocEntry = :accDocEntry AND LineNum = :lineNum
     """)
-    suspend fun updateAddress(accDocEntry: String, cardCode: String, address: String, addressType: String)
+    suspend fun updateAddress(accDocEntry: String, address: String, addressType: String, lineNum: Int)
 
     @Query("""
         UPDATE RutaComercialDetalle

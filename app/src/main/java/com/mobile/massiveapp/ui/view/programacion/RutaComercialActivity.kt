@@ -19,7 +19,6 @@ import com.mobile.massiveapp.ui.view.programacion.user.RutaComercialConfirmacion
 import com.mobile.massiveapp.ui.view.util.SearchViewHelper
 import com.mobile.massiveapp.ui.view.util.getCodigoDeDocumentoActual
 import com.mobile.massiveapp.ui.view.util.mostrarCalendarioRangoMaterial
-import com.mobile.massiveapp.ui.view.util.observeOnce
 import com.mobile.massiveapp.ui.viewmodel.ProviderViewModel
 import com.mobile.massiveapp.ui.viewmodel.RutaComercialViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
@@ -46,20 +45,17 @@ class RutaComercialActivity : DrawerBaseActivity() {
 
     private fun setData() {
         var listaRutas: List<DoRutaComercialView> = emptyList()
+
         usuarioViewModel.getUsuarioFromDatabase()
-        usuarioViewModel.dataGetUsuarioFromDatabase.observe(this){ usuario->
+        usuarioViewModel.dataGetUsuarioFromDatabase.observe(this) { usuario ->
             binding.btnAdd.isVisible = usuario.SuperUser == "Y"
         }
 
-        rutaComercialViewModel.saveFechasFiltro()
-
-        rutaComercialViewModel.dataSaveFechasFiltro.observe(this){
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    rutaComercialViewModel.dataGetAllRutas.collect { lista ->
-                        listaRutas = lista
-                        rutaComercialAdapter.updateData(lista)
-                    }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                rutaComercialViewModel.dataGetAllRutas.collectLatest { lista ->
+                    listaRutas = lista
+                    rutaComercialAdapter.updateData(lista)
                 }
             }
         }
@@ -108,7 +104,7 @@ class RutaComercialActivity : DrawerBaseActivity() {
                 ) { diaI, mesI, yearI, diaF, mesF, yearF ->
                     prefsRutaComercial.saveFechaInicio("$yearI-$mesI-$diaI")
                     prefsRutaComercial.saveFechaFin("$yearF-$mesF-$diaF")
-                    rutaComercialViewModel.saveFechasFiltro()
+                    rutaComercialViewModel.actualizarFechasFiltro()
                 }
             }
         }

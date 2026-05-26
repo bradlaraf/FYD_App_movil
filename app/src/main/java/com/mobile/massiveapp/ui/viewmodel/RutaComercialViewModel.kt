@@ -3,6 +3,7 @@ package com.mobile.massiveapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mobile.massiveapp.MassiveApp.Companion.prefsRutaComercial
 import com.mobile.massiveapp.data.model.RutaComercial
 import com.mobile.massiveapp.domain.model.DoClienteRutaComercial
 import com.mobile.massiveapp.domain.model.DoDireccion
@@ -74,7 +75,16 @@ class RutaComercialViewModel @Inject constructor(
 
     // --- Lista de rutas (pantalla principal) ---
 
-    val dataGetAllRutas: Flow<List<DoRutaComercialView>> = getAllRutasComercialUseCase.getAllRutas()
+    private val _fechasFiltro = MutableStateFlow(
+        prefsRutaComercial.getFechaInicio() to prefsRutaComercial.getFechaFin()
+    )
+
+    val dataGetAllRutas: Flow<List<DoRutaComercialView>> = _fechasFiltro
+        .flatMapLatest { (inicio, fin) -> getAllRutasComercialUseCase.getAllRutas(inicio, fin) }
+
+    fun actualizarFechasFiltro() {
+        _fechasFiltro.value = prefsRutaComercial.getFechaInicio() to prefsRutaComercial.getFechaFin()
+    }
 
     // --- Detalle de una ruta (nueva / editar) ---
 
@@ -126,14 +136,6 @@ class RutaComercialViewModel @Inject constructor(
         viewModelScope.launch { updateRutaComercialUseCase(accDocEntry, fechaRuta) }
     }
 
-    //Fecha Inicio y fin de Rutas comerciales
-    val dataSaveFechasFiltro = MutableLiveData<Boolean>()
-    fun saveFechasFiltro(){
-        viewModelScope.launch {
-            dataSaveFechasFiltro.postValue(true)
-        }
-    }
-
     //Direcciones Cliente
     val dataGetAllDireccionesCliente = MutableLiveData<List<DoDireccion>?>()
     fun getAllDireccionesCliente(cardCode: String) {
@@ -146,9 +148,9 @@ class RutaComercialViewModel @Inject constructor(
         }
     }
 
-    fun updateAddress(accDocEntry: String, cardCode: String, direccion: DoDireccion) {
+    fun updateAddress(accDocEntry: String, direccion: DoDireccion, lineNum: Int) {
         viewModelScope.launch {
-            updateAddressRutaComercialDetalleUseCase(accDocEntry, cardCode, direccion)
+            updateAddressRutaComercialDetalleUseCase(accDocEntry, direccion, lineNum)
         }
     }
 

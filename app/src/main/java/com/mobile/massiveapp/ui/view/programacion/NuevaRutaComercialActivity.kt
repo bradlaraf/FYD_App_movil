@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -25,6 +26,7 @@ import com.mobile.massiveapp.ui.adapters.RutaComercialDetalleAdapter
 import com.mobile.massiveapp.ui.adapters.extension.SwipeToDeletePedidos
 import com.mobile.massiveapp.ui.base.BaseDialogAlert
 import com.mobile.massiveapp.ui.base.BaseDialogChecklistWithId
+import com.mobile.massiveapp.ui.base.BaseDialogComentarioRuta
 import com.mobile.massiveapp.ui.base.BaseDialogDireccionCliente
 import com.mobile.massiveapp.ui.base.BaseDialogEdtCharacterLimit
 import com.mobile.massiveapp.ui.base.BaseDialogLoadingCustom
@@ -39,6 +41,7 @@ import com.mobile.massiveapp.ui.view.util.showMessage
 import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
 import com.mobile.massiveapp.ui.viewmodel.RutaComercialViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
+import com.trendyol.bubblescrollbarlib.BubbleTextProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -112,13 +115,14 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
         }
 
         binding.clNuevaRutaComentarios.setOnClickListener {
-            BaseDialogEdtCharacterLimit(
-                binding.txvNuevaRutaComentariosValue.text.toString(),
-                "Ingrese el comentario"
-            ){ comentario->
+            BaseDialogComentarioRuta(
+                binding.txvNuevaRutaComentariosValue.text.toString()
+            ) { comentario ->
                 binding.txvNuevaRutaComentariosValue.text = comentario
-            }.show(supportFragmentManager, "BaseDialogEdt")
+            }.show(supportFragmentManager, "ComentarioRutaDialog")
         }
+
+
 
         binding.clNuevaRutaFechaRuta.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -159,6 +163,9 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
         )
         binding.rvNuevaRutaClientes.adapter = detalleAdapter
         itemTouchHelper.attachToRecyclerView(binding.rvNuevaRutaClientes)
+        binding.bubbleScrollBar.attachToRecyclerView(binding.rvNuevaRutaClientes)
+
+
 
         /**SWIPE TO DELETE**/
         val swipeToDeleteCallback = object : SwipeToDeletePedidos(this){
@@ -184,7 +191,7 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
                 checkSelected = detalle.Address,
                 direcciones = direccionesCliente
             ) { calleSeleccionada,id ->
-                rutaComercialViewModel.updateAddress(detalle.AccDocEntry, detalle.CardCode, calleSeleccionada)
+                rutaComercialViewModel.updateAddress(detalle.AccDocEntry,  calleSeleccionada, detalle.LineNum)
             }.show(supportFragmentManager, "DireccionClienteDialog")
         }
     }
@@ -194,8 +201,13 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 rutaComercialViewModel.detalleFlow.collectLatest { listaDetallesRutaComercial ->
                     listaRutaDetalles = listaDetallesRutaComercial
-
                     detalleAdapter.updateData(listaDetallesRutaComercial)
+                    if (listaDetallesRutaComercial.isNotEmpty()) {
+                        binding.rvNuevaRutaClientes.post {
+                            binding.bubbleScrollBar.visibility = View.VISIBLE
+                            binding.bubbleScrollBar.attachToRecyclerView(binding.rvNuevaRutaClientes)
+                        }
+                    }
                     actualizarContadorClientes(listaDetallesRutaComercial.size)
                 }
             }
@@ -217,12 +229,10 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val cardCode = result.data?.getStringExtra("cardCode")
                 if (!cardCode.isNullOrEmpty()) {
-                    if (addedCardCodes.contains(cardCode)) {
-                        Toast.makeText(this, "El cliente ya fue agregado", Toast.LENGTH_SHORT).show()
-                    } else {
-                        addedCardCodes.add(cardCode)
-                        rutaComercialViewModel.saveDetalle(prefsRutaComercial.getAccDocEntry(), cardCode)
-                    }
+
+                    addedCardCodes.add(cardCode)
+                    rutaComercialViewModel.saveDetalle(prefsRutaComercial.getAccDocEntry(), cardCode)
+
                 }
             }
         }

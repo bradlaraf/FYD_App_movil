@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/selectableItemBackground"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
@@ -19,32 +20,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/txvDireccionTipo"
+        style="@style/default_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
+        android:background="@drawable/rounded_txv_background_gris"
+        android:backgroundTint="@color/color_massive_deep_blue_v2"
+        android:paddingHorizontal="7dp"
+        android:paddingVertical="4dp"
         android:textColor="@color/white"
-        android:textSize="11sp"
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/rbDireccion"
-        app:layout_constraintStart_toEndOf="@id/rbDireccion"
-        app:layout_constraintTop_toTopOf="@id/rbDireccion" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rbDireccion"
+        tools:text="fiscal" />
 
     <TextView
         android:id="@+id/txvDireccionCalle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/lato"
         android:textColor="@color/color_black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/rbDireccion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/txvDireccionTipo"
+        app:layout_constraintEnd_toStartOf="@+id/txvDireccionTipo"
+        app:layout_constraintStart_toEndOf="@+id/rbDireccion"
         app:layout_constraintTop_toTopOf="@id/rbDireccion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

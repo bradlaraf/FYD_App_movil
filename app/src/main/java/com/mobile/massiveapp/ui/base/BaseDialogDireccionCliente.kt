@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.DialogFragment
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.databinding.DialogDireccionClienteBinding
@@ -32,7 +33,10 @@ class BaseDialogDireccionCliente(
             )
 
             itemBinding.txvDireccionTipo.text = mapTipo(direccion.AdresType)
-            itemBinding.txvDireccionTipo.setBackgroundColor(colorParaTipo(direccion.AdresType))
+            DrawableCompat.setTint(
+                DrawableCompat.wrap(itemBinding.txvDireccionTipo.background).mutate(),
+                colorParaTipo(direccion.AdresType)
+            )
             itemBinding.txvDireccionCalle.text = direccion.Street
 
             if (direccion.Street.uppercase() == checkSelected.uppercase()) {
@@ -69,14 +73,14 @@ class BaseDialogDireccionCliente(
     }
 
     private fun mapTipo(adresType: String) = when (adresType) {
-        "bo_BillTo" -> "Facturación"
-        "bo_ShipTo" -> "Entrega"
+        "B" -> "Fiscal"
+        "S" -> "Entrega"
         else -> adresType
     }
 
     private fun colorParaTipo(adresType: String) = when (adresType) {
-        "bo_BillTo" -> ContextCompat.getColor(requireContext(), R.color.color_blue)
-        "bo_ShipTo" -> ContextCompat.getColor(requireContext(), R.color.color_green_dark)
+        "B" -> ContextCompat.getColor(requireContext(), R.color.color_blue)
+        "S" -> ContextCompat.getColor(requireContext(), R.color.color_green_dark)
         else -> ContextCompat.getColor(requireContext(), R.color.color_gris_oscuro)
     }
 }

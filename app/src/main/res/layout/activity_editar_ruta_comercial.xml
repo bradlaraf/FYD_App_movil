@@ -175,17 +175,28 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Lista de clientes -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEditarRutaClientes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:nestedScrollingEnabled="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clEditarRutaClientes" />
+
+    <com.trendyol.bubblescrollbarlib.BubbleScrollBar
+        android:id="@+id/bubbleScrollBar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:thumbHeight="50dp"
+        app:thumbBackground="@drawable/rounded_background_blue"
+        app:scrollbarWidth="8dp"
+        app:bubbleTextColor="@color/white"
+        app:bubbleBackground="@drawable/rounded_background_blue"
+        app:layout_constraintBottom_toBottomOf="@id/rvEditarRutaClientes"
+        app:layout_constraintEnd_toEndOf="@id/rvEditarRutaClientes"
+        app:layout_constraintTop_toTopOf="@id/rvEditarRutaClientes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

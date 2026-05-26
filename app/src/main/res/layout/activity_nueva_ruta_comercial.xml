@@ -184,11 +184,23 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:nestedScrollingEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clNuevaRutaClientes" />
+
+    <com.trendyol.bubblescrollbarlib.BubbleScrollBar
+        android:id="@+id/bubbleScrollBar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:thumbHeight="50dp"
+        app:thumbBackground="@drawable/rounded_background_blue"
+        app:scrollbarWidth="8dp"
+        app:bubbleTextColor="@color/white"
+        app:bubbleBackground="@drawable/rounded_background_blue"
+        app:layout_constraintBottom_toBottomOf="@id/rvNuevaRutaClientes"
+        app:layout_constraintEnd_toEndOf="@id/rvNuevaRutaClientes"
+        app:layout_constraintTop_toTopOf="@id/rvNuevaRutaClientes" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,12 @@
       "Bash(grep -E \"^\\\\-.*\\\\.\\(md|txt|gradle|xml\\)$\")",
       "Bash(Get-ChildItem -Path \"app/src/main/java/com/mobile/massiveapp/data/database/entities/\" -Filter \"*.kt\")",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(unzip -l bubblescrollbarlib-0.1.aar)",
+      "Bash(unzip -p bubblescrollbarlib-0.1.aar res/values/values.xml)",
+      "Bash(unzip -l BubbleScrollBar-0.1-sources.jar)",
+      "Bash(unzip -p BubbleScrollBar-0.1-sources.jar com/trendyol/bubblescrollbarlib/BubbleScrollBar.kt)",
+      "Bash(jar tf *)"
     ]
   }
 }

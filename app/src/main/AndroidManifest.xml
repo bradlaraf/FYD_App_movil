@@ -43,7 +43,9 @@
         android:theme="@style/Theme.MassiveApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.view.programacion.VerRutaComercialActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.view.pedidocliente.anexo.AnexoActivity"
             android:exported="false" />
@@ -94,8 +96,7 @@
             android:exported="false"
             android:label="Confirmar Ruta"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.ThemeWithActionBar"/>
-
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
         <activity
             android:name=".ui.view.manifiesto.cobranza.EditarPagoManifiestoActivity"
             android:exported="false"

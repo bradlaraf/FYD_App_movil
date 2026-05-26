@@ -58,6 +58,7 @@ class BuscarClienteActivity : AppCompatActivity() {
             selectedItem(socio)
         }
         binding.rvSocioNegocioBuscar.adapter = socioAdapter
+        binding.bubbleScrollBar.attachToRecyclerView(binding.rvSocioNegocioBuscar)
 
 
 

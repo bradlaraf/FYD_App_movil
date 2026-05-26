@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.mobile.massiveapp.databinding.ActivityRutaComercialConfirmacionBinding
 import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleView
 import com.mobile.massiveapp.ui.adapters.RutaComercialConfirmacionAdapter
 import com.mobile.massiveapp.ui.base.BaseDialogComentarioRuta
+import com.mobile.massiveapp.ui.view.util.obtenerUbicacion
+import com.mobile.massiveapp.ui.view.util.showMessage
 import com.mobile.massiveapp.ui.viewmodel.RutaComercialViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -21,6 +25,7 @@ class RutaComercialConfirmacionActivity : AppCompatActivity() {
     private val rutaComercialViewModel: RutaComercialViewModel by viewModels()
     private lateinit var confirmacionAdapter: RutaComercialConfirmacionAdapter
     private var listaDetalles: List<DoRutaComercialDetalleView> = emptyList()
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +33,7 @@ class RutaComercialConfirmacionActivity : AppCompatActivity() {
         setContentView(binding.root)
         title = "Confirmación de Ruta"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         val accDocEntry = intent.getStringExtra("accDocEntry") ?: ""
         rutaComercialViewModel.initAccDocEntry(accDocEntry)
@@ -39,7 +45,22 @@ class RutaComercialConfirmacionActivity : AppCompatActivity() {
 
     private fun setDefaultUi() {
         confirmacionAdapter = RutaComercialConfirmacionAdapter(emptyList()) { detalle ->
-            abrirDialogComentario(detalle)
+
+            BaseDialogComentarioRuta(
+                detalle.Comments
+            ) { comentario ->
+                rutaComercialViewModel.saveConfirmacionRuta(detalle, comentario)
+                obtenerUbicacion(
+                    context = this,
+                    fusedLocationClient = fusedLocationClient,
+                    onResult = { lat, lon ->
+                        showMessage(this, "$lat - $lon")
+                    },
+                    onError = { mensaje ->
+                        showMessage(this, mensaje)
+                    }
+                )
+            }.show(supportFragmentManager, "ComentarioRutaDialog")
         }
         binding.rvConfClientes.adapter = confirmacionAdapter
     }
@@ -59,13 +80,6 @@ class RutaComercialConfirmacionActivity : AppCompatActivity() {
         }
     }
 
-    private fun abrirDialogComentario(detalle: DoRutaComercialDetalleView) {
-        BaseDialogComentarioRuta(
-            detalle.Comments
-        ) { comentario ->
-            rutaComercialViewModel.saveConfirmacionRuta(detalle, comentario)
-        }.show(supportFragmentManager, "ComentarioRutaDialog")
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
