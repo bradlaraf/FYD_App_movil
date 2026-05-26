@@ -242,3 +242,15 @@ Cuando una pantalla tiene drag-and-drop Y swipe-to-delete, usar **dos** `ItemTou
 1. El de drag (clase-nivel): solo `UP or DOWN`, sin dirección de swipe (`0`), `isLongPressDragEnabled = false`
 2. El de swipe: usar `SwipeToDeletePedidos` dentro de `setDefaultUi()`
 No mezclar swipe LEFT en el callback de drag — generan conflicto en el RecyclerView.
+
+### Abrir Google Maps con coordenadas
+Usar `abrirEnGoogleMaps(context, latitud, longitud)` de `ui.view.util.Utils`. Incluye fallback al browser si Maps no está instalado:
+```kotlin
+abrirEnGoogleMaps(context, item.Latitud, item.Longitud)
+```
+Al agregar intents hacia apps externas, declarar el paquete en `<queries>` dentro de `AndroidManifest.xml` (obligatorio desde Android 11 / API 30):
+```xml
+<queries>
+    <package android:name="com.google.android.apps.maps" />
+</queries>
+```

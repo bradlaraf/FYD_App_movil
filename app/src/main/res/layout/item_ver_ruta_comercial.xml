@@ -13,16 +13,15 @@
     app:strokeColor="#E0E0E0"
     app:strokeWidth="1dp">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clRutaStatus"
+        android:id="@+id/clAdminRutaStatus"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/color_green_dark">
 
         <TextView
+            android:id="@+id/txvAdminMigrado"
             android:visibility="gone"
-            android:id="@+id/txvConfMigrado"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:alpha="0.7"
@@ -30,7 +29,6 @@
             android:elevation="8dp"
             android:gravity="center"
             android:paddingHorizontal="5dp"
-            tools:text="B"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -38,10 +36,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            tools:alpha="0.6" />
+            tools:alpha="0.6"
+            tools:text="B" />
 
         <ImageView
-            android:id="@+id/imvRutaStatus"
+            android:id="@+id/imvAdminRutaStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -53,7 +52,6 @@
             app:layout_constraintVertical_bias="0.5"
             app:srcCompat="@drawable/icon_pending" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,10 +59,8 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-
-        <!-- DocLine -->
         <TextView
-            android:id="@+id/txvConfDocLine"
+            android:id="@+id/txvAdminDocLine"
             style="@style/default_title_large_text"
             android:layout_width="28dp"
             android:layout_height="wrap_content"
@@ -76,22 +72,20 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1" />
 
-
         <TextView
-            android:id="@+id/txvConfCardName"
+            android:id="@+id/txvAdminCardName"
             style="@style/default_title_large_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/txvConfDocLine"
+            app:layout_constraintStart_toEndOf="@id/txvAdminDocLine"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Cliente de prueba" />
 
-        <!-- Street -->
         <TextView
-            android:id="@+id/txvConfStreet"
+            android:id="@+id/txvAdminStreet"
             style="@style/default_title_large_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -99,9 +93,19 @@
             android:layout_marginTop="2dp"
             android:alpha="0.7"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/txvConfDocLine"
-            app:layout_constraintTop_toBottomOf="@id/txvConfCardName"
+            app:layout_constraintStart_toEndOf="@id/txvAdminDocLine"
+            app:layout_constraintTop_toBottomOf="@id/txvAdminCardName"
             tools:text="Av. Principal 123" />
+
+        <ImageView
+            android:id="@+id/imvGoogleMaps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toEndOf="@+id/txvAdminDocLine"
+            app:layout_constraintTop_toBottomOf="@+id/txvAdminStreet"
+            app:srcCompat="@drawable/icon_google_maps" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

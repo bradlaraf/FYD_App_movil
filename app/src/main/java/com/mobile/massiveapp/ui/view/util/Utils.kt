@@ -1,6 +1,9 @@
 package com.mobile.massiveapp.ui.view.util
 
 import android.Manifest
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -1516,6 +1519,19 @@ fun deleteDirectory(directory: File) {
         }
     }
     directory.delete() // Eliminar el directorio vacío
+}
+
+fun abrirEnGoogleMaps(context: Context, latitud: String, longitud: String) {
+    val uri = Uri.parse("geo:$latitud,$longitud?q=$latitud,$longitud")
+    val intent = Intent(Intent.ACTION_VIEW, uri).apply {
+        setPackage("com.google.android.apps.maps")
+    }
+    try {
+        context.startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        val fallbackUri = Uri.parse("https://maps.google.com/?q=$latitud,$longitud")
+        context.startActivity(Intent(Intent.ACTION_VIEW, fallbackUri))
+    }
 }
 
 fun validateDir(dir: File) {

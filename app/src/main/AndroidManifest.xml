@@ -28,6 +28,10 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <queries>
+        <package android:name="com.google.android.apps.maps" />
+    </queries>
+
     <application
         android:name=".MassiveApp"
         android:allowBackup="true"
@@ -43,9 +47,7 @@
         android:theme="@style/Theme.MassiveApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.view.programacion.VerRutaComercialActivity"
-            android:exported="false" />
+
         <activity
             android:name=".ui.view.pedidocliente.anexo.AnexoActivity"
             android:exported="false" />
@@ -90,6 +92,13 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity
+            android:name=".ui.view.programacion.VerRutaComercialActivity"
+            android:exported="false"
+            android:label="Ver Rutas"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.ThemeWithActionBar" />
 
         <activity
             android:name=".ui.view.programacion.user.RutaComercialConfirmacionActivity"

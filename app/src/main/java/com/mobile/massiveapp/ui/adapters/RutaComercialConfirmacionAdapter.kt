@@ -1,9 +1,12 @@
 package com.mobile.massiveapp.ui.adapters
 
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -21,28 +24,40 @@ class RutaComercialConfirmacionAdapter(
         val txvConfCardName: TextView
         val txvConfStreet: TextView
         val txvConfMigrado: TextView
+        val clRutaStatus: ConstraintLayout
+        val imvRutaStatus: ImageView
 
         init {
             txvConfDocLine  = view.findViewById(R.id.txvConfDocLine)
             txvConfCardName = view.findViewById(R.id.txvConfCardName)
             txvConfStreet   = view.findViewById(R.id.txvConfStreet)
             txvConfMigrado  = view.findViewById(R.id.txvConfMigrado)
+            clRutaStatus = view.findViewById(R.id.clRutaStatus)
+            imvRutaStatus = view.findViewById(R.id.imvRutaStatus)
         }
 
         fun render(item: DoRutaComercialDetalleView, onItemClick: (DoRutaComercialDetalleView) -> Unit) {
             txvConfDocLine.text  = (item.LineNum + 1).toString()
             txvConfCardName.text = item.CardName
             txvConfStreet.text   = item.Street.ifEmpty { item.Address }
+            val colorIcono = ContextCompat.getColor(itemView.context, R.color.color_white)
+            imvRutaStatus.setColorFilter(colorIcono, PorterDuff.Mode.SRC_IN)
 
             val migrado = item.AccMigrated == "Y"
             val aceptado = item.Status == "A"
 
             txvConfMigrado.text = if (migrado) "S" else "N"
-            val color = if (migrado && aceptado)
-                ContextCompat.getColor(itemView.context, R.color.color_green_dark)
-            else
-                ContextCompat.getColor(itemView.context, R.color.color_red)
-            txvConfMigrado.setBackgroundColor(color)
+            var color = ContextCompat.getColor(itemView.context, R.color.color_green_dark)
+
+            if (migrado && aceptado){
+                imvRutaStatus.setImageResource(R.drawable.icon_confirmed)
+            } else {
+                color = ContextCompat.getColor(itemView.context, R.color.color_red)
+                imvRutaStatus.setImageResource(R.drawable.icon_pending)
+            }
+
+            clRutaStatus.setBackgroundColor(color)
+
 
             itemView.setOnClickListener { onItemClick(item) }
         }
