@@ -29,7 +29,7 @@ class SaveConfirmacionRutaUseCase @Inject constructor(
 ) {
     var mensaje = "Ruta confirmada"
     var codigo = 0
-    suspend operator fun invoke(detalle: DoRutaComercialDetalleView, comentario: String) =
+    suspend operator fun invoke(detalle: DoRutaComercialDetalleView, comentario: String, latitud: String, longitud: String) =
         try {
             val configuracion = configuracionRepository.getConfiguracion()
             val usuario = loginRepository.getUsuarioFromDatabase()
@@ -38,8 +38,10 @@ class SaveConfirmacionRutaUseCase @Inject constructor(
             val rutaComercialCabecera = rutaDao.getByAccDocEntry(detalle.AccDocEntry)
 
             rutaDetalleDao.confirmarDetalle(
-                                comentario = detalle.Comments,
+                                comentario = comentario,
                                 accDocEntry = detalle.AccDocEntry,
+                                latitud = latitud,
+                                longitud = longitud,
                                 lineNum = detalle.LineNum
             )
 

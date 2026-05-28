@@ -13,6 +13,9 @@ data class Articulo(
     val ItmsGrpCod: Int,
     val IuoMEntry: Int,
     val SalUnitMsr: String,
+    val NumInSale: Int,
+    val SalPackMsr: String,
+    val SalPackUn: Int,
     val SuoMEntry: Int,
     val UgpEntry: Int
 ) : MappingInteface<Articulo>() {
@@ -26,6 +29,9 @@ data class Articulo(
         ItemName = "",
         ItmsGrpCod = 0,
         IuoMEntry = 0,
+        NumInSale = 0,
+        SalPackMsr = "",
+        SalPackUn = 0,
         SalUnitMsr = "",
         SuoMEntry = 0,
         UgpEntry = 0

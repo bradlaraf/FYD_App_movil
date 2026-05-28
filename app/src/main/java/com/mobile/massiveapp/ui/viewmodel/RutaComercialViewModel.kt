@@ -53,9 +53,9 @@ class RutaComercialViewModel @Inject constructor(
 
     //Confirmar Ruta
     val dataSaveConfirmacionRuta = MutableLiveData<DoError>()
-    fun saveConfirmacionRuta(detalle: DoRutaComercialDetalleView, comentario: String){
+    fun saveConfirmacionRuta(detalle: DoRutaComercialDetalleView, comentario: String, latitud: String, longitud: String){
         viewModelScope.launch {
-            val result = saveConfirmacionRutaUseCase(detalle, comentario)
+            val result = saveConfirmacionRutaUseCase(detalle, comentario, latitud, longitud)
             result.let {
                 dataSaveConfirmacionRuta.postValue(it)
             }

@@ -23,7 +23,8 @@ interface RutaComercialDao : BaseDao<RutaComercialEntity> {
                 WHERE Z0.AccDocEntry = T0.AccDocEntry
             ), 0) AS CantidadClientes,
             IFNULL(T0.AccMigrated, '') AS AccMigrated,
-            IFNULL(T0.Canceled, '') AS Canceled
+            IFNULL(T0.Canceled, '') AS Canceled,
+            IFNULL((SELECT Z0.SuperUser FROM Usuario Z0 LIMIT 1), 'N') AS SuperUser
         FROM RutaComercial T0
         WHERE T0.DocDate BETWEEN :fechaInicio AND :fechaFin
         ORDER BY T0.DocDate DESC

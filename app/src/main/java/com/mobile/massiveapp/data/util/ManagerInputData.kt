@@ -52,6 +52,8 @@ import com.mobile.massiveapp.data.database.dao.ManifiestoDocumentoDao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecial1Dao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecial2Dao
 import com.mobile.massiveapp.data.database.dao.PrecioEspecialDao
+import com.mobile.massiveapp.data.database.dao.RutaComercialDao
+import com.mobile.massiveapp.data.database.dao.RutaComercialDetalleDao
 import com.mobile.massiveapp.data.database.dao.SeriesNDao
 import com.mobile.massiveapp.data.database.dao.SociedadDao
 import com.mobile.massiveapp.data.database.dao.SocioContactosDao
@@ -131,7 +133,9 @@ class ManagerInputData @Inject constructor(
     val manifiestoDocumentoDao: ManifiestoDocumentoDao,
     val cargosDao: CargosDao,
     val formaPagoDao: FormaPagoDao,
-    val liquidacionPagoDao: LiquidacionPagoDao
+    val liquidacionPagoDao: LiquidacionPagoDao,
+    val rutaComercialDao: RutaComercialDao,
+    val rutaCOmercialDetalleDao: RutaComercialDetalleDao
 ) {
     companion object {
         const val ACTIVIDADES_E =       "ActividadesE"
@@ -189,6 +193,8 @@ class ManagerInputData @Inject constructor(
         const val GRUPO_DESCUENTO_DETALLE =     "GrupoDescuentoDetalle"
         const val MANIFIESTO_DOCUMENTO =        "ManifiestoDocumento"
         const val LIQUIDACION_PAGO =            "ClienteLiquidacionPagos"
+        const val RUTA_COMERCIAL =              "ClienteRutasComerciales"
+        const val RUTA_COMERCIAL_DETALLE =      "ClienteRutasComercialesDetalle"
 
         const val CARGOS =                      "Cargos"
         const val FORMA_PAGOS =                 "FormaPagos"
@@ -295,7 +301,10 @@ class ManagerInputData @Inject constructor(
         LIQUIDACION_PAGO            to liquidacionPagoDao,
 
         MANIFIESTO                  to manifiestoDao,
-        MANIFIESTO_DOCUMENTO        to manifiestoDocumentoDao
+        MANIFIESTO_DOCUMENTO        to manifiestoDocumentoDao,
+
+        RUTA_COMERCIAL              to rutaComercialDao,
+        RUTA_COMERCIAL_DETALLE      to rutaCOmercialDetalleDao
     )
 
 

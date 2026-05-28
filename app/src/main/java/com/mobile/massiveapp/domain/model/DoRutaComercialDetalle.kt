@@ -20,7 +20,18 @@ data class DoRutaComercialDetalle(
     val AddressType: String,
     val Comments: String,
     val ObjType: Int,
-    val DocEntry: Int
+    val DocEntry: Int,
+    val U_MSV_CP_LATITUD: String,
+    val U_MSV_CP_LONGITUD: String,
+
+    val Country: String,
+    val State: String,
+    val County: String,//Provincia
+    val City: String, //Ciudad
+    val ZipCode: String, //Vacio
+    val Street: String, //Calle
+    val Block: String, //Referencia-va vacio
+    val Ubigeo: String,
 )
 
 fun RutaComercialDetalleEntity.toDomain() = DoRutaComercialDetalle(
@@ -41,5 +52,15 @@ fun RutaComercialDetalleEntity.toDomain() = DoRutaComercialDetalle(
     AddressType = AddressType,
     Comments = Comments,
     ObjType = ObjType,
-    DocEntry = DocEntry
+    DocEntry = DocEntry,
+    U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
+    U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    Country = Country,
+    State = State,
+    County = County,
+    City = City,
+    ZipCode = ZipCode,
+    Street = Street,
+    Block = Block,
+    Ubigeo = U_MSV_FE_UBI,
 )

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "97fa7bfe5ecd7e1a8c18032b83ea8680",
+    "identityHash": "158e576fa189af54bfd4cbc3f3981394",
     "entities": [
       {
         "tableName": "Articulo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ItemCode` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `FirmCode` INTEGER NOT NULL, `InvntItem` TEXT NOT NULL, `InvntryUom` TEXT NOT NULL, `ItemName` TEXT NOT NULL, `ItmsGrpCod` INTEGER NOT NULL, `IuoMEntry` INTEGER NOT NULL, `SalUnitMsr` TEXT NOT NULL, `SuoMEntry` INTEGER NOT NULL, `UgpEntry` INTEGER NOT NULL, PRIMARY KEY(`ItemCode`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ItemCode` TEXT NOT NULL, `AccLocked` TEXT NOT NULL, `FirmCode` INTEGER NOT NULL, `InvntItem` TEXT NOT NULL, `InvntryUom` TEXT NOT NULL, `ItemName` TEXT NOT NULL, `ItmsGrpCod` INTEGER NOT NULL, `IuoMEntry` INTEGER NOT NULL, `SalUnitMsr` TEXT NOT NULL, `NumInSale` INTEGER NOT NULL, `SalPackMsr` TEXT NOT NULL, `SalPackUn` INTEGER NOT NULL, `SuoMEntry` INTEGER NOT NULL, `UgpEntry` INTEGER NOT NULL, PRIMARY KEY(`ItemCode`))",
         "fields": [
           {
             "fieldPath": "ItemCode",
@@ -60,6 +60,24 @@
             "fieldPath": "SalUnitMsr",
             "columnName": "SalUnitMsr",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "NumInSale",
+            "columnName": "NumInSale",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SalPackMsr",
+            "columnName": "SalPackMsr",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SalPackUn",
+            "columnName": "SalPackUn",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -6423,7 +6441,7 @@
       },
       {
         "tableName": "RutaComercialDetalle",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccControl` TEXT NOT NULL, `Status` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `LineNum` INTEGER NOT NULL, `CardCode` TEXT NOT NULL, `Address` TEXT NOT NULL, `AddressType` TEXT NOT NULL, `Comments` TEXT NOT NULL, `ObjType` INTEGER NOT NULL, `DocEntry` INTEGER NOT NULL, PRIMARY KEY(`AccDocEntry`, `LineNum`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AccAction` TEXT NOT NULL, `AccCreateDate` TEXT NOT NULL, `AccCreateHour` TEXT NOT NULL, `AccCreateUser` TEXT NOT NULL, `AccUpdateDate` TEXT NOT NULL, `AccUpdateHour` TEXT NOT NULL, `AccUpdateUser` TEXT NOT NULL, `AccMigrated` TEXT NOT NULL, `AccControl` TEXT NOT NULL, `Status` TEXT NOT NULL, `AccDocEntry` TEXT NOT NULL, `LineNum` INTEGER NOT NULL, `CardCode` TEXT NOT NULL, `Address` TEXT NOT NULL, `AddressType` TEXT NOT NULL, `Comments` TEXT NOT NULL, `ObjType` INTEGER NOT NULL, `DocEntry` INTEGER NOT NULL, `U_MSV_CP_LATITUD` TEXT NOT NULL, `U_MSV_CP_LONGITUD` TEXT NOT NULL, `Country` TEXT NOT NULL, `State` TEXT NOT NULL, `County` TEXT NOT NULL, `City` TEXT NOT NULL, `ZipCode` TEXT NOT NULL, `Street` TEXT NOT NULL, `Block` TEXT NOT NULL, `U_MSV_FE_UBI` TEXT NOT NULL, PRIMARY KEY(`AccDocEntry`, `LineNum`))",
         "fields": [
           {
             "fieldPath": "AccAction",
@@ -6532,6 +6550,66 @@
             "columnName": "DocEntry",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_LATITUD",
+            "columnName": "U_MSV_CP_LATITUD",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_CP_LONGITUD",
+            "columnName": "U_MSV_CP_LONGITUD",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Country",
+            "columnName": "Country",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "State",
+            "columnName": "State",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "County",
+            "columnName": "County",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "City",
+            "columnName": "City",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ZipCode",
+            "columnName": "ZipCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Street",
+            "columnName": "Street",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Block",
+            "columnName": "Block",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "U_MSV_FE_UBI",
+            "columnName": "U_MSV_FE_UBI",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -6548,7 +6626,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '97fa7bfe5ecd7e1a8c18032b83ea8680')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '158e576fa189af54bfd4cbc3f3981394')"
     ]
   }
 }

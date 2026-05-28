@@ -1,7 +1,9 @@
 package com.mobile.massiveapp.ui.view.programacion
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +12,7 @@ import com.mobile.massiveapp.databinding.ActivityVerRutaComercialBinding
 import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleAdminView
 import com.mobile.massiveapp.domain.model.toAdminView
 import com.mobile.massiveapp.ui.adapters.RutaComercialAdminAdapter
+import com.mobile.massiveapp.ui.view.util.abrirEnGoogleMaps
 import com.mobile.massiveapp.ui.view.util.observeOnce
 import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
 import com.mobile.massiveapp.ui.viewmodel.RutaComercialViewModel
@@ -40,8 +43,31 @@ class VerRutaComercialActivity : AppCompatActivity() {
     }
 
     private fun setDefaultUi() {
-        adminAdapter = RutaComercialAdminAdapter(emptyList()) { }
+        adminAdapter = RutaComercialAdminAdapter(emptyList()) { ruta->
+            if (ruta.Status == "A"){
+                val builder = AlertDialog.Builder(this)
+                builder
+                    .setTitle("Comentario")
+                    .setMessage(ruta.Comments)
+                    .setPositiveButton("Cerrar"){ _, _ ->
+
+                    }
+                    .setNegativeButton("Ver ubicación"){ _, _ ->
+                        abrirEnGoogleMaps(
+                            context = this,
+                            longitud = ruta.Longitud,
+                            latitud = ruta.Latitud
+                        )
+                    }
+
+                val dialog = builder.create()
+                dialog.show()
+            }
+        }
+
         binding.rvVerClientes.adapter = adminAdapter
+
+        binding.bubbleScrollBar.attachToRecyclerView(binding.rvVerClientes)
     }
 
     private fun setData() {
@@ -60,8 +86,14 @@ class VerRutaComercialActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 rutaComercialViewModel.detalleFlow.collectLatest { lista ->
-                    listaDetalles = lista.map { it.toAdminView() }
-                    adminAdapter.updateData(listaDetalles)
+                    adminAdapter.updateData(lista)
+                    if (lista.isNotEmpty()) {
+                        binding.rvVerClientes.post {
+                            binding.bubbleScrollBar.visibility = View.VISIBLE
+                            binding.bubbleScrollBar.attachToRecyclerView(binding.rvVerClientes)
+                        }
+                    }
+
                     binding.txvVerClientesValue.text =
                         "${lista.size} ${if (lista.size == 1) "cliente" else "clientes"}"
                 }

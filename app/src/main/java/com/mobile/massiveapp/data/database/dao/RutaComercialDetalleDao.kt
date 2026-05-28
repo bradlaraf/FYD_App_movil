@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.mobile.massiveapp.data.database.entities.RutaComercialDetalleEntity
+import com.mobile.massiveapp.data.database.entities.SocioDireccionesEntity
 import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleView
 import com.mobile.massiveapp.domain.model.DoRutaComercialView
 import kotlinx.coroutines.flow.Flow
@@ -19,18 +20,17 @@ interface RutaComercialDetalleDao : BaseDao<RutaComercialDetalleEntity> {
             T0.LineNum,
             T0.CardCode,
             T0.Address,
-            IFNULL(T1.CardName, '') AS CardName,
-            CASE WHEN T0.Address != '' THEN T0.Address
-                 ELSE IFNULL((SELECT T2.Street FROM SocioDirecciones T2 WHERE T2.CardCode = T0.CardCode AND T2.AdresType = 'B' LIMIT 1), '')
-            END AS Street,
-            T0.AccMigrated,
+            IFNULL((SELECT Z0.CardName FROM SocioNegocio Z0 WHERE Z0.CardCode = T0.CardCode), '') AS CardName,
+            IFNULL(T0.Street, '') AS Street,
+            IFNULL((SELECT Z0.AccMigrated FROM RutaComercial Z0 WHERE Z0.AccDocEntry = T0.AccDocEntry LIMIT 1), 'N') AS AccMigrated,
             T0.Status,
             T0.AddressType,
             T0.Comments,
             T0.ObjType,
-            T0.DocEntry
+            T0.DocEntry,
+            T0.U_MSV_CP_LATITUD AS Latitud, 
+            T0.U_MSV_CP_LONGITUD AS Longitud
         FROM RutaComercialDetalle T0
-        LEFT JOIN SocioNegocio T1 ON T0.CardCode = T1.CardCode
         WHERE T0.AccDocEntry = :accDocEntry
         ORDER BY T0.LineNum ASC
     """)
@@ -86,6 +86,7 @@ interface RutaComercialDetalleDao : BaseDao<RutaComercialDetalleEntity> {
     """)
     suspend fun updateAddress(accDocEntry: String, address: String, addressType: String, lineNum: Int)
 
+
     @Query("""
         UPDATE RutaComercialDetalle
         SET 
@@ -104,12 +105,14 @@ interface RutaComercialDetalleDao : BaseDao<RutaComercialDetalleEntity> {
     @Query("""
         UPDATE RutaComercialDetalle
         SET 
+            Status = 'A',
             Comments = :comentario,
-            Status = ''
+            U_MSV_CP_LATITUD = :latitud,
+            U_MSV_CP_LONGITUD = :longitud
         WHERE AccDocEntry = :accDocEntry
             AND LineNum = :lineNum
     """)
-    suspend fun confirmarDetalle(comentario: String, accDocEntry: String, lineNum: Int)
+    suspend fun confirmarDetalle(comentario: String, accDocEntry: String, latitud: String, longitud: String,lineNum: Int)
 
     @Query("""
       UPDATE RutaComercialDetalle

@@ -65,6 +65,7 @@ class SendDatosMaestrosUseCase @Inject constructor(
                     "ClientePedidos",
                     "ClienteLiquidacionPagos",
                     "Manifiestos",
+                    "ClienteRutasComerciales",
                     ManagerInputData.FACTURAS_CL,
                     ManagerInputData.FACTURAS_CL_DETALLE),
                     configuracion,

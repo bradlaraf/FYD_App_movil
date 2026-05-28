@@ -148,4 +148,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clVerClientes" />
 
+    <com.trendyol.bubblescrollbarlib.BubbleScrollBar
+        android:id="@+id/bubbleScrollBar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:bubbleBackground="@drawable/rounded_background_blue"
+        app:bubbleTextColor="@color/white"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clVerClientes"
+        app:scrollbarWidth="8dp"
+        app:thumbBackground="@drawable/rounded_background_blue"
+        app:thumbHeight="50dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -221,7 +221,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clNpArtInfoCantidad"
+                android:id="@+id/clNpArtInfoTipoUnidad"
                 style="@style/clPedidoInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -229,6 +229,94 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/clNpArtInfoAlmacen">
+
+                <TextView
+                    android:id="@+id/txvNpArtInfoTipoUnidadTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de Unidad"
+                    android:textColor="@color/color_blue_sap_mobile"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvNpArtInfoTipoUnidadValue"
+                    style="edtNewSn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txvNpArtInfoTipoUnidadTitle"
+                    tools:text="Tipo Unidad" />
+
+                <ImageView
+                    android:id="@+id/imvArrowTipoUnidad"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:srcCompat="@drawable/icon_arroy_enter"
+                    android:src="@drawable/icon_arroy_enter"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNpArtInfoCantidadCaja"
+                style="@style/clPedidoInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clNpArtInfoTipoUnidad">
+
+                <TextView
+                    android:id="@+id/txvNpArtInfoCantidadCajaTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cantidad Caja"
+                    android:textColor="@color/color_blue_sap_mobile"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvNpArtInfoCantidadCajaValue"
+                    style="edtNewSn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txvNpArtInfoCantidadCajaTitle"
+                    tools:text="Cantidad Caja" />
+
+                <ImageView
+                    android:id="@+id/imvArrowCantidadCaja"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    tools:srcCompat="@drawable/icon_arroy_enter"
+                    android:src="@drawable/icon_arroy_enter"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNpArtInfoCantidad"
+                style="@style/clPedidoInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clNpArtInfoCantidadCaja">
 
                 <TextView
                     android:id="@+id/txvNpArtInfoCantidadTitle"

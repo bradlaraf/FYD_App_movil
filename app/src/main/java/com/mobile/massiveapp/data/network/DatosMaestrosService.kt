@@ -78,6 +78,7 @@ import com.mobile.massiveapp.data.model.GrupoDescuento
 import com.mobile.massiveapp.data.model.LiquidacionPago
 import com.mobile.massiveapp.data.model.Manifiesto
 import com.mobile.massiveapp.data.model.PrecioEspecial
+import com.mobile.massiveapp.data.model.RutaComercial
 import com.mobile.massiveapp.data.model.Sucursal
 import com.mobile.massiveapp.data.model.TipoCambio
 import kotlinx.coroutines.Dispatchers
@@ -156,6 +157,7 @@ class DatosMaestrosService @Inject constructor(
             "FormaPagos"                    to object : TypeToken<List<FormaPago>>() {}.type,
             "Cargos"                    to object : TypeToken<List<Cargos>>() {}.type,
             "ClienteLiquidacionPagos"   to object : TypeToken<List<LiquidacionPago>>() {}.type,
+            "ClienteRutasComerciales"   to object : TypeToken<List<RutaComercial>>() {}.type,
 
 
             "UsuariosAlmacenes" to object : TypeToken<List<UsuarioAlmacenes>>() {}.type,

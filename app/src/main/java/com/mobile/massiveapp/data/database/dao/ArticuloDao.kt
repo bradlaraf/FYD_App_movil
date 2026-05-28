@@ -156,25 +156,30 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
         """)
     suspend fun getAllArticulosInvSinStock(): List<DoArticuloInventario>
 
-    @Query("SELECT " +
-            "T0.FirmCode, " +
-            "T0.InvntItem, " +
-            "T0.InvntryUom, " +
-            "T0.ItemCode, " +
-            "T0.ItemName, " +
-            "T0.ItmsGrpCod, " +
-            "T0.IuoMEntry, " +
-            "T0.SalUnitMsr, " +
-            "T0.SuoMEntry, " +
-            "T0.UgpEntry, " +
-            "T1.OnHand AS 'OnHand', " +
-            "T0.AccLocked, " +
-            "T2.ItmsGrpNam AS 'GrupoArticulo' " +
-            "FROM Articulo T0 " +
-            "INNER JOIN ArticuloCantidad T1 ON T0.ItemCode = T1.ItemCode " +
-            "INNER JOIN GrupoArticulo T2 ON T0.ItmsGrpCod = T2.ItmsGrpCod " +
-            "WHERE T0.AccLocked ='N' AND T1.WhsCode IN (SELECT DefaultWarehouse FROM Usuario) " +
-            "ORDER BY T0.ItemName")
+    @Query("""
+        SELECT 
+            T0.FirmCode,
+            T0.InvntItem,
+            T0.InvntryUom,
+            T0.ItemCode,
+            T0.ItemName,
+            T0.ItmsGrpCod,
+            T0.IuoMEntry,
+            T0.SalUnitMsr,
+            T0.NumInSale,
+            T0.SalPackMsr,
+            T0.SalPackUn,
+            T0.SuoMEntry,
+            T0.UgpEntry,
+            T1.OnHand AS 'OnHand',
+            T0.AccLocked,
+            T2.ItmsGrpNam AS 'GrupoArticulo'
+            FROM Articulo T0
+            INNER JOIN ArticuloCantidad T1 ON T0.ItemCode = T1.ItemCode
+            INNER JOIN GrupoArticulo T2 ON T0.ItmsGrpCod = T2.ItmsGrpCod
+            WHERE T0.AccLocked ='N' AND T1.WhsCode IN (SELECT DefaultWarehouse FROM Usuario)
+            ORDER BY T0.ItemName
+    """)
     suspend fun getAllArticulosPedidos(): List<DoArticulo>
 
 

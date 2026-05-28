@@ -188,7 +188,7 @@ class NuevaRutaComercialActivity : AppCompatActivity() {
         rutaComercialViewModel.getAllDireccionesCliente(detalle.CardCode)
         rutaComercialViewModel.dataGetAllDireccionesCliente.observeOnceNotNull(this) { direccionesCliente ->
             BaseDialogDireccionCliente(
-                checkSelected = detalle.Address,
+                checkSelected = detalle.Street,
                 direcciones = direccionesCliente
             ) { calleSeleccionada,id ->
                 rutaComercialViewModel.updateAddress(detalle.AccDocEntry,  calleSeleccionada, detalle.LineNum)

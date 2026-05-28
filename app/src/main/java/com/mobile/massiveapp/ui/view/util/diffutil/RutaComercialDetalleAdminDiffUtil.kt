@@ -2,10 +2,11 @@ package com.mobile.massiveapp.ui.view.util.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
 import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleAdminView
+import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleView
 
 class RutaComercialDetalleAdminDiffUtil(
-    private val oldList: List<DoRutaComercialDetalleAdminView>,
-    private val newList: List<DoRutaComercialDetalleAdminView>
+    private val oldList: List<DoRutaComercialDetalleView>,
+    private val newList: List<DoRutaComercialDetalleView>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldList.size

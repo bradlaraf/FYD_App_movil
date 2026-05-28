@@ -12,5 +12,7 @@ data class DoRutaComercialDetalleView(
     val AddressType: String,
     val Comments: String,
     val ObjType: Int,
-    val DocEntry: Int
+    val DocEntry: Int,
+    val Latitud: String,
+    val Longitud: String
 )

@@ -70,7 +70,7 @@ class RutaComercialActivity : DrawerBaseActivity() {
     }
 
     private fun setDefaultUi() {
-        rutaComercialAdapter = RutaComercialAdapter(emptyList()) { ruta ->
+        rutaComercialAdapter = RutaComercialAdapter(emptyList(), onClickListener =  { ruta ->
             prefsRutaComercial.saveAccDocEntry(ruta.AccDocEntry)
             usuarioViewModel.dataGetUsuarioFromDatabase.observe(this){ usuario->
 
@@ -85,7 +85,13 @@ class RutaComercialActivity : DrawerBaseActivity() {
                 }
             }
 
-        }
+        }, onButtonVerRutasListener = { ruta ->
+            prefsRutaComercial.saveAccDocEntry(ruta.AccDocEntry)
+            Intent(this, VerRutaComercialActivity::class.java)
+                .putExtra("accDocEntry", ruta.AccDocEntry)
+                .also { startActivity(it) }
+        })
+
         binding.rvRutaComercial.adapter = rutaComercialAdapter
         prefsRutaComercial
         binding.swipe.setOnRefreshListener { binding.swipe.isRefreshing = false }

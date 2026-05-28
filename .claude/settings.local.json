@@ -12,7 +12,8 @@
       "Bash(unzip -p bubblescrollbarlib-0.1.aar res/values/values.xml)",
       "Bash(unzip -l BubbleScrollBar-0.1-sources.jar)",
       "Bash(unzip -p BubbleScrollBar-0.1-sources.jar com/trendyol/bubblescrollbarlib/BubbleScrollBar.kt)",
-      "Bash(jar tf *)"
+      "Bash(jar tf *)",
+      "Bash(git *)"
     ]
   }
 }

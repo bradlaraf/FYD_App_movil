@@ -56,7 +56,8 @@ data class DoRutaComercialView(
     val NombreVendedor: String,
     val CantidadClientes: Int,
     val AccMigrated: String,
-    val Canceled: String
+    val Canceled: String,
+    val SuperUser: String
 )
 
 

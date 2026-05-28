@@ -8,15 +8,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.massiveapp.R
-import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleAdminView
+import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleView
 import com.mobile.massiveapp.ui.view.util.diffutil.RutaComercialDetalleAdminDiffUtil
 
 class RutaComercialAdminAdapter(
-    private var dataSet: List<DoRutaComercialDetalleAdminView>,
-    private val onItemClick: (DoRutaComercialDetalleAdminView) -> Unit
+    private var dataSet: List<DoRutaComercialDetalleView>,
+    private val onItemClick: (DoRutaComercialDetalleView) -> Unit
 ) : RecyclerView.Adapter<RutaComercialAdminAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -26,6 +27,8 @@ class RutaComercialAdminAdapter(
         val txvAdminMigrado: TextView
         val clAdminRutaStatus: ConstraintLayout
         val imvAdminRutaStatus: ImageView
+        val imvGoogleMaps: ImageView
+        val txvAdminRutaComentario: TextView
 
         init {
             txvAdminDocLine    = view.findViewById(R.id.txvAdminDocLine)
@@ -34,12 +37,17 @@ class RutaComercialAdminAdapter(
             txvAdminMigrado    = view.findViewById(R.id.txvAdminMigrado)
             clAdminRutaStatus  = view.findViewById(R.id.clAdminRutaStatus)
             imvAdminRutaStatus = view.findViewById(R.id.imvAdminRutaStatus)
+            imvGoogleMaps = view.findViewById(R.id.imvGoogleMaps)
+            txvAdminRutaComentario = view.findViewById(R.id.txvAdminRutaComentario)
         }
 
-        fun render(item: DoRutaComercialDetalleAdminView, onItemClick: (DoRutaComercialDetalleAdminView) -> Unit) {
+        fun render(item: DoRutaComercialDetalleView, onItemClick: (DoRutaComercialDetalleView) -> Unit) {
             txvAdminDocLine.text  = (item.LineNum + 1).toString()
             txvAdminCardName.text = item.CardName
             txvAdminStreet.text   = item.Street.ifEmpty { item.Address }
+            imvGoogleMaps.isVisible = item.Latitud.isNotEmpty()
+            txvAdminRutaComentario.isVisible = item.Comments.isNotEmpty()
+
             val colorIcono = ContextCompat.getColor(itemView.context, R.color.color_white)
             imvAdminRutaStatus.setColorFilter(colorIcono, PorterDuff.Mode.SRC_IN)
 
@@ -74,7 +82,7 @@ class RutaComercialAdminAdapter(
 
     override fun getItemCount() = dataSet.size
 
-    fun updateData(newDataSet: List<DoRutaComercialDetalleAdminView>) {
+    fun updateData(newDataSet: List<DoRutaComercialDetalleView>) {
         val diffUtil = RutaComercialDetalleAdminDiffUtil(dataSet, newDataSet)
         val diffResult = DiffUtil.calculateDiff(diffUtil)
         dataSet = newDataSet

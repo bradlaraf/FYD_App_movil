@@ -15,9 +15,8 @@ class SaveRutaComercialDetalleUseCase @Inject constructor(
     suspend operator fun invoke(accDocEntry: String, cardCode: String): Boolean {
         return try {
             val docLine = rutaDetalleDao.countByAccDocEntry(accDocEntry)
-            val address = socioDireccionesDao
-                .getDireccionesPorTipoYCardCode(cardCode, "B")
-                .firstOrNull()?.Street ?: ""
+            val addressSocio = socioDireccionesDao.getDireccionesPorTipoYCardCode(cardCode, "B").first()
+
             rutaDetalleDao.insertAllData(
                 listOf(
                     RutaComercialDetalleEntity(
@@ -34,11 +33,21 @@ class SaveRutaComercialDetalleUseCase @Inject constructor(
                         AccControl = "N",
                         Status = "P",
                         CardCode = cardCode,
-                        Address = address,
+                        Address = addressSocio.Address,
                         AddressType = "B",
                         Comments = "",
                         ObjType = -1,
-                        DocEntry = -1
+                        DocEntry = -1,
+                        U_MSV_CP_LATITUD = "",
+                        U_MSV_CP_LONGITUD = "",
+                        Country = addressSocio.Country,
+                        State = addressSocio.State,
+                        County = addressSocio.County,
+                        City = addressSocio.City,
+                        ZipCode = addressSocio.ZipCode,
+                        Street = addressSocio.Street,
+                        Block = addressSocio.Block,
+                        U_MSV_FE_UBI = addressSocio.U_MSV_FE_UBI,
                     )
                 )
             )

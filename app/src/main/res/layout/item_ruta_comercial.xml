@@ -130,6 +130,20 @@
             app:layout_constraintTop_toTopOf="@+id/txvRutaComercialCantidadClientesValue"
             tools:visibility="visible" />
 
+        <Button
+            android:id="@+id/btnVerRutas"
+            style="@style/default_text"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_btn_cobrar"
+            android:text="Ver Rutas"
+            android:textColor="@android:color/white"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvRutaComercialCantidadClientesTitle"
+            tools:visibility="visible" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

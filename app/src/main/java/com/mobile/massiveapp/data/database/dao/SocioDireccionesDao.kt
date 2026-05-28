@@ -145,6 +145,16 @@ interface SocioDireccionesDao:BaseDao<SocioDireccionesEntity> {
         SELECT 
             * 
         FROM SocioDirecciones 
+        WHERE Street = :street 
+            AND AdresType = :tipo
+        LIMIT 1
+    """)
+    suspend fun getDireccionPorTipoYStreet(street: String, tipo: String):SocioDireccionesEntity
+
+    @Query("""
+        SELECT 
+            * 
+        FROM SocioDirecciones 
         WHERE CardCode = :cardCode
         """)
     fun getDireccionesFlow(cardCode: String): Flow<List<SocioDireccionesEntity>>

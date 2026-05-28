@@ -4,6 +4,7 @@ import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +18,8 @@ import com.mobile.massiveapp.ui.view.util.diffutil.RutaComercialDiffUtil
 
 class RutaComercialAdapter(
     private var dataSet: List<DoRutaComercialView>,
-    private val onClickListener: (DoRutaComercialView) -> Unit
+    private val onClickListener: (DoRutaComercialView) -> Unit,
+    private val onButtonVerRutasListener: (DoRutaComercialView) -> Unit,
 ) : RecyclerView.Adapter<RutaComercialAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,6 +29,7 @@ class RutaComercialAdapter(
         val imvRutaMigrado: ImageView
         val clMigrado: ConstraintLayout
         val txvCancelado: TextView
+        val btnVerRutas: Button
 
         init {
             txvNombreVendedor = view.findViewById(R.id.txvRutaComercialNombreVendedorValue)
@@ -35,12 +38,15 @@ class RutaComercialAdapter(
             imvRutaMigrado = view.findViewById(R.id.imvRutaMigrado)
             clMigrado = view.findViewById(R.id.clRutaMigrado)
             txvCancelado = view.findViewById(R.id.txvRutaCancelado)
+            btnVerRutas = view.findViewById(R.id.btnVerRutas)
         }
 
-        fun render(ruta: DoRutaComercialView, onClickListener: (DoRutaComercialView) -> Unit) {
+        fun render(ruta: DoRutaComercialView, onClickListener: (DoRutaComercialView) -> Unit, onButtonVerRutasListener: (DoRutaComercialView) -> Unit) {
             txvNombreVendedor.text = ruta.NombreVendedor
             txvFechaRuta.text = ruta.FechaRuta
             txvCantidadClientes.text = ruta.CantidadClientes.toString()
+
+            btnVerRutas.isVisible = ruta.SuperUser == "Y"
 
             txvCancelado.isVisible = ruta.Canceled == "Y"
             itemView.isEnabled = ruta.Canceled == "N"
@@ -57,11 +63,12 @@ class RutaComercialAdapter(
                 clMigrado.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.color_green_dark))
             } else {
                 imvRutaMigrado.setImageResource(R.drawable.icon_cloud_await)
-                clMigrado.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.color_red_light))
+                clMigrado.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.color_red))
             }
 
 
             itemView.setOnClickListener { onClickListener(ruta) }
+            btnVerRutas.setOnClickListener { onButtonVerRutasListener(ruta) }
 
         }
     }
@@ -73,7 +80,7 @@ class RutaComercialAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.render(dataSet[position], onClickListener)
+        holder.render(dataSet[position], onClickListener, onButtonVerRutasListener)
     }
 
     override fun getItemCount() = dataSet.size

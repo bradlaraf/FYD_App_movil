@@ -26,7 +26,18 @@ data class RutaComercialDetalleEntity(
     @ColumnInfo(name = "AddressType") val AddressType: String,
     @ColumnInfo(name = "Comments") val Comments: String,
     @ColumnInfo(name = "ObjType") val ObjType: Int,
-    @ColumnInfo(name = "DocEntry") val DocEntry: Int
+    @ColumnInfo(name = "DocEntry") val DocEntry: Int,
+    @ColumnInfo(name = "U_MSV_CP_LATITUD") val U_MSV_CP_LATITUD: String,
+    @ColumnInfo(name = "U_MSV_CP_LONGITUD") val U_MSV_CP_LONGITUD: String,
+
+    @ColumnInfo(name = "Country")val Country: String,
+    @ColumnInfo(name = "State")val State: String,
+    @ColumnInfo(name = "County")val County: String,//Provincia
+    @ColumnInfo(name = "City")val City: String, //Ciudad
+    @ColumnInfo(name = "ZipCode")val ZipCode: String, //Vacio
+    @ColumnInfo(name = "Street")val Street: String, //Calle
+    @ColumnInfo(name = "Block")val Block: String, //Referencia-va vacio
+    @ColumnInfo(name = "U_MSV_FE_UBI")val U_MSV_FE_UBI: String,
 )
 
 fun RutaComercialDetalle.toDatabase() = RutaComercialDetalleEntity(
@@ -44,10 +55,20 @@ fun RutaComercialDetalle.toDatabase() = RutaComercialDetalleEntity(
     Status = Status,
     CardCode = CardCode,
     Address = Address,
-    AddressType = AddressType,
+    AddressType = AdresType,
     Comments = Comments,
     ObjType = ObjType,
-    DocEntry = DocEntry
+    DocEntry = DocEntry,
+    U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
+    U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    Country = Country,
+    State = State,
+    County = County,
+    City = City,
+    ZipCode = ZipCode,
+    Street = Street,
+    Block = Block,
+    U_MSV_FE_UBI = U_MSV_FE_UBI,
 )
 
 fun DoRutaComercialDetalle.toDatabase() = RutaComercialDetalleEntity(
@@ -68,5 +89,15 @@ fun DoRutaComercialDetalle.toDatabase() = RutaComercialDetalleEntity(
     AddressType = AddressType,
     Comments = Comments,
     ObjType = ObjType,
-    DocEntry = DocEntry
+    DocEntry = DocEntry,
+    U_MSV_CP_LATITUD = U_MSV_CP_LATITUD,
+    U_MSV_CP_LONGITUD = U_MSV_CP_LONGITUD,
+    Country = Country,
+    State = State,
+    County = County,
+    City = City,
+    ZipCode = ZipCode,
+    Street = Street,
+    Block = Block,
+    U_MSV_FE_UBI = Ubigeo,
 )
