@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -16,9 +18,11 @@ import com.mobile.massiveapp.MassiveApp.Companion.prefsPedido
 import com.mobile.massiveapp.R
 import com.mobile.massiveapp.data.model.ClientePedidoDetalle
 import com.mobile.massiveapp.databinding.ActivityContenidoArticulosBinding
+import com.mobile.massiveapp.domain.model.DoConfigurarUsuario
 import com.mobile.massiveapp.ui.adapters.PedidoDetalleAdapter
 import com.mobile.massiveapp.ui.adapters.extension.SwipeToDeletePedidos
 import com.mobile.massiveapp.ui.base.BaseDialogAceptDialog
+import com.mobile.massiveapp.ui.view.usuarios.NuevoUsuarioActivity
 import com.mobile.massiveapp.ui.view.util.SendData
 import com.mobile.massiveapp.ui.view.util.format
 import com.mobile.massiveapp.ui.view.util.formatString
@@ -97,10 +101,6 @@ class ContenidoArticulosActivity : AppCompatActivity() {
 
 
 
-
-
-
-
             //Obtener el detalle del pedido por accDocEntry
         if (accDocEntry.isNotEmpty() && !intent.getBooleanExtra("editMode", false)){
             pedidoViewModel.getAllPedidoDetallePorAccDocEntry(accDocEntry)
@@ -122,32 +122,6 @@ class ContenidoArticulosActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-
-
-            //LiveData del detalle pedido por el accDocEntry
-        /*pedidoViewModel.dataGetAllPedidoDetallePorAccDocEntry.observe(this){ listaPedidoDetalle->
-            try {
-                if (listaPedidoDetalle.isNotEmpty()){
-                    binding.txvCantidadPedidos.text = "${listaPedidoDetalle.size} articulos"
-                    binding.txvCantidadPedidos.isVisible = true
-                }
-
-                if (listaPedidoDetalle.size > 3){
-                    binding.rvNpArticulosAgregados.layoutParams.height = 500
-                }
-
-                //Actualizar Contenido Articulos
-                val total = listaPedidoDetalle.sumOf { pedido -> pedido.LineTotal }
-                setTotal(total)
-                listaPedidosAEliminar = listaPedidoDetalle
-                pedidoDetalleItemsAdapter.updateData(listaPedidoDetalle)
-
-            } catch (e: Exception){
-                e.printStackTrace()
-            }
-        }*/
 
     }
 
@@ -177,6 +151,43 @@ class ContenidoArticulosActivity : AppCompatActivity() {
         binding.txvNPArtInfoTotalAntesDescuentoValue.text = "${SendData.instance.simboloMoneda} $totalAntesImpuestos"
         binding.txvNpArtInfoTotalValue.text = "${SendData.instance.simboloMoneda} $totalDespuesImpuestos"
         binding.txvNpArtInfoImpuestoValue.text = "${SendData.instance.simboloMoneda} $totolImpuestos"
+    }
+
+
+    private fun showPopupMenu(view: View) {
+        val popupMenu = PopupMenu(this, view)
+        val inflater = popupMenu.menuInflater
+        inflater.inflate(R.menu.menu_venta_sugerida, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.nav_item_pedido_sugerido -> {
+                    BaseDialogAceptDialog(this).showConfirmationDialog(
+                        "¿Desea agregar los productos SUGERIDOS del cliente?",
+                        onConfirmacion = {
+                            pedidoViewModel.getPedidoSugerido(prefsPedido.getCardCode())
+                        },
+                        onCancel = {}
+                    )
+                    true
+                }
+
+                R.id.nav_item_producto_lanzamiento -> {
+                    BaseDialogAceptDialog(this).showConfirmationDialog(
+                        "¿Desea agregar los productos de LANZAMIENTO del cliente?",
+                        onConfirmacion = {
+                            pedidoViewModel.getProductosLanzamiento(prefsPedido.getCardCode())
+                        },
+                        onCancel = {}
+                    )
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+        popupMenu.show()
     }
 
 
@@ -244,6 +255,7 @@ class ContenidoArticulosActivity : AppCompatActivity() {
 
 
 
+
     /*----------------BARRA DE TITULO - NAV -------------------*/
 
     override fun onSupportNavigateUp(): Boolean {
@@ -276,13 +288,8 @@ class ContenidoArticulosActivity : AppCompatActivity() {
         when (item.itemId) {
 
             R.id.app_bar_venta_sugerida -> {
-                BaseDialogAceptDialog(this).showConfirmationDialog(
-                    "¿Desea ver los productos frecuentes del cliente?",
-                    onConfirmacion = {
-                        pedidoViewModel.getPedidoSugerido(prefsPedido.getCardCode())
-                    },
-                    onCancel = {}
-                )
+                val menuItemView = findViewById<View>(R.id.app_bar_venta_sugerida)
+                showPopupMenu(menuItemView)
             }
 
             R.id.app_bar_add -> {

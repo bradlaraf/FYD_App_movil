@@ -24,7 +24,7 @@ data class ClientePedidoDetalle(
     val LineTotal: Double,
     var OcrCode: String,
     var OcrCode2: String,
-    val OcrCode3: String,
+    var OcrCode3: String,
     val OcrCode4: String,
     val OcrCode5: String,
     val Price: Double,

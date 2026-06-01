@@ -1,6 +1,5 @@
 package com.mobile.massiveapp.domain.pedido
 
-
 import com.mobile.massiveapp.MassiveApp.Companion.prefsApp
 import com.mobile.massiveapp.MassiveApp.Companion.prefsPedido
 import com.mobile.massiveapp.data.database.dao.ArticuloDao
@@ -15,7 +14,7 @@ import com.mobile.massiveapp.ui.view.util.getFechaActual
 import com.mobile.massiveapp.ui.view.util.getHoraActual
 import javax.inject.Inject
 
-class GetPedidoSugeridoUseCase @Inject constructor(
+class GetProductosLanzamientoUseCase @Inject constructor(
     private val pedidoRepository: PedidoRepository,
     private val pedidosDao: ClientePedidosDao,
     private val articulosDao: ArticuloDao,
@@ -26,7 +25,7 @@ class GetPedidoSugeridoUseCase @Inject constructor(
     suspend operator fun invoke(cardCode: String): Boolean =
         try {
             val usuario = usuarioDao.getAll()
-            val pedidosSugeridos = pedidoRepository.getPedidoSugeridoFromApi(cardCode).filter { it.Tipo != "PRD_LNCH" }
+            val pedidosSugeridos = pedidoRepository.getPedidoSugeridoFromApi(cardCode).filter { it.Tipo == "PRD_LNCH" }
 
             pedidosSugeridos.forEach { pedidoSugerido ->
                 val articulo = articulosDao.getArticuloInfoPedidoConUnidadMedida(itemCode = pedidoSugerido.ItemCode)
@@ -65,12 +64,16 @@ class GetPedidoSugeridoUseCase @Inject constructor(
                     detalle.OcrCode = "Y"
                 }
 
+                if (pedidoSugerido.Tipo == "PRD_LNCH"){
+                    detalle.OcrCode3 = "Y"
+                }
+
                 pedidoRepository.savePedidoDetalle(detalle)
 
             }
             true
 
         } catch (e:Exception){
-                false
+            false
         }
 }

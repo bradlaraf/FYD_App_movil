@@ -62,9 +62,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/txvRutaComercialNombreVendedorTitle"
             app:layout_constraintEnd_toStartOf="@id/imgChevron"
-            app:layout_constraintStart_toEndOf="@id/txvRutaComercialNombreVendedorTitle" />
+            app:layout_constraintStart_toEndOf="@id/txvRutaComercialNombreVendedorTitle"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txvFechaRutaComercialTitle"
@@ -82,8 +82,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/txvFechaRutaComercialTitle"
-            app:layout_constraintStart_toEndOf="@id/txvFechaRutaComercialTitle" />
+            app:layout_constraintStart_toEndOf="@id/txvFechaRutaComercialTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txvRutaComercialNombreVendedorValue" />
 
         <TextView
             android:id="@+id/txvRutaComercialCantidadClientesTitle"
@@ -101,8 +101,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/txvRutaComercialCantidadClientesTitle"
-            app:layout_constraintStart_toEndOf="@id/txvRutaComercialCantidadClientesTitle" />
+            app:layout_constraintStart_toEndOf="@id/txvRutaComercialCantidadClientesTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txvFechaRutaComercialValue" />
 
         <ImageView
             android:id="@+id/imgChevron"

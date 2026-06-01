@@ -16,7 +16,6 @@ import com.mobile.massiveapp.domain.model.DoArticuloListaPrecios
 import com.mobile.massiveapp.domain.model.DoArticuloPedidoInfo
 import com.mobile.massiveapp.domain.model.DoUsuario
 import com.mobile.massiveapp.ui.base.BaseBottomSheetCustomDialog
-import com.mobile.massiveapp.ui.base.BaseDialogCheckListWithViewAndId
 import com.mobile.massiveapp.ui.base.BaseDialogChecklistWithId
 import com.mobile.massiveapp.ui.base.BaseDialogEdtWithTypeEdt
 import com.mobile.massiveapp.ui.view.util.agregarDetalleDePedido
@@ -45,8 +44,6 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
     private var itemCode: String = ""
     private var hashInfo = HashMap<String, Any>()
     private var usuario = DoUsuario()
-    private val LISTA_MAYORISTA = 2
-    private val LISTA_COBERTURA = 1
     private val CANTIDAD_DEFAULT = 1
     private val PORCENTAJE_DESCUENTO = 0.0
 
@@ -65,7 +62,6 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
             //EDICION ARTICULO - Get Pedido Info
         if (intent.getBooleanExtra("edicionDetalle", false)){
-            showMessage(this, intent.getStringExtra("accDocEntry").toString())
             pedidoViewModel.getPedidoDetalleInfo(
                 accDocEntry = intent.getStringExtra("accDocEntry").toString(),
                 lineNum = intent.getIntExtra("lineNum", -1)
@@ -83,20 +79,20 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                 binding.txvNpArtInfoDescripcionValue.text = detalleInfo.ItemName
                 binding.txvNpArtInfoGrupoUnidadMedidaValue.text = detalleInfo.UgpName   //Grupo unidad medida
                 binding.txvNpArtInfoUnidadMedidaValue.text = detalleInfo.UomName        //Unidad medida
-                binding.txvNpArtInfoPrecioUnitarioValue.text = detalleInfo.Price.toString()
-                binding.txvNpArtInfoPrecioBrutoValue.text = detalleInfo.Price.toString()
-                binding.txvNpArtInfoTotalValue.text = detalleInfo.LineTotal.toString()
                 binding.txvNpArtInfoCantidadValue.text = "${detalleInfo.Quantity.toInt()}"
                 binding.txvNpArtInfoAlmacenValue.text = detalleInfo.Almacen
                 binding.txvNpArtInfoListaPreciosValue.text = detalleInfo.ListaPrecio
-                binding.txvNpArtInfoImpuestoValue.text = detalleInfo.Impuesto
-                binding.txvNpArtInfoPorcentajeDescuentoValue.text = PORCENTAJE_DESCUENTO.toString()
 
                 hashInfo["codigoImpuesto"] = detalleInfo.TaxCode
                 hashInfo["listaPrecioCodigo"] = detalleInfo.PriceList
                 hashInfo["codigoAlmacen"] = detalleInfo.WhsCode
                 hashInfo["uomEntry"] = detalleInfo.UomEntry
                 hashInfo["uomCode"] = detalleInfo.UomCode
+
+                pedidoViewModel.getPrecioArticuloFYD(
+                    itemCode = detalleInfo.ItemCode,
+                    cardCode = prefsPedido.getCardCode()
+                )
 
             } catch (e:Exception){
                 //showMessage(this, e.message.toString())
@@ -110,13 +106,8 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             try {
                 llenarDatosDelArticulo(articuloSeleccionado)
                 hashInfo["uomEntry"] = articuloSeleccionado.UomEntry
-                val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toInt()
-                //Se trae el precio
-                /*pedidoViewModel.getUnidadMedidaYEquivalencia(
-                    articuloSeleccionado.ItemCode,
-                    binding.txvNpArtInfoUnidadMedidaValue.text.toString(),  //UomName
-                    hashInfo["listaPrecioCodigo"] as Int
-                )*/
+
+
                 pedidoViewModel.getPrecioArticuloFYD(
                     itemCode = articuloSeleccionado.ItemCode,
                     cardCode = prefsPedido.getCardCode()
@@ -127,29 +118,14 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             }
         }
 
-
-        //LiveData Cantidad
-        /*articuloViewModel.dataGetArticuloCantidadPedido.observe(this){
-            BaseDialogEdtWithTypeEdt(
-                tipo = "phone",
-                textEditable = binding.txvNpArtInfoCantidadValue.text.toString()
-                *//*unidadMedida =  binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
-                maxNumber =     it.toDouble(),
-                textEditable =  binding.txvNpArtInfoCantidadValue.text.toString()*//*
-            ){ cantidad->
-                if (cantidad.isNotEmpty()){
-                    binding.txvNpArtInfoCantidadValue.text = cantidad
-                    val precio = binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble()
-                    setTotalValue(precio)
-                }
-            }.show(supportFragmentManager, "cantidad")
-        }*/
-
-        //LiveData Precio articulo
-        /*pedidoViewModel.dataGetPrecioArticulo.observe(this){ articuloPedido->
-            binding.txvNpArtInfoPorcentajeDescuentoValue.text = articuloPedido.PorcentajeDescuento.toString()
-            setTotalValues(precioUnitario = articuloPedido.PrecioUnitario, precioDescontado = articuloPedido.Precio, precioIGV = articuloPedido.PrecioIGV)
-        }*/
+        //Cantidad X Tipo Unidad
+        pedidoViewModel.dataGetCantidadXTipoUnidad.observe(this){ cantidadXTipo->
+            if (binding.txvNpArtInfoTipoUnidadValue.text.toString() == "NIU"){
+                binding.txvNpArtInfoCantidadCajaValue.text = cantidadXTipo.toString()
+            } else if (binding.txvNpArtInfoTipoUnidadValue.text.toString() == "CAJA"){
+                binding.txvNpArtInfoCantidadValue.text = cantidadXTipo.toString()
+            }
+        }
 
 
         //LiveData PrecioFinal por UM y ListaPrecio
@@ -178,8 +154,6 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             }
 
         }
-
-
     }
 
     private fun getInfoArticuloLiveData() {
@@ -222,23 +196,8 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
         //Set CANTIDAD
         binding.txvNpArtInfoCantidadValue.text = "$CANTIDAD_DEFAULT"
+        binding.txvNpArtInfoCantidadCajaValue.text = "$CANTIDAD_DEFAULT"
 
-
-        //Set IMPUESTO
-        /*generalViewModel.getAllGeneralImpuestos()
-
-        binding.clNpArtInfoImpuesto.setOnClickListener {
-            generalViewModel.dataGetAllGeneralImpuestos.observe(this){ impuestos->
-                BaseDialogCheckListWithViewAndId(
-                    this,
-                    binding.txvNpArtInfoImpuestoValue.text.toString(),
-                    impuestos.map { it.Name }
-                ){ opcionElegida, id->
-                    binding.txvNpArtInfoImpuestoValue.text = opcionElegida
-                    hashInfo["codigoImpuesto"] = impuestos[id].Code
-                }.show(supportFragmentManager, "showDialog")
-            }
-        }*/
 
         //Get DATOS DEL USUARIO
         usuarioViewModel.getUsuarioFromDatabase()
@@ -285,7 +244,6 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     }.firstOrNull()?.ListName?:"--"
                 }
 
-                /*hashInfo["listaPrecioCodigo"] = listasPrecio.firstOrNull()?.ListNum?:0*/
             } catch (e: Exception) {
                 Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
@@ -335,9 +293,6 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
         //Set UNIDAD DE MEDIDA
         binding.clNpArtInfoUnidadMedida.setOnClickListener {
-            /*pedidoViewModel.getAllUnidadesDeMedidaPorGrupoUnidadDeMedida(
-                binding.txvNPArtInfoArticuloValue.text.toString()
-            )*/
         }
 
         pedidoViewModel.dataGetAllUnidadesDeMedidaPorItemCode.observe(this) { unidadesDeMedida->
@@ -359,6 +314,58 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
         }
 
 
+        //TIPO de UNIDAD
+
+        binding.clNpArtInfoTipoUnidad.setOnClickListener {
+            pedidoViewModel.dataGetAllTiposDeUnidad.observe(this){ tiposUnidad->
+                BaseDialogChecklistWithId(
+                    binding.txvNpArtInfoTipoUnidadValue.text.toString(),
+                    tiposUnidad.map { it.Name }
+                ) { tipoUnidadSelect, id ->
+                    binding.txvNpArtInfoTipoUnidadValue.text = tipoUnidadSelect
+
+                    binding.clNpArtInfoCantidadCaja.isEnabled = tipoUnidadSelect != "NIU"
+                    binding.clNpArtInfoCantidad.isEnabled = tipoUnidadSelect == "NIU"
+
+                    val cantidadXTipo = if (tipoUnidadSelect == "CAJA") binding.txvNpArtInfoCantidadCajaValue.text.toString().toDouble()
+                    else binding.txvNpArtInfoCantidadValue.text.toString().toDouble()
+                    pedidoViewModel.getCantidadXTipoUnidad(
+                        itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
+                        tipoUnidad = binding.txvNpArtInfoTipoUnidadValue.text.toString(),
+                        cantidad = cantidadXTipo
+                    )
+
+                }.show(supportFragmentManager, "tipoPago")
+            }
+        }
+
+        //CANTIDAD CAJA
+        binding.clNpArtInfoCantidadCaja.setOnClickListener {
+            try {
+                if (binding.txvNpArtInfoTipoUnidadValue.text.toString().isEmpty()){
+                    throw Exception("Debe seleccionar un artículo")
+                }
+
+                BaseDialogEdtWithTypeEdt(
+                    tipo = "phone",
+                    textEditable = binding.txvNpArtInfoCantidadCajaValue.text.toString()
+                ){ cantidad->
+                    if (cantidad.isNotEmpty()){
+                        binding.txvNpArtInfoCantidadCajaValue.text = cantidad
+                    }
+                    pedidoViewModel.getCantidadXTipoUnidad(
+                        itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
+                        tipoUnidad = binding.txvNpArtInfoTipoUnidadValue.text.toString(),
+                        cantidad = cantidad.toDouble()
+                    )
+                }.show(supportFragmentManager, "cantidadCaja")
+
+            } catch (e:Exception){
+                showMessage(this, e.message.toString())
+            }
+
+        }
+
         //Set Cantidad
         binding.clNpArtInfoCantidad.setOnClickListener {
             try {
@@ -370,30 +377,24 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     tipo = "phone",
                     textEditable = binding.txvNpArtInfoCantidadValue.text.toString()
                 ){ cantidad->
-                    if (cantidad.isNotEmpty()){
+                    if (cantidad.isNotEmpty()) {
                         binding.txvNpArtInfoCantidadValue.text = cantidad
                         val precio = binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble()
-
-                        /*pedidoViewModel.getPrecioArticulo(
-                            cantidad.toInt(),
-                            itemCode,
-                            hashInfo["listaPrecioCodigo"] as Int
-                        )*/
 
                         pedidoViewModel.getPrecioArticuloFYD(
                             itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
                             cardCode = prefsPedido.getCardCode()
                         )
+
+                        pedidoViewModel.getCantidadXTipoUnidad(
+                            itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
+                            tipoUnidad = binding.txvNpArtInfoTipoUnidadValue.text.toString(),
+                            cantidad = cantidad.toDouble()
+                        )
                     }
                 }.show(supportFragmentManager, "cantidad")
 
-                /*articuloViewModel.getArticuloCantidadPedido(
-                    itemCode,
-                    binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
-                    hashInfo["codigoAlmacen"] as String
-                )*/
-
-            } catch (e:Exception){
+            } catch (e:Exception) {
                 Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
             }
         }
@@ -408,12 +409,6 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                 binding.txvNpArtInfoListaPreciosValue.text = listaSeleccionada
                 hashInfo["listaPrecioCodigo"] = listasPrecio[id].ListNum
                 val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toInt()
-
-                /*pedidoViewModel.getUnidadMedidaYEquivalencia(
-                    itemCode,
-                    binding.txvNpArtInfoUnidadMedidaValue.text.toString(),
-                    hashInfo["listaPrecioCodigo"] as Int
-                )*/
 
                 pedidoViewModel.getPrecioArticulo(
                     cantidad,
@@ -432,6 +427,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
         binding.txvNpArtInfoPorcentajeDescuentoValue.text = "0.00"                              //descuento
         binding.txvNpArtInfoCantidadValue.text = "$CANTIDAD_DEFAULT"                            //cantidad
         binding.txvNpArtInfoUnidadMedidaValue.text = articuloSeleccionado.UomName               //unidad de medida
+        binding.txvNpArtInfoTipoUnidadValue.text = articuloSeleccionado.TipoUnidad              //Tipo de unidad
 
         val isManual = articuloSeleccionado.UgpName == "MANUAL"
         binding.clNpArtInfoUnidadMedida.isClickable = !isManual
@@ -494,6 +490,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             if (!itemCodeArticuloSeleccionado.isNullOrEmpty()){
 
                 articuloViewModel.getArticuloPedidoInfo(itemCodeArticuloSeleccionado)
+                pedidoViewModel.getAllTiposDeUnidad(itemCodeArticuloSeleccionado)
                 itemCode = itemCodeArticuloSeleccionado
             }
         }

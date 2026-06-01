@@ -96,6 +96,11 @@ data class DoArticuloInv(
     var GrupoArticulo: String
 )
 
+data class TipoUnidadView(
+    val Name: String,
+    val Code: String
+)
+
 fun DoArticuloInv.toInv() = DoArticuloInventario(
     ItemCode = ItemCode,
     ItemName = ItemName,

@@ -16,6 +16,7 @@ import com.mobile.massiveapp.domain.model.DoPedidoDetalleInfo
 import com.mobile.massiveapp.domain.model.DoPedidoInfoView
 import com.mobile.massiveapp.domain.model.DoReporteProductosFrecuentes
 import com.mobile.massiveapp.domain.model.DoUnidadMedidaInfo
+import com.mobile.massiveapp.domain.model.TipoUnidadView
 import com.mobile.massiveapp.domain.pedido.CancelPedidoUseCase
 import com.mobile.massiveapp.domain.pedido.ComprobarEstadoActualPedidoUseCase
 import com.mobile.massiveapp.domain.pedido.DeleteAllPedidoDetallePorAccDocEntryUseCase
@@ -27,6 +28,8 @@ import com.mobile.massiveapp.domain.pedido.GetAllPedidoDetallesParaEditarUseCase
 import com.mobile.massiveapp.domain.pedido.GetAllPedidosClienteUseCase
 import com.mobile.massiveapp.domain.pedido.GetAllPedidosNoMigradosUseCase
 import com.mobile.massiveapp.domain.pedido.GetAllPedidosPorCardCodeUseCase
+import com.mobile.massiveapp.domain.pedido.GetAllTiposDeUnidadUseCase
+import com.mobile.massiveapp.domain.pedido.GetCantidadXTipoUnidadUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidoCabeceraInfoUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidoDetalleInfoUseCase
 import com.mobile.massiveapp.domain.pedido.GetUnidadesDeMedidaPorGrupoUnidadDeMedidaUseCase
@@ -38,6 +41,7 @@ import com.mobile.massiveapp.domain.pedido.GetReporteProductosFrecuentesUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidosCanceladosUseCase
 import com.mobile.massiveapp.domain.pedido.GetPedidosDeAyerUseCase
 import com.mobile.massiveapp.domain.pedido.GetPrecioArticuloUseCase
+import com.mobile.massiveapp.domain.pedido.GetProductosLanzamientoUseCase
 import com.mobile.massiveapp.domain.pedido.GetUnPedidoDetallePorAccDocEntryYLineNumUseCase
 import com.mobile.massiveapp.domain.pedido.GetUnidadMedidaYEquivalenciaUseCase
 import com.mobile.massiveapp.domain.pedido.ObtenerPrecioArticuloFYDUseCase
@@ -80,10 +84,39 @@ class PedidoViewModel @Inject constructor(
     private val getPedidoSugeridoUseCase: GetPedidoSugeridoUseCase,
     private val getPrecioArticuloUseCase: GetPrecioArticuloUseCase,
     private val obtenerPrecioArticuloFYDUseCase: ObtenerPrecioArticuloFYDUseCase,
-    private val getReporteProductosFrecuentesUseCase: GetReporteProductosFrecuentesUseCase
+    private val getReporteProductosFrecuentesUseCase: GetReporteProductosFrecuentesUseCase,
+    private val getAllTiposDeUnidadUseCase: GetAllTiposDeUnidadUseCase,
+    private val getCantidadXTipoUnidadUseCase: GetCantidadXTipoUnidadUseCase,
+    private val getProductosLanzamientoUseCase: GetProductosLanzamientoUseCase
     )
     : ViewModel(){
     val isLoading = MutableLiveData<Boolean>()
+
+        //PRODUCTOS DE LANZAMIENTO
+    val dataGetProductosLanzamiento = MutableLiveData<Boolean>()
+    fun getProductosLanzamiento(cardCode: String){
+        viewModelScope.launch {
+            val result = getProductosLanzamientoUseCase(cardCode)
+            result.let {
+                dataGetProductosLanzamiento.postValue(it)
+            }
+        }
+    }
+
+        //CANTIDAD por TIPO UNIDAD
+    val dataGetCantidadXTipoUnidad = MutableLiveData<Double>()
+    fun getCantidadXTipoUnidad (itemCode: String, tipoUnidad: String, cantidad: Double){
+        viewModelScope.launch {
+            val result = getCantidadXTipoUnidadUseCase(
+                itemCode = itemCode,
+                tipoUnidad = tipoUnidad,
+                cantidad = cantidad
+            )
+            result.let {
+                dataGetCantidadXTipoUnidad.postValue(it)
+            }
+        }
+    }
 
         //Set Pedidos fecha
     val dataSetPedidosHoy = MutableLiveData<Boolean>()
@@ -98,6 +131,17 @@ class PedidoViewModel @Inject constructor(
             val result = obtenerPrecioArticuloFYDUseCase(itemCode = itemCode, cardCode = cardCode)
             result.let {
                 dataGetPrecioArticuloFYD.postValue(it)
+            }
+        }
+    }
+
+    //Tipo de UNIDAD
+    val dataGetAllTiposDeUnidad = MutableLiveData<List<TipoUnidadView>>()
+    fun getAllTiposDeUnidad(itemCode: String ) {
+        viewModelScope.launch {
+            val result = getAllTiposDeUnidadUseCase(itemCode)
+            result.let {
+                dataGetAllTiposDeUnidad.postValue(it)
             }
         }
     }

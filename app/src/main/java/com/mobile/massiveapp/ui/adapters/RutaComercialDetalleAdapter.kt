@@ -1,11 +1,14 @@
 package com.mobile.massiveapp.ui.adapters
 
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.massiveapp.R
@@ -26,12 +29,16 @@ class RutaComercialDetalleAdapter(
         val txvDetalleCardName: TextView
         val txvDetalleStreet: TextView
         val imgDragHandle: ImageView
+        val clDetalleRutaStatus: ConstraintLayout
+        val imvDetalleRutaStatus: ImageView
 
         init {
-            txvDetalleDocLine = view.findViewById(R.id.txvDetalleDocLine)
-            txvDetalleCardName = view.findViewById(R.id.txvDetalleCardName)
-            txvDetalleStreet = view.findViewById(R.id.txvDetalleStreet)
-            imgDragHandle = view.findViewById(R.id.imgDragHandle)
+            txvDetalleDocLine    = view.findViewById(R.id.txvDetalleDocLine)
+            txvDetalleCardName   = view.findViewById(R.id.txvDetalleCardName)
+            txvDetalleStreet     = view.findViewById(R.id.txvDetalleStreet)
+            imgDragHandle        = view.findViewById(R.id.imgDragHandle)
+            clDetalleRutaStatus  = view.findViewById(R.id.clDetalleRutaStatus)
+            imvDetalleRutaStatus = view.findViewById(R.id.imvDetalleRutaStatus)
         }
 
         fun render(
@@ -42,6 +49,22 @@ class RutaComercialDetalleAdapter(
             txvDetalleDocLine.text = (item.LineNum + 1).toString()
             txvDetalleCardName.text = item.CardName
             txvDetalleStreet.text = item.Street.ifEmpty { item.Address }
+
+            val colorIcono = ContextCompat.getColor(itemView.context, R.color.color_white)
+            imvDetalleRutaStatus.setColorFilter(colorIcono, PorterDuff.Mode.SRC_IN)
+
+            val migrado = item.AccMigrated == "Y"
+            val aceptado = item.Status == "A"
+
+            val color: Int
+            if (migrado && aceptado) {
+                imvDetalleRutaStatus.setImageResource(R.drawable.icon_confirmed)
+                color = ContextCompat.getColor(itemView.context, R.color.color_green_dark)
+            } else {
+                imvDetalleRutaStatus.setImageResource(R.drawable.icon_pending)
+                color = ContextCompat.getColor(itemView.context, R.color.color_red)
+            }
+            clDetalleRutaStatus.setBackgroundColor(color)
 
             imgDragHandle.setOnTouchListener { _, event ->
                 if (event.actionMasked == MotionEvent.ACTION_DOWN) onStartDrag(this)

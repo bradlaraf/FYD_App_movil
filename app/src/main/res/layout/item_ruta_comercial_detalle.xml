@@ -13,6 +13,26 @@
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clDetalleRutaStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/color_green_dark">
+
+        <ImageView
+            android:id="@+id/imvDetalleRutaStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_pending" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp">
@@ -35,6 +55,7 @@
             style="@style/default_title_large_text"
             android:layout_width="28dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:textStyle="bold"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"

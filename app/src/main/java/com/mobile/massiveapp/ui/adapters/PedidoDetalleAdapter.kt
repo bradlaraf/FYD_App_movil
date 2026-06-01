@@ -30,6 +30,7 @@ class PedidoDetalleAdapter(
         val txvNuevoLanzamiento: TextView
         val txvBonifiacion: TextView
         val txvProductoFrecuente: TextView
+        val txvUltimoPedido: TextView
 
         init {
             txvNombre = view.findViewById(R.id.txvPedidoInfoNombreItem)
@@ -41,6 +42,7 @@ class PedidoDetalleAdapter(
             txvNuevoLanzamiento = view.findViewById(R.id.txvNuevoLanzamiento)
             txvBonifiacion = view.findViewById(R.id.txvPedidoInfoBonificacion)
             txvProductoFrecuente = view.findViewById(R.id.txvProductoFrecuente)
+            txvUltimoPedido = view.findViewById(R.id.txvUltimoPedido)
         }
 
         fun render(articuloinfo: ClientePedidoDetalle, onClickListener: (ClientePedidoDetalle) -> Unit){
@@ -65,8 +67,9 @@ class PedidoDetalleAdapter(
         viewHolder.txvItemTotal.text = "${SendData.instance.simboloMoneda} ${dataSet[position].LineTotal.format(2)}"
         viewHolder.txvUnidadMedida.text = currentArticulo.UnitMsr
         viewHolder.txvLineNum.text = (currentArticulo.LineNum + 1).toString()
-        viewHolder.txvNuevoLanzamiento.isVisible = currentArticulo.OcrCode == "Y"
+        viewHolder.txvNuevoLanzamiento.isVisible = currentArticulo.OcrCode3 == "Y"
         viewHolder.txvProductoFrecuente.isVisible = currentArticulo.OcrCode2 == "Y"
+        viewHolder.txvUltimoPedido.isVisible = currentArticulo.OcrCode == "Y"
         viewHolder.render(currentArticulo, onClickListener)
     }
 

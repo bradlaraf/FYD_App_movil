@@ -44,6 +44,7 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
     private var datosDocumento = DoConsultaDocumento()
     private lateinit var consultaDocumentoAdapter: ConsultaRucAdapter
     private val loadinDialog = BaseDialogLoading(this, "Sincronizando Clientes")
+    private var menuItemCheck: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -247,8 +248,8 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_nuevo_sn, menu)
-        val menuItem = menu?.findItem(R.id.app_bar_connectivity_status)
-        menuItem?.isVisible = false
+        menu?.findItem(R.id.app_bar_connectivity_status)?.isVisible = false
+        menuItemCheck = menu?.findItem(R.id.app_bar_check)
         return true
     }
 
@@ -260,6 +261,7 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
             }
             R.id.app_bar_check -> {
                 if (successfulResponse) {
+                    menuItemCheck?.isEnabled = false
                     loadinDialog.startLoading()
 
                     datosMaestrosViewModel.getInfoSocios {progress, message, maxLenght->
@@ -271,6 +273,7 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
                     //LiveData de la sincronizacion de Socios
                     datosMaestrosViewModel.dataGetInfoSocios.observe(this){ response->
                         loadinDialog.onDismiss()
+                        menuItemCheck?.isEnabled = true
 
                         when(response.ErrorCodigo){
                             500->{

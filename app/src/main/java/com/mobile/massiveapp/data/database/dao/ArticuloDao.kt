@@ -41,6 +41,17 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
     suspend fun getArticulo(itemCode: String): ArticuloEntity
 
     @Query("""
+        SELECT
+            CASE :tipoUnidad
+                WHEN 'NIU' THEN ROUND((:cantidad / T0.SalPackUn ), 2)
+                WHEN 'CAJA' THEN ROUND((T0.SalPackUn * :cantidad), 2)
+            END AS Cantidad
+        FROM Articulo T0
+        WHERE T0.ItemCode = :itemCode
+    """)
+    suspend fun getCantidadXTipoUnidad(itemCode: String, tipoUnidad: String, cantidad: Double): Double
+
+    @Query("""
         SELECT 
         T0.ItemCode,
         T0.ItemName AS 'ItemName',
@@ -216,7 +227,8 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
             IFNULL(T2.UgpName, '') AS 'UgpName', 
             IFNULL(T3.UomName,'') AS 'UomName', 
             IFNULL(T3.UomCode, '') AS 'UomCode',
-            IFNULL(T3.UomEntry, -1) AS 'UomEntry'
+            IFNULL(T3.UomEntry, -1) AS 'UomEntry',
+            IFNULL(T0.SalUnitMsr, '') AS TipoUnidad
         FROM Articulo T0
         LEFT JOIN ArticuloPrecio T1 ON T0.ItemCode = T1.ItemCode
         INNER JOIN GrupoUnidadMedida T2 ON T0.UgpEntry = T2.UgpEntry
@@ -238,7 +250,8 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
             'MANUAL' AS 'UgpName', 
             '' AS 'UomCode',
             T0.SalUnitMsr AS 'UomName', 
-            -1 AS 'UomEntry'
+            -1 AS 'UomEntry',
+            IFNULL(T0.SalUnitMsr, '') AS TipoUnidad
         FROM Articulo T0 
         LEFT JOIN ArticuloPrecio T1 ON T0.ItemCode = T1.ItemCode 
         WHERE T0.ItemCode = :itemCode AND T1.PriceList IN (SELECT X0.DefaultPriceList FROM Usuario X0)

@@ -9,16 +9,7 @@ class GetArticuloPedidoInfoUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(itemCode: String): DoArticuloPedidoInfo =
         try {
-            /*val articuloSuomEntry = articuloRepository.getArticuloPorItemCode(itemCode).SuoMEntry
-
-            val response = if (articuloSuomEntry != -1){
-                articuloRepository.getArticuloInfoPedidoConUnidadMedida(itemCode)
-            } else {
-                articuloRepository.getArticuloInfoPedidoSinUnidadMedida(itemCode)
-            }*/
-
             articuloRepository.getArticuloInfoPedidoConUnidadMedida(itemCode)
-
         } catch (e: Exception){
             e.printStackTrace()
             DoArticuloPedidoInfo()

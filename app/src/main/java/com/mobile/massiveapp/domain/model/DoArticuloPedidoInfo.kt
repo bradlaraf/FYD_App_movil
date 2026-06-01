@@ -9,8 +9,19 @@ data class DoArticuloPedidoInfo(
     val UomName: String,
     val UomCode: String,
     val UomEntry: Int,
+    val TipoUnidad: String
 ) {
-    constructor() : this("", "", "", 0.0, "", "","", 0)
+    constructor() : this(
+        "",
+        "",
+        "",
+        0.0,
+        "",
+        "",
+        "",
+        0,
+        ""
+    )
 }
 
 data class DoPedidoDetalle(
