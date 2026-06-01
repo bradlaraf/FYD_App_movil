@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.massiveapp.R
@@ -31,6 +32,7 @@ class RutaComercialDetalleAdapter(
         val imgDragHandle: ImageView
         val clDetalleRutaStatus: ConstraintLayout
         val imvDetalleRutaStatus: ImageView
+        val txvDetalleCancelado: TextView
 
         init {
             txvDetalleDocLine    = view.findViewById(R.id.txvDetalleDocLine)
@@ -39,6 +41,7 @@ class RutaComercialDetalleAdapter(
             imgDragHandle        = view.findViewById(R.id.imgDragHandle)
             clDetalleRutaStatus  = view.findViewById(R.id.clDetalleRutaStatus)
             imvDetalleRutaStatus = view.findViewById(R.id.imvDetalleRutaStatus)
+            txvDetalleCancelado  = view.findViewById(R.id.txvDetalleCancelado)
         }
 
         fun render(
@@ -66,9 +69,14 @@ class RutaComercialDetalleAdapter(
             }
             clDetalleRutaStatus.setBackgroundColor(color)
 
-            imgDragHandle.setOnTouchListener { _, event ->
-                if (event.actionMasked == MotionEvent.ACTION_DOWN) onStartDrag(this)
-                false
+            txvDetalleCancelado.isVisible = item.Status == "R"
+
+            if (item.Status == "P"){
+
+                imgDragHandle.setOnTouchListener { _, event ->
+                    if (event.actionMasked == MotionEvent.ACTION_DOWN) onStartDrag(this)
+                    false
+                }
             }
 
             onItemClick?.let { listener ->

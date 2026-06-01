@@ -11,6 +11,7 @@ import com.mobile.massiveapp.domain.model.DoError
 import com.mobile.massiveapp.domain.model.DoRutaComercial
 import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleView
 import com.mobile.massiveapp.domain.model.DoRutaComercialView
+import com.mobile.massiveapp.domain.rutacomercial.CancelarRutaComercialDetalleUseCase
 import com.mobile.massiveapp.domain.rutacomercial.DeleteDetalleRutaComercialUseCase
 import com.mobile.massiveapp.domain.rutacomercial.DeleteRutaComercialDetalleUseCase
 import com.mobile.massiveapp.domain.rutacomercial.GetAllRutasComercialUseCase
@@ -46,6 +47,7 @@ class RutaComercialViewModel @Inject constructor(
     private val updateRutaComercialUseCase: UpdateRutaComercialUseCase,
     private val deleteDetalleRutaComercialUseCase: DeleteDetalleRutaComercialUseCase,
     private val deleteRutaComercialDetalleUseCase: DeleteRutaComercialDetalleUseCase,
+    private val cancelarRutaComercialDetalleUseCase: CancelarRutaComercialDetalleUseCase,
     private val obtenerClienteRutasComercialesUseCase: ObtenerClienteRutasComercialesUseCase,
     private val insertarClienteRutasComercialesUseCase: InsertarClienteRutasComercialesUseCase,
     private val saveConfirmacionRutaUseCase: SaveConfirmacionRutaUseCase
@@ -69,6 +71,17 @@ class RutaComercialViewModel @Inject constructor(
             val result = deleteRutaComercialDetalleUseCase(docLine, accDocEntry)
             result.let {
                 dataDeleteRutaComercialDetalle.postValue(it)
+            }
+        }
+    }
+
+    //Cancelar un detalle de ruta (Status -> R)
+    val dataCancelarRutaDetalle = MutableLiveData<Boolean>()
+    fun cancelarRutaComercialDetalle(docLine: Int, accDocEntry: String) {
+        viewModelScope.launch {
+            val result = cancelarRutaComercialDetalleUseCase(docLine, accDocEntry)
+            result.let {
+                dataCancelarRutaDetalle.postValue(it)
             }
         }
     }

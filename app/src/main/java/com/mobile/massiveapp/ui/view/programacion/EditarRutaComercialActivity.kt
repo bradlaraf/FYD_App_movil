@@ -172,7 +172,9 @@ class EditarRutaComercialActivity : AppCompatActivity() {
             dataSet = emptyList(),
             onStartDrag = { viewHolder -> itemTouchHelper.startDrag(viewHolder) },
             onItemClick = { detalle ->
-                getDireccionesCliente(detalle)
+                if (detalle.Status == "P"){
+                    getDireccionesCliente(detalle)
+                }
             }
         )
         binding.rvEditarRutaClientes.adapter = detalleAdapter
@@ -180,21 +182,29 @@ class EditarRutaComercialActivity : AppCompatActivity() {
 
 
 
-        /**SWIPE TO DELETE**/
-        val swipeToDeleteCallback = object : SwipeToDeletePedidos(this){
+        /**SWIPE TO CANCEL**/
+        val swipeToCancelCallback = object : SwipeToDeletePedidos(this) {
+            override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+                val position = viewHolder.bindingAdapterPosition
+                if (position == RecyclerView.NO_ID.toInt() || listaRutaDetalles.isEmpty()) return makeMovementFlags(0, 0)
+                return if (listaRutaDetalles[position].Status == "P") {
+                    makeMovementFlags(0, ItemTouchHelper.RIGHT)
+                } else {
+                    makeMovementFlags(0, 0)
+                }
+            }
+
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.bindingAdapterPosition
                 val docLine = listaRutaDetalles[position].LineNum
-                val accDocEntr = listaRutaDetalles[position].AccDocEntry
-
-                rutaComercialViewModel.deleteRutaComercialDetalle(docLine, accDocEntr)
-                binding.rvEditarRutaClientes.adapter?.notifyItemChanged(position)
-                //showMessage(this@CobranzaManifiestoActivity, position.toString())
+                val accDocEntry = listaRutaDetalles[position].AccDocEntry
+                rutaComercialViewModel.cancelarRutaComercialDetalle(docLine, accDocEntry)
+                binding.rvEditarRutaClientes.adapter?.notifyDataSetChanged()
             }
         }
-        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        val itemTouchHelper = ItemTouchHelper(swipeToCancelCallback)
         itemTouchHelper.attachToRecyclerView(binding.rvEditarRutaClientes)
-        /**SWIPE TO DELETE**/
+        /**SWIPE TO CANCEL**/
     }
 
     private fun getDireccionesCliente(detalle: DoRutaComercialDetalleView) {
@@ -261,6 +271,10 @@ class EditarRutaComercialActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_check_delete, menu)
+        val gotValidate = listaRutaDetalles.filter { it.Status == "A" }
+        if (gotValidate.isNotEmpty()){
+            menu?.findItem(R.id.app_bar_delete)?.isVisible = false
+        }
         return super.onCreateOptionsMenu(menu)
     }
 

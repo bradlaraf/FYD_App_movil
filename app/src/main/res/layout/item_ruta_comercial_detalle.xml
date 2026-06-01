@@ -50,44 +50,64 @@
 
         <!-- DocLine -->
         <TextView
-            tools:text="1"
             android:id="@+id/txvDetalleDocLine"
             style="@style/default_title_large_text"
             android:layout_width="28dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:textStyle="bold"
             android:gravity="center"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            tools:text="1" />
 
         <!-- CardName -->
         <TextView
-            tools:text="CardName"
             android:id="@+id/txvDetalleCardName"
             style="@style/default_title_large_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/txvDetalleCancelado"
             app:layout_constraintStart_toEndOf="@id/txvDetalleDocLine"
-            app:layout_constraintEnd_toStartOf="@id/imgDragHandle"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="CardName" />
 
         <!-- Street (dirección fiscal) -->
         <TextView
-            tools:text="Direccion"
             android:id="@+id/txvDetalleStreet"
             style="@style/default_title_large_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
             android:alpha="0.7"
+            app:layout_constraintEnd_toStartOf="@+id/txvDetalleCancelado"
             app:layout_constraintStart_toEndOf="@id/txvDetalleDocLine"
-            app:layout_constraintEnd_toStartOf="@id/imgDragHandle"
-            app:layout_constraintTop_toBottomOf="@id/txvDetalleCardName" />
+            app:layout_constraintTop_toBottomOf="@id/txvDetalleCardName"
+            tools:text="Direccion" />
+
+        <TextView
+            android:id="@+id/txvDetalleCancelado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:alpha="0.3"
+            android:elevation="-1dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Cancelado"
+            android:textColor="@color/color_red"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

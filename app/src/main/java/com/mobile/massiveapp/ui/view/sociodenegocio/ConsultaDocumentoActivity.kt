@@ -271,12 +271,12 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
                     /***************/
 
                     //LiveData de la sincronizacion de Socios
-                    datosMaestrosViewModel.dataGetInfoSocios.observe(this){ response->
+                    datosMaestrosViewModel.dataGetInfoSocios.observeOnce(this){ response->
                         loadinDialog.onDismiss()
-                        menuItemCheck?.isEnabled = true
 
                         when(response.ErrorCodigo){
                             500->{
+                                menuItemCheck?.isEnabled = true
                                 BaseDialogAlert(this).showConfirmationDialog("Su sesión ha sido cerrada"){
                                     //Aceptar
                                     usuarioViewModel.logOutDrawer()
@@ -290,6 +290,7 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
                         consultaDocumentoViewModel.validarExistenciaDeDocumento(binding.edtRuc.text.toString())
                         consultaDocumentoViewModel.dataValidarExistenciaDeDocumento.observeOnce(this){
                             if (it){
+                                menuItemCheck?.isEnabled = true
                                 Toast.makeText(this, "El cliente ya existe", Toast.LENGTH_LONG).show()
                             } else{
                                 if(setDireccionFiscal()){
@@ -299,6 +300,8 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
                                             .putExtra("tipo", binding.switchDocumento.text.toString())
                                     )
                                     onBackPressedDispatcher.onBackPressed()
+                                } else {
+                                    menuItemCheck?.isEnabled = true
                                 }
                             }
                         }

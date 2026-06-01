@@ -182,6 +182,7 @@ rutaComercialViewModel.dataGetAllDireccionesCliente.observeOnceNotNull(this) { d
 }
 ```
 - **Nunca** poner un `LiveData.observe()` dentro de un bloque `collectLatest` — se apilan observers en cada emisión del Flow. Separarlos siempre en `setData()`
+- **Nunca** poner `LiveData.observe()` dentro de un click listener (`setOnClickListener`, `onOptionsItemSelected`, etc.) — cada click registra un observer nuevo que nunca se elimina. Usar siempre `observeOnce` en esos casos.
 
 ### Search bar
 Use `menu_socio_lupa_add.xml` + `SearchViewHelper` (the app standard). Do **not** embed a `SearchView` inside a custom menu XML.
@@ -200,6 +201,45 @@ val swipeToDeleteCallback = object : SwipeToDeletePedidos(this) {
     }
 }
 ItemTouchHelper(swipeToDeleteCallback).attachToRecyclerView(binding.rvClientes)
+```
+
+Para hacer el swipe **condicional** (solo permitirlo si el ítem cumple una condición), sobrescribir `getMovementFlags()` en el callback anónimo:
+```kotlin
+val swipeCallback = object : SwipeToDeletePedidos(this) {
+    override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+        val position = viewHolder.bindingAdapterPosition
+        if (position == RecyclerView.NO_ID || lista.isEmpty()) return makeMovementFlags(0, 0)
+        return if (lista[position].Status == "P") makeMovementFlags(0, ItemTouchHelper.RIGHT)
+        else makeMovementFlags(0, 0)
+    }
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) { ... }
+}
+```
+
+### Indicador de estado en items del RecyclerView
+Para mostrar una barra de color lateral con ícono (verde=confirmado, rojo=pendiente), el `MaterialCardView` (que extiende `FrameLayout`) acepta múltiples hijos apilados. El primer hijo es el strip de estado, el segundo el contenido:
+```xml
+<MaterialCardView>
+    <ConstraintLayout android:id="@+id/clXxxStatus" android:layout_width="wrap_content"
+        android:layout_height="match_parent" android:background="@color/color_green_dark">
+        <ImageView android:id="@+id/imvXxxStatus" app:srcCompat="@drawable/icon_pending" ... />
+    </ConstraintLayout>
+    <ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp">
+        <!-- contenido — txvDocLine necesita android:layout_marginStart="24dp" para no solaparse -->
+    </ConstraintLayout>
+</MaterialCardView>
+```
+En `render()` del ViewHolder evaluar `AccMigrated` y `Status`:
+```kotlin
+val colorIcono = ContextCompat.getColor(itemView.context, R.color.color_white)
+imvXxxStatus.setColorFilter(colorIcono, PorterDuff.Mode.SRC_IN)
+if (item.AccMigrated == "Y" && item.Status == "A") {
+    imvXxxStatus.setImageResource(R.drawable.icon_confirmed)
+    clXxxStatus.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.color_green_dark))
+} else {
+    imvXxxStatus.setImageResource(R.drawable.icon_pending)
+    clXxxStatus.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.color_red))
+}
 ```
 
 ### Deleting detalle rows

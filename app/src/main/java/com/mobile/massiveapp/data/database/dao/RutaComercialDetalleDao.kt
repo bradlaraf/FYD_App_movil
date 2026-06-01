@@ -104,7 +104,7 @@ interface RutaComercialDetalleDao : BaseDao<RutaComercialDetalleEntity> {
 
     @Query("""
         UPDATE RutaComercialDetalle
-        SET 
+        SET
             Status = 'A',
             Comments = :comentario,
             U_MSV_CP_LATITUD = :latitud,
@@ -113,6 +113,14 @@ interface RutaComercialDetalleDao : BaseDao<RutaComercialDetalleEntity> {
             AND LineNum = :lineNum
     """)
     suspend fun confirmarDetalle(comentario: String, accDocEntry: String, latitud: String, longitud: String,lineNum: Int)
+
+    @Query("""
+        UPDATE RutaComercialDetalle     
+            SET Status = 'R' 
+        WHERE AccDocEntry = :accDocEntry 
+            AND LineNum = :docLine
+    """)
+    suspend fun cancelarRutaDetalle(docLine: Int, accDocEntry: String)
 
     @Query("""
       UPDATE RutaComercialDetalle

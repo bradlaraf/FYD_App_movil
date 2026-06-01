@@ -94,6 +94,12 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     cardCode = prefsPedido.getCardCode()
                 )
 
+                pedidoViewModel.getCantidadXTipoUnidad(
+                    itemCode = detalleInfo.ItemCode,
+                    tipoUnidad = "NIU",
+                    cantidad = detalleInfo.Quantity
+                )
+
             } catch (e:Exception){
                 //showMessage(this, e.message.toString())
                 e.printStackTrace()
