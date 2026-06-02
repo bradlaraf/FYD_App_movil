@@ -10,6 +10,8 @@ import com.mobile.massiveapp.domain.manifiesto.DeleteAllPagosConfirmationDialogU
 import com.mobile.massiveapp.domain.manifiesto.DeleteLiquidacionPagoUseCase
 import com.mobile.massiveapp.domain.manifiesto.EditarLiquidacionPagoUseCase
 import com.mobile.massiveapp.domain.manifiesto.GetAllManiefiestosUseCase
+import com.mobile.massiveapp.domain.manifiesto.GetManifiestosCanceladosUseCase
+import com.mobile.massiveapp.domain.manifiesto.GetManifiestosPendientesUseCase
 import com.mobile.massiveapp.domain.manifiesto.GetAllManifiestoDocumentosUseCase
 import com.mobile.massiveapp.domain.manifiesto.GetAllPagosXManifiestoUseCase
 import com.mobile.massiveapp.domain.manifiesto.GetInfoCobranzaManifiestoUseCase
@@ -27,8 +29,11 @@ import com.mobile.massiveapp.domain.model.DoManifiesto
 import com.mobile.massiveapp.domain.model.DoManifiestoDocumentoView
 import com.mobile.massiveapp.domain.model.DoManifiestoView
 import com.mobile.massiveapp.ui.view.util.diffutil.ManifiestoDocuementoDiffUtil
+import com.mobile.massiveapp.MassiveApp.Companion.prefsManifiesto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -46,7 +51,9 @@ class ManifiestoViewModel @Inject constructor(
     private val getInfoManifiestoUseCase: GetInfoManifiestoUseCase,
     private val getLiquidacionPagoEdicionUseCase: GetLiquidacionPagoEdicionUseCase,
     private val editarLiquidacionPagoUseCase: EditarLiquidacionPagoUseCase,
-    private val getMontoPendientePagoEdicionUseCase: GetMontoPendientePagoEdicionUseCase
+    private val getMontoPendientePagoEdicionUseCase: GetMontoPendientePagoEdicionUseCase,
+    private val getManifiestosPendientesUseCase: GetManifiestosPendientesUseCase,
+    private val getManifiestosCanceladosUseCase: GetManifiestosCanceladosUseCase
 ):ViewModel(){
     val isLoading = MutableLiveData<Boolean>()
 
@@ -163,6 +170,24 @@ class ManifiestoViewModel @Inject constructor(
                 dataGetAllManifiestos.postValue(result)
             }
         }
+    }
+
+    private val _fechasFiltro = MutableStateFlow(
+        prefsManifiesto.getFechaInicio() to prefsManifiesto.getFechaFin()
+    )
+
+    val dataGetManifiestosPendientes: Flow<List<DoManifiestoView>> = _fechasFiltro
+        .flatMapLatest { (inicio, fin) ->
+            getManifiestosPendientesUseCase.getManifiestosPendientes(inicio, fin)
+        }
+
+    val dataGetManifiestosCancelados: Flow<List<DoManifiestoView>> = _fechasFiltro
+        .flatMapLatest { (inicio, fin) ->
+            getManifiestosCanceladosUseCase.getManifiestosCancelados(inicio, fin)
+        }
+
+    fun actualizarFechas() {
+        _fechasFiltro.value = prefsManifiesto.getFechaInicio() to prefsManifiesto.getFechaFin()
     }
 
     //Todos los documentos del manifiesto

@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -81,6 +82,8 @@ class CobranzaManifiestoActivity : AppCompatActivity() {
         val docEntry = intent.getIntExtra("docEntryFactura", 0)
         manifiestoViewModel.getInfoCobranzaManifiesto(docEntry)
         manifiestoViewModel.dataGetInfoCobranzaManifiesto.observe(this){ infoManifiestoDocumento ->
+
+
             binding.txvNroComprobante.text = infoManifiestoDocumento.Comprobante
             binding.txvFechaEmision.text = infoManifiestoDocumento.FechaEmision
             binding.txvCliente.text = infoManifiestoDocumento.NombreCliente
@@ -103,6 +106,8 @@ class CobranzaManifiestoActivity : AppCompatActivity() {
             manifiestoViewModel.dateGetAllTotalesPagosFlow.collect { totalesPagos->
                 binding.txvTotalCobrado.text = totalesPagos.TotalCobrado.toString()
                 binding.txvPendienteCobrar.text = totalesPagos.TotalPorCobrar.toString()
+                //Boton Agregar PAGO
+                binding.btnAddPago.isVisible = !(totalesPagos.TotalPorCobrar <= 0.0)
             }
         }
     }
