@@ -32,7 +32,7 @@ data class ClientePedidoDetalle(
     val PriceBefDi: Double,
     val PriceList: Int,
     val Project: String,
-    val Quantity: Double,
+    var Quantity: Double,
     val TaxCode: String,
     val TotalFrgn: Double,
     val UnitMsr: String,

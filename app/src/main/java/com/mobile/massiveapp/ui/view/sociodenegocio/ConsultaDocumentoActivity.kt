@@ -45,6 +45,7 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
     private lateinit var consultaDocumentoAdapter: ConsultaRucAdapter
     private val loadinDialog = BaseDialogLoading(this, "Sincronizando Clientes")
     private var menuItemCheck: MenuItem? = null
+    private var checkEnProceso = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -163,6 +164,42 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
+
+        datosMaestrosViewModel.dataGetInfoSocios.observe(this) { response ->
+            if (!checkEnProceso) return@observe
+            loadinDialog.onDismiss()
+            when (response.ErrorCodigo) {
+                500 -> {
+                    checkEnProceso = false
+                    menuItemCheck?.isEnabled = true
+                    BaseDialogAlert(this).showConfirmationDialog("Su sesión ha sido cerrada") {
+                        usuarioViewModel.logOutDrawer()
+                    }
+                    return@observe
+                }
+            }
+            consultaDocumentoViewModel.validarExistenciaDeDocumento(binding.edtRuc.text.toString())
+        }
+
+        consultaDocumentoViewModel.dataValidarExistenciaDeDocumento.observe(this) { exists ->
+            if (!checkEnProceso) return@observe
+            checkEnProceso = false
+            if (exists) {
+                menuItemCheck?.isEnabled = true
+                Toast.makeText(this, "El cliente ya existe", Toast.LENGTH_LONG).show()
+            } else {
+                if (setDireccionFiscal()) {
+                    setResult(RESULT_OK,
+                        Intent()
+                            .putExtra("insertSuccess", successfulResponse)
+                            .putExtra("tipo", binding.switchDocumento.text.toString())
+                    )
+                    onBackPressedDispatcher.onBackPressed()
+                } else {
+                    menuItemCheck?.isEnabled = true
+                }
+            }
+        }
     }
 
 
@@ -260,60 +297,17 @@ class ConsultaDocumentoActivity : AppCompatActivity() {
                 true
             }
             R.id.app_bar_check -> {
-                if (successfulResponse) {
+                if (successfulResponse && !checkEnProceso) {
+                    checkEnProceso = true
                     menuItemCheck?.isEnabled = false
                     loadinDialog.startLoading()
-
-                    datosMaestrosViewModel.getInfoSocios {progress, message, maxLenght->
+                    datosMaestrosViewModel.getInfoSocios { progress, message, maxLenght ->
                         loadinDialog.updateProgress(progress, message, maxLenght)
                     }
-
-                    /***************/
-
-                    //LiveData de la sincronizacion de Socios
-                    datosMaestrosViewModel.dataGetInfoSocios.observeOnce(this){ response->
-                        loadinDialog.onDismiss()
-
-                        when(response.ErrorCodigo){
-                            500->{
-                                menuItemCheck?.isEnabled = true
-                                BaseDialogAlert(this).showConfirmationDialog("Su sesión ha sido cerrada"){
-                                    //Aceptar
-                                    usuarioViewModel.logOutDrawer()
-                                }
-                            }
-                            else -> {
-                                //showMessage(this, response.ErrorMensaje)
-                            }
-                        }
-
-                        consultaDocumentoViewModel.validarExistenciaDeDocumento(binding.edtRuc.text.toString())
-                        consultaDocumentoViewModel.dataValidarExistenciaDeDocumento.observeOnce(this){
-                            if (it){
-                                menuItemCheck?.isEnabled = true
-                                Toast.makeText(this, "El cliente ya existe", Toast.LENGTH_LONG).show()
-                            } else{
-                                if(setDireccionFiscal()){
-                                    setResult(RESULT_OK,
-                                        Intent()
-                                            .putExtra("insertSuccess", successfulResponse)
-                                            .putExtra("tipo", binding.switchDocumento.text.toString())
-                                    )
-                                    onBackPressedDispatcher.onBackPressed()
-                                } else {
-                                    menuItemCheck?.isEnabled = true
-                                }
-                            }
-                        }
-                    }
-                    /****************/
-
-
-                } else {
+                } else if (!successfulResponse) {
                     Toast.makeText(this, "No se encontraron datos, vuelva a consultar", Toast.LENGTH_LONG).show()
                 }
                 true
-
             }
             else -> super.onOptionsItemSelected(item)
         }

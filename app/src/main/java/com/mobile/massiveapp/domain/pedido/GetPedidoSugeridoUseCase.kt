@@ -39,7 +39,7 @@ class GetPedidoSugeridoUseCase @Inject constructor(
                     codigo =                pedidoSugerido.ItemCode,
                     nombre =                pedidoSugerido.ItemName.replace("\n", " "),
                     unidadMedida =          articulo.UgpName,
-                    cantidad =              pedidoSugerido.CantDoc.toDouble(),
+                    cantidad =              if (pedidoSugerido.Tipo == "ULTPED") pedidoSugerido.CantDoc.toDouble() else 1.0,
                     grupoUM =               articulo.UomCode,
                     precio =                precioFYD?.precioFinal?:0.0,
                     precioBruto =           precioFYD?.precioBruto?:0.0,

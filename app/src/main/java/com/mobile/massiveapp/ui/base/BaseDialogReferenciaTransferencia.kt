@@ -15,6 +15,7 @@ class BaseDialogReferenciaTransferencia (
     private val tipo: String,
     private val textEditable: String,
     private val titulo: String = "Ingrese el valor",
+    private val minLength: Int = -1,
     private val maxLenght: Int,
     private val onRegisterClickListener: (String) -> Unit
 ): DialogFragment() {

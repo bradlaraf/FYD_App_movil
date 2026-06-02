@@ -49,7 +49,7 @@ interface ArticuloDao: BaseDao<ArticuloEntity> {
         FROM Articulo T0
         WHERE T0.ItemCode = :itemCode
     """)
-    suspend fun getCantidadXTipoUnidad(itemCode: String, tipoUnidad: String, cantidad: Double): Double
+    suspend fun getCantidadXTipoUnidad(itemCode: String, tipoUnidad: String, cantidad: Double): Double?
 
     @Query("""
         SELECT 

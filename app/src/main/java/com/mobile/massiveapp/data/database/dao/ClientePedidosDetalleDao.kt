@@ -168,7 +168,10 @@ interface ClientePedidosDetalleDao:BaseDao<ClientePedidosDetalleEntity> {
             IFNULL((SELECT Z0.ListNum FROM ListaPrecio Z0 WHERE Z0.ListNum = T0.PriceList),'') AS PriceList,
             IFNULL((SELECT Z0.Code FROM Impuesto Z0 WHERE T0.TaxCode = Z0.Code),'') AS TaxCode,
             IFNULL((SELECT Z0.UomCode FROM UnidadMedida Z0 WHERE Z0.UomEntry = T0.UomEntry), '') AS UomCode,
-            IFNULL((SELECT Z0.UomEntry FROM UnidadMedida Z0 WHERE Z0.UomEntry = T0.UomEntry), -1) AS UomEntry
+            IFNULL((SELECT Z0.UomEntry FROM UnidadMedida Z0 WHERE Z0.UomEntry = T0.UomEntry), -1) AS UomEntry,
+            IFNULL(T0.OcrCode, '') AS OcrCode,
+            IFNULL(T0.OcrCode2, '') AS OcrCode2,
+            IFNULL(T0.OcrCode3, '') AS OcrCode3
             
         FROM ClientePedidosDetalle T0
         LEFT JOIN Articulo T1 ON T0.ItemCode = T0.ItemCode 

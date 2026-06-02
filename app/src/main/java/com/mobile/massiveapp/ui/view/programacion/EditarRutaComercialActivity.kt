@@ -339,9 +339,9 @@ class EditarRutaComercialActivity : AppCompatActivity() {
 
     private fun confirmarEliminarRuta() {
         AlertDialog.Builder(this)
-            .setTitle("Eliminar ruta")
-            .setMessage("¿Está seguro que desea eliminar esta ruta comercial?")
-            .setPositiveButton("Eliminar") { _, _ ->
+            .setTitle("Cancelar ruta")
+            .setMessage("¿Está seguro que desea cancelar esta ruta comercial?")
+            .setPositiveButton("Cancelar") { _, _ ->
                 rutaComercialViewModel.dataGetRutaComercial.observe(this){ ruta->
 
                     rutaComercialViewModel.saveRutaCabecera(

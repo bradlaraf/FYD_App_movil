@@ -42,6 +42,7 @@ import com.mobile.massiveapp.domain.model.DoSocioContactos
 import com.mobile.massiveapp.domain.model.DoSocioDirecciones
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.mobile.massiveapp.MassiveApp.Companion.prefsApp
+import com.mobile.massiveapp.MassiveApp.Companion.prefsPedido
 import com.mobile.massiveapp.data.model.RutaComercial
 import com.mobile.massiveapp.domain.model.DoLiquidacionPago
 import java.io.File
@@ -1158,7 +1159,10 @@ fun agregarDetalleDePedido(
     codigoImpuesto: String,
     listaPrecios: Int,
     codigoAlmacen: String,
-    uomEntry: Int
+    uomEntry: Int,
+    ocrCode: String? = "",
+    ocrCode2: String? = "",
+    ocrCode3: String? = ""
 
 ): ClientePedidoDetalle {
     val gtotals = (precioAftVat*cantidad).format(2)
@@ -1181,9 +1185,9 @@ fun agregarDetalleDePedido(
         ItemCode = codigo,
         LineNum = lineNum,
         LineTotal = (precio*cantidad).format(2),  //Total de la linea
-        OcrCode = "",
-        OcrCode2 = "",
-        OcrCode3 = "",
+        OcrCode = ocrCode?:"",
+        OcrCode2 = ocrCode2?:"",
+        OcrCode3 = ocrCode3?:"",
         OcrCode4 = "",
         OcrCode5 = "",
         Price = precio,                     //Precio descontado

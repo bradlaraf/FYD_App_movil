@@ -42,6 +42,9 @@ data class DoPedidoDetalle(
     val TaxCode: String,
     val UomCode: String,    //Codigo GrupoUM
     val UomEntry: Int,      //Codigo Unidad Medida
+    val OcrCode: String = "",
+    val OcrCode2: String = "",
+    val OcrCode3: String = "",
 ) {
     constructor(): this(
         ItemName = "",

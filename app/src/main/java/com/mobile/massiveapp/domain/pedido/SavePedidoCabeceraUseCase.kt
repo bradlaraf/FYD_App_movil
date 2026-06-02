@@ -32,6 +32,12 @@ class SavePedidoCabeceraUseCase @Inject constructor(
 
             pedidoRepository.savePedidoCabecera(pedidoCliente)
 
+            pedidoCliente.clientePedidoDetalles.forEach { detalle->
+                detalle.OcrCode = ""
+                detalle.OcrCode2 = ""
+                detalle.OcrCode3 = ""
+            }
+
             val estadoSesion = datosMaestrosService.getEstadoSesion(
                 usuario,
                 configuracion,

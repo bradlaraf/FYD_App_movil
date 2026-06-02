@@ -7,13 +7,13 @@ import javax.inject.Inject
 class GetAllTiposDeUnidadUseCase @Inject constructor(
     private val articuloDao: ArticuloDao
 ) {
-    suspend operator fun invoke(itemCode: String):List<TipoUnidadView> {
+    suspend operator fun invoke(itemCode: String):List<TipoUnidadView?> {
 
         val articulo = articuloDao.getArticulo(itemCode = itemCode)
 
         return listOf(
-                TipoUnidadView(Code = "SalUnitMsr", Name = articulo.SalUnitMsr),
-                TipoUnidadView(Code = "SalPackMsr", Name = articulo.SalPackMsr)
+                TipoUnidadView(Code = "SalUnitMsr", Name = articulo.SalUnitMsr.ifBlank { "NIU" }),
+                TipoUnidadView(Code = "SalPackMsr", Name = articulo.SalPackMsr.ifBlank { "CAJA" })
         )
     }
 }

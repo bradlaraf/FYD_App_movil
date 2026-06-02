@@ -63,6 +63,7 @@ import com.mobile.massiveapp.data.model.PrecioEspecial
 import com.mobile.massiveapp.data.model.PrecioEspecial1
 import com.mobile.massiveapp.data.model.PrecioEspecial2
 import com.mobile.massiveapp.data.model.RutaComercial
+import com.mobile.massiveapp.data.model.RutaComercialDetalle
 import com.mobile.massiveapp.data.model.SeriesN
 import com.mobile.massiveapp.data.model.Sociedad
 import com.mobile.massiveapp.data.model.SocioContactos
@@ -198,7 +199,7 @@ class DatosMaestrosRepository @Inject constructor(
                         val listaManifiesto = dataList as List<RutaComercial>
                         val listaEmbebida = listaManifiesto.map { it.Lineas }
                         listaEmbebida.forEach {
-                            val dataMaped = getMap(RutaComercial(), it) as List<Any>
+                            val dataMaped = getMap(RutaComercialDetalle(), it) as List<Any>
                             managerImputData.registrarMaestro("ClienteRutasComercialesDetalle", dataMaped)
                         }
                     }

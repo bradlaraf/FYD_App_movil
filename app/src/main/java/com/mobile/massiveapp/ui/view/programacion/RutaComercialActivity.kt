@@ -86,10 +86,12 @@ class RutaComercialActivity : DrawerBaseActivity() {
             }
 
         }, onButtonVerRutasListener = { ruta ->
-            prefsRutaComercial.saveAccDocEntry(ruta.AccDocEntry)
-            Intent(this, VerRutaComercialActivity::class.java)
-                .putExtra("accDocEntry", ruta.AccDocEntry)
-                .also { startActivity(it) }
+            if (ruta.Canceled == "N") {
+                prefsRutaComercial.saveAccDocEntry(ruta.AccDocEntry)
+                Intent(this, VerRutaComercialActivity::class.java)
+                    .putExtra("accDocEntry", ruta.AccDocEntry)
+                    .also { startActivity(it) }
+            }
         })
 
         binding.rvRutaComercial.adapter = rutaComercialAdapter

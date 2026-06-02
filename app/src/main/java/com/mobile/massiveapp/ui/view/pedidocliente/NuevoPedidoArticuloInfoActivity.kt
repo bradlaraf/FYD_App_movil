@@ -44,7 +44,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
     private var itemCode: String = ""
     private var hashInfo = HashMap<String, Any>()
     private var usuario = DoUsuario()
-    private val CANTIDAD_DEFAULT = 1
+    private val CANTIDAD_DEFAULT = 1.0
     private val PORCENTAJE_DESCUENTO = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,17 +83,25 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                 binding.txvNpArtInfoAlmacenValue.text = detalleInfo.Almacen
                 binding.txvNpArtInfoListaPreciosValue.text = detalleInfo.ListaPrecio
 
+                binding.txvNpArtInfoTipoUnidadValue.text = "NIU"
+                binding.clNpArtInfoCantidadCaja.isEnabled = false
+
                 hashInfo["codigoImpuesto"] = detalleInfo.TaxCode
                 hashInfo["listaPrecioCodigo"] = detalleInfo.PriceList
                 hashInfo["codigoAlmacen"] = detalleInfo.WhsCode
                 hashInfo["uomEntry"] = detalleInfo.UomEntry
                 hashInfo["uomCode"] = detalleInfo.UomCode
 
+                hashInfo["OcrCode"] = detalleInfo.OcrCode
+                hashInfo["OcrCode2"] = detalleInfo.OcrCode2
+                hashInfo["OcrCode3"] = detalleInfo.OcrCode3
+
                 pedidoViewModel.getPrecioArticuloFYD(
                     itemCode = detalleInfo.ItemCode,
                     cardCode = prefsPedido.getCardCode()
                 )
 
+                pedidoViewModel.getAllTiposDeUnidad(detalleInfo.ItemCode)
                 pedidoViewModel.getCantidadXTipoUnidad(
                     itemCode = detalleInfo.ItemCode,
                     tipoUnidad = "NIU",
@@ -118,6 +126,11 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                     itemCode = articuloSeleccionado.ItemCode,
                     cardCode = prefsPedido.getCardCode()
                 )
+
+                //Tipo Unidad
+                binding.clNpArtInfoCantidadCaja.isEnabled = false
+
+
 
             } catch (e: Exception) {
                 Toast.makeText(this, "Error: $e", Toast.LENGTH_SHORT).show()
@@ -146,7 +159,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
 
         pedidoViewModel.dataGetPrecioArticuloFYD.observe(this) { infoPrecioFinal->
             try {
-                val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toInt()
+                val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toDoubleOrNull()?.toInt() ?: 1
                 //binding.txvNpArtInfoPrecioUnitarioValue.text = infoPrecioFinal.precioDescontado.toString()
                 binding.txvNpArtInfoPorcentajeDescuentoValue.text = infoPrecioFinal.porcentajeDescuento.toString()
                 binding.txvNpArtInfoPrecioDescontadoValue.text = infoPrecioFinal.precioFinal.toString()
@@ -326,14 +339,14 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             pedidoViewModel.dataGetAllTiposDeUnidad.observe(this){ tiposUnidad->
                 BaseDialogChecklistWithId(
                     binding.txvNpArtInfoTipoUnidadValue.text.toString(),
-                    tiposUnidad.map { it.Name }
+                    tiposUnidad.map { it?.Name?:"" }
                 ) { tipoUnidadSelect, id ->
                     binding.txvNpArtInfoTipoUnidadValue.text = tipoUnidadSelect
 
                     binding.clNpArtInfoCantidadCaja.isEnabled = tipoUnidadSelect != "NIU"
                     binding.clNpArtInfoCantidad.isEnabled = tipoUnidadSelect == "NIU"
 
-                    val cantidadXTipo = if (tipoUnidadSelect == "CAJA") binding.txvNpArtInfoCantidadCajaValue.text.toString().toDouble()
+                    val cantidadXTipo = if (tipoUnidadSelect == "CAJA") 1.0
                     else binding.txvNpArtInfoCantidadValue.text.toString().toDouble()
                     pedidoViewModel.getCantidadXTipoUnidad(
                         itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
@@ -385,7 +398,6 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                 ){ cantidad->
                     if (cantidad.isNotEmpty()) {
                         binding.txvNpArtInfoCantidadValue.text = cantidad
-                        val precio = binding.txvNpArtInfoPrecioUnitarioValue.text.toString().toDouble()
 
                         pedidoViewModel.getPrecioArticuloFYD(
                             itemCode = binding.txvNPArtInfoArticuloValue.text.toString(),
@@ -414,7 +426,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
             if (listaSeleccionada.isNotEmpty()){
                 binding.txvNpArtInfoListaPreciosValue.text = listaSeleccionada
                 hashInfo["listaPrecioCodigo"] = listasPrecio[id].ListNum
-                val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toInt()
+                val cantidad = binding.txvNpArtInfoCantidadValue.text.toString().toDoubleOrNull()?.toInt() ?: 1
 
                 pedidoViewModel.getPrecioArticulo(
                     cantidad,
@@ -571,7 +583,7 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                         throw Exception("Debe seleccionar un articulo")
                     }
 
-                    if ((binding.txvNpArtInfoCantidadValue.text.trim().toString().toIntOrNull()?: 0) <= 0) {
+                    if ((binding.txvNpArtInfoCantidadValue.text.trim().toString().toDoubleOrNull()?.toInt() ?: 0) <= 0) {
                         throw Exception("La cantidad debe ser mayor a 0")
                     }
 
@@ -598,6 +610,10 @@ class NuevoPedidoArticuloInfoActivity : AppCompatActivity() {
                             listaPrecios =          hashInfo["listaPrecioCodigo"] as Int,
                             codigoAlmacen =         hashInfo["codigoAlmacen"] as String,
                             uomEntry =              hashInfo["uomEntry"] as Int,
+
+                            ocrCode =               hashInfo["OcrCode"] as String?,
+                            ocrCode2 =               hashInfo["OcrCode2"] as String?,
+                            ocrCode3 =               hashInfo["OcrCode3"] as String?,
                         )
                     )
 

@@ -136,7 +136,7 @@ class PedidoViewModel @Inject constructor(
     }
 
     //Tipo de UNIDAD
-    val dataGetAllTiposDeUnidad = MutableLiveData<List<TipoUnidadView>>()
+    val dataGetAllTiposDeUnidad = MutableLiveData<List<TipoUnidadView?>>()
     fun getAllTiposDeUnidad(itemCode: String ) {
         viewModelScope.launch {
             val result = getAllTiposDeUnidadUseCase(itemCode)
