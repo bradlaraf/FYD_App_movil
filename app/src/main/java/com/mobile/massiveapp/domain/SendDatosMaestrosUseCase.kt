@@ -10,6 +10,7 @@ import com.mobile.massiveapp.data.repositories.LoginRepository
 import com.mobile.massiveapp.data.repositories.PedidoRepository
 import com.mobile.massiveapp.data.util.ManagerInputData
 import com.mobile.massiveapp.domain.model.DoError
+import com.mobile.massiveapp.MassiveApp.Companion.prefsRutaComercial
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -65,7 +66,6 @@ class SendDatosMaestrosUseCase @Inject constructor(
                     "ClientePedidos",
                     "ClienteLiquidacionPagos",
                     "Manifiestos",
-                    "ClienteRutasComerciales",
                     ManagerInputData.FACTURAS_CL,
                     ManagerInputData.FACTURAS_CL_DETALLE),
                     configuracion,
@@ -73,6 +73,13 @@ class SendDatosMaestrosUseCase @Inject constructor(
                     url
                 ){progress, message, maxLenght->
                 }
+                datosMaestrosRepository.sincronizarClienteRutasComerciales(
+                    configuracion,
+                    usuario,
+                    url,
+                    prefsRutaComercial.getFechaInicio(),
+                    prefsRutaComercial.getFechaFin()
+                )
             }
 
 

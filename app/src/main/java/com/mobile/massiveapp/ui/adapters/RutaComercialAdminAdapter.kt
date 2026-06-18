@@ -29,6 +29,9 @@ class RutaComercialAdminAdapter(
         val imvAdminRutaStatus: ImageView
         val imvGoogleMaps: ImageView
         val txvAdminRutaComentario: TextView
+        val txvHoraVerRuta: TextView
+        val txvFechaVerRuta: TextView
+        val clFechaVerRuta: ConstraintLayout
 
         init {
             txvAdminDocLine    = view.findViewById(R.id.txvAdminDocLine)
@@ -39,6 +42,9 @@ class RutaComercialAdminAdapter(
             imvAdminRutaStatus = view.findViewById(R.id.imvAdminRutaStatus)
             imvGoogleMaps = view.findViewById(R.id.imvGoogleMaps)
             txvAdminRutaComentario = view.findViewById(R.id.txvAdminRutaComentario)
+            txvHoraVerRuta = view.findViewById(R.id.txvRutaVerHoraValue)
+            txvFechaVerRuta = view.findViewById(R.id.txvRutaVerFechaValue)
+            clFechaVerRuta = view.findViewById(R.id.clRutaVerFecha)
         }
 
         fun render(item: DoRutaComercialDetalleView, onItemClick: (DoRutaComercialDetalleView) -> Unit) {
@@ -59,6 +65,10 @@ class RutaComercialAdminAdapter(
 
             if (migrado && aceptado) {
                 imvAdminRutaStatus.setImageResource(R.drawable.icon_confirmed)
+
+                txvFechaVerRuta.text = item.AccCreateDate
+                txvHoraVerRuta.text = item.AccCreateHour.take(5)
+                clFechaVerRuta.isVisible = true
             } else {
                 color = ContextCompat.getColor(itemView.context, R.color.color_red)
                 imvAdminRutaStatus.setImageResource(R.drawable.icon_pending)

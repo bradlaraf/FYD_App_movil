@@ -22,6 +22,7 @@ import com.mobile.massiveapp.domain.rutacomercial.InsertarClienteRutasComerciale
 import com.mobile.massiveapp.domain.rutacomercial.ObtenerClienteRutasComercialesUseCase
 import com.mobile.massiveapp.domain.rutacomercial.SaveConfirmacionRutaUseCase
 import com.mobile.massiveapp.domain.rutacomercial.SaveRutaComercialDetalleUseCase
+import com.mobile.massiveapp.domain.rutacomercial.SincronizarClienteRutasComercialesUseCase
 import com.mobile.massiveapp.domain.rutacomercial.SaveRutaComercialUseCase
 import com.mobile.massiveapp.domain.rutacomercial.UpdateAddressRutaComercialDetalleUseCase
 import com.mobile.massiveapp.domain.rutacomercial.UpdateDocLinesRutaComercialUseCase
@@ -50,7 +51,8 @@ class RutaComercialViewModel @Inject constructor(
     private val cancelarRutaComercialDetalleUseCase: CancelarRutaComercialDetalleUseCase,
     private val obtenerClienteRutasComercialesUseCase: ObtenerClienteRutasComercialesUseCase,
     private val insertarClienteRutasComercialesUseCase: InsertarClienteRutasComercialesUseCase,
-    private val saveConfirmacionRutaUseCase: SaveConfirmacionRutaUseCase
+    private val saveConfirmacionRutaUseCase: SaveConfirmacionRutaUseCase,
+    private val sincronizarClienteRutasComercialesUseCase: SincronizarClienteRutasComercialesUseCase
 ) : ViewModel() {
 
     //Confirmar Ruta
@@ -97,6 +99,17 @@ class RutaComercialViewModel @Inject constructor(
 
     fun actualizarFechasFiltro() {
         _fechasFiltro.value = prefsRutaComercial.getFechaInicio() to prefsRutaComercial.getFechaFin()
+    }
+
+    val dataSincronizarClienteRutas = MutableLiveData<Boolean>()
+    fun sincronizarClienteRutasComerciales() {
+        viewModelScope.launch {
+            val result = sincronizarClienteRutasComercialesUseCase(
+                prefsRutaComercial.getFechaInicio(),
+                prefsRutaComercial.getFechaFin()
+            )
+            result.let { dataSincronizarClienteRutas.postValue(it) }
+        }
     }
 
     // --- Detalle de una ruta (nueva / editar) ---

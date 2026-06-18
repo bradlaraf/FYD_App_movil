@@ -14,5 +14,7 @@ data class DoRutaComercialDetalleView(
     val ObjType: Int,
     val DocEntry: Int,
     val Latitud: String,
-    val Longitud: String
+    val Longitud: String,
+    val AccCreateHour: String,
+    val AccCreateDate: String
 )

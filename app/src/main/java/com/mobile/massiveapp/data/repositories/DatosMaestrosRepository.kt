@@ -299,6 +299,34 @@ class DatosMaestrosRepository @Inject constructor(
         return true
     }
 
+    suspend fun sincronizarClienteRutasComerciales(
+        configuracion: DoConfiguracion,
+        usuario: DoUsuario,
+        url: String,
+        fechaInicio: String,
+        fechaFin: String
+    ) {
+        try {
+            val dataList = api.getClienteRutasComerciales(configuracion, usuario, url, fechaInicio, fechaFin)
+            val listaRutas = dataList as List<RutaComercial>
+            listaRutas.map { it.Lineas }.forEach {
+                val mapped = getMap(RutaComercialDetalle(), it) as List<Any>
+                managerImputData.registrarMaestro("ClienteRutasComercialesDetalle", mapped)
+            }
+            val mapped = getMap(RutaComercial(), dataList) as List<Any>
+            managerImputData.registrarMaestro("ClienteRutasComerciales", mapped)
+            if (configuracion.UsarConfirmacion)
+                sendConfirmacion("ClienteRutasComerciales", dataList, configuracion, usuario, url)
+        } catch (e: Exception) {
+            errorLogDao.insert(ErrorLogEntity(
+                ErrorCode = "Maestro-ClienteRutasComerciales",
+                ErrorMessage = "${e.message}",
+                ErrorDate = getFechaActual(),
+                ErrorHour = getHoraActual()
+            ))
+        }
+    }
+
     suspend fun sendConfirmacion(endpoint: String, dataList: List<Any>,configuracion: DoConfiguracion, usuario: DoUsuario, url:String){
         if (dataList.isNotEmpty()){
 

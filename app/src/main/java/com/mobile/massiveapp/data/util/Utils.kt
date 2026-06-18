@@ -276,6 +276,28 @@ fun getXmlRequestBodyWithTop(endpoint: String, configuracion: DoConfiguracion, u
 }
 
 
+fun getXmlRequestBodyConFechasRuta(endpoint: String, configuracion: DoConfiguracion, usuario: DoUsuario, fechaInicio: String, fechaFin: String): RequestBody {
+    val methodName = "MSV_APP_Obtener_$endpoint"
+    val xmlBody = """
+        <?xml version="1.0" encoding="utf-8"?>
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <$methodName xmlns="http://massive.org/">
+                    <DataBase>${configuracion.BaseDeDatos}</DataBase>
+                    <UserCode>${usuario.Code}</UserCode>
+                    <UserIMEI>${configuracion.IMEI}</UserIMEI>
+                    <FechaInicio>$fechaInicio</FechaInicio>
+                    <FechaFin>$fechaFin</FechaFin>
+                </$methodName>
+            </soap:Body>
+        </soap:Envelope>
+    """.trimIndent()
+
+    val xmlMediaType = "text/xml".toMediaType()
+    return RequestBody.create(xmlMediaType, xmlBody)
+}
+
+
 fun getXmlParaReporteConFecha(request: String, configuracion: DoConfiguracion, usuario: DoUsuario, fechaIncial: String, fechaFinal: String): RequestBody {
     val methodName = "MSV_APP_Obtener_$request"
     val xmlBody = """

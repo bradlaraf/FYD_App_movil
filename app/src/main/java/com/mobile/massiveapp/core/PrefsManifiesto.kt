@@ -19,7 +19,7 @@ class PrefsManifiesto(context: Context) {
     }
 
     fun getFechaInicio(): String {
-        return storage.getString(SHARED_FECHA_INICIO, "2000-01-01")!!
+        return storage.getString(SHARED_FECHA_INICIO, getFechaActual())!!
     }
 
     fun getFechaFin(): String {

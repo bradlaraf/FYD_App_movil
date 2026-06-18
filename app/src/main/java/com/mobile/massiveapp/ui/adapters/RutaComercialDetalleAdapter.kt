@@ -33,6 +33,10 @@ class RutaComercialDetalleAdapter(
         val clDetalleRutaStatus: ConstraintLayout
         val imvDetalleRutaStatus: ImageView
         val txvDetalleCancelado: TextView
+        val txvHoraEditar: TextView
+        val txvFechaEditar: TextView
+        val clFechaEditar: ConstraintLayout
+
 
         init {
             txvDetalleDocLine    = view.findViewById(R.id.txvDetalleDocLine)
@@ -42,6 +46,9 @@ class RutaComercialDetalleAdapter(
             clDetalleRutaStatus  = view.findViewById(R.id.clDetalleRutaStatus)
             imvDetalleRutaStatus = view.findViewById(R.id.imvDetalleRutaStatus)
             txvDetalleCancelado  = view.findViewById(R.id.txvDetalleCancelado)
+            txvHoraEditar = view.findViewById(R.id.txvEditarHoraValue)
+            txvFechaEditar = view.findViewById(R.id.txvEditarFechaValue)
+            clFechaEditar = view.findViewById(R.id.clEditarFecha)
         }
 
         fun render(
@@ -63,6 +70,10 @@ class RutaComercialDetalleAdapter(
             if (migrado && aceptado) {
                 imvDetalleRutaStatus.setImageResource(R.drawable.icon_confirmed)
                 color = ContextCompat.getColor(itemView.context, R.color.color_green_dark)
+
+                txvFechaEditar.text = item.AccCreateDate
+                txvHoraEditar.text = item.AccCreateHour.take(5)
+                clFechaEditar.isVisible = true
             } else {
                 imvDetalleRutaStatus.setImageResource(R.drawable.icon_pending)
                 color = ContextCompat.getColor(itemView.context, R.color.color_red)

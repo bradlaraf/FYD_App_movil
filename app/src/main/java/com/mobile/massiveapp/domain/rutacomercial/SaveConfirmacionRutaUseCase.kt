@@ -15,6 +15,8 @@ import com.mobile.massiveapp.domain.getError
 import com.mobile.massiveapp.domain.getUrlFromConfiguracion
 import com.mobile.massiveapp.domain.model.DoError
 import com.mobile.massiveapp.domain.model.DoRutaComercialDetalleView
+import com.mobile.massiveapp.ui.view.util.getFechaActual
+import com.mobile.massiveapp.ui.view.util.getHoraActual
 import javax.inject.Inject
 
 class SaveConfirmacionRutaUseCase @Inject constructor(
@@ -42,7 +44,9 @@ class SaveConfirmacionRutaUseCase @Inject constructor(
                                 accDocEntry = detalle.AccDocEntry,
                                 latitud = latitud,
                                 longitud = longitud,
-                                lineNum = detalle.LineNum
+                                lineNum = detalle.LineNum,
+                                fechaUpdate = getFechaActual(),
+                                horaUpdate = getHoraActual()
             )
 
             val estadoSesion = datosMaestrosService.getEstadoSesion(

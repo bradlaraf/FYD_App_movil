@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.massiveapp.R
@@ -26,6 +27,9 @@ class RutaComercialConfirmacionAdapter(
         val txvConfMigrado: TextView
         val clRutaStatus: ConstraintLayout
         val imvRutaStatus: ImageView
+        val txvHoraConfirmacion: TextView
+        val txvFechaConfirmacion: TextView
+        val clFechaConfirmacion: ConstraintLayout
 
         init {
             txvConfDocLine  = view.findViewById(R.id.txvConfDocLine)
@@ -34,6 +38,9 @@ class RutaComercialConfirmacionAdapter(
             txvConfMigrado  = view.findViewById(R.id.txvConfMigrado)
             clRutaStatus = view.findViewById(R.id.clRutaStatus)
             imvRutaStatus = view.findViewById(R.id.imvRutaStatus)
+            txvHoraConfirmacion = view.findViewById(R.id.txvConfHoraValue)
+            txvFechaConfirmacion = view.findViewById(R.id.txvConfFechaValue)
+            clFechaConfirmacion = view.findViewById(R.id.clConfFecha)
         }
 
         fun render(item: DoRutaComercialDetalleView, onItemClick: (DoRutaComercialDetalleView) -> Unit) {
@@ -51,6 +58,10 @@ class RutaComercialConfirmacionAdapter(
 
             if (migrado && aceptado){
                 imvRutaStatus.setImageResource(R.drawable.icon_confirmed)
+
+                txvFechaConfirmacion.text = item.AccCreateDate
+                txvHoraConfirmacion.text = item.AccCreateHour.take(5)
+                clFechaConfirmacion.isVisible = true
             } else {
                 color = ContextCompat.getColor(itemView.context, R.color.color_red)
                 imvRutaStatus.setImageResource(R.drawable.icon_pending)

@@ -29,7 +29,9 @@ interface RutaComercialDetalleDao : BaseDao<RutaComercialDetalleEntity> {
             T0.ObjType,
             T0.DocEntry,
             T0.U_MSV_CP_LATITUD AS Latitud, 
-            T0.U_MSV_CP_LONGITUD AS Longitud
+            T0.U_MSV_CP_LONGITUD AS Longitud,
+            T0.AccUpdateDate AS AccCreateDate,
+            T0.AccUpdateHour AS AccCreateHour
         FROM RutaComercialDetalle T0
         WHERE T0.AccDocEntry = :accDocEntry
         ORDER BY T0.LineNum ASC
@@ -108,11 +110,13 @@ interface RutaComercialDetalleDao : BaseDao<RutaComercialDetalleEntity> {
             Status = 'A',
             Comments = :comentario,
             U_MSV_CP_LATITUD = :latitud,
-            U_MSV_CP_LONGITUD = :longitud
+            U_MSV_CP_LONGITUD = :longitud,
+            AccUpdateHour = :horaUpdate,
+            AccUpdateDate = :fechaUpdate
         WHERE AccDocEntry = :accDocEntry
             AND LineNum = :lineNum
     """)
-    suspend fun confirmarDetalle(comentario: String, accDocEntry: String, latitud: String, longitud: String,lineNum: Int)
+    suspend fun confirmarDetalle(comentario: String, accDocEntry: String, latitud: String, longitud: String,lineNum: Int, horaUpdate: String, fechaUpdate: String)
 
     @Query("""
         UPDATE RutaComercialDetalle     

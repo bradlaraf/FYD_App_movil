@@ -81,6 +81,7 @@ import com.mobile.massiveapp.data.model.PrecioEspecial
 import com.mobile.massiveapp.data.model.RutaComercial
 import com.mobile.massiveapp.data.model.Sucursal
 import com.mobile.massiveapp.data.model.TipoCambio
+import com.mobile.massiveapp.data.util.getXmlRequestBodyConFechasRuta
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -691,6 +692,28 @@ class DatosMaestrosService @Inject constructor(
                 ErrorHour = getHoraActual()
             )
         )
+    }
+
+    suspend fun getClienteRutasComerciales(
+        configuracion: DoConfiguracion,
+        usuario: DoUsuario,
+        url: String,
+        fechaInicio: String,
+        fechaFin: String,
+        timeout: Long = 60L
+    ): List<Any> {
+        return withContext(Dispatchers.IO) {
+            val requestBody = getXmlRequestBodyConFechasRuta(
+                "ClienteRutasComerciales", configuracion, usuario, fechaInicio, fechaFin
+            )
+            val response = getResponse(url, requestBody, timeout, "ClienteRutasComerciales")
+            val responseBody = response?.body()?.string() ?: ""
+            val json = responseBody.parseXmlAndGetJsonValue()
+                ?: throw NullPointerException("Response is null")
+            val gson = Gson()
+            gson.fromJson(json, endpointDataMap["ClienteRutasComerciales"]
+                ?: throw IllegalArgumentException("Unknown endpoint: ClienteRutasComerciales"))
+        }
     }
 
 

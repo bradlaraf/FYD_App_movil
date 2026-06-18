@@ -113,6 +113,7 @@ class RutaComercialActivity : DrawerBaseActivity() {
                     prefsRutaComercial.saveFechaInicio("$yearI-$mesI-$diaI")
                     prefsRutaComercial.saveFechaFin("$yearF-$mesF-$diaF")
                     rutaComercialViewModel.actualizarFechasFiltro()
+                    rutaComercialViewModel.sincronizarClienteRutasComerciales()
                 }
             }
         }
