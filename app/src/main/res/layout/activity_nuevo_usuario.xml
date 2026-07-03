@@ -133,53 +133,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clUsuarioGeneralConductor"
-            android:visibility="gone"
-            style="@style/box_key_value_arrow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralIDTelefono">
-
-            <TextView
-                android:id="@+id/txvUsuarioGeneralConductorTitle"
-                style="@style/default_title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Conductor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txvUsuarioGeneralConductorValue"
-                style="@style/default_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txvUsuarioGeneralConductorTitle"
-                tools:text="Conductor" />
-
-            <ImageView
-                android:id="@+id/imvConductor"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/icon_arroy_enter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralAlmacenesLista"
             style="@style/box_key_value_arrow"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralConductor">
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralIDTelefono">
 
             <TextView
                 android:id="@+id/txvUsuarioGeneralAlmacenesListaTitle"
@@ -969,6 +929,80 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUsuarioGeneralCamionero"
+            style="@style/box_key_value_arrow"
+            android:layout_marginTop="16dp"
+            android:minHeight="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralAlmacen">
+
+            <TextView
+                android:id="@+id/txvUsuarioGeneralCamioneroTitle"
+                style="@style/default_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Camionero"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <CheckBox
+                android:id="@+id/cbUsuarioCamionero"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp"
+                android:buttonTint="@color/color_blue_lighter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUsuarioGeneralConductor"
+            android:visibility="gone"
+            style="@style/box_key_value_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralCamionero">
+
+            <TextView
+                android:id="@+id/txvUsuarioGeneralConductorTitle"
+                style="@style/default_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Conductor Asignado"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txvUsuarioGeneralConductorValue"
+                style="@style/default_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvUsuarioGeneralConductorTitle"
+                tools:text="Conductor" />
+
+            <ImageView
+                android:id="@+id/imvConductor"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icon_arroy_enter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralCuentaEfectivo"
             android:visibility="gone"
             style="@style/box_key_value_arrow"
@@ -978,7 +1012,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralAlmacen">
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralConductor">
 
 
             <TextView

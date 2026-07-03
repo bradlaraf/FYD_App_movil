@@ -467,6 +467,14 @@ class NuevoUsuarioActivity : AppCompatActivity() {
         binding.clUsuarioGeneralPuedeAprovar.setOnClickListener {
             binding.cbUsuarioPuedeAprovar.isChecked = !binding.cbUsuarioPuedeAprovar.isChecked
         }
+        binding.clUsuarioGeneralCamionero.setOnClickListener {
+            binding.cbUsuarioCamionero.isChecked = !binding.cbUsuarioCamionero.isChecked
+            binding.clUsuarioGeneralConductor.isVisible = binding.cbUsuarioCamionero.isChecked
+            if (!binding.cbUsuarioCamionero.isChecked){
+                binding.txvUsuarioGeneralConductorValue.text = ""
+                infoUsuario.remove("conductor")
+            }
+        }
 
         //Almacenes
         binding.clUsuarioGeneralAlmacenesLista.setOnClickListener {
@@ -838,7 +846,7 @@ class NuevoUsuarioActivity : AppCompatActivity() {
             DefaultAcctCodeEf = infoUsuario["acctEfectivo"].toString(),
             DefaultAcctCodeTr = infoUsuario["acctTransferencia"].toString(),
 
-            DefaultConductor =  "CON001",
+            DefaultConductor = infoUsuario["conductor"]?.toString() ?: "",
             DefaultZona = infoUsuario["zonaUsuario"].toString(),
 
             AccStatusSession = binding.cbUsuarioSesionActiva.isChecked.getStringBool(),
