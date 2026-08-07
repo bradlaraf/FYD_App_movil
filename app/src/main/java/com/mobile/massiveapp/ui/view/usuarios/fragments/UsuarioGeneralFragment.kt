@@ -89,6 +89,7 @@ class UsuarioGeneralFragment : Fragment() {
             binding.txvUsuarioGeneralTelefonoValue.text = infoUsuario.Telefono
             binding.txvUsuarioGeneralUsuarioZonaValue.text = infoUsuario.Zona
             binding.txvUsuarioGeneralVendedorValue.text = infoUsuario.Vendedor
+            binding.clUsuarioGeneralConductor.isVisible = infoUsuario.Conductor.isNotEmpty()
             binding.txvUsuarioGeneralSerieClientesValue.text = ""
             binding.txvUsuarioGeneralSeriePedidosValue.text = ""
             binding.txvUsuarioGeneralSeriePagosValue.text = ""
@@ -101,7 +102,7 @@ class UsuarioGeneralFragment : Fragment() {
             binding.txvUsuarioGeneralCuentaTransferenciaValue.text = ""
             binding.txvUsuarioGeneralCuentaDepositoValue.text = ""
             binding.txvUsuarioGeneralCuentaChequeValue.text = ""
-            binding.txvUsuarioGeneralConductorValue.text = ""
+            binding.txvUsuarioGeneralConductorValue.text = infoUsuario.Conductor
 
             binding.cbUsuarioActivo.isChecked = infoUsuario.Activo.getBoolFromAccLocked()
             binding.cbUsuarioSuperUsuario.isChecked = infoUsuario.SuperUser.getBoolByYorN()

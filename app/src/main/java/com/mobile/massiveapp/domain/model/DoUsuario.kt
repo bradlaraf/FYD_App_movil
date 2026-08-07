@@ -164,6 +164,7 @@ data class DoUsuarioView(
     val Correo: String,
     val Telefono: String,
     val Vendedor: String,
+    val Conductor: String,
     val Zona: String,
     val ListaPrecio: String,
     val Impuesto: String,

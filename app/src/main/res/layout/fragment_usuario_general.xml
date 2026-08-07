@@ -136,46 +136,6 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clUsuarioGeneralConductor"
-            style="@style/box_key_value_arrow"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralIDTelefono">
-
-            <TextView
-                android:id="@+id/txvUsuarioGeneralConductorTitle"
-                style="@style/default_title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Coductor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txvUsuarioGeneralConductorValue"
-                style="@style/default_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txvUsuarioGeneralConductorTitle"
-                tools:text="Conductor" />
-
-            <ImageView
-                android:id="@+id/imvConductor"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/icon_arroy_enter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralNombre"
             style="@style/box_key_value_arrow"
             android:layout_width="0dp"
@@ -184,7 +144,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralConductor">
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralIDTelefono">
 
             <TextView
                 android:id="@+id/txvUsuarioGeneralNombreTitle"
@@ -385,6 +345,48 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUsuarioGeneralConductor"
+            style="@style/box_key_value_arrow"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralVendedor">
+
+            <TextView
+                android:id="@+id/txvUsuarioGeneralConductorTitle"
+                style="@style/default_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Conductor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txvUsuarioGeneralConductorValue"
+                style="@style/default_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvUsuarioGeneralConductorTitle"
+                tools:text="Conductor" />
+
+            <ImageView
+                android:id="@+id/imvConductor"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icon_arroy_enter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clUsuarioGeneralSerieClientes"
             style="@style/box_key_value_arrow"
             android:visibility="gone"
@@ -394,7 +396,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralVendedor">
+            app:layout_constraintTop_toBottomOf="@+id/clUsuarioGeneralConductor">
 
 
             <TextView

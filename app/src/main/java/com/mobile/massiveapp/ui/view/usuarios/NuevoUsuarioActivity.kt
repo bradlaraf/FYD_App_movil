@@ -21,6 +21,7 @@ import com.mobile.massiveapp.ui.view.util.getBoolByYorN
 import com.mobile.massiveapp.ui.view.util.getBoolFromAccLocked
 import com.mobile.massiveapp.ui.view.util.getStringBool
 import com.mobile.massiveapp.ui.view.util.getStringForAccLocked
+import com.mobile.massiveapp.ui.view.util.observeOnce
 import com.mobile.massiveapp.ui.viewmodel.ArticuloViewModel
 import com.mobile.massiveapp.ui.viewmodel.GeneralViewModel
 import com.mobile.massiveapp.ui.viewmodel.UsuarioViewModel
@@ -152,6 +153,18 @@ class NuevoUsuarioActivity : AppCompatActivity() {
             binding.cbUsuarioPuedeDeclinar.isChecked = infoUsuarioObj.CanDecline.getBoolByYorN()
             binding.cbUsuarioPuedeAprovar.isChecked = infoUsuarioObj.CanApprove.getBoolByYorN()
             binding.cbUsuarioSesionActiva.isChecked = infoUsuarioObj.AccStatusSession.getBoolByYorN()
+
+            val conductorCode = infoUsuarioObj.DefaultConductor
+            binding.cbUsuarioCamionero.isChecked = conductorCode.isNotEmpty()
+            binding.clUsuarioGeneralConductor.isVisible = conductorCode.isNotEmpty()
+            if (conductorCode.isNotEmpty()){
+                infoUsuario["conductor"] = conductorCode
+                generalViewModel.dataGetAllConductores.observeOnce(this){ listaConductores->
+                    listaConductores.find { it.Code == conductorCode }?.let {
+                        binding.txvUsuarioGeneralConductorValue.text = it.Name
+                    }
+                }
+            }
 
             infoUsuario["acctCheque"] = infoUsuarioObj.DefaultAcctCodeCh
             infoUsuario["acctDeposito"] = infoUsuarioObj.DefaultAcctCodeDe

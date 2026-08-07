@@ -26,13 +26,6 @@ class BaseDialogReferenciaTransferencia (
         binding = DialogNuevoClienteInputBinding.inflate(layoutInflater)
         setDefaultUi()
         binding.edtDialogValorInput.setText(textEditable)
-        if(maxLenght != -1){
-            binding.edtDialogValorInput.filters = arrayOf(android.text.InputFilter.LengthFilter(maxLenght))
-
-            binding.edtDialogValorInput.addTextChangedListener { editable->
-                binding.edtDialogValorInput.error = "Mínimo $maxLenght dígitos"
-            }
-        }
 
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(binding.root)
@@ -50,12 +43,6 @@ class BaseDialogReferenciaTransferencia (
             if (binding.edtDialogValorInput.text.toString().trim().isEmpty()){
                 binding.edtDialogValorInput.error = "Campo requerido"
                 return@setOnClickListener
-            }
-            if (!binding.edtDialogValorInput.text.isNullOrEmpty()){
-                if (maxLenght != -1  && binding.edtDialogValorInput.text!!.length < maxLenght){
-                    binding.edtDialogValorInput.error = "$maxLenght digitos como mínimo"
-                    return@setOnClickListener
-                }
             }
             if (tipo == "decimal"){
                 val montoDouble = binding.edtDialogValorInput.text.toString().toDoubleOrNull()?:-11.0
