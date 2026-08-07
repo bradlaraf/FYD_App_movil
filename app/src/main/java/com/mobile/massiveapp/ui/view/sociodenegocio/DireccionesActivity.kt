@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -80,6 +81,7 @@ class DireccionesActivity : AppCompatActivity() {
                 binding.txvDireccionActual.text = listaDirecciones.firstOrNull()?.Street ?: ""
                 listaDireccionesAEliminar = listaDirecciones
                 adapterDireccionesFiscales.updateList(listaDirecciones)
+                binding.clNuevaDireccionFiscal.isVisible = !(hashInfoActivity["tipo"] == "B" && listaDirecciones.isNotEmpty())
             } catch (e: Exception){
                 Toast.makeText(this, "${e.message}", Toast.LENGTH_SHORT).show()
             }
